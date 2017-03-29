@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/css/main.css" media="screen" />
+
+    <meta name="description" content="S2E">
+    <title>{% if page.url != '/index.html' %}{{ page.title }} - {% endif %}{{ site.name }}</title>
+    <style>
+      body { padding-top: 70px; }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="{{site.baseurl}}/">
+              {% if page.title != 'Overview' %}
+                {{ site.name }}
+              {% endif %}
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <!--
+      <header class="site-header">
+          <h1>{{ site.name }}</h1>
+          <hr />
+      </header
+      -->
+
+      <div class="row">
+        <article class="col-sm-9 col-md-10 site-content">
+          {{ content }}
+        </article>
+
+        <div class="col-sm-3 col-md-2">
+          <div class="sidebar-nav-fixed pull-right affix" role="navigation">
+            <nav>
+              <ul class="list-unstyled site-nav">
+                <li class="page-current"><a href="{{site.baseurl}}/">Overview</a></li>
+                <li><a href="https://github.com/s2e" target="_blank">Source repository</a><li>
+                <li><a href="https://github.com/s2e/docs/blob/master/README.rst" target="_blank">Documentation</a></li>
+                {% for item_url in site.data.nav %}
+                  {% assign item_url_index = item_url | append: 'index.html' %}
+                  {% for p in site.pages %}
+                    {% if p.url == item_url or p.url == item_url_index %}
+                      <li
+                        {% if item_url == '/' and page.url == '/index.html' %}
+                           class="page-current"
+                        {% elsif item_url != '/' and page.url contains item_url %}
+                           class="page-current"
+                        {% endif %}
+                        >{% if p.title == 'Contributors' %}<hr/>{% endif %}
+                        {% if p.title == 'Open Positions' %}<hr/>
+                        <a href="{{site.baseurl}}{{ p.url|remove:'index.html' }}"><b>We are hiring!</b></a></li>
+                        {% else %}
+                        <a href="{{site.baseurl}}{{ p.url|remove:'index.html' }}">{{ p.title }}</a></li>
+                        {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+              </ul>
+              <hr/>
+              <p>
+                <a href="http://cyberhaven.io" target="_blank"><img vspace="10" src="{{site.baseurl}}/images/cyberhaven-large.png" style="width:120px;"/></a>
+              </p>
+              <p>
+                <a href="http://dslab.epfl.ch" target="_blank"><img vspace="3" src="{{site.baseurl}}/images/dslab-logo.png" style="height:50px"/></a> DSLAB
+              </p>
+              <p>
+                <a href="http://epfl.ch" target="_blank"><img vspace="10" src="{{site.baseurl}}/images/epfl-logo.png" style="width:120px;"/></a>
+              </p>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-75283635-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

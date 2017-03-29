@@ -1,0 +1,6 @@
+name: "S²E: A Platform for In-Vivo Analysis of Software Systems"
+markdown: kramdown
+relative_permalinks: false
+pygments: true
+highlighter: pygments
+exclude: ["vendor"]

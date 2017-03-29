@@ -1,0 +1,19 @@
+table.custom_table {
+	border-spacing: 10px;
+	border-collapse: separate;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.grey {
+    background-color: #f8f8f8;
+}
+
+.yellow {
+    background-color: #ffffe6
+;
+}
