@@ -146,7 +146,7 @@ software routers, testing embedded systems, and more.-->
     </p>
     <pre>
 $ docker run --rm -ti -w $(pwd) -v $HOME:$HOME cyberhaven/s2e-demo \
-  /demo/run.sh /demo/CADET_00001 $(id -u) $(id -g) </pre>
+  /demo/run.sh $(id -u) $(id -g) /demo/CADET_00001</pre>
 
   <p>
   You will see a dashboard showing how many test cases S2E found.
