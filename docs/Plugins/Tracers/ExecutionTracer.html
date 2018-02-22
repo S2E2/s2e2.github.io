@@ -1,0 +1,854 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Execution Tracers &mdash; S2E 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="FunctionMonitor" href="../FunctionMonitor.html" />
+    <link rel="prev" title="ModuleExecutionDetector" href="../ModuleExecutionDetector.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> S2E
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../s2e-env.html">Start here: setting up S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#using-s2e-env">Using s2e-env</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#creating-a-new-environment">Creating a new environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../s2e-env.html#s2e-activate"><code class="docutils literal notranslate"><span class="pre">s2e_activate</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#building-s2e">Building S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#updating-the-source-code">Updating the source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#building-an-image">Building an image</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../s2e-env.html#windows-images">Windows images</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#creating-a-new-analysis-project">Creating a new analysis project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#target-program-arguments">Target program arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#using-seed-files">Using seed files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#running-your-analysis">Running your analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#parsing-an-execution-trace">Parsing an execution trace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#importing-and-exporting-projects">Importing and exporting projects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../BuildingS2E.html">Building the S2E platform manually</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../BuildingS2E.html#building-using-docker">Building using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../BuildingS2E.html#building-s2e-manually">Building S2E manually</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#required-packages">Required packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#checking-out-s2e">Checking out S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#building">Building</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#updating">Updating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/s2e.so.html">Symbolic Execution of Linux Binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/s2e.so.html#getting-started">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/s2e.so.html#using-s2e-so">Using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/s2e.so.html#what-about-other-symbolic-input">What about other symbolic input?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/s2e.so.html#configuring-s2e-for-use-with-s2e-so">Configuring S2E for use with <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/s2e.so.html#modifying-and-building-s2e-so">Modifying and building <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/SourceCode.html">Instrumenting Program Source Code for S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/SourceCode.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/SourceCode.html#compiling-and-running">Compiling and running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/SourceCode.html#preparing-the-program-for-symbolic-execution">Preparing the program for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/SourceCode.html#running-the-program-in-s2e">Running the program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/SourceCode.html#terminating-execution-paths">Terminating execution paths</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Use Cases</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/PoV/pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/PoV/pov.html#using-symbolic-execution-to-generate-povs">Using Symbolic Execution to Generate PoVs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/pov.html#identifying-advanced-vulnerability-patterns-with-s2e">Identifying Advanced Vulnerability Patterns with S2E</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/PoV/pov.html#function-pointer-overwrite">Function Pointer Overwrite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/PoV/pov.html#arbitrary-writes">Arbitrary Writes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/PoV/pov.html#arbitrary-reads">Arbitrary Reads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/PoV/pov.html#function-calls-with-symbolic-parameters">Function Calls with Symbolic Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/pov.html#generating-replayable-povs">Generating Replayable PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/pov.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/PoV/index.html">Using S2E to generate PoVs for Linux, Windows, and CGC binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/index.html#quickstart-on-windows-and-linux">Quickstart on Windows and Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/index.html#understanding-recipes">Understanding recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/index.html#povs-for-darpa-decree-cgc-binaries">PoVs for DARPA Decree/CGC binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/index.html#understanding-cgc-style-povs">Understanding CGC-style PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/index.html#plugin-architecture-overview">Plugin architecture overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/index.html#plugins-involved-in-pov-generation">Plugins involved in PoV generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/index.html#the-bootstrap-script">The bootstrap script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/kaitai-s2e">Combining Kaitai Struct and S2E for analyzing parsers [external]</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/malware-s2e">Analyzing trigger-based malware with S2E [external]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/SystemTap/index.html">Using SystemTap with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/SystemTap/index.html#building-and-running-systemtap-in-s2e">Building and running SystemTap in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/SystemTap/index.html#creating-a-simple-systemtap-script-for-symbolic-execution">Creating a simple SystemTap script for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/SystemTap/index.html#running-the-script-in-s2e">Running the script in S2E</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/WindowsDLL/index.html">Analysis of Windows DLLs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDLL/index.html#preparing-the-test-environment">Preparing the test environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDLL/index.html#generate-basic-block-coverage">Generate basic block coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html">Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#setting-up-s2e">Setting up S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#setting-up-the-windows-environment">Setting up the Windows Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#building-the-sample-driver">Building the Sample Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#creating-an-s2e-driver-project">Creating an S2E Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#customizing-the-driver-project">Customizing the Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#running-the-driver">Running the Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#getting-code-coverage-reports">Getting Code Coverage Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#testing-error-recovery-code">Testing Error Recovery Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#generating-crash-dumps">Generating Crash Dumps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#understanding-s2e-logs-and-test-cases">Understanding S2E Logs and Test Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#customizing-fault-injection">Customizing Fault Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#debugging-tips">Debugging Tips</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html">Translating binaries to LLVM with Revgen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#using-revgen">Using Revgen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#prerequisites">1. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#build-the-cgc-binaries">2. Build the CGC binaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#translating-a-binary">3. Translating a binary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#running-a-translated-cgc-binary">4. Running a translated CGC binary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#design-and-implementation">Design and implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#translating-basic-blocks-to-llvm">Translating basic blocks to LLVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#stitching-basic-blocks-into-functions">Stitching basic blocks into functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#assumptions">Assumptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#running-translated-binaries">Running translated binaries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#evaluation">Evaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../EquivalenceTesting.html">Equivalence Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#program-to-test">Program to Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#configuring-s2e">Configuring S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#running-the-program-in-s2e">Running the Program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#interpreting-the-results">Interpreting the Results</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Howtos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/Coverage/index.html">Measuring code coverage with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/Coverage/index.html#building-coreutils">Building Coreutils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/Coverage/index.html#running-coreutils-concretely-in-s2e">Running Coreutils concretely in S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/Coverage/index.html#generating-line-coverage">Generating line coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-shared-libraries">Line coverage for shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#basic-block-coverage">Basic block coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#code-coverage-during-symbolic-execution">Code coverage during symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#how-does-s2e-record-and-compute-coverage">How does S2E record and compute coverage?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-the-linux-kernel">Line coverage for the Linux kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-windows-binaries">Line coverage for Windows binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#debugging-code-coverage">Debugging code coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MovingFiles.html">Copying files between the host and the guest</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/Parallel.html">Running S2E on multiple cores</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Parallel.html#how-do-i-process-generated-traces">How do I process generated traces?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Parallel.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/ExecutionTracers.html">Using execution tracers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#recording-basic-traces">1. Recording basic traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#analyzing-traces">2. Analyzing traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#recording-memory-traces">3. Recording memory traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#trace-format-reference">4. Trace format reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ImageInstallation.html">Customizing stock VM images</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#image-creation-overview">Image creation overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#building-linux-images">Building Linux images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#building-windows-images">Building Windows images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#when-should-i-install-my-software">When should I install my software?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#the-s2e-vm-image-format">The S2E VM image format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#general-guidelines-for-vm-images">General guidelines for VM images</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/WritingPlugins.html">Writing S2E plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#starting-with-an-empty-plugin">Starting with an Empty Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#reading-configuration-parameters">Reading Configuration Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#instrumenting-instructions">Instrumenting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#counting-instructions">Counting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#exporting-events">Exporting Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html">Instrumenting guest code with Lua</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#instrumenting-function-calls-and-returns">Instrumenting function calls and returns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#instrumenting-instructions">Instrumenting instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luas2eexecutionstate">LuaS2EExecutionState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luas2eexecutionstatememory">LuaS2EExecutionStateMemory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luas2eexecutionstateregisters">LuaS2EExecutionStateRegisters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luafunctioninstrumentationstate">LuaFunctionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luainstructioninstrumentationstate">LuaInstructionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luaexpression">LuaExpression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#the-g-s2e-object">The <code class="docutils literal notranslate"><span class="pre">g_s2e</span></code> object</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/Concolic.html">Analyzing large programs using concolic execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Concolic.html#faq">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../StateMerging.html">Exponential Analysis Speedup with State Merging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#using-state-merging-in-s2e">Using State Merging in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#state-merging-api">State Merging API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools/ForkProfiler.html">Debugging path explosion with the fork profiler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tools/ForkProfiler.html#using-the-fork-profile-to-debug-path-explosion">Using the fork profile to debug path explosion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">Frequently Asked Questions (FAQ)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-do-i-know-what-s2e-is-doing">How do I know what S2E is doing?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#execution-seems-stuck-slow-what-to-do">Execution seems stuck/slow. What to do?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-do-i-deal-with-path-explosion">How do I deal with path explosion?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-to-keep-memory-usage-low">How to keep memory usage low?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-much-time-is-the-constraint-solver-taking-to-solve-constraints">How much time is the constraint solver taking to solve constraints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#what-do-the-various-fields-in-run-stats-mean">What do the various fields in <code class="docutils literal notranslate"><span class="pre">run.stats</span></code> mean?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#emulating-the-kvm-interface">Emulating the KVM interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#using-system-call-hooks-for-emulation">Using system call hooks for emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#differences-between-actual-kvm-and-kvm-emulation">Differences between actual KVM and KVM emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#adding-symbolic-execution-capabilities-to-kvm">Adding symbolic execution capabilities to KVM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#multi-path-execution">Multi-path execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#handling-symbolic-data">Handling symbolic data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#reference">Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#dynamic-binary-translation">Dynamic binary translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#registering-memory-regions">Registering memory regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#accessing-guest-memory">Accessing guest memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#interrupting-execution">Interrupting execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#virtual-disk-i-o">Virtual disk I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#saving-restoring-device-snapshots">Saving/restoring device snapshots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#setting-the-clock-scale-pointer">Setting the clock scale pointer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#kvm-run-exit-codes">KVM_RUN exit codes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contribute.html">Contributing to S2E</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Profiling/ProfilingS2E.html">Profiling S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Profiling/ProfilingS2E.html#profiling-memory-usage">Profiling memory usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Profiling/ProfilingS2E.html#profiling-cpu-performance">Profiling CPU performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../DebuggingS2E.html">Debugging S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#the-obvious-checks">The obvious checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#record-replay">Record-replay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#valgrind">Valgrind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#debugging-with-gdb">Debugging with gdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#s2e-kernel-debugging">S2E kernel debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#s2e-debug-functions">S2E debug functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Testsuite.html">S2E Testsuite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#building-the-testsuite">Building the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#running-the-testsuite">Running the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#adding-your-own-tests">Adding your own tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#test-configuration-reference">Test configuration reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../WindowsEnvSetup.html">Setting up a Windows development environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#provisioning-a-windows-development-vm">1. Provisioning a Windows development VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#building-visual-studio-projects-remotely">2. Building Visual Studio projects remotely</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#use-case-building-and-running-a-windows-device-driver">3. Use case: building and running a Windows device driver</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Linux/LinuxMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Linux/LinuxMonitor.html#required-plugins">Required Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Windows/WindowsMonitor.html">WindowsMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Windows/WindowsMonitor.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../RawMonitor.html">RawMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../RawMonitor.html#custom-instruction">Custom Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RawMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RawMonitor.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ModuleExecutionDetector.html">ModuleExecutionDetector</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ModuleExecutionDetector.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ExecutionTracer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#executiontracer">ExecutionTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#moduletracer">ModuleTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testcasegenerator">TestCaseGenerator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#memorytracer">MemoryTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#translationblocktracer">TranslationBlockTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instructiontracer">InstructionTracer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../FunctionMonitor.html">FunctionMonitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Linux/FunctionModels.html">FunctionModels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Linux/FunctionModels.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Linux/FunctionModels.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../EdgeKiller.html">EdgeKiller</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../EdgeKiller.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../EdgeKiller.html#required-plugins">Required Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../EdgeKiller.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">S2E</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Execution Tracers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/Plugins/Tracers/ExecutionTracer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="execution-tracers">
+<h1>Execution Tracers<a class="headerlink" href="#execution-tracers" title="Permalink to this headline">¶</a></h1>
+<p>S2E provides plugins to record execution traces. The main plugin is <code class="docutils literal notranslate"><span class="pre">ExecutionTracer</span></code>. All other tracing plugins, such
+as <code class="docutils literal notranslate"><span class="pre">MemoryTracer</span></code> or <code class="docutils literal notranslate"><span class="pre">TranslationBlockTracer</span></code>, use <code class="docutils literal notranslate"><span class="pre">ExecutionTracer</span></code> in order to append various trace entries to
+the trace file (e.g., a memory access or a translation block execution). <code class="docutils literal notranslate"><span class="pre">ExecutionTracer</span></code> gathers trace data from the
+various plugins and outputs them to an <code class="docutils literal notranslate"><span class="pre">ExecutionTracer.dat</span></code> file in <code class="docutils literal notranslate"><span class="pre">protobuf</span></code> format.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This document is a reference. For a more hands-on explanation of how to generate traces, please
+read this <a class="reference external" href="../../Howtos/ExecutionTracers.html">tutorial</a> first.</p>
+</div>
+<div class="section" id="executiontracer">
+<h2>ExecutionTracer<a class="headerlink" href="#executiontracer" title="Permalink to this headline">¶</a></h2>
+<p>An execution trace is a sequence of <code class="docutils literal notranslate"><span class="pre">(magic,</span> <span class="pre">header_size,</span> <span class="pre">header,</span> <span class="pre">item_size,</span> <span class="pre">item)</span></code> entries.
+The magic number identifies the start of a trace entry. It is followed by the size of the header, the header, the
+item size, then finally the actual item.</p>
+<p>The header is defined by the <code class="docutils literal notranslate"><span class="pre">PbTraceItemHeader</span></code> protobuf type. For more details, see the
+<a class="reference external" href="https://github.com/S2E/s2e/blob/master/libs2eplugins/src/s2e/Plugins/ExecutionTracers/TraceEntries.proto">TraceEntries.proto</a>
+file.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="n">PbTraceItemHeader</span> <span class="p">{</span>
+    <span class="n">required</span> <span class="n">uint32</span> <span class="n">state_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">required</span> <span class="n">uint64</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">required</span> <span class="n">uint64</span> <span class="n">address_space</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="n">required</span> <span class="n">uint64</span> <span class="n">pid</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="n">required</span> <span class="n">uint64</span> <span class="n">pc</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="n">required</span> <span class="n">PbTraceItemHeaderType</span> <span class="n">type</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The header entry contains data that is common to all trace items. This includes the program id, the program counter,
+and the address space (i.e., <code class="docutils literal notranslate"><span class="pre">cr3</span></code> register on x86) at the time a trace entry is created. The type field specifies
+the type of the item that follows the header. The header also stores the state identifier to help reconstruct the
+execution tree offline.</p>
+<p>The execution tracer ensures that it is possible to reconstruct the execution tree and extract individual paths when
+S2E terminates. The tree can be decoded even when the trace recording is partial (e.g., in case S2E is forcefully
+terminated). In order to do this, the execution tracer plugin monitors forks and records the id of the forked states in
+the trace (see <code class="docutils literal notranslate"><span class="pre">PbTraceItemFork</span></code>). Any subsequent trace item has the corresponding state id in its header. If two
+items in the trace have the same state identifier, the item that happened earlier in the path is the one that comes
+first in the trace.</p>
+</div>
+<div class="section" id="moduletracer">
+<h2>ModuleTracer<a class="headerlink" href="#moduletracer" title="Permalink to this headline">¶</a></h2>
+<p>This plugin traces process and module events. The following snippet is an example of a module load event. This indicates
+that the OS loaded the shared library <code class="docutils literal notranslate"><span class="pre">/lib64/ld-linux-x86-64.so.2</span></code> into a process whose program identifier is 1245.
+The event also records the location of each loaded section of the binary. The <code class="docutils literal notranslate"><span class="pre">runtime_load_base</span></code> of a section
+is its start address in virtual memory as decided by the OS. The <code class="docutils literal notranslate"><span class="pre">native_load_base</span></code> is the address of the section
+as specified by the linker. The two are often different because of ASLR or relocations.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;address_space&quot;</span><span class="p">:</span> <span class="mi">255299584</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;ld-linux-x86-64.so.2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/lib64/ld-linux-x86-64.so.2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">18446744071580784396</span><span class="p">,</span>
+    <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="mi">1245</span><span class="p">,</span>
+    <span class="nt">&quot;sections&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;native_load_base&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;readable&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;runtime_load_base&quot;</span><span class="p">:</span> <span class="mi">140472821178368</span><span class="p">,</span>
+            <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">142304</span><span class="p">,</span>
+            <span class="nt">&quot;writable&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;native_load_base&quot;</span><span class="p">:</span> <span class="mi">2243520</span><span class="p">,</span>
+            <span class="nt">&quot;readable&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;runtime_load_base&quot;</span><span class="p">:</span> <span class="mi">140472823421888</span><span class="p">,</span>
+            <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">5120</span><span class="p">,</span>
+            <span class="nt">&quot;writable&quot;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;state_id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">630430186029900</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;TRACE_MOD_LOAD&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ModuleTracer</span></code> is a fundamental plugin, as it helps resolve the raw program counters in the trace to actual
+binary names. <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> uses this extensively to get file and line numbers when binaries have debug information.</p>
+</div>
+<div class="section" id="testcasegenerator">
+<h2>TestCaseGenerator<a class="headerlink" href="#testcasegenerator" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">TestCaseGenerator</span></code> has several functions:</p>
+<ul class="simple">
+<li>Write test cases to <code class="docutils literal notranslate"><span class="pre">debug.txt</span></code></li>
+<li>Store test case files in <code class="docutils literal notranslate"><span class="pre">s2e-last</span></code></li>
+<li>Write test cases to <code class="docutils literal notranslate"><span class="pre">ExecutionTracer.dat</span></code>.</li>
+</ul>
+<p>In this document, we will examine the latter. A test case entry has the following format:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;address_space&quot;</span><span class="p">:</span> <span class="mi">225800192</span><span class="p">,</span>
+    <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;v0___symfile____tmp_input___0_1_symfile___0&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;AQEBAQEBAQEBAQEBAQE....&quot;</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">134518939</span><span class="p">,</span>
+    <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="mi">1295</span><span class="p">,</span>
+    <span class="nt">&quot;state_id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">630185690261719</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;TRACE_TESTCASE&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The most important field is <code class="docutils literal notranslate"><span class="pre">items</span></code>: it records a list of (key, value) pairs. The key is the name of the symbolic
+variable and the value is the concrete assignment to that variable. The variable name has the following format:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">vXXX_variablename_YYY</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">XXX</span></code> is the relative order of the variable within the execution path. When a new variable is created, this
+number is incremented by one. So the 10th variable of a state will have an id of 9.</p>
+<p><code class="docutils literal notranslate"><span class="pre">variablename</span></code> is the string passed to <code class="docutils literal notranslate"><span class="pre">s2e_make_symbolic</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">YYY</span></code> is the absolute order of the variable within a given S2E run. This number can be non-deterministic and
+influenced by the sequence of state switches.</p>
+<p>These two identifiers ensure that each variable is globally unique and can be easily ordered when generating a test
+case.</p>
+</div>
+<div class="section" id="memorytracer">
+<h2>MemoryTracer<a class="headerlink" href="#memorytracer" title="Permalink to this headline">¶</a></h2>
+<p>This plugin traces memory accesses, page faults, and TLB misses in the specified processes. It requires the following
+configuration in <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code>:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;MemoryTracer&quot;</span><span class="p">)</span>
+
+<span class="n">pluginsConfig</span><span class="p">.</span><span class="n">MemoryTracer</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">-- You can selectively enable/disable tracing various events</span>
+    <span class="n">traceMemory</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">tracePageFaults</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">traceTlbMisses</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+
+    <span class="c1">-- This list specifies the modules to trace.</span>
+    <span class="c1">-- If this list is empty, MemoryTracer will trace all processes specified in ProcessExecutionDetector.</span>
+    <span class="c1">-- Modules specified here must run in the context of the process(es) defined in ProcessExecutionDetector.</span>
+    <span class="n">moduleNames</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;test&quot;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">MemoryTracer</span></code> may produce large amounts of data (on the order of gigabytes), so make sure to restrict tracing
+to the modules of interest.</p>
+</div>
+<p>Here is an example of a memory access:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="mi">140720832808700</span><span class="p">,</span>
+    <span class="nt">&quot;address_space&quot;</span><span class="p">:</span> <span class="mi">255279104</span><span class="p">,</span>
+    <span class="nt">&quot;concrete_buffer&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nt">&quot;flags&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;host_address&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">94739530127322</span><span class="p">,</span>
+    <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="mi">1251</span><span class="p">,</span>
+    <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nt">&quot;state_id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">630430187009925</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;TRACE_MEMORY&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mi">3735928559</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">address</span></code>: the virtual address of the memory access</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">value</span></code>: the concrete value written/read by the memory access</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">size</span></code>: the size in bytes of the memory access</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">flags</span></code>: this is a bitmask that indicates the type of the access</p>
+<blockquote>
+<div><ul class="simple">
+<li>bit 0: set to 1 if the access is a write, read otherwise</li>
+<li>bit 1: set to 1 if the access is memory-mapped I/O. Note that due to how CPU emulation works,
+normal RAM accesses may sometimes appear as MMIO.</li>
+<li>bit 2: indicates that the value is symbolic. In this case , the trace entry stores the concrete version
+of the data.</li>
+<li>bit 3: the address is symbolic. In this case, the trace entry stores the concrete version of the symbolic address.</li>
+</ul>
+<p>Several other bits are available, please check <code class="docutils literal notranslate"><span class="pre">TraceEntries.proto</span></code> for more details.</p>
+</div></blockquote>
+</li>
+</ul>
+<p>Several other fields are stored when <code class="docutils literal notranslate"><span class="pre">traceHostAddresses</span></code> is set in the configuration. These are useful under
+rare circumstances when debugging the execution engine, e.g., to make sure that memory accesses get translated to
+the right memory location on the host machine.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">host_address</span></code>: this is the address of the access as mapped by QEMU when initializing KVM memory regions.</li>
+<li><code class="docutils literal notranslate"><span class="pre">concrete_buffer</span></code>: this is the final address of the access, after S2E translated the host address to the actual
+per-state location.</li>
+</ul>
+<p>A TLB miss looks as follows. It only stores the address and whether the access was a read or a write.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="mi">140720832808704</span><span class="p">,</span>
+    <span class="nt">&quot;address_space&quot;</span><span class="p">:</span> <span class="mi">255279104</span><span class="p">,</span>
+    <span class="nt">&quot;is_write&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">94739530127511</span><span class="p">,</span>
+    <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="mi">1251</span><span class="p">,</span>
+    <span class="nt">&quot;state_id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">630430187323794</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;TRACE_TLBMISS&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="translationblocktracer">
+<h2>TranslationBlockTracer<a class="headerlink" href="#translationblocktracer" title="Permalink to this headline">¶</a></h2>
+<p>This plugin records the state of the CPU registers before and/or after a translation block is executed.
+A translation block is a sequence of guest instructions that ends in a control flow change.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;MemoryTracer&quot;</span><span class="p">)</span>
+
+<span class="n">pluginsConfig</span><span class="p">.</span><span class="n">TranslationBlockTracer</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">-- In general, the CPU state at the beginning of a translation block is equal</span>
+    <span class="c1">-- to the state at the end of the previous translation block.</span>
+    <span class="c1">-- In cases where a translation block is interrupted because of an exception, the end state</span>
+    <span class="c1">-- may not be recorded.</span>
+    <span class="n">traceTbStart</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">traceTbEnd</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="n">moduleNames</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;test&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here is an example of a trace entry for translation blocks for 64-bit x86 code:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;address_space&quot;</span><span class="p">:</span> <span class="mi">255324160</span><span class="p">,</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;first_pc&quot;</span><span class="p">:</span> <span class="mi">93907771242192</span><span class="p">,</span>
+        <span class="nt">&quot;last_pc&quot;</span><span class="p">:</span> <span class="mi">93907771242228</span><span class="p">,</span>
+        <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+        <span class="nt">&quot;tb_type&quot;</span><span class="p">:</span> <span class="s2">&quot;TB_CALL_IND&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">93907771242192</span><span class="p">,</span>
+    <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="mi">1253</span><span class="p">,</span>
+    <span class="nt">&quot;regs&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="mi">28</span><span class="p">,</span>
+            <span class="mi">140723069759552</span><span class="p">,</span>
+            <span class="mi">139806606502816</span><span class="p">,</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="mi">140723069759520</span><span class="p">,</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="mi">2</span><span class="p">,</span>
+            <span class="mi">139806608687472</span><span class="p">,</span>
+            <span class="mi">139806608688896</span><span class="p">,</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="mi">8</span><span class="p">,</span>
+            <span class="mi">140723070026140</span><span class="p">,</span>
+            <span class="mi">93907771242192</span><span class="p">,</span>
+            <span class="mi">140723069759520</span><span class="p">,</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="mi">0</span>
+        <span class="p">],</span>
+        <span class="nt">&quot;symb_mask&quot;</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;state_id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">631227908208916</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;TRACE_TB_START&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>There are several fields specific to this type of trace entry:</p>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">tb_type</span></code>: the type of the translation block. It is defined by the last instruction of the block
+(e.g., direct call/jump, indirect call/jump, system call, etc.).</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">regs</span></code>: the register data:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">values</span></code>: concrete content of the CPU registers.</li>
+<li><code class="docutils literal notranslate"><span class="pre">symb_mask</span></code>: this is a bitmask that indicates which register contains symbolic data. In case a register is
+symbolic, the <code class="docutils literal notranslate"><span class="pre">values</span></code> field contains a concrete value that satisfies path constraints at the time of
+the recording. Note that symbolic data is not recorded by the plugin.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">size</span></code>: the size in bytes of the guest instructions contained in this translation block.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">first_pc</span></code>: the program counter of the first instruction in the translation block.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">last_pc</span></code>: the program counter of the last instruction in the translation block.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="instructiontracer">
+<h2>InstructionTracer<a class="headerlink" href="#instructiontracer" title="Permalink to this headline">¶</a></h2>
+<p>This plugin counts how many instructions have been executed in the configured processes or modules and writes
+the count to the execution trace. The plugin keeps a per-path count and writes it when the path terminates.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;InstructionCounter&quot;</span><span class="p">)</span>
+<span class="n">pluginsConfig</span><span class="p">.</span><span class="n">InstructionCounter</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">-- This list specifies the modules to trace.</span>
+    <span class="c1">-- If this list is empty, MemoryTracer will trace all processes specified in ProcessExecutionDetector.</span>
+    <span class="c1">-- Modules specified here must run in the context of the process(es) defined in ProcessExecutionDetector.</span>
+    <span class="n">moduleNames</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;test&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here is a sample trace entry:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;address_space&quot;</span><span class="p">:</span> <span class="mi">232222720</span><span class="p">,</span>
+    <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">191951636</span><span class="p">,</span>
+    <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">134518939</span><span class="p">,</span>
+    <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="mi">1255</span><span class="p">,</span>
+    <span class="nt">&quot;state_id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">631227908821908</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;TRACE_ICOUNT&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../FunctionMonitor.html" class="btn btn-neutral float-right" title="FunctionMonitor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../ModuleExecutionDetector.html" class="btn btn-neutral" title="ModuleExecutionDetector" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Cyberhaven
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-75283635-2', 'auto');
+      ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

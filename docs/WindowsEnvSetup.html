@@ -1,0 +1,685 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Setting up a Windows development environment &mdash; S2E 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="LinuxMonitor" href="Plugins/Linux/LinuxMonitor.html" />
+    <link rel="prev" title="S2E Testsuite" href="Testsuite.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> S2E
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="s2e-env.html">Start here: setting up S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="s2e-env.html#using-s2e-env">Using s2e-env</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="s2e-env.html#creating-a-new-environment">Creating a new environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="s2e-env.html#s2e-activate"><code class="docutils literal notranslate"><span class="pre">s2e_activate</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="s2e-env.html#building-s2e">Building S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="s2e-env.html#updating-the-source-code">Updating the source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="s2e-env.html#building-an-image">Building an image</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="s2e-env.html#windows-images">Windows images</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="s2e-env.html#creating-a-new-analysis-project">Creating a new analysis project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="s2e-env.html#target-program-arguments">Target program arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="s2e-env.html#using-seed-files">Using seed files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="s2e-env.html#running-your-analysis">Running your analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="s2e-env.html#parsing-an-execution-trace">Parsing an execution trace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="s2e-env.html#importing-and-exporting-projects">Importing and exporting projects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="s2e-env.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="BuildingS2E.html">Building the S2E platform manually</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="BuildingS2E.html#building-using-docker">Building using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BuildingS2E.html#building-s2e-manually">Building S2E manually</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="BuildingS2E.html#required-packages">Required packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BuildingS2E.html#checking-out-s2e">Checking out S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BuildingS2E.html#building">Building</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BuildingS2E.html#updating">Updating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BuildingS2E.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials/BasicLinuxSymbex/s2e.so.html">Symbolic Execution of Linux Binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/BasicLinuxSymbex/s2e.so.html#getting-started">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/BasicLinuxSymbex/s2e.so.html#using-s2e-so">Using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/BasicLinuxSymbex/s2e.so.html#what-about-other-symbolic-input">What about other symbolic input?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/BasicLinuxSymbex/s2e.so.html#configuring-s2e-for-use-with-s2e-so">Configuring S2E for use with <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/BasicLinuxSymbex/s2e.so.html#modifying-and-building-s2e-so">Modifying and building <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials/BasicLinuxSymbex/SourceCode.html">Instrumenting Program Source Code for S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/BasicLinuxSymbex/SourceCode.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/BasicLinuxSymbex/SourceCode.html#compiling-and-running">Compiling and running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/BasicLinuxSymbex/SourceCode.html#preparing-the-program-for-symbolic-execution">Preparing the program for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/BasicLinuxSymbex/SourceCode.html#running-the-program-in-s2e">Running the program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/BasicLinuxSymbex/SourceCode.html#terminating-execution-paths">Terminating execution paths</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Use Cases</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials/PoV/pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/PoV/pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/PoV/pov.html#using-symbolic-execution-to-generate-povs">Using Symbolic Execution to Generate PoVs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/PoV/pov.html#identifying-advanced-vulnerability-patterns-with-s2e">Identifying Advanced Vulnerability Patterns with S2E</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/PoV/pov.html#function-pointer-overwrite">Function Pointer Overwrite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/PoV/pov.html#arbitrary-writes">Arbitrary Writes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/PoV/pov.html#arbitrary-reads">Arbitrary Reads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/PoV/pov.html#function-calls-with-symbolic-parameters">Function Calls with Symbolic Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/PoV/pov.html#generating-replayable-povs">Generating Replayable PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/PoV/pov.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials/PoV/index.html">Using S2E to generate PoVs for Linux, Windows, and CGC binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/PoV/index.html#quickstart-on-windows-and-linux">Quickstart on Windows and Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/PoV/index.html#understanding-recipes">Understanding recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/PoV/index.html#povs-for-darpa-decree-cgc-binaries">PoVs for DARPA Decree/CGC binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/PoV/index.html#understanding-cgc-style-povs">Understanding CGC-style PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/PoV/index.html#plugin-architecture-overview">Plugin architecture overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/PoV/index.html#plugins-involved-in-pov-generation">Plugins involved in PoV generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/PoV/index.html#the-bootstrap-script">The bootstrap script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/kaitai-s2e">Combining Kaitai Struct and S2E for analyzing parsers [external]</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/malware-s2e">Analyzing trigger-based malware with S2E [external]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials/SystemTap/index.html">Using SystemTap with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/SystemTap/index.html#building-and-running-systemtap-in-s2e">Building and running SystemTap in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/SystemTap/index.html#creating-a-simple-systemtap-script-for-symbolic-execution">Creating a simple SystemTap script for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/SystemTap/index.html#running-the-script-in-s2e">Running the script in S2E</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials/WindowsDLL/index.html">Analysis of Windows DLLs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/WindowsDLL/index.html#preparing-the-test-environment">Preparing the test environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/WindowsDLL/index.html#generate-basic-block-coverage">Generate basic block coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials/WindowsDrivers/FaultInjection.html">Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/WindowsDrivers/FaultInjection.html#setting-up-s2e">Setting up S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/WindowsDrivers/FaultInjection.html#setting-up-the-windows-environment">Setting up the Windows Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/WindowsDrivers/FaultInjection.html#building-the-sample-driver">Building the Sample Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/WindowsDrivers/FaultInjection.html#creating-an-s2e-driver-project">Creating an S2E Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/WindowsDrivers/FaultInjection.html#customizing-the-driver-project">Customizing the Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/WindowsDrivers/FaultInjection.html#running-the-driver">Running the Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/WindowsDrivers/FaultInjection.html#getting-code-coverage-reports">Getting Code Coverage Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/WindowsDrivers/FaultInjection.html#testing-error-recovery-code">Testing Error Recovery Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/WindowsDrivers/FaultInjection.html#generating-crash-dumps">Generating Crash Dumps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/WindowsDrivers/FaultInjection.html#understanding-s2e-logs-and-test-cases">Understanding S2E Logs and Test Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/WindowsDrivers/FaultInjection.html#customizing-fault-injection">Customizing Fault Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/WindowsDrivers/FaultInjection.html#debugging-tips">Debugging Tips</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials/Revgen/Revgen.html">Translating binaries to LLVM with Revgen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/Revgen/Revgen.html#using-revgen">Using Revgen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/Revgen/Revgen.html#prerequisites">1. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/Revgen/Revgen.html#build-the-cgc-binaries">2. Build the CGC binaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/Revgen/Revgen.html#translating-a-binary">3. Translating a binary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/Revgen/Revgen.html#running-a-translated-cgc-binary">4. Running a translated CGC binary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/Revgen/Revgen.html#design-and-implementation">Design and implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/Revgen/Revgen.html#translating-basic-blocks-to-llvm">Translating basic blocks to LLVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/Revgen/Revgen.html#stitching-basic-blocks-into-functions">Stitching basic blocks into functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/Revgen/Revgen.html#assumptions">Assumptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/Revgen/Revgen.html#running-translated-binaries">Running translated binaries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/Revgen/Revgen.html#evaluation">Evaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="EquivalenceTesting.html">Equivalence Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="EquivalenceTesting.html#program-to-test">Program to Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EquivalenceTesting.html#configuring-s2e">Configuring S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EquivalenceTesting.html#running-the-program-in-s2e">Running the Program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EquivalenceTesting.html#interpreting-the-results">Interpreting the Results</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Howtos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Howtos/Coverage/index.html">Measuring code coverage with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Howtos/Coverage/index.html#building-coreutils">Building Coreutils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Howtos/Coverage/index.html#running-coreutils-concretely-in-s2e">Running Coreutils concretely in S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Howtos/Coverage/index.html#generating-line-coverage">Generating line coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/Coverage/index.html#line-coverage-for-shared-libraries">Line coverage for shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/Coverage/index.html#basic-block-coverage">Basic block coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/Coverage/index.html#code-coverage-during-symbolic-execution">Code coverage during symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/Coverage/index.html#how-does-s2e-record-and-compute-coverage">How does S2E record and compute coverage?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/Coverage/index.html#line-coverage-for-the-linux-kernel">Line coverage for the Linux kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/Coverage/index.html#line-coverage-for-windows-binaries">Line coverage for Windows binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/Coverage/index.html#debugging-code-coverage">Debugging code coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MovingFiles.html">Copying files between the host and the guest</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Howtos/Parallel.html">Running S2E on multiple cores</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/Parallel.html#how-do-i-process-generated-traces">How do I process generated traces?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/Parallel.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Howtos/ExecutionTracers.html">Using execution tracers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/ExecutionTracers.html#recording-basic-traces">1. Recording basic traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/ExecutionTracers.html#analyzing-traces">2. Analyzing traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/ExecutionTracers.html#recording-memory-traces">3. Recording memory traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/ExecutionTracers.html#trace-format-reference">4. Trace format reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ImageInstallation.html">Customizing stock VM images</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ImageInstallation.html#image-creation-overview">Image creation overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ImageInstallation.html#building-linux-images">Building Linux images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ImageInstallation.html#building-windows-images">Building Windows images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ImageInstallation.html#when-should-i-install-my-software">When should I install my software?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ImageInstallation.html#the-s2e-vm-image-format">The S2E VM image format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ImageInstallation.html#general-guidelines-for-vm-images">General guidelines for VM images</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Howtos/WritingPlugins.html">Writing S2E plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#starting-with-an-empty-plugin">Starting with an Empty Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#reading-configuration-parameters">Reading Configuration Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#instrumenting-instructions">Instrumenting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#counting-instructions">Counting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#exporting-events">Exporting Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Howtos/LuaInstrumentation.html">Instrumenting guest code with Lua</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/LuaInstrumentation.html#instrumenting-function-calls-and-returns">Instrumenting function calls and returns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/LuaInstrumentation.html#instrumenting-instructions">Instrumenting instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/LuaInstrumentation.html#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Howtos/LuaInstrumentation.html#luas2eexecutionstate">LuaS2EExecutionState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Howtos/LuaInstrumentation.html#luas2eexecutionstatememory">LuaS2EExecutionStateMemory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Howtos/LuaInstrumentation.html#luas2eexecutionstateregisters">LuaS2EExecutionStateRegisters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Howtos/LuaInstrumentation.html#luafunctioninstrumentationstate">LuaFunctionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Howtos/LuaInstrumentation.html#luainstructioninstrumentationstate">LuaInstructionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Howtos/LuaInstrumentation.html#luaexpression">LuaExpression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Howtos/LuaInstrumentation.html#the-g-s2e-object">The <code class="docutils literal notranslate"><span class="pre">g_s2e</span></code> object</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Howtos/Concolic.html">Analyzing large programs using concolic execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/Concolic.html#faq">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="StateMerging.html">Exponential Analysis Speedup with State Merging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="StateMerging.html#using-state-merging-in-s2e">Using State Merging in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StateMerging.html#state-merging-api">State Merging API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StateMerging.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tools/ForkProfiler.html">Debugging path explosion with the fork profiler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tools/ForkProfiler.html#using-the-fork-profile-to-debug-path-explosion">Using the fork profile to debug path explosion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions (FAQ)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="FAQ.html#how-do-i-know-what-s2e-is-doing">How do I know what S2E is doing?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FAQ.html#execution-seems-stuck-slow-what-to-do">Execution seems stuck/slow. What to do?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FAQ.html#how-do-i-deal-with-path-explosion">How do I deal with path explosion?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FAQ.html#how-to-keep-memory-usage-low">How to keep memory usage low?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FAQ.html#how-much-time-is-the-constraint-solver-taking-to-solve-constraints">How much time is the constraint solver taking to solve constraints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FAQ.html#what-do-the-various-fields-in-run-stats-mean">What do the various fields in <code class="docutils literal notranslate"><span class="pre">run.stats</span></code> mean?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#emulating-the-kvm-interface">Emulating the KVM interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#using-system-call-hooks-for-emulation">Using system call hooks for emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#differences-between-actual-kvm-and-kvm-emulation">Differences between actual KVM and KVM emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#adding-symbolic-execution-capabilities-to-kvm">Adding symbolic execution capabilities to KVM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#multi-path-execution">Multi-path execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#handling-symbolic-data">Handling symbolic data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#reference">Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#dynamic-binary-translation">Dynamic binary translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#registering-memory-regions">Registering memory regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#accessing-guest-memory">Accessing guest memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#interrupting-execution">Interrupting execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#virtual-disk-i-o">Virtual disk I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#saving-restoring-device-snapshots">Saving/restoring device snapshots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#setting-the-clock-scale-pointer">Setting the clock scale pointer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#kvm-run-exit-codes">KVM_RUN exit codes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Contribute.html">Contributing to S2E</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Profiling/ProfilingS2E.html">Profiling S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Profiling/ProfilingS2E.html#profiling-memory-usage">Profiling memory usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Profiling/ProfilingS2E.html#profiling-cpu-performance">Profiling CPU performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DebuggingS2E.html">Debugging S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DebuggingS2E.html#the-obvious-checks">The obvious checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DebuggingS2E.html#record-replay">Record-replay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DebuggingS2E.html#valgrind">Valgrind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DebuggingS2E.html#debugging-with-gdb">Debugging with gdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DebuggingS2E.html#s2e-kernel-debugging">S2E kernel debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DebuggingS2E.html#s2e-debug-functions">S2E debug functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Testsuite.html">S2E Testsuite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Testsuite.html#building-the-testsuite">Building the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Testsuite.html#running-the-testsuite">Running the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Testsuite.html#adding-your-own-tests">Adding your own tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Testsuite.html#test-configuration-reference">Test configuration reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setting up a Windows development environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#provisioning-a-windows-development-vm">1. Provisioning a Windows development VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-visual-studio-projects-remotely">2. Building Visual Studio projects remotely</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#use-case-building-and-running-a-windows-device-driver">3. Use case: building and running a Windows device driver</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Linux/LinuxMonitor.html#required-plugins">Required Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Plugins/Windows/WindowsMonitor.html">WindowsMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Windows/WindowsMonitor.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Plugins/RawMonitor.html">RawMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/RawMonitor.html#custom-instruction">Custom Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/RawMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/RawMonitor.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Plugins/ModuleExecutionDetector.html">ModuleExecutionDetector</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/ModuleExecutionDetector.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html">ExecutionTracer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html#executiontracer">ExecutionTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html#moduletracer">ModuleTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html#testcasegenerator">TestCaseGenerator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html#memorytracer">MemoryTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html#translationblocktracer">TranslationBlockTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html#instructiontracer">InstructionTracer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Plugins/FunctionMonitor.html">FunctionMonitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Plugins/Linux/FunctionModels.html">FunctionModels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Linux/FunctionModels.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Linux/FunctionModels.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Plugins/EdgeKiller.html">EdgeKiller</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/EdgeKiller.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/EdgeKiller.html#required-plugins">Required Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/EdgeKiller.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">S2E</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Setting up a Windows development environment</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/WindowsEnvSetup.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="setting-up-a-windows-development-environment">
+<h1>Setting up a Windows development environment<a class="headerlink" href="#setting-up-a-windows-development-environment" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial explains how to quickly set up a Windows development environment
+in which you can build Windows applications and device drivers. This is useful
+when you want to develop the S2E <a class="reference external" href="https://github.com/S2E/s2e/tree/master/guest/windows">guest tools</a>
+for Windows (e.g, the <code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code> guest driver) or simply want to build and run various Windows applications in S2E.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This tutorial is not about how to compile and run S2E itself on a Windows machine.
+We do not support running S2E on Windows hosts yet, but we got reports
+that S2E builds and runs in the Windows 10 WSL environment or in a docker container.</p>
+</div>
+<p>Throughout this tutorial, you will use various scripts located in the
+<code class="docutils literal notranslate"><span class="pre">~/s2e/env/source/s2e/scripts/windows</span></code> <a class="reference external" href="https://github.com/S2E/s2e/tree/master/scripts/windows">directory</a>.
+This folder contains scripts that simplify the setup of Windows development VMs.
+Most scripts assume you have a Linux host and want to setup a clean Windows VM
+for development (e.g., building Windows-specific components of S2E, such as the
+<code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code> guest driver).</p>
+<p>Prerequisites:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>You have a working S2E environment on a Linux host machine</li>
+<li>You have a working hypervisor (VMware, Virtual Box, etc.)</li>
+<li>You have access to a 64-bit Windows 10 1803 ISO (e.g. through MSDN)</li>
+<li>You have an Internet connection (the installation will download several GBs)</li>
+<li>You have enough disk space and free memory (you will need at least 60 GB of disk and 4 GB of RAM for the VM).</li>
+</ol>
+</div></blockquote>
+<div class="section" id="provisioning-a-windows-development-vm">
+<h2>1. Provisioning a Windows development VM<a class="headerlink" href="#provisioning-a-windows-development-vm" title="Permalink to this headline">¶</a></h2>
+<p>First, you need to build a Windows VM. At the end of this section, you will have a Windows 10 VM with Visual Studio 2017
+Community Edition, the Windows Driver Kit, and an SSH server. Visual Studio will be installed with all C/C++ development
+options (support for XP, 7, 8.1, 10). You will be able to SSH into this VM, rsync files, and do remote builds.</p>
+<ol class="loweralpha">
+<li><p class="first"><strong>Install a Windows 10 VM.</strong> Use 60GB of disk and 4GB of RAM for the guest. Any 64-bit Windows 10 version should
+work, but it is recommended you use the latest one (the scripts were tested with version 1803).</p>
+<p>Preferably use <code class="docutils literal notranslate"><span class="pre">s2e</span></code> as login for the admin user. Most scripts assume <code class="docutils literal notranslate"><span class="pre">s2e</span></code> as default
+user name, so you will not have to override this user name later. Other than that, a vanilla installation will do.</p>
+<p>When you get to the Windows desktop, take a snapshot so that you can restore quickly in case of problems later.</p>
+</li>
+<li><p class="first"><strong>Provision the guest.</strong> Open PowerShell with admin rights and run the <code class="docutils literal notranslate"><span class="pre">Setup-DevHost.ps1</span></code> script. You will need
+to access this script from the guest, e.g., by mapping your host directories to the guest
+using shared folders on VirtualBox/VMware.</p>
+<p>Wait until the script terminates. It is fully automated, no manual intervention is required.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Do <strong>NOT</strong> run the provisioning script on your host Windows environment. The script assumes a fresh Windows
+installation in a VM and may damage your existing Visual Studio environment if you already have one. If you
+still wish to run the script on your host (e.g., you do not have Visual Studio or want to set up SSH), carefully
+examine its content to make sure it will not interfere. Delete problematic sections if necessary.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The script requires Internet access to run successfully. It mainly uses the
+<a class="reference external" href="https://chocolatey.org/">Chocolatey</a> package manager in order to install software.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You may install any additional packages that you want in the guest.
+Chocolatey comes with a vast list of supported Windows applications.
+Just add <code class="docutils literal notranslate"><span class="pre">choco</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">package_name</span></code> to the PowerShell script.</p>
+</div>
+</li>
+<li><p class="first"><strong>Check installation correctness.</strong> Open Visual Studio and try to build the S2E guest tools in x86/x64
+debug/release combinations. You should not get any errors.</p>
+</li>
+<li><p class="first"><strong>Check remote connection.</strong> Check that you can SSH into the VM. You should get a Windows command prompt.</p>
+</li>
+<li><p class="first">Finally, do not forget to take a snapshot.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="building-visual-studio-projects-remotely">
+<h2>2. Building Visual Studio projects remotely<a class="headerlink" href="#building-visual-studio-projects-remotely" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we explain how to build Visual Studio projects in the VM that you built in the previous section.</p>
+<p>a. Copy your public SSH key into the guest VM. This is important, as the remote build script would ask you to type the
+VM password several times, which is not convenient.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/s2e/env/source/s2e/scripts/windows
+
+<span class="c1"># This script resembles the normal ssh-copy-id but is designed to work for Windows remote machines.</span>
+<span class="c1"># Adapt the user name and address accordingly.</span>
+$ ./ssh-copy-id-win.sh s2e@192.168.122.12
+</pre></div>
+</div>
+<ol class="loweralpha simple" start="2">
+<li>Checkout some Visual Studio projects to your Linux host. For example, like this:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span>
+$ git clone https://github.com/Microsoft/Windows-driver-samples.git
+</pre></div>
+</div>
+<ol class="loweralpha simple" start="3">
+<li>Choose some project to build remotely, e.g., <code class="docutils literal notranslate"><span class="pre">filesys/miniFilter/scanner</span></code>:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nv">REMOTE_HOST</span><span class="o">=</span><span class="m">192</span>.126.122.12 <span class="nv">REMOTE_FOLDER</span><span class="o">=</span>myfolder ~/s2e/env/source/s2e/scripts/windows/remote-msbuild.sh <span class="se">\</span>
+   Windows-driver-samples/filesys/miniFilter/scanner
+</pre></div>
+</div>
+<p>This command copies the contents of <code class="docutils literal notranslate"><span class="pre">Windows-driver-samples/filesys/miniFilter/scanner</span></code> to <code class="docutils literal notranslate"><span class="pre">c:\users\s2e\myfolder</span></code>
+on the remote machine, then launches <code class="docutils literal notranslate"><span class="pre">msbuild</span></code> in that folder. Finally, it rsyncs back the remote folder into the
+local one. You can customize the target build directory, the host address, the user name, and other options using
+environment variables (see the script header for details).</p>
+<p>When this command completes, you should have all the build artifacts locally, in the
+<code class="docutils literal notranslate"><span class="pre">Windows-driver-samples/filesys/miniFilter/scanner</span></code> folder. Look for <code class="docutils literal notranslate"><span class="pre">*.exe</span></code> and <code class="docutils literal notranslate"><span class="pre">*.sys</span></code> files.</p>
+</div>
+<div class="section" id="use-case-building-and-running-a-windows-device-driver">
+<h2>3. Use case: building and running a Windows device driver<a class="headerlink" href="#use-case-building-and-running-a-windows-device-driver" title="Permalink to this headline">¶</a></h2>
+<p>This section assumes that you successfully built the <code class="docutils literal notranslate"><span class="pre">Windows-driver-samples/filesys/miniFilter/scanner</span></code> solution.
+If no, go to the previous section.</p>
+<p>First, we need to create a few symbolic links to the the project binaries, as follows. This is needed because
+<code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> looks for the driver’s binaries in the same directory as the driver’s <code class="docutils literal notranslate"><span class="pre">inf</span></code> file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> Windows-driver-samples/filesys/miniFilter/scanner
+$ ln -s filter/x64/Debug/scanner.sys
+$ ln -s filter/x64/Debug/scanner.sys.lines
+$ ln -s user/x64/Debug/scanuser.exe
+$ ln -s user/x64/Debug/scanuser.exe.lines
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">*.lines</span></code> files above contain debug information in JSON format. The S2E coverage tool expects them to have the
+same name as the binary with <code class="docutils literal notranslate"><span class="pre">.lines</span></code> appended.</p>
+<p>Then create the project, run it, and get code coverage. For more details, please refer to the Windows driver testing
+<a class="reference external" href="Tutorials/WindowsDrivers/FaultInjection.html">tutorial</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/s2e/env
+$ s2e new_project ~/Windows-driver-samples/filesys/miniFilter/scanner/scanner.inf
+
+<span class="c1"># ... edit projects/scanner/bootstrap.sh to start the driver ...</span>
+$ <span class="nb">cd</span> projects/scanner
+$ ./launch-s2e.sh
+<span class="c1"># ... wait for the analysis to complete ...</span>
+
+$ <span class="nb">cd</span> ~/s2e/env
+$ s2e coverage --sympath ~/Windows-driver-samples/filesys/miniFilter/scanner/ lcov --html scanner
+</pre></div>
+</div>
+<p>It is important to add the symbol search path to the coverage command, otherwise the driver’s source will not be
+found and the HTML coverage report will not be generated. In principle, the <cite>*.lines</cite> files already contain paths to the
+source, however these paths are valid only on the build machine. The coverage command will therefore try to match these
+paths against the given search paths.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Plugins/Linux/LinuxMonitor.html" class="btn btn-neutral float-right" title="LinuxMonitor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Testsuite.html" class="btn btn-neutral" title="S2E Testsuite" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Cyberhaven
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-75283635-2', 'auto');
+      ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

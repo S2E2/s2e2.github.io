@@ -1,0 +1,1101 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection &mdash; S2E 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Translating binaries to LLVM with Revgen" href="../Revgen/Revgen.html" />
+    <link rel="prev" title="Analysis of Windows DLLs" href="../WindowsDLL/index.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> S2E
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../s2e-env.html">Start here: setting up S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#using-s2e-env">Using s2e-env</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#creating-a-new-environment">Creating a new environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../s2e-env.html#s2e-activate"><code class="docutils literal notranslate"><span class="pre">s2e_activate</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#building-s2e">Building S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#updating-the-source-code">Updating the source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#building-an-image">Building an image</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../s2e-env.html#windows-images">Windows images</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#creating-a-new-analysis-project">Creating a new analysis project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#target-program-arguments">Target program arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#using-seed-files">Using seed files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#running-your-analysis">Running your analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#parsing-an-execution-trace">Parsing an execution trace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#importing-and-exporting-projects">Importing and exporting projects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../BuildingS2E.html">Building the S2E platform manually</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../BuildingS2E.html#building-using-docker">Building using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../BuildingS2E.html#building-s2e-manually">Building S2E manually</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#required-packages">Required packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#checking-out-s2e">Checking out S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#building">Building</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#updating">Updating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html">Symbolic Execution of Linux Binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#getting-started">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#using-s2e-so">Using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#what-about-other-symbolic-input">What about other symbolic input?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#configuring-s2e-for-use-with-s2e-so">Configuring S2E for use with <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#modifying-and-building-s2e-so">Modifying and building <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html">Instrumenting Program Source Code for S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#compiling-and-running">Compiling and running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#preparing-the-program-for-symbolic-execution">Preparing the program for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#running-the-program-in-s2e">Running the program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#terminating-execution-paths">Terminating execution paths</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Use Cases</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../PoV/pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../PoV/pov.html#using-symbolic-execution-to-generate-povs">Using Symbolic Execution to Generate PoVs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/pov.html#identifying-advanced-vulnerability-patterns-with-s2e">Identifying Advanced Vulnerability Patterns with S2E</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../PoV/pov.html#function-pointer-overwrite">Function Pointer Overwrite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PoV/pov.html#arbitrary-writes">Arbitrary Writes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PoV/pov.html#arbitrary-reads">Arbitrary Reads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PoV/pov.html#function-calls-with-symbolic-parameters">Function Calls with Symbolic Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/pov.html#generating-replayable-povs">Generating Replayable PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/pov.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../PoV/index.html">Using S2E to generate PoVs for Linux, Windows, and CGC binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/index.html#quickstart-on-windows-and-linux">Quickstart on Windows and Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/index.html#understanding-recipes">Understanding recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/index.html#povs-for-darpa-decree-cgc-binaries">PoVs for DARPA Decree/CGC binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/index.html#understanding-cgc-style-povs">Understanding CGC-style PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/index.html#plugin-architecture-overview">Plugin architecture overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/index.html#plugins-involved-in-pov-generation">Plugins involved in PoV generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/index.html#the-bootstrap-script">The bootstrap script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/kaitai-s2e">Combining Kaitai Struct and S2E for analyzing parsers [external]</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/malware-s2e">Analyzing trigger-based malware with S2E [external]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemTap/index.html">Using SystemTap with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SystemTap/index.html#building-and-running-systemtap-in-s2e">Building and running SystemTap in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SystemTap/index.html#creating-a-simple-systemtap-script-for-symbolic-execution">Creating a simple SystemTap script for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SystemTap/index.html#running-the-script-in-s2e">Running the script in S2E</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../WindowsDLL/index.html">Analysis of Windows DLLs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDLL/index.html#preparing-the-test-environment">Preparing the test environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDLL/index.html#generate-basic-block-coverage">Generate basic block coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-s2e">Setting up S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-the-windows-environment">Setting up the Windows Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-the-sample-driver">Building the Sample Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-an-s2e-driver-project">Creating an S2E Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#customizing-the-driver-project">Customizing the Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-driver">Running the Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-code-coverage-reports">Getting Code Coverage Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-error-recovery-code">Testing Error Recovery Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generating-crash-dumps">Generating Crash Dumps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#understanding-s2e-logs-and-test-cases">Understanding S2E Logs and Test Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#customizing-fault-injection">Customizing Fault Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging-tips">Debugging Tips</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Revgen/Revgen.html">Translating binaries to LLVM with Revgen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Revgen/Revgen.html#using-revgen">Using Revgen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#prerequisites">1. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#build-the-cgc-binaries">2. Build the CGC binaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#translating-a-binary">3. Translating a binary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#running-a-translated-cgc-binary">4. Running a translated CGC binary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Revgen/Revgen.html#design-and-implementation">Design and implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#translating-basic-blocks-to-llvm">Translating basic blocks to LLVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#stitching-basic-blocks-into-functions">Stitching basic blocks into functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#assumptions">Assumptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#running-translated-binaries">Running translated binaries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Revgen/Revgen.html#evaluation">Evaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../EquivalenceTesting.html">Equivalence Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#program-to-test">Program to Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#configuring-s2e">Configuring S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#running-the-program-in-s2e">Running the Program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#interpreting-the-results">Interpreting the Results</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Howtos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/Coverage/index.html">Measuring code coverage with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/Coverage/index.html#building-coreutils">Building Coreutils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/Coverage/index.html#running-coreutils-concretely-in-s2e">Running Coreutils concretely in S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/Coverage/index.html#generating-line-coverage">Generating line coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-shared-libraries">Line coverage for shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#basic-block-coverage">Basic block coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#code-coverage-during-symbolic-execution">Code coverage during symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#how-does-s2e-record-and-compute-coverage">How does S2E record and compute coverage?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-the-linux-kernel">Line coverage for the Linux kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-windows-binaries">Line coverage for Windows binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#debugging-code-coverage">Debugging code coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MovingFiles.html">Copying files between the host and the guest</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/Parallel.html">Running S2E on multiple cores</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Parallel.html#how-do-i-process-generated-traces">How do I process generated traces?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Parallel.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/ExecutionTracers.html">Using execution tracers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#recording-basic-traces">1. Recording basic traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#analyzing-traces">2. Analyzing traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#recording-memory-traces">3. Recording memory traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#trace-format-reference">4. Trace format reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ImageInstallation.html">Customizing stock VM images</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#image-creation-overview">Image creation overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#building-linux-images">Building Linux images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#building-windows-images">Building Windows images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#when-should-i-install-my-software">When should I install my software?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#the-s2e-vm-image-format">The S2E VM image format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#general-guidelines-for-vm-images">General guidelines for VM images</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/WritingPlugins.html">Writing S2E plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#starting-with-an-empty-plugin">Starting with an Empty Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#reading-configuration-parameters">Reading Configuration Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#instrumenting-instructions">Instrumenting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#counting-instructions">Counting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#exporting-events">Exporting Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html">Instrumenting guest code with Lua</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#instrumenting-function-calls-and-returns">Instrumenting function calls and returns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#instrumenting-instructions">Instrumenting instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luas2eexecutionstate">LuaS2EExecutionState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luas2eexecutionstatememory">LuaS2EExecutionStateMemory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luas2eexecutionstateregisters">LuaS2EExecutionStateRegisters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luafunctioninstrumentationstate">LuaFunctionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luainstructioninstrumentationstate">LuaInstructionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luaexpression">LuaExpression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#the-g-s2e-object">The <code class="docutils literal notranslate"><span class="pre">g_s2e</span></code> object</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/Concolic.html">Analyzing large programs using concolic execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Concolic.html#faq">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../StateMerging.html">Exponential Analysis Speedup with State Merging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#using-state-merging-in-s2e">Using State Merging in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#state-merging-api">State Merging API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools/ForkProfiler.html">Debugging path explosion with the fork profiler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tools/ForkProfiler.html#using-the-fork-profile-to-debug-path-explosion">Using the fork profile to debug path explosion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">Frequently Asked Questions (FAQ)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-do-i-know-what-s2e-is-doing">How do I know what S2E is doing?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#execution-seems-stuck-slow-what-to-do">Execution seems stuck/slow. What to do?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-do-i-deal-with-path-explosion">How do I deal with path explosion?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-to-keep-memory-usage-low">How to keep memory usage low?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-much-time-is-the-constraint-solver-taking-to-solve-constraints">How much time is the constraint solver taking to solve constraints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#what-do-the-various-fields-in-run-stats-mean">What do the various fields in <code class="docutils literal notranslate"><span class="pre">run.stats</span></code> mean?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#emulating-the-kvm-interface">Emulating the KVM interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#using-system-call-hooks-for-emulation">Using system call hooks for emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#differences-between-actual-kvm-and-kvm-emulation">Differences between actual KVM and KVM emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#adding-symbolic-execution-capabilities-to-kvm">Adding symbolic execution capabilities to KVM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#multi-path-execution">Multi-path execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#handling-symbolic-data">Handling symbolic data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#reference">Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#dynamic-binary-translation">Dynamic binary translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#registering-memory-regions">Registering memory regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#accessing-guest-memory">Accessing guest memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#interrupting-execution">Interrupting execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#virtual-disk-i-o">Virtual disk I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#saving-restoring-device-snapshots">Saving/restoring device snapshots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#setting-the-clock-scale-pointer">Setting the clock scale pointer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#kvm-run-exit-codes">KVM_RUN exit codes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contribute.html">Contributing to S2E</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Profiling/ProfilingS2E.html">Profiling S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Profiling/ProfilingS2E.html#profiling-memory-usage">Profiling memory usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Profiling/ProfilingS2E.html#profiling-cpu-performance">Profiling CPU performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../DebuggingS2E.html">Debugging S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#the-obvious-checks">The obvious checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#record-replay">Record-replay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#valgrind">Valgrind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#debugging-with-gdb">Debugging with gdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#s2e-kernel-debugging">S2E kernel debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#s2e-debug-functions">S2E debug functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Testsuite.html">S2E Testsuite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#building-the-testsuite">Building the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#running-the-testsuite">Running the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#adding-your-own-tests">Adding your own tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#test-configuration-reference">Test configuration reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../WindowsEnvSetup.html">Setting up a Windows development environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#provisioning-a-windows-development-vm">1. Provisioning a Windows development VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#building-visual-studio-projects-remotely">2. Building Visual Studio projects remotely</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#use-case-building-and-running-a-windows-device-driver">3. Use case: building and running a Windows device driver</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html#required-plugins">Required Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Windows/WindowsMonitor.html">WindowsMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Windows/WindowsMonitor.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/RawMonitor.html">RawMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/RawMonitor.html#custom-instruction">Custom Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/RawMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/RawMonitor.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/ModuleExecutionDetector.html">ModuleExecutionDetector</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/ModuleExecutionDetector.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html">ExecutionTracer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#executiontracer">ExecutionTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#moduletracer">ModuleTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#testcasegenerator">TestCaseGenerator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#memorytracer">MemoryTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#translationblocktracer">TranslationBlockTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#instructiontracer">InstructionTracer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/FunctionMonitor.html">FunctionMonitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Linux/FunctionModels.html">FunctionModels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/FunctionModels.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/FunctionModels.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/EdgeKiller.html">EdgeKiller</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/EdgeKiller.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/EdgeKiller.html#required-plugins">Required Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/EdgeKiller.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">S2E</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/Tutorials/WindowsDrivers/FaultInjection.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="testing-error-recovery-code-in-windows-drivers-with-multi-path-fault-injection">
+<h1><a class="toc-backref" href="#id1">Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection</a><a class="headerlink" href="#testing-error-recovery-code-in-windows-drivers-with-multi-path-fault-injection" title="Permalink to this headline">¶</a></h1>
+<p>Drivers often run in kernel mode, which makes them particularly susceptible to
+bringing down the entire system should they contain even the slightest bug.
+There are many approaches that attempt to solve or mitigate this problem, such as running drivers
+in user space, synthesizing correct-by-construction drivers, using formal verification,
+writing them in memory-safe languages, testing, etc.</p>
+<p>Drivers (and software in general) often contain error recovery code in order to deal with system errors.
+For example, a driver could gracefully shut down if a memory allocation API returns a null pointer.
+Sometimes, recovering from the error involves complex steps. In the case of a driver,
+this may involve rolling back and deallocating all the internal state. This may be non-trivial,
+and unusual error scenarios may trigger untested execution paths, resulting in system crashes.</p>
+<p>Error recovery code can be tested using fault injection. A fault injection tool typically
+intercepts API calls made by a driver, and instead
+of calling the original API, may decide to return an error code that the API call would have made
+had it encountered, say, a memory shortage. Whether or not to inject a fault is decided by
+a fault scenario. A fault scenario may focus on failing memory allocations, thread creation, various
+communication APIs, etc. Fault injection can also go beyond failing APIs, e.g., by corrupting memory with bit flips.
+There is a large body of literature that investigates most effective fault scenarios depending on the program under test.</p>
+<p>In this tutorial, we will focus on testing error recovery code in Windows drivers using
+S2E and symbolic execution. A commonly used tool for fault injection in drivers is Microsoft Driver Verifier.
+This tools performs fault injection probabilistically and requires rerunning the driver over and over again
+in order to eventually cover all APIs. In contrast, S2E systematically tests every API call, allows
+custom fault scenarios, and does not require rerunning the tested driver many times in order to reach full coverage.</p>
+<p>After completing this tutorial, you will know:</p>
+<ul class="simple">
+<li>How to setup an S2E project to test Windows drivers</li>
+<li>How to get line coverage for Windows drivers</li>
+<li>How symbolic execution can be leveraged for quick and efficient fault injection</li>
+<li>How to add new kernel APIs to the fault injection framework</li>
+</ul>
+<p>Before starting, <strong>read the entire tutorial first</strong> in order to get a better overview of the various tasks
+and how they connect to each other.</p>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#testing-error-recovery-code-in-windows-drivers-with-multi-path-fault-injection" id="id1">Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection</a><ul>
+<li><a class="reference internal" href="#setting-up-s2e" id="id2">Setting up S2E</a></li>
+<li><a class="reference internal" href="#setting-up-the-windows-environment" id="id3">Setting up the Windows Environment</a></li>
+<li><a class="reference internal" href="#building-the-sample-driver" id="id4">Building the Sample Driver</a></li>
+<li><a class="reference internal" href="#creating-an-s2e-driver-project" id="id5">Creating an S2E Driver Project</a></li>
+<li><a class="reference internal" href="#customizing-the-driver-project" id="id6">Customizing the Driver Project</a></li>
+<li><a class="reference internal" href="#running-the-driver" id="id7">Running the Driver</a></li>
+<li><a class="reference internal" href="#getting-code-coverage-reports" id="id8">Getting Code Coverage Reports</a></li>
+<li><a class="reference internal" href="#testing-error-recovery-code" id="id9">Testing Error Recovery Code</a></li>
+<li><a class="reference internal" href="#generating-crash-dumps" id="id10">Generating Crash Dumps</a></li>
+<li><a class="reference internal" href="#understanding-s2e-logs-and-test-cases" id="id11">Understanding S2E Logs and Test Cases</a></li>
+<li><a class="reference internal" href="#customizing-fault-injection" id="id12">Customizing Fault Injection</a></li>
+<li><a class="reference internal" href="#debugging-tips" id="id13">Debugging Tips</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="setting-up-s2e">
+<h2><a class="toc-backref" href="#id2">Setting up S2E</a><a class="headerlink" href="#setting-up-s2e" title="Permalink to this headline">¶</a></h2>
+<p>For this tutorial, you will need:</p>
+<ul class="simple">
+<li>a Linux environment with S2E installed and running</li>
+<li>a Windows 7 guest image</li>
+<li>a Windows environment to build the driver (see <a class="reference external" href="../../WindowsEnvSetup.html">here</a> for details on how to set it up)</li>
+<li>up to 110GB of disk space. The Windows 7 image alone will take 25GB and the Windows 10 build VM up to 60 GB.</li>
+</ul>
+<p>Please refer to <a class="reference external" href="../../s2e-env.html">Creating analysis projects with s2e-env</a> for more details.</p>
+<p>Here is a summary of the commands to run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> Initialize the S2E environment
+<span class="go">mkdir -p $(HOME)/s2e</span>
+<span class="go">s2e init $HOME/s2e/env</span>
+<span class="go">cd $HOME/s2e/env</span>
+
+<span class="gp">#</span> Build S2E binaries
+<span class="go">s2e build</span>
+
+<span class="gp">#</span> Create a Windows <span class="m">7</span> VM image to run the driver
+<span class="gp">#</span> Get the ISO of the required image on MSDN
+<span class="go">s2e image_build --iso-dir /path/to/isos windows-7sp1ent-x86_64</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-up-the-windows-environment">
+<h2><a class="toc-backref" href="#id3">Setting up the Windows Environment</a><a class="headerlink" href="#setting-up-the-windows-environment" title="Permalink to this headline">¶</a></h2>
+<p>In order to build Windows drivers, you need the following:</p>
+<ol class="arabic simple">
+<li>A Windows environment (can be a VM)</li>
+<li><a class="reference external" href="https://www.visualstudio.com/downloads/">Microsoft Visual Studio</a> 2015 or 2017</li>
+<li><a class="reference external" href="https://docs.microsoft.com/en-us/windows-hardware/drivers/">Windows Driver Kit</a> (the latest version supported by your Visual Studio version)</li>
+</ol>
+<p>Please refer to the Microsoft’s documentation on how to set up and build drivers.</p>
+<p>You will also need MSYS2 in order to run LCOV for code coverage:</p>
+<ol class="arabic simple">
+<li>Download the MSYS-GIT SDK from <a class="reference external" href="https://github.com/git-for-windows/build-extra/releases">here</a></li>
+<li>Launch <code class="docutils literal notranslate"><span class="pre">C:\git-sdk-32\msys2.exe</span></code> and type the following commands:</li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> Install the environment
+<span class="go">pacman -Syy gcc python2-setuptools</span>
+<span class="go">easy_install-2.7 pip virtualenv</span>
+
+<span class="gp">#</span> Check out the S2E repository. Guest tools are in the guest directory.
+<span class="gp">#</span> They contain the s2e.sys guest driver that you will need to use later.
+<span class="go">git clone https://github.com/S2E/s2e.git</span>
+
+<span class="gp">#</span> LCOV will be used to display code coverage
+<span class="go">git clone https://github.com/linux-test-project/lcov</span>
+</pre></div>
+</div>
+<p>Please refer to the <code class="docutils literal notranslate"><span class="pre">guest-tools</span></code> <a class="reference external" href="https://github.com/S2E/s2e/blob/master/guest/windows/README.md">readme</a>
+for more details.</p>
+</div>
+<div class="section" id="building-the-sample-driver">
+<h2><a class="toc-backref" href="#id4">Building the Sample Driver</a><a class="headerlink" href="#building-the-sample-driver" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial will use the scanner file system filter driver from the Windows Driver Kit samples repository.
+You may want to have a look at its source code and readme to see what it does. This is however not required to
+complete this tutorial.</p>
+<p>In the MSYS environment, run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/Microsoft/Windows-driver-samples.git</span>
+</pre></div>
+</div>
+<p>Open the <code class="docutils literal notranslate"><span class="pre">filesys/miniFilter/scanner/scanner.sln</span></code> solution in Visual Studio and do the following:</p>
+<p>1. Change the driver target version to <strong>Windows 7</strong> and platform to <strong>Desktop</strong>.
+Failing to do so will result in a kernel crash if the driver is loaded on Windows 7 or earlier.
+The following image shows where to find this setting. Make sure to select
+<strong>All Configurations</strong> and <strong>All Platforms</strong> first.</p>
+<img alt="../../_images/drvsettings.png" src="../../_images/drvsettings.png" />
+<ol class="arabic simple" start="2">
+<li>Select <strong>Debug</strong> mode and <strong>x64</strong> architecture. A debug build will give better code coverage information.</li>
+</ol>
+<img alt="../../_images/arch.png" src="../../_images/arch.png" />
+<ol class="arabic simple" start="3">
+<li>Build the driver. You should have the following files:</li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">scanner.inf</span>
+<span class="go">filter/x64/Debug/scanner.sys</span>
+<span class="go">user/x64/Debug/scanuser.exe</span>
+</pre></div>
+</div>
+<p>Copy these 3 files into your Linux environment where S2E can find them. It is important that the three files be
+in the same folder. You can modify the build settings of the Visual Studio project to put them in the same folder.
+You can also use a shared folder to avoid copying them to the VM.</p>
+</div>
+<div class="section" id="creating-an-s2e-driver-project">
+<h2><a class="toc-backref" href="#id5">Creating an S2E Driver Project</a><a class="headerlink" href="#creating-an-s2e-driver-project" title="Permalink to this headline">¶</a></h2>
+<p>In your S2E environment folder, run the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e new_project /path/to/scanner.inf</span>
+</pre></div>
+</div>
+<p>A successful run looks as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">(venv) user@linux:~/s2e/env$ s2e new_project /mnt/Windows-driver-samples/filesys/miniFilter/scanner/scanner.inf</span>
+
+<span class="go">INFO: [new_project] Detected Windows INF file, attempting to create device driver project...</span>
+<span class="go">INFO: [infparser] /mnt/Windows-driver-samples/filesys/miniFilter/scanner/scanner.inf</span>
+<span class="go">INFO: [infparser]   class: ContentScreener catalog: scanner.cat</span>
+<span class="go">INFO: [new_project]   Driver files:</span>
+<span class="go">INFO: [new_project]     /mnt/Windows-driver-samples/filesys/miniFilter/scanner/scanner.sys</span>
+<span class="go">INFO: [new_project]     /mnt/Windows-driver-samples/filesys/miniFilter/scanner/scanuser.exe</span>
+<span class="go">WARNING: [new_project] Catalog file /mnt/Windows-driver-samples/filesys/miniFilter/scanner/scanner.cat is missing</span>
+<span class="go">INFO: [new_project] No image was specified (-i option). Attempting to guess a suitable image for a x86_64 binary</span>
+<span class="go">WARNING: [new_project] Found windows-7sp1ent-x86_64, which looks suitable for this binary. Please use -i if you want to use another image</span>
+<span class="go">INFO: [new_project] Creating a symlink to /home/user/s2e/env/install/bin/guest-tools64</span>
+<span class="go">INFO: [new_project] Creating a symlink to /mnt/Windows-driver-samples/filesys/miniFilter/scanner/scanner.inf</span>
+<span class="go">INFO: [new_project] Creating a symlink to /home/user/s2e/env/images/windows-7sp1ent-x86_64/guestfs</span>
+<span class="go">INFO: [new_project] Creating launch script</span>
+<span class="go">INFO: [new_project] Creating S2E configuration</span>
+<span class="go">INFO: [new_project] Creating S2E bootstrap script</span>
+<span class="go">INFO: [new_project] Creating JSON description</span>
+</pre></div>
+</div>
+<p>This creates a folder <code class="docutils literal notranslate"><span class="pre">projects/scanner</span></code> that should contain the following files:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">(venv) user@linux:~/s2e/env$ ls -l projects/scanner/</span>
+<span class="go">total 48</span>
+<span class="go">-rw-rw-r-- 1 user user  5472 Jan 13 22:00 bootstrap.sh</span>
+<span class="go">lrwxrwxrwx 1 user user    58 Jan 13 22:00 guestfs -&gt; /home/user/s2e/env/images/windows-7sp1ent-x86_64/guestfs</span>
+<span class="go">lrwxrwxrwx 1 user user    46 Jan 13 22:00 guest-tools -&gt; /home/user/s2e/env/install/bin/guest-tools64</span>
+<span class="go">-rwxrw-r-- 1 user user  1832 Jan 13 22:00 launch-s2e.sh</span>
+<span class="go">-rw-rw-r-- 1 user user  2898 Jan 13 22:00 library.lua</span>
+<span class="go">-rw-rw-r-- 1 user user   983 Jan 13 22:00 models.lua</span>
+<span class="go">-rw-rw-r-- 1 user user  1659 Jan 13 22:00 project.json</span>
+<span class="go">-rw-rw-r-- 1 user user 10050 Jan 13 22:00 s2e-config.lua</span>
+<span class="go">lrwxrwxrwx 1 user user    90 Jan 13 22:00 scanner.inf -&gt; /mnt/Windows-driver-samples/filesys/miniFilter/scanner/scanner.inf</span>
+<span class="go">lrwxrwxrwx 1 user user    90 Jan 13 22:00 scanner.sys -&gt; /mnt/Windows-driver-samples/filesys/miniFilter/scanner/scanner.sys</span>
+<span class="go">lrwxrwxrwx 1 user user    91 Jan 13 22:00 scanuser.exe -&gt; /mnt/Windows-driver-samples/filesys/miniFilter/scanner/scanuser.exe</span>
+</pre></div>
+</div>
+<p>You can find mode information about the content of these files and folders in the documentation. To summarize,
+<code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> contains a script that will run in the S2E VM to fetch the driver files, load, and run them.
+<code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code> contains the S2E configuration, and <code class="docutils literal notranslate"><span class="pre">launch-s2e.sh</span></code> is the script that you will run next to launch
+S2E.</p>
+</div>
+<div class="section" id="customizing-the-driver-project">
+<h2><a class="toc-backref" href="#id6">Customizing the Driver Project</a><a class="headerlink" href="#customizing-the-driver-project" title="Permalink to this headline">¶</a></h2>
+<p>The S2E project configurator makes its best effort to guess the type of binaries you want to analyze and create
+the appropriate S2E configuration. In this case, it figures out that you want to test a driver. However, it does not
+know how to run the driver. For example, although S2E detected that the driver has the <code class="docutils literal notranslate"><span class="pre">scanuser.exe</span></code> binary,
+it does not know how to launch it in order to exercise the driver.</p>
+<p>This section shows how to customize the <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> script in order to properly load and run drivers.
+Locate the following code in <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">function execute_target {</span>
+<span class="gp">    #</span> Activate fault injection right before loading the driver
+<span class="go">    ./drvctl.exe set_config FaultInjectionActive 1</span>
+
+<span class="gp">    #</span> Set this to <span class="m">1</span> <span class="k">if</span> you would like more aggressive fault injection, to <span class="nb">help</span> harden your driver
+<span class="gp">    #</span> against arbitrary API call errors. This may add <span class="nb">false</span> positives.
+<span class="go">    ./drvctl.exe set_config FaultInjectionOverapproximate 1</span>
+
+<span class="gp">    #</span> Ask windows to load the driver
+<span class="go">    install_driver &quot;$(win_path &quot;$1&quot;)&quot;</span>
+
+<span class="gp">    #</span> TODO: you may need to manually start the driver using sc
+<span class="gp">    #</span> sc start my_driver_service
+
+<span class="gp">    #</span> TODO: you may want to download additional binaries with s2eget.exe <span class="o">(</span>e.g., a <span class="nb">test</span> harness<span class="o">)</span>
+<span class="gp">    #</span> <span class="nv">$S2EGET</span> TestHarness.exe
+
+<span class="gp">    #</span> Give some <span class="nb">time</span> <span class="k">for</span> the driver to load.
+<span class="gp">    #</span> You <span class="k">do</span> not need this <span class="k">if</span> your <span class="nb">test</span> harness knows when the driver is <span class="k">done</span> loading.
+<span class="go">    sleep 30</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p>Modify it as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">function execute_target {</span>
+<span class="go">    install_driver &quot;$(win_path &quot;$1&quot;)&quot;</span>
+
+<span class="go">    sc start scanner</span>
+
+<span class="gp">    #</span> Give some <span class="nb">time</span> <span class="k">for</span> the driver to load
+<span class="go">    sleep 30</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p>You may also want to have a look at <code class="docutils literal notranslate"><span class="pre">scanuser.exe</span></code> to see how it works and invoke it from the <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> script.
+This is however not required for this tutorial.</p>
+</div>
+<div class="section" id="running-the-driver">
+<h2><a class="toc-backref" href="#id7">Running the Driver</a><a class="headerlink" href="#running-the-driver" title="Permalink to this headline">¶</a></h2>
+<p>Once you are done customizing the project, launch S2E:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">(venv) user@linux:~/s2e/env/projects/scanner$ ./launch-s2e.sh</span>
+</pre></div>
+</div>
+<p>You will see a lot of output in the console. Most of this output is generated by the <code class="docutils literal notranslate"><span class="pre">WindowsMonitor</span></code> plugin and shows
+various events that occur in the guest, e.g., module loads, process and thread creation, etc. <code class="docutils literal notranslate"><span class="pre">WindowsMonitor</span></code>
+gets this information from the <code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code> guest driver, which is part of the <code class="docutils literal notranslate"><span class="pre">guest-tools</span></code> repository that you
+cloned earlier. We will see later in this tutorial how <code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code> works and how you can extend it for your needs.</p>
+<p>After about a minute, S2E should terminate. The <code class="docutils literal notranslate"><span class="pre">s2e-last</span></code> folder should contain the <code class="docutils literal notranslate"><span class="pre">tbcoverage-0.json</span></code> file.
+Check that it is not empty, i.e., that it contains at least a few program counters:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">{&quot;scanner.sys&quot;: [[5368714608, 5368714650, 48], [5368714656, 5368714665, 11], ... }</span>
+</pre></div>
+</div>
+<p>We will use this file in order to generate line coverage information for the driver. If you do not see any
+program counters in the file, something went wrong. In that case, go to the debugging tips section at the end of this
+tutorial.</p>
+<p><strong>Note:</strong> <code class="docutils literal notranslate"><span class="pre">s2e-last</span></code> is a symbolic link to the folder that contains the data of the latest analysis run. S2E does not
+delete previous runs, so that you can reuse their output if needed. Analysis runs are located in <code class="docutils literal notranslate"><span class="pre">s2e-out-xxx</span></code> folders.</p>
+</div>
+<div class="section" id="getting-code-coverage-reports">
+<h2><a class="toc-backref" href="#id8">Getting Code Coverage Reports</a><a class="headerlink" href="#getting-code-coverage-reports" title="Permalink to this headline">¶</a></h2>
+<p>S2E can generate various types of code coverage. In this section, you will learn how to get line coverage information
+when source code is available.</p>
+<ul>
+<li><p class="first">Build the <code class="docutils literal notranslate"><span class="pre">guest-tools/windows/s2e.ln</span></code> solution in Visual Studio in release mode and x64 architecture.
+This solution is located in the <code class="docutils literal notranslate"><span class="pre">guest-tools</span></code> repository that you cloned earlier in this tutorial.
+It contains a number of tools to test Windows binaries. If you would like to learn more about it, please refer to
+its <a class="reference external" href="https://github.com/S2E/s2e/blob/master/guest/windows/README.md">readme</a>.</p>
+</li>
+<li><p class="first">Extract line information from the driver’s PDB file using <cite>pdbparser.exe</cite> as follows:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">guest-tools/windows/x64/Release/pdbparser.exe -l scanner.sys scanner.pdb &gt; scanner.sys.lines</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The <code class="docutils literal notranslate"><span class="pre">scanner.sys.lines</span></code> file contains line information in JSON format. Make sure that this file is in the same folder
+as all the other driver files.</p>
+<p><strong>Note:</strong> Binaries produced by Microsoft tools contain line information in PDB files. These files have a proprietary
+format and are not readable by Linux tools. We need therefore a Windows tool to extract information from them.</p>
+</li>
+<li><p class="first">Run <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">coverage</span> <span class="pre">lcov</span> <span class="pre">scanner</span></code>. This should produce the <code class="docutils literal notranslate"><span class="pre">scanner.sys.info</span></code> file, which contains
+LCOV coverage info. You should see something like this:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">(venv) user@linux:~/s2e/env$ s2e coverage lcov scanner</span>
+<span class="go">INFO: [lcov] Generating translation block coverage information</span>
+<span class="go">ERROR: [line_info] Could not read DWARF information from /mnt/Windows-driver-samples/filesys/miniFilter/scanner/scanner.sys: Magic number does not match</span>
+<span class="go">INFO: [jsoninfo] Using /mnt/Windows-driver-samples/filesys/miniFilter/scanner/scanner.sys.lines as source of line information</span>
+<span class="go">INFO: [lcov] Writing line coverage to /home/user/s2e/env/projects/scanner/s2e-last/scanner.sys.info</span>
+<span class="go">INFO: [lcov] Line coverage saved to /home/user/s2e/env/projects/scanner/s2e-last/scanner.sys.info</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">If you want to generate LCOV files on windows, proceed as follows. Run the following command in MSYS after
+installing LCOV from <a class="reference external" href="https://github.com/linux-test-project/lcov">this repository</a>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">genhtml --ignore-errors source -p &quot;c:/&quot; -p &quot;d:/&quot; -o coverage_report scanner.sys.info</span>
+</pre></div>
+</div>
+<p><strong>Note:</strong> it is important to strip all the drive prefixes (<cite>-p</cite> option) so that <code class="docutils literal notranslate"><span class="pre">genhtml</span></code> does not attempt
+to write HTML files all over the file system. The command also ignores sources files that cannot be opened, e.g.,
+those from the standard library, which are typically unavailable.</p>
+</li>
+<li><p class="first">You can also generate the LCOV files on Linux using <cite>s2e-env</cite> directly. This however requires that you have
+the source code available on the Linux environment and specify a path to it, like this. Please adapt the path to
+the driver directory accordingly.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e coverage --sympath /mnt/Windows-driver-samples/filesys/miniFilter/scanner lcov --html scanner</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>You should see a report like this. Note that the LCOV data generated by S2E does not have function information yet,
+so function coverage will be empty.</p>
+<img alt="../../_images/cov1.png" src="../../_images/cov1.png" />
+<p>Here are the details for the main driver file:</p>
+<img alt="../../_images/cov2.png" src="../../_images/cov2.png" />
+</div>
+<div class="section" id="testing-error-recovery-code">
+<h2><a class="toc-backref" href="#id9">Testing Error Recovery Code</a><a class="headerlink" href="#testing-error-recovery-code" title="Permalink to this headline">¶</a></h2>
+<p>In the coverage report that you generated previously, you can observe that the error recovery code for
+<code class="docutils literal notranslate"><span class="pre">ZwQueryValueKey</span></code> and <code class="docutils literal notranslate"><span class="pre">ExAllocatePoolWithTag</span></code> has not been exercised. In this section, you will learn how
+to inject errors in these calls in order to check that the error recovery code behaves properly.</p>
+<p>First of all, enable fault injection by setting <code class="docutils literal notranslate"><span class="pre">FaultInjectionActive</span></code> to <code class="docutils literal notranslate"><span class="pre">1</span></code> in <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">function execute_target {</span>
+<span class="go">    ./drvctl.exe set_config FaultInjectionActive 1</span>
+
+<span class="go">    install_driver &quot;$(win_path &quot;$1&quot;)&quot;</span>
+
+<span class="go">    sc start scanner</span>
+
+<span class="gp">    #</span> Give some <span class="nb">time</span> <span class="k">for</span> the driver to load
+<span class="go">    sleep 30</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p>After you have done so, rerun S2E and re-generate coverage files.</p>
+<p><strong>Tip:</strong> S2E can test multiple fault scenarios in parallel and complete testing quicker. For this, in the <code class="docutils literal notranslate"><span class="pre">launch-s2e.sh</span></code>
+file, set the <code class="docutils literal notranslate"><span class="pre">S2E_MAX_PROCESSES</span></code> variable to the number of threads you wish to use and make sure that
+<code class="docutils literal notranslate"><span class="pre">GRAPHICS=-nographics</span></code> variable is set, as S2E does not support graphics output when running in parallel mode.
+You will need about 3-3.5GB of RAM per thread, which is about 32GB of memory for 8 threads. The output will be stored in
+<code class="docutils literal notranslate"><span class="pre">s2e-last/xxx/...</span></code> folders, where <code class="docutils literal notranslate"><span class="pre">xxx</span></code> is the S2E instance identifier.</p>
+<p>You should now see that the error recovery code is exercised:</p>
+<img alt="../../_images/fi_cov1.png" src="../../_images/fi_cov1.png" />
+<img alt="../../_images/fi_cov2.png" src="../../_images/fi_cov2.png" />
+</div>
+<div class="section" id="generating-crash-dumps">
+<h2><a class="toc-backref" href="#id10">Generating Crash Dumps</a><a class="headerlink" href="#generating-crash-dumps" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we will introduce a bug in the error recovery code and use fault injection in order to find it.</p>
+<p>First, insert the following line in the error recovery code at line 404 of <code class="docutils literal notranslate"><span class="pre">scanner.c</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="p">(</span><span class="n">PUINT32</span><span class="o">*</span><span class="p">)</span><span class="mh">0x123</span> <span class="o">=</span> <span class="mh">0x1234</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Then, configure S2E so that it produces crash dumps that can be opened with WinDbg.
+S2E does not generate them by default because they can be very large, and depending on how many states crash,
+fill up the disk very quickly (a crash dump is as large as the guest physical memory when uncompressed).</p>
+<p>To enable crash dumps, open <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code> and locate the following section:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">pluginsConfig</span><span class="p">.</span><span class="n">WindowsCrashMonitor</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">terminateOnCrash</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+
+    <span class="c1">-- Make this true if you want crashes.</span>
+    <span class="c1">-- Note that crashes may be very large (100s of MBs)</span>
+    <span class="n">generateCrashDump</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+
+    <span class="c1">-- Limit number of crashes we generate</span>
+    <span class="n">maxCrashDumps</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+
+    <span class="c1">-- Uncompressed dumps have the same size as guest memory (e.g., 2GB),</span>
+    <span class="c1">-- you almost always want to compress them.</span>
+    <span class="n">compressDumps</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Set <code class="docutils literal notranslate"><span class="pre">generateCrashDump</span></code> to true and rerun the analysis. When the analysis completes, locate the crash dump with the
+following command, then copy it to your Windows environment, decompress it, and open it in WinDbg.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">(venv) user@linux:~/s2e/env/projects/scanner$ find s2e-last/ -name *dmp*</span>
+<span class="go">s2e-last/dump3.dmp.gz</span>
+</pre></div>
+</div>
+<img alt="../../_images/windbg.png" src="../../_images/windbg.png" />
+</div>
+<div class="section" id="understanding-s2e-logs-and-test-cases">
+<h2><a class="toc-backref" href="#id11">Understanding S2E Logs and Test Cases</a><a class="headerlink" href="#understanding-s2e-logs-and-test-cases" title="Permalink to this headline">¶</a></h2>
+<p>You may have noticed that S2E generated a lot of output in <code class="docutils literal notranslate"><span class="pre">debug.txt</span></code> files. In this section, we will explain
+the general structure of these logs and focus on the aspects relevant to fault injection.</p>
+<p>Using the analysis results of the previous section, grep for BSOD (blue screen of death) in the S2E logs:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">(venv) user@linux:~/s2e/env/projects/scanner$ grep -ri bsod s2e-last/*</span>
+<span class="go">s2e-last/debug.txt:25 [State 0] BaseInstructions: Message from guest (0xfffff88002f961a0): s2e.sys: S2EBSODHook is at FFFFF880028D46C4</span>
+<span class="go">s2e-last/debug.txt:80 [State 3] BaseInstructions: Message from guest (0xfffff88002f95320): s2e.sys: Invoked S2EBSODHook</span>
+<span class="go">s2e-last/debug.txt:80 [State 3] BaseInstructions: Message from guest (0xfffff88002f952e0): s2e.sys: S2EBSODHook: crash dump header of size 0x2000</span>
+<span class="go">s2e-last/debug.txt:80 [State 3] Terminating state early: BSOD: code=0x7e param1=0xffffffffc0000005 param2=0xfffff88002923316 param3=0xfffff88002f965c8 param4=0xfffff88002f95e20</span>
+</pre></div>
+</div>
+<p>In this example, we see that execution path 3 (aka state 3) has crashed. To see why, open <code class="docutils literal notranslate"><span class="pre">s2e-last/debug.txt</span></code>
+(replace the file name by the one you get for your run).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">80 [State 3] BlueScreenInterceptor: caught blue screen</span>
+<span class="go">80 [State 3] BaseInstructions: Message from guest (0xfffff88002f95320): s2e.sys: Invoked S2EBSODHook</span>
+<span class="go">80 [State 3] BaseInstructions: Message from guest (0xfffff88002f95140): s2e.sys: Backtrace (items: 12)</span>
+<span class="go">80 [State 3] BaseInstructions: Message from guest (0xfffff88002f95140): s2e.sys: FFFFF880028D6DCF s2e.sys:000000013FAD3DCF</span>
+<span class="go">80 [State 3] BaseInstructions: Message from guest (0xfffff88002f95140): s2e.sys: FFFFF880028D4708 s2e.sys:000000013FAD1708</span>
+<span class="go">80 [State 3] BaseInstructions: Message from guest (0xfffff88002f95140): s2e.sys: FFFFF800026D5FC4 ntoskrnl.exe:0000000140074FC4</span>
+<span class="go">80 [State 3] BaseInstructions: Message from guest (0xfffff88002f95140): s2e.sys: FFFFF80002A48614 ntoskrnl.exe:00000001403E7614</span>
+<span class="go">80 [State 3] BaseInstructions: Message from guest (0xfffff88002f95140): s2e.sys: FFFFF80002A03231 ntoskrnl.exe:00000001403A2231</span>
+<span class="go">80 [State 3] BaseInstructions: Message from guest (0xfffff88002f95140): s2e.sys: FFFFF80002701C4C ntoskrnl.exe:00000001400A0C4C</span>
+<span class="go">80 [State 3] BaseInstructions: Message from guest (0xfffff88002f95140): s2e.sys: FFFFF800027016CD ntoskrnl.exe:00000001400A06CD</span>
+<span class="go">80 [State 3] BaseInstructions: Message from guest (0xfffff88002f95140): s2e.sys: FFFFF800027004A5 ntoskrnl.exe:000000014009F4A5</span>
+<span class="go">80 [State 3] BaseInstructions: Message from guest (0xfffff88002f95140): s2e.sys: FFFFF80002711431 ntoskrnl.exe:00000001400B0431</span>
+<span class="go">80 [State 3] BaseInstructions: Message from guest (0xfffff88002f95140): s2e.sys: FFFFF800026D5542 ntoskrnl.exe:0000000140074542</span>
+<span class="go">80 [State 3] BaseInstructions: Message from guest (0xfffff88002f95140): s2e.sys: FFFFF800026D40BA ntoskrnl.exe:00000001400730BA</span>
+<span class="go">80 [State 3] BaseInstructions: Message from guest (0xfffff88002f95140): s2e.sys: FFFFF88002923316 scanner.sys:0000000140007316</span>
+<span class="go">80 [State 3] BaseInstructions: Message from guest (0xfffff88002f952e0): s2e.sys: S2EBSODHook: crash dump header of size 0x2000</span>
+<span class="go">80 [State 3] Terminating state early: BSOD: code=0x7e param1=0xffffffffc0000005 param2=0xfffff88002923316 param3=0xfffff88002f965c8 param4=0xfffff88002f95e20</span>
+<span class="go">80 [State 3] TestCaseGenerator: generating test case at address 0xfffff880028d84ed</span>
+<span class="go">80 [State 3] TestCaseGenerator:</span>
+<span class="go">        v0_FaultInjInvokeOrig_FltRegisterFilter__s2e_sys_13fb22717_scanner_sys_14000707e_ntoskrnl_exe_140461c37_140462035_14007ea95_140313b8a_1400668e6_0 = {0xff}; (string) &quot;.&quot;</span>
+<span class="go">        v1_FaultInjInvokeOrig_ZwOpenKey__s2e_sys_13fb23e9f_scanner_sys_14000720d_14000708e_ntoskrnl_exe_140461c37_140462035_14007ea95_140313b8a_1400668e6_1 = {0xff}; (string) &quot;.&quot;</span>
+<span class="go">        v2_FaultInjInvokeOrig_ZwQueryValueKey__s2e_sys_13fb23efa_scanner_sys_14000724e_14000708e_ntoskrnl_exe_140461c37_140462035_14007ea95_140313b8a_1400668e6_2 = {0xff}; (string) &quot;.&quot;</span>
+<span class="go">        v3_FaultInjInvokeOrig_ExAllocatePoolWithTag__s2e_sys_13fb2195e_scanner_sys_14000727b_14000708e_ntoskrnl_exe_140461c37_140462035_14007ea95_140313b8a_1400668e6_3 = {0x0}; (string) &quot;.&quot;</span>
+</pre></div>
+</div>
+<p>Each line of the S2E debug log is composed of several fields:</p>
+<ol class="arabic simple">
+<li>The first column is the elapsed time in seconds since S2E started (here 80 seconds)</li>
+<li>The second column indicates which execution path generated the log, and if applicable, on which S2E instance
+(when running S2E in parallel mode).</li>
+<li>The third column indicates which plugin output the message. In this case, the <code class="docutils literal notranslate"><span class="pre">BlueScreenDetector</span></code> plugin
+caught the crash, then called <code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code> in the guest to display the backtrace. <code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code> used a special
+x86 instruction to call the S2E plugin <code class="docutils literal notranslate"><span class="pre">BaseInstructions</span></code> in order to print the backtrace.</li>
+<li>Finally, the blue screen interceptor terminated the execution path (<em>terminated state early</em> message)
+causing the test case generator to output the concrete test case.</li>
+</ol>
+<p>The logs above display two important pieces of information: the backtrace of the bug check and the sequence of faults
+that led to the error. In this example, the crash occurred in <code class="docutils literal notranslate"><span class="pre">scanner.sys</span></code> at address <code class="docutils literal notranslate"><span class="pre">0x140007316</span></code>.
+The sequence of API calls that led to this bug is <code class="docutils literal notranslate"><span class="pre">FltRegisterFilter</span></code>, <code class="docutils literal notranslate"><span class="pre">ZwOpenKey</span></code>, <code class="docutils literal notranslate"><span class="pre">ZwQueryValueKey</span></code>, and <code class="docutils literal notranslate"><span class="pre">ExAllocatePoolWithTag</span></code>.
+S2E injected a fault only on the last invocation. Note that S2E only supports a subset of kernel APIs, the driver
+might have called other APIs that do not appear here.</p>
+<p>Let us now explain in more detail how S2E encodes test cases:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">v0_FaultInjInvokeOrig_FltRegisterFilter__s2e_sys_13fb22717_scanner_sys_14000707e_ntoskrnl_exe_140461c37_140462035_14007ea95_140313b8a_1400668e6_0 = {0xff}; (string) &quot;.&quot;</span>
+<span class="go">v1_FaultInjInvokeOrig_ZwOpenKey__s2e_sys_13fb23e9f_scanner_sys_14000720d_14000708e_ntoskrnl_exe_140461c37_140462035_14007ea95_140313b8a_1400668e6_1 = {0xff}; (string) &quot;.&quot;</span>
+<span class="go">v2_FaultInjInvokeOrig_ZwQueryValueKey__s2e_sys_13fb23efa_scanner_sys_14000724e_14000708e_ntoskrnl_exe_140461c37_140462035_14007ea95_140313b8a_1400668e6_2 = {0xff}; (string) &quot;.&quot;</span>
+<span class="go">v3_FaultInjInvokeOrig_ExAllocatePoolWithTag__s2e_sys_13fb2195e_scanner_sys_14000727b_14000708e_ntoskrnl_exe_140461c37_140462035_14007ea95_140313b8a_1400668e6_3 = {0x0}; (string) &quot;.&quot;</span>
+</pre></div>
+</div>
+<p>What you see above is a concrete test case of the crash. A concrete test case consists of an assignment of concrete
+values to symbolic variables. The variable names are on the left hand side and the concrete values are on the right
+hand side, encoded as C arrays of bytes. In this example, each variable is one byte in size. A non-zero value means
+that S2E did not inject a fault (i.e., it invoked the original function, hence <code class="docutils literal notranslate"><span class="pre">&quot;InvokeOrig&quot;</span> <span class="pre">==</span> <span class="pre">true</span></code>). A value of 0 means
+that S2E skipped the function call and returned a fault instead (hence <code class="docutils literal notranslate"><span class="pre">&quot;InvokeOrig&quot;</span> <span class="pre">==</span> <span class="pre">false</span></code>).</p>
+<p>So where do these symbolic variables come from? In order to understand this, consider the following pseudo-code example.
+This represents a typical pattern of intercepting API calls and injecting faults. It is implemented
+in the <code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code> driver.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">VOID</span> <span class="nf">S2EHook_ExAllocatePoolWithTag</span><span class="p">(...)</span> <span class="p">{</span>
+    <span class="n">STRING</span> <span class="n">VarName</span> <span class="o">=</span> <span class="n">CreateVariableName</span><span class="p">(...);</span> <span class="c1">// FaultInjInvokeOrig_scanner_sys_...</span>
+    <span class="n">CHAR</span> <span class="n">C</span> <span class="o">=</span> <span class="n">CreateSymbolicValue</span><span class="p">(</span><span class="n">VarName</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ExAllocatePoolWithTag</span><span class="p">(...);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>First, the driver asks S2E to create a variable name that encodes useful information
+(e.g., the name of the called API and the address of the call site). Second, it asks S2E to create a symbolic value
+with that name. When execution reaches the if statement, S2E sees that it depends on a symbolic variable, determines that
+both branches are feasible, and splits the execution path in two. In the first path, the original API is called,
+and in the second, the API is skipped and replaced by an error code (here a null pointer). S2E implements path splitting by forking the
+entire state of the virtual machine. Each forked state is completely independent from the other states and
+can run on its own. This forking process is recursive: when <code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code>
+encounters the next API call, it forks again, eventually forming an execution tree of all possible API failures.</p>
+<p>When an execution path terminates (i.e., <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> calls <code class="docutils literal notranslate"><span class="pre">s2ecmd.exe</span> <span class="pre">kill</span></code>), S2E invokes a constraint solver
+(currently <a class="reference external" href="https://github.com/Z3Prover/z3">Z3</a>), in order to compute concrete assignments to symbolic variable.</p>
+<p>Let us know look at all the components of a symbolic variable name. They will be very useful to locate the source of
+the bug. They have five components:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">1. v0</span>
+<span class="go">2. FaultInjInvokeOrig</span>
+<span class="go">3. FltRegisterFilter</span>
+<span class="go">4. s2e_sys_13fb22717_scanner_sys_14000707e_ntoskrnl_exe_140461c37_140462035_14007ea95_140313b8a_1400668e6</span>
+<span class="go">5. 0</span>
+</pre></div>
+</div>
+<ol class="arabic">
+<li><p class="first">This is the constraint identifier, a number relative to the current state. This allows
+to easily figure out the order in which the faults have been injected.</p>
+</li>
+<li><p class="first">The fault injection library identifier. This string indicates that the variable was created by the fault injection
+library when deciding whether or not to inject a fault. This is useful to distinguish fault injector variables
+from other kinds of variables introduced by other components.</p>
+</li>
+<li><p class="first">The API function that was intercepted by the fault injection system.</p>
+</li>
+<li><p class="first">The callstack at the location of fault. This is in practice the most useful information. When you get a crash,
+look at all variables set to 0 (i.e., fault has been injected), and you will immediately know the location of the fault
+in your code. The callstack encoding omits the module name for consecutive addresses that belong to the same module.
+This helps keep the variable names shorter. In the example above, the callstack is the following:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e.sys:      13fb22717</span>
+<span class="go">scanner.sys:  14000707e</span>
+<span class="go">ntoskrnl.exe: 140461c37</span>
+<span class="go">ntoskrnl.sys: 140462035</span>
+<span class="go">ntoskrnl.sys: 14007ea95</span>
+<span class="go">ntoskrnl.sys: 140313b8a</span>
+<span class="go">ntoskrnl.sys: 1400668e6</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>You may pretty-print the addresses using <code class="docutils literal notranslate"><span class="pre">pdbparser.exe</span></code> from the <code class="docutils literal notranslate"><span class="pre">guest-tools</span></code> repository. Please refer
+to the <code class="docutils literal notranslate"><span class="pre">guest-tools</span></code> <a class="reference external" href="https://github.com/S2E/s2e/blob/master/guest/windows/README.md">readme</a> for more details
+about how to use <code class="docutils literal notranslate"><span class="pre">pdbparser.exe</span></code>.</p>
+</li>
+<li><p class="first">Global variable identifier. This integer suffix ensures that the variable name is globally unique.
+Also, note that S2E replaces any special characters in the variable name
+by underscores, in order to make sure that the names are valid for the solver.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="customizing-fault-injection">
+<h2><a class="toc-backref" href="#id12">Customizing Fault Injection</a><a class="headerlink" href="#customizing-fault-injection" title="Permalink to this headline">¶</a></h2>
+<p>In the previous sections, you have learnt how to use S2E to test error recovery code. In this section, we will show
+how you can extend S2E’s fault injection capabilities, e.g., by adding support for new APIs.</p>
+<p>This process is very simple:</p>
+<ol class="arabic simple">
+<li>Look at the code coverage and locate API calls that were not exercised</li>
+<li>For each API call, determine its error codes and pick one for injection (typically <code class="docutils literal notranslate"><span class="pre">STATUS_INSUFFICIENT_RESOURCES</span></code>
+will do).</li>
+<li>Create and register a hook function that will intercept the original call and inject the fault.
+Just copy/paste existing examples in <code class="docutils literal notranslate"><span class="pre">guest-tools/windows/driver/src/faultinj</span></code>.</li>
+<li>Rebuild the driver and place it in the <code class="docutils literal notranslate"><span class="pre">guest-tools</span></code> folder of your S2E project.</li>
+</ol>
+<p><strong>Note:</strong></p>
+<ul class="simple">
+<li>In general, a concrete error code is sufficient. You may also want to create a symbolic value instead, constrained
+to the set of errors that the original API might return.</li>
+</ul>
+</div>
+<div class="section" id="debugging-tips">
+<h2><a class="toc-backref" href="#id13">Debugging Tips</a><a class="headerlink" href="#debugging-tips" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Make sure that you have the latest <code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code> binary. We provide a binary version of this file on GitHub, which should
+be fetched by the S2E build system. This file may sometimes be outdated. In case of doubt, rebuild the <code class="docutils literal notranslate"><span class="pre">s2e.sln</span></code>
+solution, then run <code class="docutils literal notranslate"><span class="pre">makedist.bat</span></code>, and copy the driver files in <code class="docutils literal notranslate"><span class="pre">guest-tools/windows/dist</span></code> to the <code class="docutils literal notranslate"><span class="pre">guest-tools</span></code>
+directory of your project.
+Refer to this <a class="reference external" href="https://github.com/S2E/s2e/blob/master/guest/windows/README.md">readme</a> for more information about
+how to build <code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code>.</li>
+<li>If you do not see any output at all and execution terminates in a few seconds, check that <code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code> got loaded
+properly. If you see output form <code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code> but the coverage file is empty, check that the tested driver loaded properly.
+The <code class="docutils literal notranslate"><span class="pre">serial.txt</span></code> file contains the console output. If <code class="docutils literal notranslate"><span class="pre">sc.exe</span></code> fails for whatever reason, you will see why.
+If you see something like <em>This driver has been blocked from loading</em>, make sure you did not copy the 32-bit build
+by mistake (or the 64-bit build if you use a 32-bit guest).</li>
+<li>If the console shows something that looks like a kernel crash and a backtrace of the driver very early on,
+check that you changed the target platform to Windows 7. Running a driver compiled for Windows 8 and later will crash
+on Windows 7 because that OS does not support stack cookies.</li>
+<li>Enable graphics output in <code class="docutils literal notranslate"><span class="pre">launch-s2e.sh</span></code>. This way, you will see the guest’s GUI and will be able to run
+additional Windows tools (e.g., looking at the event viewer). The VM contains the Sysinternals tools in
+<code class="docutils literal notranslate"><span class="pre">c:\sysinternals</span></code> which may help with debugging.</li>
+<li>Coverage information is by default written when an execution path terminates. It may not be written if you terminate S2E by
+killing it or closing its window. If the path seems to have run for a long time, open a terminal in the guest
+and run <code class="docutils literal notranslate"><span class="pre">c:\s2e\s2ecmd.exe</span> <span class="pre">kill</span> <span class="pre">0</span> <span class="pre">0</span></code>. Alternatively, you can use the <code class="docutils literal notranslate"><span class="pre">writeCoveragePeriod</span></code> option of the
+<code class="docutils literal notranslate"><span class="pre">TranslationBlockCoverage</span></code> plugin in order to periodically dump coverage of the currently running state.</li>
+<li>It may happen that the coverage report shows that some error recovery code is not exercised from one run to the next.
+S2E does not seem to terminate properly, some <code class="docutils literal notranslate"><span class="pre">debug.txt</span></code> logs are truncated. This is most likely due to an
+out-of-memory error. Make sure you have enough memory to run S2E, especially if you run in parallel mode.
+You may also need to run <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">sysctl</span> <span class="pre">-w</span> <span class="pre">vm.max_map_count=655350</span></code> in order to increase the number of permitted memory
+allocations.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Revgen/Revgen.html" class="btn btn-neutral float-right" title="Translating binaries to LLVM with Revgen" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../WindowsDLL/index.html" class="btn btn-neutral" title="Analysis of Windows DLLs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Cyberhaven
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-75283635-2', 'auto');
+      ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

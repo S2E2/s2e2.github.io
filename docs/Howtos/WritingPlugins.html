@@ -1,0 +1,815 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>How to Write an S2E plugin &mdash; S2E 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Instrumenting guest code with Lua" href="LuaInstrumentation.html" />
+    <link rel="prev" title="Customizing stock VM images" href="../ImageInstallation.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> S2E
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../s2e-env.html">Start here: setting up S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../s2e-env.html#using-s2e-env">Using s2e-env</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#creating-a-new-environment">Creating a new environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../s2e-env.html#s2e-activate"><code class="docutils literal notranslate"><span class="pre">s2e_activate</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#building-s2e">Building S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#updating-the-source-code">Updating the source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#building-an-image">Building an image</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../s2e-env.html#windows-images">Windows images</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#creating-a-new-analysis-project">Creating a new analysis project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#target-program-arguments">Target program arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#using-seed-files">Using seed files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#running-your-analysis">Running your analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#parsing-an-execution-trace">Parsing an execution trace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#importing-and-exporting-projects">Importing and exporting projects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../s2e-env.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../BuildingS2E.html">Building the S2E platform manually</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BuildingS2E.html#building-using-docker">Building using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BuildingS2E.html#building-s2e-manually">Building S2E manually</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../BuildingS2E.html#required-packages">Required packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../BuildingS2E.html#checking-out-s2e">Checking out S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../BuildingS2E.html#building">Building</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../BuildingS2E.html#updating">Updating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../BuildingS2E.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/s2e.so.html">Symbolic Execution of Linux Binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/s2e.so.html#getting-started">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/s2e.so.html#using-s2e-so">Using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/s2e.so.html#what-about-other-symbolic-input">What about other symbolic input?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/s2e.so.html#configuring-s2e-for-use-with-s2e-so">Configuring S2E for use with <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/s2e.so.html#modifying-and-building-s2e-so">Modifying and building <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/SourceCode.html">Instrumenting Program Source Code for S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/SourceCode.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/SourceCode.html#compiling-and-running">Compiling and running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/SourceCode.html#preparing-the-program-for-symbolic-execution">Preparing the program for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/SourceCode.html#running-the-program-in-s2e">Running the program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/SourceCode.html#terminating-execution-paths">Terminating execution paths</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Use Cases</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/PoV/pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/PoV/pov.html#using-symbolic-execution-to-generate-povs">Using Symbolic Execution to Generate PoVs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/pov.html#identifying-advanced-vulnerability-patterns-with-s2e">Identifying Advanced Vulnerability Patterns with S2E</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/PoV/pov.html#function-pointer-overwrite">Function Pointer Overwrite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/PoV/pov.html#arbitrary-writes">Arbitrary Writes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/PoV/pov.html#arbitrary-reads">Arbitrary Reads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/PoV/pov.html#function-calls-with-symbolic-parameters">Function Calls with Symbolic Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/pov.html#generating-replayable-povs">Generating Replayable PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/pov.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/PoV/index.html">Using S2E to generate PoVs for Linux, Windows, and CGC binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/index.html#quickstart-on-windows-and-linux">Quickstart on Windows and Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/index.html#understanding-recipes">Understanding recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/index.html#povs-for-darpa-decree-cgc-binaries">PoVs for DARPA Decree/CGC binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/index.html#understanding-cgc-style-povs">Understanding CGC-style PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/index.html#plugin-architecture-overview">Plugin architecture overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/index.html#plugins-involved-in-pov-generation">Plugins involved in PoV generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/index.html#the-bootstrap-script">The bootstrap script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/kaitai-s2e">Combining Kaitai Struct and S2E for analyzing parsers [external]</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/malware-s2e">Analyzing trigger-based malware with S2E [external]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/SystemTap/index.html">Using SystemTap with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/SystemTap/index.html#building-and-running-systemtap-in-s2e">Building and running SystemTap in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/SystemTap/index.html#creating-a-simple-systemtap-script-for-symbolic-execution">Creating a simple SystemTap script for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/SystemTap/index.html#running-the-script-in-s2e">Running the script in S2E</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/WindowsDLL/index.html">Analysis of Windows DLLs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDLL/index.html#preparing-the-test-environment">Preparing the test environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDLL/index.html#generate-basic-block-coverage">Generate basic block coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html">Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#setting-up-s2e">Setting up S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#setting-up-the-windows-environment">Setting up the Windows Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#building-the-sample-driver">Building the Sample Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#creating-an-s2e-driver-project">Creating an S2E Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#customizing-the-driver-project">Customizing the Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#running-the-driver">Running the Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#getting-code-coverage-reports">Getting Code Coverage Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#testing-error-recovery-code">Testing Error Recovery Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#generating-crash-dumps">Generating Crash Dumps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#understanding-s2e-logs-and-test-cases">Understanding S2E Logs and Test Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#customizing-fault-injection">Customizing Fault Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#debugging-tips">Debugging Tips</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html">Translating binaries to LLVM with Revgen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#using-revgen">Using Revgen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#prerequisites">1. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#build-the-cgc-binaries">2. Build the CGC binaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#translating-a-binary">3. Translating a binary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#running-a-translated-cgc-binary">4. Running a translated CGC binary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#design-and-implementation">Design and implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#translating-basic-blocks-to-llvm">Translating basic blocks to LLVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#stitching-basic-blocks-into-functions">Stitching basic blocks into functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#assumptions">Assumptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#running-translated-binaries">Running translated binaries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#evaluation">Evaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../EquivalenceTesting.html">Equivalence Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../EquivalenceTesting.html#program-to-test">Program to Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../EquivalenceTesting.html#configuring-s2e">Configuring S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../EquivalenceTesting.html#running-the-program-in-s2e">Running the Program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../EquivalenceTesting.html#interpreting-the-results">Interpreting the Results</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Howtos</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Coverage/index.html">Measuring code coverage with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Coverage/index.html#building-coreutils">Building Coreutils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Coverage/index.html#running-coreutils-concretely-in-s2e">Running Coreutils concretely in S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Coverage/index.html#generating-line-coverage">Generating line coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Coverage/index.html#line-coverage-for-shared-libraries">Line coverage for shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Coverage/index.html#basic-block-coverage">Basic block coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Coverage/index.html#code-coverage-during-symbolic-execution">Code coverage during symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Coverage/index.html#how-does-s2e-record-and-compute-coverage">How does S2E record and compute coverage?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Coverage/index.html#line-coverage-for-the-linux-kernel">Line coverage for the Linux kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Coverage/index.html#line-coverage-for-windows-binaries">Line coverage for Windows binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Coverage/index.html#debugging-code-coverage">Debugging code coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Parallel.html">Running S2E on multiple cores</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Parallel.html#how-do-i-process-generated-traces">How do I process generated traces?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Parallel.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ExecutionTracers.html">Using execution tracers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ExecutionTracers.html#recording-basic-traces">1. Recording basic traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExecutionTracers.html#analyzing-traces">2. Analyzing traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExecutionTracers.html#recording-memory-traces">3. Recording memory traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExecutionTracers.html#trace-format-reference">4. Trace format reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ImageInstallation.html">Customizing stock VM images</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ImageInstallation.html#image-creation-overview">Image creation overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ImageInstallation.html#building-linux-images">Building Linux images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ImageInstallation.html#building-windows-images">Building Windows images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ImageInstallation.html#when-should-i-install-my-software">When should I install my software?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ImageInstallation.html#the-s2e-vm-image-format">The S2E VM image format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ImageInstallation.html#general-guidelines-for-vm-images">General guidelines for VM images</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Writing S2E plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#starting-with-an-empty-plugin">Starting with an Empty Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reading-configuration-parameters">Reading Configuration Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instrumenting-instructions">Instrumenting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#counting-instructions">Counting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exporting-events">Exporting Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LuaInstrumentation.html">Instrumenting guest code with Lua</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="LuaInstrumentation.html#instrumenting-function-calls-and-returns">Instrumenting function calls and returns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LuaInstrumentation.html#instrumenting-instructions">Instrumenting instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LuaInstrumentation.html#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="LuaInstrumentation.html#luas2eexecutionstate">LuaS2EExecutionState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LuaInstrumentation.html#luas2eexecutionstatememory">LuaS2EExecutionStateMemory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LuaInstrumentation.html#luas2eexecutionstateregisters">LuaS2EExecutionStateRegisters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LuaInstrumentation.html#luafunctioninstrumentationstate">LuaFunctionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LuaInstrumentation.html#luainstructioninstrumentationstate">LuaInstructionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LuaInstrumentation.html#luaexpression">LuaExpression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LuaInstrumentation.html#the-g-s2e-object">The <code class="docutils literal notranslate"><span class="pre">g_s2e</span></code> object</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Concolic.html">Analyzing large programs using concolic execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Concolic.html#faq">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../StateMerging.html">Exponential Analysis Speedup with State Merging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../StateMerging.html#using-state-merging-in-s2e">Using State Merging in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../StateMerging.html#state-merging-api">State Merging API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../StateMerging.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools/ForkProfiler.html">Debugging path explosion with the fork profiler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tools/ForkProfiler.html#using-the-fork-profile-to-debug-path-explosion">Using the fork profile to debug path explosion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently Asked Questions (FAQ)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FAQ.html#how-do-i-know-what-s2e-is-doing">How do I know what S2E is doing?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FAQ.html#execution-seems-stuck-slow-what-to-do">Execution seems stuck/slow. What to do?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FAQ.html#how-do-i-deal-with-path-explosion">How do I deal with path explosion?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FAQ.html#how-to-keep-memory-usage-low">How to keep memory usage low?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FAQ.html#how-much-time-is-the-constraint-solver-taking-to-solve-constraints">How much time is the constraint solver taking to solve constraints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FAQ.html#what-do-the-various-fields-in-run-stats-mean">What do the various fields in <code class="docutils literal notranslate"><span class="pre">run.stats</span></code> mean?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#emulating-the-kvm-interface">Emulating the KVM interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#using-system-call-hooks-for-emulation">Using system call hooks for emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#differences-between-actual-kvm-and-kvm-emulation">Differences between actual KVM and KVM emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#adding-symbolic-execution-capabilities-to-kvm">Adding symbolic execution capabilities to KVM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#multi-path-execution">Multi-path execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#handling-symbolic-data">Handling symbolic data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#reference">Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#dynamic-binary-translation">Dynamic binary translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#registering-memory-regions">Registering memory regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#accessing-guest-memory">Accessing guest memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#interrupting-execution">Interrupting execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#virtual-disk-i-o">Virtual disk I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#saving-restoring-device-snapshots">Saving/restoring device snapshots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#setting-the-clock-scale-pointer">Setting the clock scale pointer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#kvm-run-exit-codes">KVM_RUN exit codes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Contribute.html">Contributing to S2E</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Profiling/ProfilingS2E.html">Profiling S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Profiling/ProfilingS2E.html#profiling-memory-usage">Profiling memory usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Profiling/ProfilingS2E.html#profiling-cpu-performance">Profiling CPU performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../DebuggingS2E.html">Debugging S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../DebuggingS2E.html#the-obvious-checks">The obvious checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DebuggingS2E.html#record-replay">Record-replay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DebuggingS2E.html#valgrind">Valgrind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DebuggingS2E.html#debugging-with-gdb">Debugging with gdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DebuggingS2E.html#s2e-kernel-debugging">S2E kernel debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DebuggingS2E.html#s2e-debug-functions">S2E debug functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Testsuite.html">S2E Testsuite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Testsuite.html#building-the-testsuite">Building the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Testsuite.html#running-the-testsuite">Running the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Testsuite.html#adding-your-own-tests">Adding your own tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Testsuite.html#test-configuration-reference">Test configuration reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../WindowsEnvSetup.html">Setting up a Windows development environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsEnvSetup.html#provisioning-a-windows-development-vm">1. Provisioning a Windows development VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsEnvSetup.html#building-visual-studio-projects-remotely">2. Building Visual Studio projects remotely</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsEnvSetup.html#use-case-building-and-running-a-windows-device-driver">3. Use case: building and running a Windows device driver</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Linux/LinuxMonitor.html#required-plugins">Required Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/Windows/WindowsMonitor.html">WindowsMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Windows/WindowsMonitor.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/RawMonitor.html">RawMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/RawMonitor.html#custom-instruction">Custom Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/RawMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/RawMonitor.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/ModuleExecutionDetector.html">ModuleExecutionDetector</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/ModuleExecutionDetector.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/Tracers/ExecutionTracer.html">ExecutionTracer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Tracers/ExecutionTracer.html#executiontracer">ExecutionTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Tracers/ExecutionTracer.html#moduletracer">ModuleTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Tracers/ExecutionTracer.html#testcasegenerator">TestCaseGenerator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Tracers/ExecutionTracer.html#memorytracer">MemoryTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Tracers/ExecutionTracer.html#translationblocktracer">TranslationBlockTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Tracers/ExecutionTracer.html#instructiontracer">InstructionTracer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/FunctionMonitor.html">FunctionMonitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/Linux/FunctionModels.html">FunctionModels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Linux/FunctionModels.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Linux/FunctionModels.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/EdgeKiller.html">EdgeKiller</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/EdgeKiller.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/EdgeKiller.html#required-plugins">Required Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/EdgeKiller.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">S2E</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>How to Write an S2E plugin</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/Howtos/WritingPlugins.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="how-to-write-an-s2e-plugin">
+<h1>How to Write an S2E plugin<a class="headerlink" href="#how-to-write-an-s2e-plugin" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, we show step-by-step how to write a complete plugin that uses most of the features of the S2E plugin
+infrastructure. We take the example of a plugin that counts how many times a specific instruction has been executed.
+Users of that plugin can specify the instruction to watch in the S2E configuration file. We will also show how to build
+the plugin so that it can communicate with other plugins and expose reusable functionality.</p>
+<div class="section" id="starting-with-an-empty-plugin">
+<h2>Starting with an Empty Plugin<a class="headerlink" href="#starting-with-an-empty-plugin" title="Permalink to this headline">¶</a></h2>
+<p>The first thing to do is to name the plugin and create boilerplate code. Let us name the plugin <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code>.
+You can copy/paste the <code class="docutils literal notranslate"><span class="pre">Example</span></code> plugin that ships with S2E (in the <a class="reference external" href="https://github.com/S2E/s2e/tree/master/libs2eplugins">libs2eplugins</a> directory).</p>
+<p>Create a file named <code class="docutils literal notranslate"><span class="pre">InstructionTracker.h</span></code> in <code class="docutils literal notranslate"><span class="pre">$S2EDIR/libs2eplugins/src/s2e/Plugins</span></code> with the following content:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef S2E_PLUGINS_INSTRTRACKER_H</span>
+<span class="cp">#define S2E_PLUGINS_INSTRTRACKER_H</span>
+
+<span class="c1">// These header files are located in libs2ecore</span>
+<span class="cp">#include</span> <span class="cpf">&lt;s2e/Plugin.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;s2e/CorePlugin.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;s2e/S2EExecutionState.h&gt;</span><span class="cp"></span>
+
+<span class="k">namespace</span> <span class="n">s2e</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="n">plugins</span> <span class="p">{</span>
+
+<span class="k">class</span> <span class="nc">InstructionTracker</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Plugin</span> <span class="p">{</span>
+    <span class="n">S2E_PLUGIN</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">InstructionTracker</span><span class="p">(</span><span class="n">S2E</span> <span class="o">*</span><span class="n">s2e</span><span class="p">)</span> <span class="o">:</span> <span class="n">Plugin</span><span class="p">(</span><span class="n">s2e</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="kt">void</span> <span class="n">initialize</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="p">}</span> <span class="c1">// namespace plugins</span>
+<span class="p">}</span> <span class="c1">// namespace s2e</span>
+
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+<p>Then, create the corresponding <code class="docutils literal notranslate"><span class="pre">InstructionTracker.cpp</span></code> file in the same directory:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;s2e/S2E.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;InstructionTracker.h&quot;</span><span class="cp"></span>
+
+<span class="k">namespace</span> <span class="n">s2e</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="n">plugins</span> <span class="p">{</span>
+
+<span class="c1">// Define a plugin whose class is InstructionTracker and called &quot;InstructionTracker&quot;</span>
+<span class="n">S2E_DEFINE_PLUGIN</span><span class="p">(</span><span class="n">InstructionTracker</span><span class="p">,</span>                   <span class="c1">// Plugin class</span>
+                  <span class="s">&quot;Tutorial - Tracking instructions&quot;</span><span class="p">,</span>   <span class="c1">// Description</span>
+                  <span class="s">&quot;InstructionTracker&quot;</span><span class="p">,</span>                 <span class="c1">// Plugin function name</span>
+                  <span class="c1">// Plugin dependencies would normally go here. However this plugin does not have any dependencies</span>
+                  <span class="p">);</span>
+
+<span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">initialize</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="p">}</span> <span class="c1">// namespace plugins</span>
+<span class="p">}</span> <span class="c1">// namespace s2e</span>
+</pre></div>
+</div>
+<p>Finally, we need to compile the plugin with the rest of S2E. For this, add the following line to
+<code class="docutils literal notranslate"><span class="pre">$S2EDIR/libs2eplugins/src/CMakeLists.txt</span></code>, near the other plugin declarations:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s2e</span><span class="o">/</span><span class="n">Plugins</span><span class="o">/</span><span class="n">InstructionTracker</span><span class="o">.</span><span class="n">cpp</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reading-configuration-parameters">
+<h2>Reading Configuration Parameters<a class="headerlink" href="#reading-configuration-parameters" title="Permalink to this headline">¶</a></h2>
+<p>We would like to let the user specify which instruction to monitor. For this, we create a configuration variable that
+stores the address of that instruction. Every plugin can have an entry in the S2E configuration file. The entry for our
+plugin would look like this:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">pluginsConfig</span><span class="p">.</span><span class="n">InstructionTracker</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">-- The address we want to track</span>
+    <span class="n">addressToTrack</span> <span class="o">=</span> <span class="mh">0x12345</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We also need to add our plugin to the <code class="docutils literal notranslate"><span class="pre">Plugins</span></code> table. This can be done one of two ways:</p>
+<ul class="simple">
+<li>If using <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>, add a call to <code class="docutils literal notranslate"><span class="pre">add_plugin</span></code> to <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code>.</li>
+</ul>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;InstructionTracker&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>If not using <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>, you will have to create the <code class="docutils literal notranslate"><span class="pre">Plugins</span></code> table yourself:</li>
+</ul>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">Plugins</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">-- List other plugins here</span>
+    <span class="s2">&quot;InstructionTracker&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If we run the plugin as it is now, nothing will happen. S2E ignores any unknown configuration value. We need a
+mechanism to explicitly retrieve the configuration value. In S2E, plugins can retrieve the configuration at any time.
+In our case, we do it during the initialization phase.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// From libs2ecore. We need this to read configuration files</span>
+<span class="cp">#include</span> <span class="cpf">&lt;s2e/ConfigFile.h&gt;</span><span class="cp"></span>
+
+<span class="c1">// ...</span>
+
+<span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">initialize</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">m_address</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint64_t</span><span class="p">)</span> <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getConfig</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getInt</span><span class="p">(</span><span class="n">getConfigKey</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;.addressToTrack&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Do not forget to add <code class="docutils literal notranslate"><span class="pre">uint64_t</span> <span class="pre">m_address;</span></code> as a private members of class <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code> in
+<code class="docutils literal notranslate"><span class="pre">InstructionTracker.h</span></code>.</p>
+</div>
+<div class="section" id="instrumenting-instructions">
+<h2>Instrumenting Instructions<a class="headerlink" href="#instrumenting-instructions" title="Permalink to this headline">¶</a></h2>
+<p>To instrument an instruction, an S2E plugin registers to the <code class="docutils literal notranslate"><span class="pre">onTranslateInstructionStart</span></code> core event. There are
+many other core events to which a plugin can register. These events are defined in <code class="docutils literal notranslate"><span class="pre">CorePlugin.h</span></code> in the
+<a class="reference external" href="https://github.com/S2E/s2e/tree/master/libs2ecore">libs2ecore</a> directory.</p>
+<p>Extend your code as follows. Do not forget to add all new member functions to the (private) section of the class
+declaration.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// From libs2ecore. Provides the hexval function</span>
+<span class="cp">#include</span> <span class="cpf">&lt;s2e/Utils.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">initialize</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">m_address</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint64_t</span><span class="p">)</span> <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getConfig</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getInt</span><span class="p">(</span><span class="n">getConfigKey</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;.addressToTrack&quot;</span><span class="p">);</span>
+
+    <span class="c1">// This indicates that our plugin is interested in monitoring instruction translation.</span>
+    <span class="c1">// For this, the plugin registers a callback with the onTranslateInstruction signal.</span>
+    <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getCorePlugin</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">onTranslateInstructionStart</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">sigc</span><span class="o">::</span><span class="n">mem_fun</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">InstructionTracker</span><span class="o">::</span><span class="n">onTranslateInstruction</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">onTranslateInstruction</span><span class="p">(</span><span class="n">ExecutionSignal</span> <span class="o">*</span><span class="n">signal</span><span class="p">,</span>
+                                                <span class="n">S2EExecutionState</span> <span class="o">*</span><span class="n">state</span><span class="p">,</span>
+                                                <span class="n">TranslationBlock</span> <span class="o">*</span><span class="n">tb</span><span class="p">,</span>
+                                                <span class="kt">uint64_t</span> <span class="n">pc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">m_address</span> <span class="o">==</span> <span class="n">pc</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// When we find an interesting address, ask S2E to invoke our callback when the address is actually</span>
+        <span class="c1">// executed</span>
+        <span class="n">signal</span><span class="o">-&gt;</span><span class="n">connect</span><span class="p">(</span><span class="n">sigc</span><span class="o">::</span><span class="n">mem_fun</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">InstructionTracker</span><span class="o">::</span><span class="n">onInstructionExecution</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// This callback is called only when the instruction at our address is executed.</span>
+<span class="c1">// The callback incurs zero overhead for all other instructions</span>
+<span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">onInstructionExecution</span><span class="p">(</span><span class="n">S2EExecutionState</span> <span class="o">*</span><span class="n">state</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">pc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getDebugStream</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Executing instruction at &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hexval</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+    <span class="c1">// The plugins can arbitrarily modify/observe the current execution state via the execution state pointer.</span>
+    <span class="c1">// Plugins can also call the s2e() method to use the S2E API</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="counting-instructions">
+<h2>Counting Instructions<a class="headerlink" href="#counting-instructions" title="Permalink to this headline">¶</a></h2>
+<p>We would like to count how many times that particular instruction is executed. There are two options:</p>
+<ol class="arabic simple">
+<li>Count how many times it was executed across all paths</li>
+<li>Count how many times it was executed in each path</li>
+</ol>
+<p>The first option is trivial to implement. Simply add an additional member to the class and increment it every time the
+<code class="docutils literal notranslate"><span class="pre">onInstructionExecution</span></code> callback is invoked.</p>
+<p>The second option requires to keep per-state plugin information. S2E plugins manage per-state information in a class
+that derives from <code class="docutils literal notranslate"><span class="pre">PluginState</span></code>. This class must implement a <code class="docutils literal notranslate"><span class="pre">factory</span></code> method that returns a new instance of the
+class when S2E starts symbolic execution. The <code class="docutils literal notranslate"><span class="pre">clone</span></code> method is used to fork the plugin state. Both <code class="docutils literal notranslate"><span class="pre">factory</span></code> and
+<code class="docutils literal notranslate"><span class="pre">clone</span></code> <strong>must</strong> be implemented.</p>
+<p>Here is how <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code> could implement the plugin state.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">InstructionTrackerState</span> <span class="o">:</span> <span class="k">public</span> <span class="n">PluginState</span> <span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">m_count</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">InstructionTrackerState</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">m_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">InstructionTrackerState</span><span class="p">()</span> <span class="p">{}</span>
+
+    <span class="k">static</span> <span class="n">PluginState</span> <span class="o">*</span><span class="n">factory</span><span class="p">(</span><span class="n">Plugin</span><span class="o">*</span><span class="p">,</span> <span class="n">S2EExecutionState</span><span class="o">*</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">InstructionTrackerState</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="n">InstructionTrackerState</span> <span class="o">*</span><span class="n">clone</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">InstructionTrackerState</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">increment</span><span class="p">()</span> <span class="p">{</span>
+        <span class="o">++</span><span class="n">m_count</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">get</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">m_count</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Plugin code can refer to this state using the <code class="docutils literal notranslate"><span class="pre">DECLARE_PLUGINSTATE</span></code> macro:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">onInstructionExecution</span><span class="p">(</span><span class="n">S2EExecutionState</span> <span class="o">*</span><span class="n">state</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">pc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// This macro declares the plgState variable of type InstructionTrackerState.</span>
+    <span class="c1">// It automatically takes care of retrieving the right plugin state attached to the specified execution state</span>
+    <span class="n">DECLARE_PLUGINSTATE</span><span class="p">(</span><span class="n">InstructionTrackerState</span><span class="p">,</span> <span class="n">state</span><span class="p">);</span>
+
+    <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getDebugStream</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Executing instruction at &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hexval</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+
+    <span class="c1">// Increment the count</span>
+    <span class="n">plgState</span><span class="o">-&gt;</span><span class="n">increment</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exporting-events">
+<h2>Exporting Events<a class="headerlink" href="#exporting-events" title="Permalink to this headline">¶</a></h2>
+<p>All S2E plugins can define custom events. Other plugins can in turn connect to them and also export their own events.
+This scheme is heavily used by stock S2E plugins. For example, the <a class="reference external" href="../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a>
+plugin exports a number of events (e.g. segmentation fault, module load, etc.) that can be intercepted by your own
+plugins.</p>
+<p>In this tutorial, we show how <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code> can expose an event and trigger it when the monitored instruction
+is executed ten times.</p>
+<p>First, we declare the signal as a <code class="docutils literal notranslate"><span class="pre">public</span></code> field of the <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code> class. It is important that the field
+be public, otherwise other plugins will not be able to register.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">InstructionTracker</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Plugin</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">sigc</span><span class="o">::</span><span class="n">signal</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">,</span>
+                     <span class="n">S2EExecutionState</span> <span class="o">*</span><span class="p">,</span> <span class="c1">// The first parameter of the callback is the state</span>
+                     <span class="kt">uint64_t</span>             <span class="c1">// The second parameter is an integer representing the program counter</span>
+                    <span class="o">&gt;</span> <span class="n">onPeriodicEvent</span><span class="p">;</span>
+
+    <span class="c1">//...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Second, we add some logic to trigger the event and invoke the registered callbacks.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">onInstructionExecution</span><span class="p">(</span><span class="n">S2EExecutionState</span> <span class="o">*</span><span class="n">state</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">pc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">DECLARE_PLUGINSTATE</span><span class="p">(</span><span class="n">InstructionTrackerState</span><span class="p">,</span> <span class="n">state</span><span class="p">);</span>
+
+    <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getDebugStream</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Executing instruction at &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hexval</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+
+    <span class="n">plgState</span><span class="o">-&gt;</span><span class="n">increment</span><span class="p">();</span>
+
+    <span class="c1">// Trigger the event</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">plgState</span><span class="o">-&gt;</span><span class="n">get</span><span class="p">()</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">onPeriodicEvent</span><span class="p">.</span><span class="n">emit</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">pc</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>That is all we need to define and trigger an event. To register for this event, a plugin invokes
+<code class="docutils literal notranslate"><span class="pre">s2e()-&gt;getPlugin&lt;PluginName&gt;()</span></code>, where <code class="docutils literal notranslate"><span class="pre">PluginName</span></code> is the name of the plugin as defined in the
+<code class="docutils literal notranslate"><span class="pre">S2E_DEFINE_PLUGIN</span></code> macro. In our case, a plugin named <code class="docutils literal notranslate"><span class="pre">MyClient</span></code> would do something like this in its
+initialization routine:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Include the plugin&#39;s header file</span>
+<span class="cp">#include</span> <span class="cpf">&lt;s2e/Plugins/InstructionCounter.h&gt;</span><span class="cp"></span>
+
+<span class="c1">// Specify dependencies</span>
+<span class="n">S2E_DEFINE_PLUGIN</span><span class="p">(</span><span class="n">MyClient</span><span class="p">,</span> <span class="s">&quot;We use InstructionTracker&quot;</span><span class="p">,</span> <span class="s">&quot;MyClient&quot;</span><span class="p">,</span> <span class="s">&quot;InstructionTracker&quot;</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="n">MyClient</span><span class="o">::</span><span class="n">initialize</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Get the instance of the plugin</span>
+    <span class="n">Instructiontracker</span> <span class="o">*</span><span class="n">tracker</span> <span class="o">=</span> <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getPlugin</span><span class="o">&lt;</span><span class="n">InstructionTracker</span><span class="o">&gt;</span><span class="p">();</span>
+
+    <span class="c1">// Register to custom events</span>
+    <span class="n">tracker</span><span class="o">-&gt;</span><span class="n">onPeriodicEvent</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="cm">/* Connect a handler method */</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that S2E enforces the plugin dependencies specified in the <code class="docutils literal notranslate"><span class="pre">S2E_DEFINE_PLUGIN</span></code> macro. If a dependency is not
+satisfied (e.g., the plugin is not enabled in the configuration file or is not compiled in S2E), S2E will not start and
+emit an error message instead.</p>
+<p>It is not always necessary to specify the dependencies. For example, a plugin may want to work with reduced
+functionality if a dependent plugin is missing. Attempting to call <code class="docutils literal notranslate"><span class="pre">s2e()-&gt;getPlugin()</span></code> returns <code class="docutils literal notranslate"><span class="pre">nullptr</span></code> if
+the requested plugin is missing.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="LuaInstrumentation.html" class="btn btn-neutral float-right" title="Instrumenting guest code with Lua" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../ImageInstallation.html" class="btn btn-neutral" title="Customizing stock VM images" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Cyberhaven
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-75283635-2', 'auto');
+      ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

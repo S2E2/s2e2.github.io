@@ -1,0 +1,908 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using S2E to generate PoVs for Linux, Windows, and CGC binaries &mdash; S2E 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Using SystemTap with S2E" href="../SystemTap/index.html" />
+    <link rel="prev" title="Automated Generation of Proofs of Vulnerability with S2E" href="pov.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> S2E
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../s2e-env.html">Start here: setting up S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#using-s2e-env">Using s2e-env</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#creating-a-new-environment">Creating a new environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../s2e-env.html#s2e-activate"><code class="docutils literal notranslate"><span class="pre">s2e_activate</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#building-s2e">Building S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#updating-the-source-code">Updating the source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#building-an-image">Building an image</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../s2e-env.html#windows-images">Windows images</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#creating-a-new-analysis-project">Creating a new analysis project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#target-program-arguments">Target program arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#using-seed-files">Using seed files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#running-your-analysis">Running your analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#parsing-an-execution-trace">Parsing an execution trace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#importing-and-exporting-projects">Importing and exporting projects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../BuildingS2E.html">Building the S2E platform manually</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../BuildingS2E.html#building-using-docker">Building using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../BuildingS2E.html#building-s2e-manually">Building S2E manually</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#required-packages">Required packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#checking-out-s2e">Checking out S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#building">Building</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#updating">Updating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html">Symbolic Execution of Linux Binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#getting-started">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#using-s2e-so">Using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#what-about-other-symbolic-input">What about other symbolic input?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#configuring-s2e-for-use-with-s2e-so">Configuring S2E for use with <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#modifying-and-building-s2e-so">Modifying and building <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html">Instrumenting Program Source Code for S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#compiling-and-running">Compiling and running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#preparing-the-program-for-symbolic-execution">Preparing the program for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#running-the-program-in-s2e">Running the program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#terminating-execution-paths">Terminating execution paths</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Use Cases</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pov.html#using-symbolic-execution-to-generate-povs">Using Symbolic Execution to Generate PoVs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pov.html#identifying-advanced-vulnerability-patterns-with-s2e">Identifying Advanced Vulnerability Patterns with S2E</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pov.html#function-pointer-overwrite">Function Pointer Overwrite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pov.html#arbitrary-writes">Arbitrary Writes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pov.html#arbitrary-reads">Arbitrary Reads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pov.html#function-calls-with-symbolic-parameters">Function Calls with Symbolic Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pov.html#generating-replayable-povs">Generating Replayable PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pov.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using S2E to generate PoVs for Linux, Windows, and CGC binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#quickstart-on-windows-and-linux">Quickstart on Windows and Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#understanding-recipes">Understanding recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#povs-for-darpa-decree-cgc-binaries">PoVs for DARPA Decree/CGC binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#understanding-cgc-style-povs">Understanding CGC-style PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plugin-architecture-overview">Plugin architecture overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plugins-involved-in-pov-generation">Plugins involved in PoV generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-bootstrap-script">The bootstrap script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/kaitai-s2e">Combining Kaitai Struct and S2E for analyzing parsers [external]</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/malware-s2e">Analyzing trigger-based malware with S2E [external]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemTap/index.html">Using SystemTap with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SystemTap/index.html#building-and-running-systemtap-in-s2e">Building and running SystemTap in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SystemTap/index.html#creating-a-simple-systemtap-script-for-symbolic-execution">Creating a simple SystemTap script for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SystemTap/index.html#running-the-script-in-s2e">Running the script in S2E</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../WindowsDLL/index.html">Analysis of Windows DLLs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDLL/index.html#preparing-the-test-environment">Preparing the test environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDLL/index.html#generate-basic-block-coverage">Generate basic block coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html">Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#setting-up-s2e">Setting up S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#setting-up-the-windows-environment">Setting up the Windows Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#building-the-sample-driver">Building the Sample Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#creating-an-s2e-driver-project">Creating an S2E Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#customizing-the-driver-project">Customizing the Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#running-the-driver">Running the Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#getting-code-coverage-reports">Getting Code Coverage Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#testing-error-recovery-code">Testing Error Recovery Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#generating-crash-dumps">Generating Crash Dumps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#understanding-s2e-logs-and-test-cases">Understanding S2E Logs and Test Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#customizing-fault-injection">Customizing Fault Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#debugging-tips">Debugging Tips</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Revgen/Revgen.html">Translating binaries to LLVM with Revgen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Revgen/Revgen.html#using-revgen">Using Revgen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#prerequisites">1. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#build-the-cgc-binaries">2. Build the CGC binaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#translating-a-binary">3. Translating a binary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#running-a-translated-cgc-binary">4. Running a translated CGC binary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Revgen/Revgen.html#design-and-implementation">Design and implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#translating-basic-blocks-to-llvm">Translating basic blocks to LLVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#stitching-basic-blocks-into-functions">Stitching basic blocks into functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#assumptions">Assumptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#running-translated-binaries">Running translated binaries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Revgen/Revgen.html#evaluation">Evaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../EquivalenceTesting.html">Equivalence Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#program-to-test">Program to Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#configuring-s2e">Configuring S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#running-the-program-in-s2e">Running the Program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#interpreting-the-results">Interpreting the Results</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Howtos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/Coverage/index.html">Measuring code coverage with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/Coverage/index.html#building-coreutils">Building Coreutils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/Coverage/index.html#running-coreutils-concretely-in-s2e">Running Coreutils concretely in S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/Coverage/index.html#generating-line-coverage">Generating line coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-shared-libraries">Line coverage for shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#basic-block-coverage">Basic block coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#code-coverage-during-symbolic-execution">Code coverage during symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#how-does-s2e-record-and-compute-coverage">How does S2E record and compute coverage?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-the-linux-kernel">Line coverage for the Linux kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-windows-binaries">Line coverage for Windows binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#debugging-code-coverage">Debugging code coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MovingFiles.html">Copying files between the host and the guest</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/Parallel.html">Running S2E on multiple cores</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Parallel.html#how-do-i-process-generated-traces">How do I process generated traces?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Parallel.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/ExecutionTracers.html">Using execution tracers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#recording-basic-traces">1. Recording basic traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#analyzing-traces">2. Analyzing traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#recording-memory-traces">3. Recording memory traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#trace-format-reference">4. Trace format reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ImageInstallation.html">Customizing stock VM images</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#image-creation-overview">Image creation overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#building-linux-images">Building Linux images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#building-windows-images">Building Windows images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#when-should-i-install-my-software">When should I install my software?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#the-s2e-vm-image-format">The S2E VM image format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#general-guidelines-for-vm-images">General guidelines for VM images</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/WritingPlugins.html">Writing S2E plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#starting-with-an-empty-plugin">Starting with an Empty Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#reading-configuration-parameters">Reading Configuration Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#instrumenting-instructions">Instrumenting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#counting-instructions">Counting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#exporting-events">Exporting Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html">Instrumenting guest code with Lua</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#instrumenting-function-calls-and-returns">Instrumenting function calls and returns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#instrumenting-instructions">Instrumenting instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luas2eexecutionstate">LuaS2EExecutionState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luas2eexecutionstatememory">LuaS2EExecutionStateMemory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luas2eexecutionstateregisters">LuaS2EExecutionStateRegisters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luafunctioninstrumentationstate">LuaFunctionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luainstructioninstrumentationstate">LuaInstructionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luaexpression">LuaExpression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#the-g-s2e-object">The <code class="docutils literal notranslate"><span class="pre">g_s2e</span></code> object</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/Concolic.html">Analyzing large programs using concolic execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Concolic.html#faq">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../StateMerging.html">Exponential Analysis Speedup with State Merging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#using-state-merging-in-s2e">Using State Merging in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#state-merging-api">State Merging API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools/ForkProfiler.html">Debugging path explosion with the fork profiler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tools/ForkProfiler.html#using-the-fork-profile-to-debug-path-explosion">Using the fork profile to debug path explosion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">Frequently Asked Questions (FAQ)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-do-i-know-what-s2e-is-doing">How do I know what S2E is doing?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#execution-seems-stuck-slow-what-to-do">Execution seems stuck/slow. What to do?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-do-i-deal-with-path-explosion">How do I deal with path explosion?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-to-keep-memory-usage-low">How to keep memory usage low?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-much-time-is-the-constraint-solver-taking-to-solve-constraints">How much time is the constraint solver taking to solve constraints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#what-do-the-various-fields-in-run-stats-mean">What do the various fields in <code class="docutils literal notranslate"><span class="pre">run.stats</span></code> mean?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#emulating-the-kvm-interface">Emulating the KVM interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#using-system-call-hooks-for-emulation">Using system call hooks for emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#differences-between-actual-kvm-and-kvm-emulation">Differences between actual KVM and KVM emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#adding-symbolic-execution-capabilities-to-kvm">Adding symbolic execution capabilities to KVM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#multi-path-execution">Multi-path execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#handling-symbolic-data">Handling symbolic data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#reference">Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#dynamic-binary-translation">Dynamic binary translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#registering-memory-regions">Registering memory regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#accessing-guest-memory">Accessing guest memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#interrupting-execution">Interrupting execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#virtual-disk-i-o">Virtual disk I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#saving-restoring-device-snapshots">Saving/restoring device snapshots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#setting-the-clock-scale-pointer">Setting the clock scale pointer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#kvm-run-exit-codes">KVM_RUN exit codes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contribute.html">Contributing to S2E</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Profiling/ProfilingS2E.html">Profiling S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Profiling/ProfilingS2E.html#profiling-memory-usage">Profiling memory usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Profiling/ProfilingS2E.html#profiling-cpu-performance">Profiling CPU performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../DebuggingS2E.html">Debugging S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#the-obvious-checks">The obvious checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#record-replay">Record-replay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#valgrind">Valgrind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#debugging-with-gdb">Debugging with gdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#s2e-kernel-debugging">S2E kernel debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#s2e-debug-functions">S2E debug functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Testsuite.html">S2E Testsuite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#building-the-testsuite">Building the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#running-the-testsuite">Running the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#adding-your-own-tests">Adding your own tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#test-configuration-reference">Test configuration reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../WindowsEnvSetup.html">Setting up a Windows development environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#provisioning-a-windows-development-vm">1. Provisioning a Windows development VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#building-visual-studio-projects-remotely">2. Building Visual Studio projects remotely</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#use-case-building-and-running-a-windows-device-driver">3. Use case: building and running a Windows device driver</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html#required-plugins">Required Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Windows/WindowsMonitor.html">WindowsMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Windows/WindowsMonitor.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/RawMonitor.html">RawMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/RawMonitor.html#custom-instruction">Custom Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/RawMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/RawMonitor.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/ModuleExecutionDetector.html">ModuleExecutionDetector</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/ModuleExecutionDetector.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html">ExecutionTracer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#executiontracer">ExecutionTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#moduletracer">ModuleTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#testcasegenerator">TestCaseGenerator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#memorytracer">MemoryTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#translationblocktracer">TranslationBlockTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#instructiontracer">InstructionTracer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/FunctionMonitor.html">FunctionMonitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Linux/FunctionModels.html">FunctionModels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/FunctionModels.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/FunctionModels.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/EdgeKiller.html">EdgeKiller</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/EdgeKiller.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/EdgeKiller.html#required-plugins">Required Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/EdgeKiller.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">S2E</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Using S2E to generate PoVs for Linux, Windows, and CGC binaries</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/Tutorials/PoV/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-s2e-to-generate-povs-for-linux-windows-and-cgc-binaries">
+<h1>Using S2E to generate PoVs for Linux, Windows, and CGC binaries<a class="headerlink" href="#using-s2e-to-generate-povs-for-linux-windows-and-cgc-binaries" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, you will learn:</p>
+<ul class="simple">
+<li>How to configure S2E in order to automatically generated proofs of vulnerability (PoVs) for Linux,
+Windows, and Decree binaries.</li>
+<li>How S2E implements PoV generation, so that you can extend it for your own needs. We will show an overview
+of the S2E plugin architecture as well as the plugins involved in PoV generation.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<dl class="last docutils">
+<dt>Before starting this tutorial, make sure that…</dt>
+<dd><ul class="first last simple">
+<li>you understand the <a class="reference external" href="pov.html">theory</a> behind automated PoV generation</li>
+<li>you have a working S2E environment ready (e.g, in the <code class="docutils literal notranslate"><span class="pre">~/s2e/env/</span></code> directory)</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="quickstart-on-windows-and-linux">
+<h2>Quickstart on Windows and Linux<a class="headerlink" href="#quickstart-on-windows-and-linux" title="Permalink to this headline">¶</a></h2>
+<p>S2E comes with a <code class="docutils literal notranslate"><span class="pre">vulnerabilities</span></code> demo which demonstrates several types of vulnerabilities that S2E can detect.
+You can find the corresponding source file in
+<a class="reference external" href="https://github.com/S2E/s2e/blob/master/guest/common/demos/vulnerabilities.c">vulnerabilities.c</a>.</p>
+<ol class="arabic simple">
+<li>Build the guest tools. We will use the 32-bit Linux version here.
+You may also use the 64-bit version and/or the Windows version (in <code class="docutils literal notranslate"><span class="pre">guest-tools{32|64}-win</span></code>).</li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/s2e/env/build/s2e/guest-tools32
+<span class="gp">$</span> make
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Create an analysis project</li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/s2e/env
+<span class="gp">$</span> s2e new_project -i debian-9.2.1-i386 -n vuln-lin32-32 --enable-pov-generation <span class="se">\</span>
+  build/s2e/guest-tools32/common/demos/vulnerabilities @@
+</pre></div>
+</div>
+<p>Here is a breakdown of the <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">new_project</span></code> command above:</p>
+<ul class="simple">
+<li>It creates a new project called <code class="docutils literal notranslate"><span class="pre">vuln-lin32-32</span></code> that will run on the <code class="docutils literal notranslate"><span class="pre">debian-9.2.1-i386</span></code> image.</li>
+<li>The <code class="docutils literal notranslate"><span class="pre">--enable-pov-generation</span></code> is important in order to generate PoVs. If you omit it, you will just get random test
+cases, which will at best crash the binary depending on what the constraint solver generates. Vulnerability generation
+involves a number of additional plugins that may add overhead to the analysis, so they are disabled by default unless
+you actually need them.</li>
+<li>Finally, the <code class="docutils literal notranslate"><span class="pre">&#64;&#64;</span></code> marker tells that the binary takes as input a file. This marker will be replaced at runtime with
+an actual file containing symbolic data.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You should build the desired guest image first, or use the <code class="docutils literal notranslate"><span class="pre">-d</span></code> flag if you want to download a pre-built image
+instead. Only Linux-based images are available for download. You must build Windows images yourself.</p>
+</div>
+<ol class="arabic simple" start="3">
+<li>Launch S2E and wait until the analysis completes (it should take less than 30 seconds).</li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/s2e/env/projects/vuln-lin32-32
+<span class="gp">$</span> ./launch-s2e.sh
+</pre></div>
+</div>
+<p>Look at the files inside <code class="docutils literal notranslate"><span class="pre">~/s2e/env/projects/vuln-lin32-32/s2e-last</span></code>. This folder contains all the analysis results.
+You should have files that look like this:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ls ~/s2e/env/projects/vuln-lin32-32/s2e-last
+<span class="go">_tmp_input-crash@0x0-pov-unknown-0</span>
+<span class="go">_tmp_input-crash@0x0-pov-unknown-3</span>
+<span class="go">_tmp_input-recipe-type1_i386_generic_reg_ebp.rcp@0x8048760-pov-type1-0</span>
+<span class="go">_tmp_input-recipe-type1_i386_generic_reg_edi.rcp@0x8048760-pov-type1-0</span>
+<span class="go">_tmp_input-recipe-type1_i386_generic_shellcode_eax.rcp@0x804883e-pov-type1-3</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+<p>These are concrete input files that demonstrate the vulnerability. Pick one of them and run it on the binary on your
+host machine under GDB, as follows.</p>
+<ol class="arabic simple" start="4">
+<li>Confirm that the PoVs exercise the vulnerabilities</li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> gdb --args ./vulnerabilities s2e-last/_tmp_input-recipe-type1_i386_generic_shellcode_eax.rcp@0x804883e-pov-type1-3
+<span class="go">(gdb) r</span>
+</pre></div>
+</div>
+<p>The program should crash at program counter <code class="docutils literal notranslate"><span class="pre">0x44556677</span></code> and contain <code class="docutils literal notranslate"><span class="pre">0xccddeeff</span></code> in the <code class="docutils literal notranslate"><span class="pre">eax</span></code> register.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Starting program: /home/user/s2e/env/projects/vuln-lin32-32/vulnerabilities</span>
+<span class="go">     s2e-last/_tmp_input-recipe-type1_i386_generic_shellcode_eax.rcp@0x804883e-pov-type1-3</span>
+
+<span class="go">Demoing function pointer overwrite</span>
+
+<span class="go">Program received signal SIGSEGV, Segmentation fault.</span>
+<span class="go">0x44556677 in ?? ()</span>
+<span class="go">(gdb) info registers</span>
+<span class="go">eax            0xccddeeff       -857870593</span>
+<span class="go">ecx            0x44556677       1146447479</span>
+<span class="go">edx            0x40     64</span>
+<span class="go">ebx            0x0      0</span>
+<span class="go">esp            0xffffcd1c       0xffffcd1c</span>
+<span class="go">ebp            0xffffcd68       0xffffcd68</span>
+<span class="go">esi            0x804b008        134524936</span>
+<span class="go">edi            0xf7fa2000       -134602752</span>
+<span class="go">eip            0x44556677       0x44556677</span>
+<span class="go">eflags         0x10246  [ PF ZF IF RF ]</span>
+<span class="go">cs             0x23     35</span>
+<span class="go">ss             0x2b     43</span>
+<span class="go">ds             0x2b     43</span>
+<span class="go">es             0x2b     43</span>
+<span class="go">fs             0x0      0</span>
+<span class="go">gs             0x63     99</span>
+</pre></div>
+</div>
+<p>That’s it. What you have here is an input file that proves that an attacker has full control of the program counter as
+well as an additional general purpose register.</p>
+</div>
+<div class="section" id="understanding-recipes">
+<h2>Understanding recipes<a class="headerlink" href="#understanding-recipes" title="Permalink to this headline">¶</a></h2>
+<p>So where do the magic values <code class="docutils literal notranslate"><span class="pre">0x44556677</span></code> and <code class="docutils literal notranslate"><span class="pre">0xccddeeff</span></code> come from? Short answer: from the <code class="docutils literal notranslate"><span class="pre">FilePovGenerator</span></code>
+plugin configuration. Open <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code> and look for the following section:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-------------------------------------------------------------------------------</span>
+<span class="c1">-- This plugin writes PoVs as input files. This is suitable for programs that</span>
+<span class="c1">-- take their inputs from files (instead of stdin or other methods).</span>
+<span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;FilePovGenerator&quot;</span><span class="p">)</span>
+<span class="n">pluginsConfig</span><span class="p">.</span><span class="n">FilePovGenerator</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">-- The generated PoV will set the program counter</span>
+    <span class="c1">-- of the vulnerable program to this value</span>
+    <span class="n">target_pc</span> <span class="o">=</span> <span class="mh">0x0011223344556677</span><span class="p">,</span>
+
+    <span class="c1">-- The generated PoV will set a general purpose register</span>
+    <span class="c1">-- of the vulnerable program to this value.</span>
+    <span class="n">target_gp</span> <span class="o">=</span> <span class="mh">0x8899aabbccddeeff</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can specify in the configuration file which register values to set for the concrete test case.
+The configuration accepts 64-bit values, which the PoV generator will truncate if the program is 32-bit.</p>
+<p>Now, in order to understand why these values get written into the program counter and the <code class="docutils literal notranslate"><span class="pre">eax</span></code> register, we need to
+look at recipes. If you look closer, you will notice that the test case file name above contains
+<code class="docutils literal notranslate"><span class="pre">type1_i386_generic_shellcode_eax</span></code>. This means that this test case was derived from the
+<code class="docutils literal notranslate"><span class="pre">type1_i386_generic_shellcode_eax.rcp</span></code> recipe. You can find the recipes in the <cite>recipes</cite> folder in your project
+directory. The recipe used here has the following contents:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">type1_i386_generic_shellcode_eax.rcp</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> Set GP and EIP with shellcode
+<span class="gp">#</span> mov eax, <span class="nv">$gp</span>
+<span class="gp">#</span> mov ecx, <span class="nv">$pc</span>
+<span class="gp">#</span> jmp ecx
+<span class="go">:reg_mask=0xffffffff</span>
+<span class="go">:pc_mask=0xffffffff</span>
+<span class="go">:type=1</span>
+<span class="go">:arch=i386</span>
+<span class="go">:platform=generic</span>
+<span class="go">:gp=EAX</span>
+<span class="go">:exec_mem=EIP</span>
+<span class="go">[EIP+0] == 0xb8</span>
+<span class="go">[EIP+1] == $gp[0]</span>
+<span class="go">[EIP+2] == $gp[1]</span>
+<span class="go">[EIP+3] == $gp[2]</span>
+<span class="go">[EIP+4] == $gp[3]</span>
+<span class="go">[EIP+5] == 0xb9</span>
+<span class="go">[EIP+6] == $pc[0]</span>
+<span class="go">[EIP+7] == $pc[1]</span>
+<span class="go">[EIP+8] == $pc[2]</span>
+<span class="go">[EIP+9] == $pc[3]</span>
+<span class="go">[EIP+10] == 0xff</span>
+<span class="go">[EIP+11] == 0xe</span>
+</pre></div>
+</div>
+</div>
+<p>Here is what every line of this recipe means:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">reg_mask</span></code> and <code class="docutils literal notranslate"><span class="pre">pc_mask</span></code> indicate which bits of the general purpose register and program counter can be
+controlled by the attacker. It will be <code class="docutils literal notranslate"><span class="pre">0xffffffff</span></code> in almost all cases, meaning that all bits can be controlled.</li>
+<li><code class="docutils literal notranslate"><span class="pre">type</span></code> can be either 1 or 2 (see DARPA’s CGC <a class="reference external" href="https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/walk-throughs/understanding-cfe-povs.md">terminology</a>).
+Type 1 recipes control register values. Type 2 allow memory exfiltration.</li>
+<li><code class="docutils literal notranslate"><span class="pre">arch</span></code> and <code class="docutils literal notranslate"><span class="pre">platform</span></code> define when the recipe is applicable. In this case, we have a recipe that works on 32-bit
+programs and all OSes (Windows, Linux, etc…). If you have OS-specific shellcode, you must set the <code class="docutils literal notranslate"><span class="pre">platform</span></code>
+field accordingly. Please refer to the recipe plugin implementation to get an updated list of supported platforms.</li>
+<li><code class="docutils literal notranslate"><span class="pre">gp</span></code> means which general purpose register this recipe controls</li>
+<li><code class="docutils literal notranslate"><span class="pre">exec_mem</span></code> indicates which register must point to executable memory in order for the shell code to work.
+Executable memory is not required for more complex recipes that use ROP chains.</li>
+<li><code class="docutils literal notranslate"><span class="pre">[EIP+0]</span> <span class="pre">==</span> <span class="pre">0xb8</span></code> means that the first byte of the memory location referenced by <code class="docutils literal notranslate"><span class="pre">EIP</span></code> at the moment of
+exploitation must contain <code class="docutils literal notranslate"><span class="pre">0xb8</span></code>. The value of <code class="docutils literal notranslate"><span class="pre">EIP</span></code> itself is not directly controlled by the recipe.
+Instead, the recipe plugin enumerates all suitable memory areas in the program’s address space and picks one area that
+satisfies the constraints (i.e., the area contains enough symbolic bytes that can be suitably constrained to generate
+the PoV). This also means that the chosen area must be fixed across program invocations. If the recipe plugin ends up
+choosing, say, an executable stack location, the resulting PoV may not be replayable (i.e., running it in GDB may not
+produce the desired crash). In practice, if the guest OS uses data execution prevention (DEP)s, you will need to
+encode a ROP chain in the recipe. The <code class="docutils literal notranslate"><span class="pre">vulnerabilities</span></code> demo allocates an executable area at a fixed location in
+order to simplify the recipe.</li>
+</ul>
+</div>
+<div class="section" id="povs-for-darpa-decree-cgc-binaries">
+<h2>PoVs for DARPA Decree/CGC binaries<a class="headerlink" href="#povs-for-darpa-decree-cgc-binaries" title="Permalink to this headline">¶</a></h2>
+<p>DARPA’s <a class="reference external" href="http://archive.darpa.mil/cybergrandchallenge/">Cyber Grand Challenge</a> (CGC) was the world’s first all-machine
+hacking tournament. S2E was a key component in CodeJitsu’s Cyber Reasoning System (CRS) and was used to automatically
+find vulnerabilities and exploit them. This demo walks you through the process of using S2E to find and generate a
+“proof of vulnerability” (PoV - i.e. an exploit) in a CGC challenge binary (CB).</p>
+<p>The CGC Final Event (CFE) ran on the Decree operating system. Decree is a modified Linux OS with a reduced number of
+<a class="reference external" href="https://github.com/CyberGrandChallenge/libcgc">system calls</a>. In addition to this, the Decree OS has been modified
+to add “hook points” for S2E (e.g. to signal process creation, termination, etc.) and to allow S2E to inject symbolic
+values. The source code for the Decree OS is available at <a class="reference external" href="https://github.com/S2E/s2e-linux-kernel">https://github.com/S2E/s2e-linux-kernel</a>. A Decree
+virtual machine image can be built by running the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/s2e/env
+<span class="gp">$</span> s2e image_build cgc_debian-9.2.1-i386
+</pre></div>
+</div>
+<p>Next, create an analysis project for a challenge binary. Sample CBs are available <a class="reference external" href="https://github.com/CyberGrandChallenge/samples">here</a> and can be built using the instructions <a class="reference external" href="https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/walk-throughs/building-a-cb.md">here</a> . The
+remainder of this tutorial will focus on the CADET_00001 program (a pre-compiled version of which is available <a class="reference external" href="https://github.com/S2E/Decree/blob/master/samples/CADET_00001">here</a>), but the ideas and techniques should be applicable
+to all of the CBs.</p>
+<p>The following command creates a <code class="docutils literal notranslate"><span class="pre">projects/CADET_00001</span></code> directory with various scripts and configuration files needed
+by S2E, as described <a class="reference external" href="../../s2e-env.html">here</a>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> s2e new_project --image cgc_debian-9.2.1-i386 ./source/s2e/decree/samples/CADET_00001
+</pre></div>
+</div>
+<p>Finally, to start S2E, run the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> s2e run CADET_00001
+</pre></div>
+</div>
+<p>This will display a TUI-based dashboard, similar to that used by the American Fuzzy Lop (AFL) fuzzer. As S2E finds
+vulnerabilities, it generates PoV files in the <code class="docutils literal notranslate"><span class="pre">s2e-last</span></code> directory. These files have either <code class="docutils literal notranslate"><span class="pre">.xml</span></code> or <code class="docutils literal notranslate"><span class="pre">.c</span></code>
+file extensions. Once some PoV files have been generated you can press <code class="docutils literal notranslate"><span class="pre">q</span></code> to stop S2E.</p>
+<img alt="../../_images/cadet_00001_tui.png" src="../../_images/cadet_00001_tui.png" />
+<p>Alternatively, you can run S2E without the TUI by using the <code class="docutils literal notranslate"><span class="pre">-n</span></code> option in <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">run</span></code>. Instead of the TUI you will
+see the standard S2E output.  Once some POVs have been generated you can stop S2E by killing the process with
+<code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code> or <code class="docutils literal notranslate"><span class="pre">killall</span> <span class="pre">-9</span> <span class="pre">qemu-system-i386</span></code>.</p>
+</div>
+<div class="section" id="understanding-cgc-style-povs">
+<h2>Understanding CGC-style PoVs<a class="headerlink" href="#understanding-cgc-style-povs" title="Permalink to this headline">¶</a></h2>
+<p>If you followed the tutorial on PoV generation on Linux, you will notice that the PoV format for CGC binaries is
+different. Instead of being a concrete input file, CGC binaries produce PoVs in <code class="docutils literal notranslate"><span class="pre">.xml</span></code> or <code class="docutils literal notranslate"><span class="pre">.c</span></code> format. The reason
+for this is that CGC binaries read their input from <code class="docutils literal notranslate"><span class="pre">stdin</span></code> and write results to <code class="docutils literal notranslate"><span class="pre">stdout</span></code>. So in order to exercise
+the vulnerability, the PoV must implement a two-way communication with the program, by reading the program’s output and
+writing an appropriate input. This is different from file-based PoVs, where all the input is sent to the program at
+once, and the program’s output is ignored.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Many binaries, not just CGC binaries, use an interactive type of communication format, where input is read from
+stdin and results are written to stdout (e.g., command line utilities). S2E only supports file-based PoVs on Linux
+and Windows. Supporting interactive binaries for other platforms is work in progress.</p>
+</div>
+<p>For this reason, replaying a CGC-style PoV is more complex. It requires a special setup so that the PoV can communicate
+with the CB. For more details, see <a class="reference external" href="https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/walk-throughs/understanding-cfe-povs.md">here</a>.
+The following outlines the steps required to replay a PoV:</p>
+<ol class="arabic simple">
+<li>Follow the instructions <a class="reference external" href="https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/walk-throughs/running-the-vm.md">here</a> to
+setup and run the CGC testing VM</li>
+<li>As discussed in the instructions in the previous step, files can be shared between the host and CGC testing VM via
+the <code class="docutils literal notranslate"><span class="pre">/vagrant</span></code> directory. Copy the CADET_00001 binary, the PoV XML files generated by S2E and <a class="reference external" href="https://github.com/S2E/decree/blob/master/scripts/test_pov.sh">this</a> script (located in your S2E environment in
+<code class="docutils literal notranslate"><span class="pre">bin/cgc-tools/test_pov.sh</span></code>) to the CGC testing VM.</li>
+<li>Run <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> to access the VM and copy the files from <code class="docutils literal notranslate"><span class="pre">/vagrant</span></code> into <code class="docutils literal notranslate"><span class="pre">/home/vagrant</span></code>. Then run the
+<code class="docutils literal notranslate"><span class="pre">test_pov.sh</span></code> script to check the PoV’s correctness.</li>
+</ol>
+</div>
+<div class="section" id="plugin-architecture-overview">
+<h2>Plugin architecture overview<a class="headerlink" href="#plugin-architecture-overview" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we will give an overview of the plugins involved in generating a PoV. The diagram below summarizes
+the relationship between plugins.</p>
+<img alt="../../_images/arch.svg" src="../../_images/arch.svg" /><p>S2E has an event-based plugin architecture. The execution engine exports a core set of low level events (declared in
+<a class="reference external" href="https://github.com/S2E/s2e/blob/master/libs2ecore/include/s2e/CorePlugin.h">CorePlugin.h</a>) to which plugins must
+subscribe if they want to do anything useful. The most important core events are related to guest instruction
+translation. Plugins must use them if they want to instrument guest code (e.g., to be notified when some instructions
+of interest are executed).  Plugins may also define and export their own high-level events that other plugins can
+listen to. For example, an OS monitoring event could instrument the guest kernel so that it can notify other plugins
+about process and thread creation.</p>
+<p>S2E plugins can be classified in roughly two sets: generic plugins and domain-specific plugins. Generic plugins can be
+seen as library functions in a programming language, which form building blocks for domain-specific plugins (i.e., the
+application/tool built on top of S2E). In the diagram above, the generic plugins take care of abstracting away low level
+details of guest execution (e.g., keeping track of processes running in the guest for a given execution state, building
+the memory and module map, etc). Domain-specific plugins rely on these generic plugins to simplify their implementation
+and focus on the problem to solve. For example, the recipe plugin can focus on monitoring vulnerable instructions
+in the processes of interest. It does not have to worry about figuring out to which process every instruction belongs.
+OS monitoring plugins take care of that.</p>
+<p>S2E provides two ways to monitor guest execution: introspection or guest agents. Introspection consists of observing the
+execution stream or guest memory and react to OS-specific constructs without injecting code or modifying the guest in
+any way. For example, in order to get the current thread and process ID for Windows guests, the <code class="docutils literal notranslate"><span class="pre">WindowsMonitor</span></code>
+plugin probes several kernel data structures in memory. <code class="docutils literal notranslate"><span class="pre">WindowsMonitor</span></code> does this without involving the guest. A
+guest agent is a program that runs in the guest and uses the guest’s APIs in order to communicate relevant events to S2E
+plugins. For example, <code class="docutils literal notranslate"><span class="pre">WindowsMonitor</span></code> relies on the <code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code> guest driver to monitor some OS events that would be
+difficult to catch with pure introspection.</p>
+<p>In general, it is much simpler to use guest agents whenever possible. For example, in order to monitor Windows processes
+creation, it is simpler to write a guest driver that registers a callback through the
+<code class="docutils literal notranslate"><span class="pre">PsSetCreateProcessNotifyRoutine</span></code> kernel API and then calls S2E via <code class="docutils literal notranslate"><span class="pre">s2e_invoke_plugin(&quot;WindowsMonitor&quot;,</span> <span class="pre">...);</span></code>
+instead of having <code class="docutils literal notranslate"><span class="pre">WindowsMonitor</span></code> figure out where Windows stores its data structures in memory and then trying to
+parse them. The difficulty is compounded by the fact that these structures are mostly undocumented and change with every
+OS revision.</p>
+<p>Some tasks can be solved by combining introspection with guest agents. One example is getting the current process and
+thread ID from a plugin. Ideally, the plugin should be able to call the guest OS directly in order to get this
+information. However, the execution model of S2E only allows the guest calling plugins, not the reverse. So in order, to
+get these IDs, <code class="docutils literal notranslate"><span class="pre">WindowsMonitor</span></code> has to use introspection. However, it gets some help from the guest agent, which
+communicates to <code class="docutils literal notranslate"><span class="pre">WindowsMonitor</span></code> the locations of key Windows data structures in memory and offsets in these
+structures.</p>
+</div>
+<div class="section" id="plugins-involved-in-pov-generation">
+<h2>Plugins involved in PoV generation<a class="headerlink" href="#plugins-involved-in-pov-generation" title="Permalink to this headline">¶</a></h2>
+<p>In the previous section, we gave an overview of the S2E plugin architecture. Here we explain in more details the
+plugins that are involved in detecting vulnerabilities and generating PoVs.</p>
+<dl class="docutils">
+<dt><strong>Recipe</strong></dt>
+<dd>This is the most important plugin for PoV generation. It monitors execution and looks for interesting symbolic
+addresses (assignment to program counters and memory reads/writes). When it finds one, it tries to constrain
+the address in such a way that leads to controlling registers and memory content according to the specification in
+the recipe. The recipe plugin supports <a class="reference external" href="https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/walk-throughs/understanding-cfe-povs.md">Type 1 and Type 2</a>
+PoVs. PoV generation will not work without recipes.</dd>
+<dt><strong>PovGenerationPolicy</strong></dt>
+<dd>Sometimes, the recipe plugin generates dozens of redundant PoVs that have only small variations.
+This plugin filters the PoVs generated by the recipe plugin to keep only those that are interesting.
+When the plugin decides that a PoV is worth keeping, it calls the actual PoV generation plugin,
+e.g., <code class="docutils literal notranslate"><span class="pre">DecreePovGenerator</span></code> or <code class="docutils literal notranslate"><span class="pre">FilePovGenerator</span></code> described below.</dd>
+<dt><strong>DecreePovGenerator</strong></dt>
+<dd>This plugin generates PoVs using the <a class="reference external" href="https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/cfe-pov-markup-spec.txt">standard</a> defined by
+DARPA. This PoV generator is designed for interactive programs that consist of a sequence of reads and writes to the
+standard input/output pair.</dd>
+<dt><strong>FilePovGenerator</strong></dt>
+<dd>This plugin generates PoVs suitable for use by programs that take simple files as input and do not interact
+through the standard input/output.</dd>
+<dt><strong>CGCInterface</strong></dt>
+<dd>This plugin collects PoVs and other interesting events and sends them to a backend server through a JSON API.
+This is useful if you want to integrate S2E into a cluster and monitor progress from a centralized console.
+We built this plugin for the CGC competition initially (hence the name), but it could be made more generic.</dd>
+</dl>
+<p>The plugins above are useful to generate PoVs. They do not help finding them. Finding vulnerabilities is the job
+of search heuristics, described below:</p>
+<dl class="docutils">
+<dt><strong>SeedSearcher</strong></dt>
+<dd><p class="first">Seed files (or test inputs) are concrete inputs for the program under analysis. These files can be anything that
+the program accepts (PNG files, documents, etc.). They can be obtained from a fuzzer, generated by hand, etc.
+For CGC, seeds are binary executables compiled from XML of C PoV format.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SeedSearcher</span></code> plugin fetches seed files to concolically guide execution in the target program. Seed files
+are placed in the seeds directory.  During analysis, the <code class="docutils literal notranslate"><span class="pre">SeedSearcher</span></code> plugins polls the seeds directory for new
+seeds. When it finds new seeds, the plugin forks a new state that fetches the new seed and then runs the binary
+using that seed as input.</p>
+<p>Seed files can have different priorities. For example, if a fuzzer finds a seed that crashes the program, S2E may
+want to use that seed before others that, e.g., only cover new basic blocks. The priority of a seed is specified in
+its name. Seed files use the following naming convention:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">index</span><span class="o">&gt;-&lt;</span><span class="n">priority</span><span class="o">&gt;.&lt;</span><span class="n">extension</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>The index specifies the order of the seed. <code class="docutils literal notranslate"><span class="pre">SeedSearcher</span></code> fetches seed files by increasing index number. Higher
+priorities are specified with higher integer. In a given batch of seeds, <code class="docutils literal notranslate"><span class="pre">SeedSearcher</span></code> will schedule those with
+the highest priority first.</p>
+<p>When there are many seed files, it is advantageous to run S2E on multiple cores. In this mode, the <code class="docutils literal notranslate"><span class="pre">SeedSearcher</span></code>
+will automatically load balance available seeds across all available cores. For example, if there are 40 cores
+available, <code class="docutils literal notranslate"><span class="pre">SeedSearcher</span></code> will attempt to run 40 seeds in parallel.</p>
+<p class="last">The <code class="docutils literal notranslate"><span class="pre">SeedSearcher</span></code> plugin works in conjunction with the guest bootstrap file. The bootstrap file is built in such
+a way that state 0 runs in an infinite loop and forks a new state when a new seed is available. If there are no
+seed files, the bootstrap forks a state in which the program is run without seeds.</p>
+</dd>
+<dt><strong>CUPA Searcher</strong></dt>
+<dd>This searcher implements the Class Uniform Path Analysis (CUPA) algorithm as described in <a class="reference external" href="http://www.stefanbucur.net/assets/pubs/chef.pdf">this</a> paper. It can work together with the <code class="docutils literal notranslate"><span class="pre">SeedSearcher</span></code> plugin.</dd>
+</dl>
+</div>
+<div class="section" id="the-bootstrap-script">
+<h2>The bootstrap script<a class="headerlink" href="#the-bootstrap-script" title="Permalink to this headline">¶</a></h2>
+<p>The bootstrap script is a file called <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> that the guest fetches from the host and executes. It contains
+instructions on how to execute the program under analysis. More detail can be found in the
+<a class="reference external" href="../../s2e-env.html">s2e-env</a> documentation.</p>
+<p>The CGC <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> script slightly differs from Linux bootstraps. One key difference is that seeds will always be
+enabled for CGC projects, so the <code class="docutils literal notranslate"><span class="pre">while</span></code> loop in the <code class="docutils literal notranslate"><span class="pre">execute</span></code> function will exist even if you do not intend to use
+seed files. Note that it will not affect symbolic execution - the <code class="docutils literal notranslate"><span class="pre">SeedSearcher</span></code> (described above) will simply never
+schedule this state (state 0) for execution. This state will always exist, which means that even if S2E explores all
+execution paths in the CB (which is possible for simple binaries such as CADET_00001), the analysis will not end
+because not all states have been killed. The analysis must therefore be manually stopped.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../SystemTap/index.html" class="btn btn-neutral float-right" title="Using SystemTap with S2E" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pov.html" class="btn btn-neutral" title="Automated Generation of Proofs of Vulnerability with S2E" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Cyberhaven
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-75283635-2', 'auto');
+      ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

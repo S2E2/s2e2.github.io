@@ -1,0 +1,1032 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Measuring code coverage with S2E &mdash; S2E 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="BaseInstructions" href="../../Plugins/BaseInstructions.html" />
+    <link rel="prev" title="Equivalence Testing" href="../../EquivalenceTesting.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> S2E
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../s2e-env.html">Start here: setting up S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#using-s2e-env">Using s2e-env</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#creating-a-new-environment">Creating a new environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../s2e-env.html#s2e-activate"><code class="docutils literal notranslate"><span class="pre">s2e_activate</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#building-s2e">Building S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#updating-the-source-code">Updating the source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#building-an-image">Building an image</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../s2e-env.html#windows-images">Windows images</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#creating-a-new-analysis-project">Creating a new analysis project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#target-program-arguments">Target program arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#using-seed-files">Using seed files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#running-your-analysis">Running your analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#parsing-an-execution-trace">Parsing an execution trace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#importing-and-exporting-projects">Importing and exporting projects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../BuildingS2E.html">Building the S2E platform manually</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../BuildingS2E.html#building-using-docker">Building using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../BuildingS2E.html#building-s2e-manually">Building S2E manually</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#required-packages">Required packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#checking-out-s2e">Checking out S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#building">Building</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#updating">Updating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/s2e.so.html">Symbolic Execution of Linux Binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/s2e.so.html#getting-started">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/s2e.so.html#using-s2e-so">Using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/s2e.so.html#what-about-other-symbolic-input">What about other symbolic input?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/s2e.so.html#configuring-s2e-for-use-with-s2e-so">Configuring S2E for use with <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/s2e.so.html#modifying-and-building-s2e-so">Modifying and building <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/SourceCode.html">Instrumenting Program Source Code for S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/SourceCode.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/SourceCode.html#compiling-and-running">Compiling and running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/SourceCode.html#preparing-the-program-for-symbolic-execution">Preparing the program for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/SourceCode.html#running-the-program-in-s2e">Running the program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/BasicLinuxSymbex/SourceCode.html#terminating-execution-paths">Terminating execution paths</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Use Cases</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/PoV/pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/PoV/pov.html#using-symbolic-execution-to-generate-povs">Using Symbolic Execution to Generate PoVs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/pov.html#identifying-advanced-vulnerability-patterns-with-s2e">Identifying Advanced Vulnerability Patterns with S2E</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/PoV/pov.html#function-pointer-overwrite">Function Pointer Overwrite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/PoV/pov.html#arbitrary-writes">Arbitrary Writes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/PoV/pov.html#arbitrary-reads">Arbitrary Reads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/PoV/pov.html#function-calls-with-symbolic-parameters">Function Calls with Symbolic Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/pov.html#generating-replayable-povs">Generating Replayable PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/pov.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/PoV/index.html">Using S2E to generate PoVs for Linux, Windows, and CGC binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/index.html#quickstart-on-windows-and-linux">Quickstart on Windows and Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/index.html#understanding-recipes">Understanding recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/index.html#povs-for-darpa-decree-cgc-binaries">PoVs for DARPA Decree/CGC binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/index.html#understanding-cgc-style-povs">Understanding CGC-style PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/index.html#plugin-architecture-overview">Plugin architecture overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/index.html#plugins-involved-in-pov-generation">Plugins involved in PoV generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/index.html#the-bootstrap-script">The bootstrap script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/kaitai-s2e">Combining Kaitai Struct and S2E for analyzing parsers [external]</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/malware-s2e">Analyzing trigger-based malware with S2E [external]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/SystemTap/index.html">Using SystemTap with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/SystemTap/index.html#building-and-running-systemtap-in-s2e">Building and running SystemTap in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/SystemTap/index.html#creating-a-simple-systemtap-script-for-symbolic-execution">Creating a simple SystemTap script for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/SystemTap/index.html#running-the-script-in-s2e">Running the script in S2E</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/WindowsDLL/index.html">Analysis of Windows DLLs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDLL/index.html#preparing-the-test-environment">Preparing the test environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDLL/index.html#generate-basic-block-coverage">Generate basic block coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html">Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#setting-up-s2e">Setting up S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#setting-up-the-windows-environment">Setting up the Windows Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#building-the-sample-driver">Building the Sample Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#creating-an-s2e-driver-project">Creating an S2E Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#customizing-the-driver-project">Customizing the Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#running-the-driver">Running the Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#getting-code-coverage-reports">Getting Code Coverage Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#testing-error-recovery-code">Testing Error Recovery Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#generating-crash-dumps">Generating Crash Dumps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#understanding-s2e-logs-and-test-cases">Understanding S2E Logs and Test Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#customizing-fault-injection">Customizing Fault Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/WindowsDrivers/FaultInjection.html#debugging-tips">Debugging Tips</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html">Translating binaries to LLVM with Revgen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#using-revgen">Using Revgen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#prerequisites">1. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#build-the-cgc-binaries">2. Build the CGC binaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#translating-a-binary">3. Translating a binary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#running-a-translated-cgc-binary">4. Running a translated CGC binary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#design-and-implementation">Design and implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#translating-basic-blocks-to-llvm">Translating basic blocks to LLVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#stitching-basic-blocks-into-functions">Stitching basic blocks into functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#assumptions">Assumptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#running-translated-binaries">Running translated binaries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorials/Revgen/Revgen.html#evaluation">Evaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../EquivalenceTesting.html">Equivalence Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#program-to-test">Program to Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#configuring-s2e">Configuring S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#running-the-program-in-s2e">Running the Program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#interpreting-the-results">Interpreting the Results</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Howtos</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Measuring code coverage with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#building-coreutils">Building Coreutils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-coreutils-concretely-in-s2e">Running Coreutils concretely in S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generating-line-coverage">Generating line coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#line-coverage-for-shared-libraries">Line coverage for shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-block-coverage">Basic block coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-coverage-during-symbolic-execution">Code coverage during symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-does-s2e-record-and-compute-coverage">How does S2E record and compute coverage?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#line-coverage-for-the-linux-kernel">Line coverage for the Linux kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#line-coverage-for-windows-binaries">Line coverage for Windows binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging-code-coverage">Debugging code coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MovingFiles.html">Copying files between the host and the guest</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Parallel.html">Running S2E on multiple cores</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Parallel.html#how-do-i-process-generated-traces">How do I process generated traces?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Parallel.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ExecutionTracers.html">Using execution tracers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ExecutionTracers.html#recording-basic-traces">1. Recording basic traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ExecutionTracers.html#analyzing-traces">2. Analyzing traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ExecutionTracers.html#recording-memory-traces">3. Recording memory traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ExecutionTracers.html#trace-format-reference">4. Trace format reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ImageInstallation.html">Customizing stock VM images</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#image-creation-overview">Image creation overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#building-linux-images">Building Linux images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#building-windows-images">Building Windows images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#when-should-i-install-my-software">When should I install my software?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#the-s2e-vm-image-format">The S2E VM image format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#general-guidelines-for-vm-images">General guidelines for VM images</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../WritingPlugins.html">Writing S2E plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WritingPlugins.html#starting-with-an-empty-plugin">Starting with an Empty Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WritingPlugins.html#reading-configuration-parameters">Reading Configuration Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WritingPlugins.html#instrumenting-instructions">Instrumenting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WritingPlugins.html#counting-instructions">Counting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WritingPlugins.html#exporting-events">Exporting Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../LuaInstrumentation.html">Instrumenting guest code with Lua</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../LuaInstrumentation.html#instrumenting-function-calls-and-returns">Instrumenting function calls and returns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../LuaInstrumentation.html#instrumenting-instructions">Instrumenting instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../LuaInstrumentation.html#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../LuaInstrumentation.html#luas2eexecutionstate">LuaS2EExecutionState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../LuaInstrumentation.html#luas2eexecutionstatememory">LuaS2EExecutionStateMemory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../LuaInstrumentation.html#luas2eexecutionstateregisters">LuaS2EExecutionStateRegisters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../LuaInstrumentation.html#luafunctioninstrumentationstate">LuaFunctionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../LuaInstrumentation.html#luainstructioninstrumentationstate">LuaInstructionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../LuaInstrumentation.html#luaexpression">LuaExpression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../LuaInstrumentation.html#the-g-s2e-object">The <code class="docutils literal notranslate"><span class="pre">g_s2e</span></code> object</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Concolic.html">Analyzing large programs using concolic execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Concolic.html#faq">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../StateMerging.html">Exponential Analysis Speedup with State Merging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#using-state-merging-in-s2e">Using State Merging in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#state-merging-api">State Merging API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools/ForkProfiler.html">Debugging path explosion with the fork profiler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tools/ForkProfiler.html#using-the-fork-profile-to-debug-path-explosion">Using the fork profile to debug path explosion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">Frequently Asked Questions (FAQ)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-do-i-know-what-s2e-is-doing">How do I know what S2E is doing?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#execution-seems-stuck-slow-what-to-do">Execution seems stuck/slow. What to do?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-do-i-deal-with-path-explosion">How do I deal with path explosion?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-to-keep-memory-usage-low">How to keep memory usage low?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-much-time-is-the-constraint-solver-taking-to-solve-constraints">How much time is the constraint solver taking to solve constraints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#what-do-the-various-fields-in-run-stats-mean">What do the various fields in <code class="docutils literal notranslate"><span class="pre">run.stats</span></code> mean?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#emulating-the-kvm-interface">Emulating the KVM interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#using-system-call-hooks-for-emulation">Using system call hooks for emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#differences-between-actual-kvm-and-kvm-emulation">Differences between actual KVM and KVM emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#adding-symbolic-execution-capabilities-to-kvm">Adding symbolic execution capabilities to KVM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#multi-path-execution">Multi-path execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#handling-symbolic-data">Handling symbolic data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#reference">Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#dynamic-binary-translation">Dynamic binary translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#registering-memory-regions">Registering memory regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#accessing-guest-memory">Accessing guest memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#interrupting-execution">Interrupting execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#virtual-disk-i-o">Virtual disk I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#saving-restoring-device-snapshots">Saving/restoring device snapshots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#setting-the-clock-scale-pointer">Setting the clock scale pointer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#kvm-run-exit-codes">KVM_RUN exit codes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contribute.html">Contributing to S2E</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Profiling/ProfilingS2E.html">Profiling S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Profiling/ProfilingS2E.html#profiling-memory-usage">Profiling memory usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Profiling/ProfilingS2E.html#profiling-cpu-performance">Profiling CPU performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../DebuggingS2E.html">Debugging S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#the-obvious-checks">The obvious checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#record-replay">Record-replay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#valgrind">Valgrind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#debugging-with-gdb">Debugging with gdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#s2e-kernel-debugging">S2E kernel debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#s2e-debug-functions">S2E debug functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Testsuite.html">S2E Testsuite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#building-the-testsuite">Building the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#running-the-testsuite">Running the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#adding-your-own-tests">Adding your own tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#test-configuration-reference">Test configuration reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../WindowsEnvSetup.html">Setting up a Windows development environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#provisioning-a-windows-development-vm">1. Provisioning a Windows development VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#building-visual-studio-projects-remotely">2. Building Visual Studio projects remotely</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#use-case-building-and-running-a-windows-device-driver">3. Use case: building and running a Windows device driver</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html#required-plugins">Required Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Windows/WindowsMonitor.html">WindowsMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Windows/WindowsMonitor.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/RawMonitor.html">RawMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/RawMonitor.html#custom-instruction">Custom Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/RawMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/RawMonitor.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/ModuleExecutionDetector.html">ModuleExecutionDetector</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/ModuleExecutionDetector.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html">ExecutionTracer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#executiontracer">ExecutionTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#moduletracer">ModuleTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#testcasegenerator">TestCaseGenerator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#memorytracer">MemoryTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#translationblocktracer">TranslationBlockTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#instructiontracer">InstructionTracer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/FunctionMonitor.html">FunctionMonitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Linux/FunctionModels.html">FunctionModels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/FunctionModels.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/FunctionModels.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/EdgeKiller.html">EdgeKiller</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/EdgeKiller.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/EdgeKiller.html#required-plugins">Required Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/EdgeKiller.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">S2E</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Measuring code coverage with S2E</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/Howtos/Coverage/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="measuring-code-coverage-with-s2e">
+<h1><a class="toc-backref" href="#id6">Measuring code coverage with S2E</a><a class="headerlink" href="#measuring-code-coverage-with-s2e" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, you will learn how to measure code coverage of binaries on various OSes with S2E.
+Here are some advantages of using S2E for that:</p>
+<ul class="simple">
+<li>You do not have to recompile your binaries with GCOV support or similar in order to get
+code coverage. You do not even need debug information if all you want is basic block coverage.</li>
+<li>You can get code coverage for any part of the software stack (program, library, kernel modules, and even
+the kernel itself).</li>
+<li>You can get LCOV HTML reports when source code is available and the binary has suitable debug information</li>
+<li>You can get basic block coverage reports integrated with IDA or Radare.</li>
+<li>You do not even need to use symbolic execution. You could use S2E as a powerful single-path coverage tool.</li>
+</ul>
+<p>This tutorial covers the following topics:</p>
+<ul class="simple">
+<li>How to configure S2E to record line and basic block coverage</li>
+<li>How to generate HTML reports with LCOV</li>
+<li>Examples for Linux and Windows covering programs, libraries, and kernel drivers</li>
+<li>How S2E records coverage information under the hood so that you can extend it for your own needs</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This tutorial assumes that you know how to set up and run simple binaries in S2E. If not, please refer to the
+<a class="reference external" href="../../s2e-env.html">s2e-env</a> documentation to get started.</p>
+<p class="last">Only basic block and line coverage is supported.
+Branch and function coverage is work in progress and are not supported yet.</p>
+</div>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#measuring-code-coverage-with-s2e" id="id6">Measuring code coverage with S2E</a><ul>
+<li><a class="reference internal" href="#line-coverage-for-linux-binaries" id="id7">Line coverage for Linux binaries</a><ul>
+<li><a class="reference internal" href="#building-coreutils" id="id8">Building Coreutils</a></li>
+<li><a class="reference internal" href="#running-coreutils-concretely-in-s2e" id="id9">Running Coreutils concretely in S2E</a></li>
+<li><a class="reference internal" href="#generating-line-coverage" id="id10">Generating line coverage</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#line-coverage-for-shared-libraries" id="id11">Line coverage for shared libraries</a></li>
+<li><a class="reference internal" href="#basic-block-coverage" id="id12">Basic block coverage</a></li>
+<li><a class="reference internal" href="#code-coverage-during-symbolic-execution" id="id13">Code coverage during symbolic execution</a></li>
+<li><a class="reference internal" href="#how-does-s2e-record-and-compute-coverage" id="id14">How does S2E record and compute coverage?</a></li>
+<li><a class="reference internal" href="#line-coverage-for-the-linux-kernel" id="id15">Line coverage for the Linux kernel</a></li>
+<li><a class="reference internal" href="#line-coverage-for-windows-binaries" id="id16">Line coverage for Windows binaries</a></li>
+<li><a class="reference internal" href="#debugging-code-coverage" id="id17">Debugging code coverage</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="line-coverage-for-linux-binaries">
+<h2><a class="toc-backref" href="#id7">Line coverage for Linux binaries</a><a class="headerlink" href="#line-coverage-for-linux-binaries" title="Permalink to this headline">¶</a></h2>
+<p>We will use <a class="reference external" href="https://www.gnu.org/software/coreutils/coreutils.html">GNU Core Utilities</a> to illustrate how to get
+code coverage for Linux binaries. Coreutils are the basic file, shell and text
+manipulation utilities of the GNU operating system. This part of the tutorial walks you through the process of using
+S2E to analyze the <code class="docutils literal notranslate"><span class="pre">cat</span></code> program and generate basic block and line coverage information.</p>
+<div class="section" id="building-coreutils">
+<h3><a class="toc-backref" href="#id8">Building Coreutils</a><a class="headerlink" href="#building-coreutils" title="Permalink to this headline">¶</a></h3>
+<p>The first step is to build the coreutils package. In this tutorial, we will use version <a class="reference external" href="https://ftp.gnu.org/gnu/coreutils/coreutils-8.26.tar.xz">8.26</a> . We will build a 32-bit version of Coreutils with debug
+symbols (so that we can generate line coverage).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">wget https://ftp.gnu.org/gnu/coreutils/coreutils-8.26.tar.xz</span>
+<span class="go">tar xf coreutils-8.26.tar.xz</span>
+
+<span class="go">cd coreutils-8.26</span>
+<span class="go">mkdir build</span>
+<span class="go">cd build</span>
+<span class="go">../configure CFLAGS=&quot;-g -m32&quot; --prefix=$(pwd)</span>
+<span class="go">make</span>
+<span class="go">make install</span>
+</pre></div>
+</div>
+<p>The coreutils programs will be available in <code class="docutils literal notranslate"><span class="pre">coreutils-8.26/build/bin</span></code>.</p>
+</div>
+<div class="section" id="running-coreutils-concretely-in-s2e">
+<h3><a class="toc-backref" href="#id9">Running Coreutils concretely in S2E</a><a class="headerlink" href="#running-coreutils-concretely-in-s2e" title="Permalink to this headline">¶</a></h3>
+<p>Run the following command in order to create a <code class="docutils literal notranslate"><span class="pre">cat</span></code> project. This will instruct S2E to run cat and display
+the contents of <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code>. For the sake of simplicity, no symbolic execution will occur here (as the file
+is concrete and we will not instruct S2E to make it symbolic).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e new_project --image debian-9.2.1-i386 /path/to/coreutils-8.26/build/bin/cat /etc/fstab</span>
+</pre></div>
+</div>
+<p>After creating the project, run S2E. This should take a few seconds and terminate.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd projects/cat</span>
+<span class="go">./launch.s2e.sh</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="generating-line-coverage">
+<h3><a class="toc-backref" href="#id10">Generating line coverage</a><a class="headerlink" href="#generating-line-coverage" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> generates line coverage information in the <a class="reference external" href="http://ltp.sourceforge.net/coverage/lcov.php">lcov</a> format.
+The following command will generate an HTML report.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e coverage lcov --html cat</span>
+</pre></div>
+</div>
+<p>This will generate the following in <code class="docutils literal notranslate"><span class="pre">projects/cat/s2e-last</span></code>:</p>
+<ul class="simple">
+<li>A <code class="docutils literal notranslate"><span class="pre">cat.info</span></code> file containing the line coverage information in lcov format</li>
+<li>An HTML report in the <code class="docutils literal notranslate"><span class="pre">cat_lcov</span></code> directory</li>
+</ul>
+<p>The image below shows a snippet from the generated HTML report:</p>
+<a class="reference internal image-reference" href="../../_images/lcov-cat-sp1.png"><img alt="../../_images/lcov-cat-sp1.png" src="../../_images/lcov-cat-sp1.png" style="width: 640px;" /></a>
+<a class="reference internal image-reference" href="../../_images/lcov-cat-sp2.png"><img alt="../../_images/lcov-cat-sp2.png" src="../../_images/lcov-cat-sp2.png" style="width: 640px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">At the moment, S2E does not generate branch coverage or function coverage information, so these will be
+missing from the report.</p>
+</div>
+</div>
+</div>
+<div class="section" id="line-coverage-for-shared-libraries">
+<h2><a class="toc-backref" href="#id11">Line coverage for shared libraries</a><a class="headerlink" href="#line-coverage-for-shared-libraries" title="Permalink to this headline">¶</a></h2>
+<p>By default, the S2E code coverage plugin only records coverage information for the main project binary. If the
+binary uses shared libraries, you need to add them manually as follows. In this example, open the <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code>
+file and modify the <code class="docutils literal notranslate"><span class="pre">ModuleExecutionDetector</span></code> plugin configuration as follows:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">s2e-config.lua</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span> <span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;ModuleExecutionDetector&quot;</span><span class="p">)</span>
+ <span class="n">pluginsConfig</span><span class="p">.</span><span class="n">ModuleExecutionDetector</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="n">mod_0</span> <span class="o">=</span> <span class="p">{</span>
+         <span class="n">moduleName</span> <span class="o">=</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span>
+     <span class="p">},</span>
+
+     <span class="n">mod_1</span> <span class="o">=</span> <span class="p">{</span>
+         <span class="o">#</span> <span class="n">Do</span> <span class="ow">not</span> <span class="n">forget</span> <span class="n">to</span> <span class="n">adapt</span> <span class="n">the</span> <span class="n">library</span> <span class="n">name</span> <span class="n">to</span> <span class="n">your</span> <span class="n">system</span><span class="p">.</span>
+         <span class="o">#</span> <span class="n">You</span> <span class="n">can</span> <span class="n">check</span> <span class="n">which</span> <span class="n">library</span> <span class="n">your</span> <span class="n">binary</span> <span class="n">uses</span> <span class="n">using</span> <span class="n">ldd</span><span class="p">.</span>
+         <span class="n">moduleName</span> <span class="o">=</span> <span class="s2">&quot;libc-2.24.so&quot;</span><span class="p">,</span>
+     <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Then re-generate the coverage:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd projects/cat &amp;&amp; ./launch.s2e.sh</span>
+<span class="go">s2e coverage lcov --html cat</span>
+</pre></div>
+</div>
+<p>The command should display errors about source code not found:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Processing file csu/../sysdeps/x86/libc-start.c</span>
+<span class="go">genhtml: ERROR: cannot read /build/glibc-6LCJ6H/glibc-2.24/csu/../sysdeps/x86/libc-start.c</span>
+<span class="go">ERROR: [lcov]</span>
+</pre></div>
+</div>
+<p>In order to fix this, download the source packages as follows. Make sure first that you have built the guest VM images
+yourself and did not use the pre-built ones, otherwise the docker image <code class="docutils literal notranslate"><span class="pre">linux-build-i386</span></code> may be missing.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span>docker run --rm -ti -v &quot;$HOME&quot;:&quot;$HOME&quot; linux-build-i386
+# In the container&#39;s Bash prompt
+cd /home/user/s2e/env/projects/cat
+echo &quot;deb-src http://deb.debian.org/debian/ stretch main&quot; &gt;&gt; /etc/apt/sources.list
+apt-get update
+apt-get install dpkg-dev
+
+# Check out the source for the i386 version, since we run tests on the 32-bit version of the binary
+apt-get source libc6:i386
+exit
+</pre></div>
+</div>
+<p>After you have run the commands above, you should have the <code class="docutils literal notranslate"><span class="pre">glibc-2.24</span></code> folder in your project directory.
+Simply re-run the code coverage command above. You should now get the following report:</p>
+<a class="reference internal image-reference" href="../../_images/lcov-libc-sp1.png"><img alt="../../_images/lcov-libc-sp1.png" src="../../_images/lcov-libc-sp1.png" style="width: 640px;" /></a>
+</div>
+<div class="section" id="basic-block-coverage">
+<h2><a class="toc-backref" href="#id12">Basic block coverage</a><a class="headerlink" href="#basic-block-coverage" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes, you do not have source code or debug information. In this case, you can use S2E to compute
+basic block coverage.</p>
+<p><code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> provides a subcommand that generates basic block coverage. This subcommand requires either IDA Pro, Radare
+or Binary Ninja to disassemble the target binary and extract the basic blocks from it. The different disassemblers have
+different requirements.</p>
+<ul class="simple">
+<li><strong>Ida Pro</strong>: You must specify the path to its location <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> config file.</li>
+<li><strong>Radare</strong>: Radare must be installed into a location on your path and you must have the <code class="docutils literal notranslate"><span class="pre">r2pipe</span></code> Python package
+installed via pip (see <a class="reference external" href="https://github.com/S2E/s2e-env/blob/master/README.md">here</a> for details).</li>
+<li><strong>Binary Ninja</strong>: You must have a Binary Ninja license that allows “GUI-less processing”.</li>
+</ul>
+<p>In order to produce this basic block listing you can run one of the following commands:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">coverage</span> <span class="pre">basic_block</span> <span class="pre">--disassembler=ida</span> <span class="pre">cat</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">coverage</span> <span class="pre">basic_block</span> <span class="pre">--disassembler=r2</span> <span class="pre">cat</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">coverage</span> <span class="pre">basic_block</span> <span class="pre">--disassembler=binaryninja</span> <span class="pre">cat</span></code></li>
+</ul>
+<p>The basic block coverage subcommand will perform a block coverage analysis on <code class="docutils literal notranslate"><span class="pre">s2e-last</span></code> in the <code class="docutils literal notranslate"><span class="pre">cat</span></code> project by
+mapping translation block coverage generated by the <code class="docutils literal notranslate"><span class="pre">TranslationBlockCoverage</span></code> plugin to the basic block information
+extracted by your disassembler. The result will be written to <code class="docutils literal notranslate"><span class="pre">projects/cat/s2e-last/cat_coverage.json</span></code>, part of
+which is shown below.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">cat_coverage.json</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span> {
+     &quot;coverage&quot;: [
+         {
+             &quot;end_addr&quot;: 134516923,
+             &quot;function&quot;: &quot;__do_global_dtors_aux&quot;,
+             &quot;start_addr&quot;: 134516916
+         },
+         {
+             &quot;end_addr&quot;: 134516165,
+             &quot;function&quot;: &quot;.__fpending&quot;,
+             &quot;start_addr&quot;: 134516160
+         },
+         {
+             &quot;end_addr&quot;: 134515758,
+             &quot;function&quot;: &quot;.init_proc&quot;,
+             &quot;start_addr&quot;: 134515754
+         },
+         ...
+     ],
+     &quot;stats&quot;: {
+         &quot;covered_basic_blocks&quot;: 215,
+         &quot;total_basic_blocks&quot;: 1456
+     }
+ }
+</pre></div>
+</div>
+</div>
+<p>Later we will show how you can use this basic block coverage together with your chosen disassembler.</p>
+</div>
+<div class="section" id="code-coverage-during-symbolic-execution">
+<h2><a class="toc-backref" href="#id13">Code coverage during symbolic execution</a><a class="headerlink" href="#code-coverage-during-symbolic-execution" title="Permalink to this headline">¶</a></h2>
+<p>So far, we have seen how to get code coverage in concrete single-path executions. Everything works the same
+when symbolic execution is enabled. Each path will get its own coverage file and <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> will automatically
+aggregate all of them to produce a coverage report. In this section, we will configure <code class="docutils literal notranslate"><span class="pre">cat</span></code> to use symbolic
+inputs and will measure the corresponding increase in coverage.</p>
+<p>First, create a new project called <code class="docutils literal notranslate"><span class="pre">cat-symb</span></code> as follows. This will re-generate a new configuration for <code class="docutils literal notranslate"><span class="pre">cat</span></code>
+with symbolic execution enabled. The project that you generated earlier in this tutorial is preserved in the <code class="docutils literal notranslate"><span class="pre">cat</span></code>
+folder.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e new_project -n cat-symb --image debian-9.2.1-i386 /path/to/coreutils-8.26/build/bin/cat -T @@</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">&#64;&#64;</span></code> symbol tells <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> to generate a bootstrap file that will run <code class="docutils literal notranslate"><span class="pre">cat</span></code> with a symbolic file as input.
+By default this symbolic file will be a 256 byte file filled with <code class="docutils literal notranslate"><span class="pre">null</span></code> bytes as concolic values.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">-T</span></code> option forces <code class="docutils literal notranslate"><span class="pre">cat</span></code> to display TAB characters (0x09). This is important because it forces <code class="docutils literal notranslate"><span class="pre">cat</span></code> to read
+the symbolic values and fork two states - one state for the character being a TAB and another state for a character
+being a non-TAB.</p>
+<p>To make symbolic execution a bit more interesting for <code class="docutils literal notranslate"><span class="pre">cat</span></code>, we will have to modify this symbolic file slightly.
+Instead of having the symbolic file filled with <code class="docutils literal notranslate"><span class="pre">null</span></code> bytes, we will add some actual text to the file to make it
+more representative of using <code class="docutils literal notranslate"><span class="pre">cat</span></code>. Open <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> and replace <code class="docutils literal notranslate"><span class="pre">truncate</span> <span class="pre">-s</span> <span class="pre">256</span> <span class="pre">${SYMB_FILE}</span></code> with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -c <span class="s2">&quot;print &#39;A&#39; * 8&quot;</span> &gt; <span class="si">${</span><span class="nv">SYMB_FILE</span><span class="si">}</span>
+</pre></div>
+</div>
+<p>Then run S2E for a moment and terminate it.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd projects/cat-symb &amp;&amp; ./launch-s2e.sh</span>
+<span class="gp">#</span> ...
+<span class="gp">#</span> Terminate S2E after a <span class="k">while</span>
+<span class="go">killall -9 qemu-system-i386</span>
+</pre></div>
+</div>
+<p>Finally, get the code coverage:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e coverage lcov --html cat-symb</span>
+</pre></div>
+</div>
+<p>Compare the obtained results with the previous single-path run. Line coverage percentage should be higher.</p>
+<a class="reference internal image-reference" href="../../_images/lcov-cat-mp1.png"><img alt="../../_images/lcov-cat-mp1.png" src="../../_images/lcov-cat-mp1.png" style="width: 640px;" /></a>
+<p>Now generate the basic block coverage (using your chosen disassembler, in this case IDA Pro):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e coverage basic_block --disassembler=ida cat-symb</span>
+</pre></div>
+</div>
+<p>You can then use this data for further analysis. For example, the S2E <a class="reference external" href="https://github.com/S2E/s2e/tree/master/tools/tools/scripts">tools</a> contain an IDA Pro script to highlight the basic blocks
+covered by S2E during analysis. This script can be found at <code class="docutils literal notranslate"><span class="pre">install/bin/ida_highlight_basic_blocks.py</span></code> in your S2E
+environment. To run the script, open the <code class="docutils literal notranslate"><span class="pre">cat</span></code> binary in IDA Pro, select “Script file” from the “File” menu and open
+<code class="docutils literal notranslate"><span class="pre">install/bin/ida_highlight_basic_blocks.py</span></code>. You will be prompted for the <code class="docutils literal notranslate"><span class="pre">basic_block_coverage.json</span></code> file generated
+by S2E. Select this file and the basic blocks executed by S2E will be colored green. Depending on how long you let S2E
+run for and how many translation blocks it executed, you should get a graph similar to the following:</p>
+<a class="reference internal image-reference" href="../../_images/ida_cat_coverage.png"><img alt="../../_images/ida_cat_coverage.png" src="../../_images/ida_cat_coverage.png" style="width: 640px;" /></a>
+<p>Examining the debug log in <code class="docutils literal notranslate"><span class="pre">s2e-last/debug.txt</span></code> you should see a fork at address 0x8049ADE. If you look at this
+address in IDA Pro, you should see a <code class="docutils literal notranslate"><span class="pre">cmp</span> <span class="pre">[ebp+ch_0],</span> <span class="pre">9</span></code> at the previous instruction (address 0x8049ADA). This is
+<code class="docutils literal notranslate"><span class="pre">cat</span></code> checking if the current character is a TAB or not (as previously mentioned the ASCII value for TAB is 0x09).
+Because the file contains symbolic data, a fork will occur at the <code class="docutils literal notranslate"><span class="pre">jnz</span></code> instruction.</p>
+<p>Similarly, Radare can be used to annotate the basic blocks covered by S2E with <a class="reference external" href="https://radare.gitbooks.io/radare2book/content/disassembling/adding_metadata.html">metadata</a>. This script can be found at
+<code class="docutils literal notranslate"><span class="pre">install/bin/r2_highlight_basic_blocks.py</span></code> in your S2E environment. To run the script, open the <code class="docutils literal notranslate"><span class="pre">cat</span></code> binary in
+Radare as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">r2 -i install/bin/r2_highlight_basic_blocks.py projects/cat-symb/cat</span>
+</pre></div>
+</div>
+<p>You will be prompted for the <code class="docutils literal notranslate"><span class="pre">basic_block_coverage.json</span></code> file generated by S2E. Enter the path to this file and the
+basic blocks executed by S2E will be annotated with a <code class="docutils literal notranslate"><span class="pre">Covered</span> <span class="pre">by</span> <span class="pre">S2E</span></code> comment. The image below illustrates this.</p>
+<a class="reference internal image-reference" href="../../_images/r2_cat_coverage.png"><img alt="../../_images/r2_cat_coverage.png" src="../../_images/r2_cat_coverage.png" style="width: 640px;" /></a>
+</div>
+<div class="section" id="how-does-s2e-record-and-compute-coverage">
+<h2><a class="toc-backref" href="#id14">How does S2E record and compute coverage?</a><a class="headerlink" href="#how-does-s2e-record-and-compute-coverage" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we will take a step back and explain at a high level what components of S2E are involved to
+generate coverage. This is useful in case you would like to extend S2E to generate other types of coverage.</p>
+<p>S2E takes as input a virtual machine and a configuration file, and outputs JSON files that contain a list of
+executed program counters that belong to the modules specified in the configuration file. A module is essentially
+a binary file that can be loaded and executed by the guest OS (<code class="docutils literal notranslate"><span class="pre">.exe</span></code>, <code class="docutils literal notranslate"><span class="pre">.so</span></code>, <code class="docutils literal notranslate"><span class="pre">.dll</span></code>, etc.),
+whether in user or kernel space.</p>
+<p>S2E relies on three plugins to generate coverage data: an OS monitor, a module execution detector, and
+a coverage generator plugin. These plugins are all enabled by default in <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code> when creating a project
+with <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>. The job of the OS monitor (e.g., <code class="docutils literal notranslate"><span class="pre">WindowsMonitor</span></code> or <code class="docutils literal notranslate"><span class="pre">LinuxMonitor</span></code>) is to monitor various
+system events, such as module loads/unloads, and notify any interested plugins about them. One such plugin is the
+module execution detector (<code class="docutils literal notranslate"><span class="pre">ModuleExecutionDetector</span></code>). This plugin reacts to events from the OS monitor
+in order to notify its own clients about instructions executed by the modules of interest. The module execution
+detector filters out all the other instructions that do not belong to the modules of interest. Finally, the code
+coverage plugin (i.e., <code class="docutils literal notranslate"><span class="pre">TranslationBlockCoverage</span></code>) connects to the module execution detector plugin in order to
+record executed instructions.</p>
+<p>The S2E coverage plugin records coverage during code <em>translation</em> rather than code <em>execution</em> in order to be more
+efficient. The S2E execution engine continuously fetches blocks of guest code, translates them to host code, and
+packages this host code into <em>translation blocks</em>. S2E stores translation blocks in a cache in order to avoid redundant
+translations and speed up execution (e.g., if guest code executes a loop). The <code class="docutils literal notranslate"><span class="pre">TranslationBlockCoverage</span></code> plugin
+listens for guest code translation events and records the start and end address of the block, as well as the size
+of the block. S2E however only provides raw virtual addresses and the coverage plugin must first convert them to
+addresses that are relative to the module’s base address. <code class="docutils literal notranslate"><span class="pre">TranslationBlockCoverage</span></code> calls <code class="docutils literal notranslate"><span class="pre">ModuleExecutionDetector</span></code>
+in order to do the conversion. After that, it records the converted addresses in the JSON file. This conversion is
+important, as raw virtual addresses may be different from run to run (relocations, ASLR, etc.).</p>
+<p>Generating basic block coverage requires an off-line conversion step from translation blocks to basic blocks.
+A translation block (TB) is a sequence of instructions that ends with a control flow change (e.g., call, jump).
+A basic block (BB) is a translation block with the additional constraint that it may have only one entry. As a result,
+a TB may span one or more BBs. A TB may also start in the middle of a basic block due to how the code
+translator works (a TB may be interrupted at any time by an exception, and when execution returns, the translator
+starts a fresh TB from the current program counter). The conversion will therefore take one TB and output all the BBs
+it overlaps. This set of covered BBs will then be compared to the total set of BBs of the module in order to compute
+basic block coverage.</p>
+<p>Generating line coverage is simpler: just translate each address in <code class="docutils literal notranslate"><span class="pre">[tb_start,</span> <span class="pre">tb_start</span> <span class="pre">+</span> <span class="pre">tb_size[</span></code> to a source
+file, line number, and function name using the debug information. <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> relies on the DWARF information stored
+in the binary in order to get this information and package it into a coverage file understood by LCOV.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">TranslationBlockCoverage</span></code> only supports line/basic block coverage. It does not support branch coverage yet.
+A branch coverage plugin would have to instrument branch instructions and record their outcome. The plugin
+would listen to code translation events, check if the translated instruction is a branch, and if so insert
+instrumentation code. This code would then determine the <code class="docutils literal notranslate"><span class="pre">(source_pc,</span> <span class="pre">target_pc)</span></code> pair and record it in the
+coverage file. <code class="docutils literal notranslate"><span class="pre">source_pc</span></code> is the address of the current branch instruction and <code class="docutils literal notranslate"><span class="pre">target_pc</span></code> is already
+stored in the program counter register when the instrumentation runs.</p>
+</div>
+</div>
+<div class="section" id="line-coverage-for-the-linux-kernel">
+<h2><a class="toc-backref" href="#id15">Line coverage for the Linux kernel</a><a class="headerlink" href="#line-coverage-for-the-linux-kernel" title="Permalink to this headline">¶</a></h2>
+<p>The Linux kernel is just another module as far as S2E is concerned. Recording coverage for it works like for any
+other program.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Make sure you build S2E images yourself. Do not use the pre-built ones as the source information will not match
+the Linux source on your system and the coverage report may be empty.</p>
+</div>
+<ol class="arabic">
+<li><p class="first">Create a new project or pick an existing one. The analysis target does not matter, so you may also create
+an empty project. In your S2E environment:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e new_project -n linux-kernel -i debian-9.2.1-x86_64 --no-target --type linux</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Add <code class="docutils literal notranslate"><span class="pre">vmlinux</span></code> to the <code class="docutils literal notranslate"><span class="pre">ModuleExecutionDetector</span></code> plugin configuration:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">s2e-config.lua</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;ModuleExecutionDetector&quot;</span><span class="p">)</span>
+<span class="n">pluginsConfig</span><span class="p">.</span><span class="n">ModuleExecutionDetector</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">mod_vmlinux</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="n">moduleName</span> <span class="o">=</span> <span class="s2">&quot;vmlinux&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p class="first">Open <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> and add the following commands right before the kill state command at the end of the script:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">bootstrap.sh</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>  ...
+
+  <span class="c1"># Flush the CPU translation block cache.</span>
+  <span class="c1"># This ensures that the code coverage plugin catches as much of the kernel as possible.</span>
+  <span class="c1"># Omitting it may under-report coverage.</span>
+  <span class="c1"># This command may go anywhere, but generally right before your workload.</span>
+  <span class="si">${</span><span class="nv">S2ECMD</span><span class="si">}</span> flush_tbs
+
+  <span class="c1"># Run a kernel-intensive utility here</span>
+  find /usr
+
+  <span class="c1"># Kill states before exiting</span>
+  <span class="si">${</span><span class="nv">S2ECMD</span><span class="si">}</span> <span class="nb">kill</span> <span class="nv">$?</span> <span class="s2">&quot;Target execution terminated&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>Alternatively, if you specified a binary to analyze during project creation, add <code class="docutils literal notranslate"><span class="pre">${S2ECMD}</span> <span class="pre">flush_tbs</span></code>
+to the <code class="docutils literal notranslate"><span class="pre">execute_target</span></code> function in <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> as follows.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">bootstrap.sh</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>  <span class="k">function</span> execute_target <span class="o">{</span>
+      <span class="nb">local</span> TARGET
+      <span class="nv">TARGET</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+      <span class="nv">SYMB_FILE</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>prepare_inputs<span class="k">)</span><span class="s2">&quot;</span>
+
+      <span class="c1"># ...</span>
+
+      <span class="c1"># This command may go anywhere, but generally right before your workload</span>
+      <span class="si">${</span><span class="nv">S2ECMD</span><span class="si">}</span> flush_tbs
+
+      <span class="c1"># Run a kernel-intensive utility here</span>
+      find /
+
+      <span class="c1"># ...</span>
+  <span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p class="first">Run S2E. The <code class="docutils literal notranslate"><span class="pre">TranslationBlockCoverage</span></code> plugins writes coverage files when states terminate so make sure
+at least one state is completed before killing S2E.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd projects/linux-kernel</span>
+<span class="go">./launch-s2e.sh</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Generate line coverage information. Do not forget the <code class="docutils literal notranslate"><span class="pre">--include-covered-files-only</span></code> option to keep the report
+as short as possible (source files with no coverage will be omitted).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e coverage lcov --html --include-covered-files-only linux-kernel</span>
+</pre></div>
+</div>
+<p>This should produce a report that looks like this:</p>
+<a class="reference internal image-reference" href="../../_images/linux-cov.png"><img alt="../../_images/linux-cov.png" src="../../_images/linux-cov.png" style="width: 640px;" /></a>
+</li>
+</ol>
+</div>
+<div class="section" id="line-coverage-for-windows-binaries">
+<h2><a class="toc-backref" href="#id16">Line coverage for Windows binaries</a><a class="headerlink" href="#line-coverage-for-windows-binaries" title="Permalink to this headline">¶</a></h2>
+<p>Line coverage support for Windows binaries is currently in progress. There are two main cases:</p>
+<ol class="arabic">
+<li><p class="first">Using embedded DWARF information in the executable file.
+<code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> combines <code class="docutils literal notranslate"><span class="pre">pefile</span></code> with <code class="docutils literal notranslate"><span class="pre">pyelftools</span></code> in order to read DWARF information from PE files.
+Line coverage should work properly for Windows binaries compiled with DWARF information (clang, mingw, etc.).</p>
+</li>
+<li><p class="first">Using the PDB file produced by Microsoft compilers.
+This format is not officially documented. Microsoft released some
+<a class="reference external" href="https://github.com/Microsoft/microsoft-pdb">source code</a> that helped LLVM add support for it, so Python parsers
+should come soon too. In the meantime, S2E provides a tool that converts PDB files to a JSON format
+that can be read by <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>.</p>
+<p>The Windows device driver testing <a class="reference external" href="../../Tutorials/WindowsDrivers/FaultInjection.html">tutorial</a>
+shows in details how to obtain line coverage for Windows kernel binaries.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="debugging-code-coverage">
+<h2><a class="toc-backref" href="#id17">Debugging code coverage</a><a class="headerlink" href="#debugging-code-coverage" title="Permalink to this headline">¶</a></h2>
+<p>The typical symptom is that the coverage report is empty. Here is a checklist to help with debugging:</p>
+<ul>
+<li><p class="first">Check that your binaries have debug information. Recompile them if needed. For Windows binaries, make sure
+you generated the <code class="docutils literal notranslate"><span class="pre">.lines</span></code> file as instructed by the coverage tool.</p>
+</li>
+<li><p class="first">Make sure the source code is available at the same location as when the binary was built. In most cases,
+<code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> will guess the proper location if you place the source in the project’s directory.</p>
+</li>
+<li><p class="first">If you do not get any coverage for the Linux kernel, check that you built the guest images on the same machine
+where you run S2E (or at least all the files are at the same locations).
+You cannot use pre-built images as their source paths are unlikely to match those on your machine.</p>
+</li>
+<li><p class="first">Check that the <code class="docutils literal notranslate"><span class="pre">tb-coverage*.json</span></code> files contain adequate data. If they do not exist, check that you terminated
+S2E after at least one state completed. Alternatively, you can use the <code class="docutils literal notranslate"><span class="pre">writeCoveragePeriod</span></code> option of the
+<code class="docutils literal notranslate"><span class="pre">TranslationBlockCoverage</span></code> plugin in order to periodically dump coverage of the currently running state.
+If coverage files are empty or are missing some modules, check that the S2E configuration is correct.</p>
+</li>
+<li><p class="first">Check that <code class="docutils literal notranslate"><span class="pre">ModuleExecutionDetector</span></code> in <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code> is configured properly. If a module is missing,
+<code class="docutils literal notranslate"><span class="pre">TranslationBlockCoverage</span></code> will not generate any coverage information for it.</p>
+</li>
+<li><p class="first">Check that the <code class="docutils literal notranslate"><span class="pre">Vmi</span></code> plugin in <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code> is configured properly. You do not normally need to touch
+this plugin as it is automatically configured with the right settings. If however you have a project generated with
+an older version of <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>, you may need to add new entries. It must have at a minimum the following entries:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">pluginsConfig</span><span class="p">.</span><span class="n">Vmi</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">baseDirs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;/home/user/s2e/env/projects/my-project&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;/home/user/s2e/env/projects/my-project/guest-tools&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;/home/user/s2e/env/projects/my-project/guestfs&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The OS monitor plugin may not be able to find your binaries if these search paths are missing.</p>
+</li>
+<li><p class="first">Check that your project directory contains a symlink to guestfs:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ls -l /home/user/s2e/env/projects/my_project
+<span class="go">...</span>
+<span class="go">lrwxrwxrwx 1 user user      51 Apr  8 18:34 guestfs -&gt; /mnt/home3/guest-images/debian-9.2.1-x86_64/guestfs</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Check that <code class="docutils literal notranslate"><span class="pre">projects/my_project/guestfs/vmlinux</span></code> is valid and contains line information (try <code class="docutils literal notranslate"><span class="pre">addr2line</span></code>)</p>
+</li>
+<li><p class="first">Check that you did not delete temporary image build files, in particular the Linux source code.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ls -l images/.tmp-output/linux-4.9.3-x86_64/linux-4.9.3/
+<span class="go">drwxrwxr-x  34 user user      4096 Apr 13 19:22 arch</span>
+<span class="go">drwxrwxr-x   3 user user      4096 Apr 13 19:14 block</span>
+<span class="go">drwxrwxr-x   2 user user      4096 Apr 13 19:12 certs</span>
+<span class="go">-rw-rw-r--   1 user user    107982 Jan 19 13:27 config-i386</span>
+<span class="go">-rw-rw-r--   1 user user     18693 Jan 19 13:27 COPYING</span>
+<span class="go">-rw-rw-r--   1 user user     98277 Jan 19 13:27 CREDITS</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../Plugins/BaseInstructions.html" class="btn btn-neutral float-right" title="BaseInstructions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../../EquivalenceTesting.html" class="btn btn-neutral" title="Equivalence Testing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Cyberhaven
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-75283635-2', 'auto');
+      ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

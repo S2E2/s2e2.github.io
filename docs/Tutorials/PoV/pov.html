@@ -1,0 +1,1186 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Automated Generation of Proofs of Vulnerability with S2E &mdash; S2E 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Using S2E to generate PoVs for Linux, Windows, and CGC binaries" href="index.html" />
+    <link rel="prev" title="Instrumenting Program Source Code for S2E" href="../BasicLinuxSymbex/SourceCode.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> S2E
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../s2e-env.html">Start here: setting up S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#using-s2e-env">Using s2e-env</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#creating-a-new-environment">Creating a new environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../s2e-env.html#s2e-activate"><code class="docutils literal notranslate"><span class="pre">s2e_activate</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#building-s2e">Building S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#updating-the-source-code">Updating the source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#building-an-image">Building an image</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../s2e-env.html#windows-images">Windows images</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#creating-a-new-analysis-project">Creating a new analysis project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#target-program-arguments">Target program arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#using-seed-files">Using seed files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#running-your-analysis">Running your analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#parsing-an-execution-trace">Parsing an execution trace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#importing-and-exporting-projects">Importing and exporting projects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../BuildingS2E.html">Building the S2E platform manually</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../BuildingS2E.html#building-using-docker">Building using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../BuildingS2E.html#building-s2e-manually">Building S2E manually</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#required-packages">Required packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#checking-out-s2e">Checking out S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#building">Building</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#updating">Updating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html">Symbolic Execution of Linux Binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#getting-started">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#using-s2e-so">Using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#what-about-other-symbolic-input">What about other symbolic input?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#configuring-s2e-for-use-with-s2e-so">Configuring S2E for use with <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#modifying-and-building-s2e-so">Modifying and building <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html">Instrumenting Program Source Code for S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#compiling-and-running">Compiling and running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#preparing-the-program-for-symbolic-execution">Preparing the program for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#running-the-program-in-s2e">Running the program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#terminating-execution-paths">Terminating execution paths</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Use Cases</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-symbolic-execution-to-generate-povs">Using Symbolic Execution to Generate PoVs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#identifying-advanced-vulnerability-patterns-with-s2e">Identifying Advanced Vulnerability Patterns with S2E</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#function-pointer-overwrite">Function Pointer Overwrite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arbitrary-writes">Arbitrary Writes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arbitrary-reads">Arbitrary Reads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function-calls-with-symbolic-parameters">Function Calls with Symbolic Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generating-replayable-povs">Generating Replayable PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Using S2E to generate PoVs for Linux, Windows, and CGC binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#quickstart-on-windows-and-linux">Quickstart on Windows and Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#understanding-recipes">Understanding recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#povs-for-darpa-decree-cgc-binaries">PoVs for DARPA Decree/CGC binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#understanding-cgc-style-povs">Understanding CGC-style PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#plugin-architecture-overview">Plugin architecture overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#plugins-involved-in-pov-generation">Plugins involved in PoV generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#the-bootstrap-script">The bootstrap script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/kaitai-s2e">Combining Kaitai Struct and S2E for analyzing parsers [external]</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/malware-s2e">Analyzing trigger-based malware with S2E [external]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemTap/index.html">Using SystemTap with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SystemTap/index.html#building-and-running-systemtap-in-s2e">Building and running SystemTap in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SystemTap/index.html#creating-a-simple-systemtap-script-for-symbolic-execution">Creating a simple SystemTap script for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SystemTap/index.html#running-the-script-in-s2e">Running the script in S2E</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../WindowsDLL/index.html">Analysis of Windows DLLs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDLL/index.html#preparing-the-test-environment">Preparing the test environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDLL/index.html#generate-basic-block-coverage">Generate basic block coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html">Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#setting-up-s2e">Setting up S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#setting-up-the-windows-environment">Setting up the Windows Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#building-the-sample-driver">Building the Sample Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#creating-an-s2e-driver-project">Creating an S2E Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#customizing-the-driver-project">Customizing the Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#running-the-driver">Running the Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#getting-code-coverage-reports">Getting Code Coverage Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#testing-error-recovery-code">Testing Error Recovery Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#generating-crash-dumps">Generating Crash Dumps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#understanding-s2e-logs-and-test-cases">Understanding S2E Logs and Test Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#customizing-fault-injection">Customizing Fault Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#debugging-tips">Debugging Tips</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Revgen/Revgen.html">Translating binaries to LLVM with Revgen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Revgen/Revgen.html#using-revgen">Using Revgen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#prerequisites">1. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#build-the-cgc-binaries">2. Build the CGC binaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#translating-a-binary">3. Translating a binary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#running-a-translated-cgc-binary">4. Running a translated CGC binary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Revgen/Revgen.html#design-and-implementation">Design and implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#translating-basic-blocks-to-llvm">Translating basic blocks to LLVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#stitching-basic-blocks-into-functions">Stitching basic blocks into functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#assumptions">Assumptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#running-translated-binaries">Running translated binaries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Revgen/Revgen.html#evaluation">Evaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../EquivalenceTesting.html">Equivalence Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#program-to-test">Program to Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#configuring-s2e">Configuring S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#running-the-program-in-s2e">Running the Program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#interpreting-the-results">Interpreting the Results</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Howtos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/Coverage/index.html">Measuring code coverage with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/Coverage/index.html#building-coreutils">Building Coreutils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/Coverage/index.html#running-coreutils-concretely-in-s2e">Running Coreutils concretely in S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/Coverage/index.html#generating-line-coverage">Generating line coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-shared-libraries">Line coverage for shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#basic-block-coverage">Basic block coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#code-coverage-during-symbolic-execution">Code coverage during symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#how-does-s2e-record-and-compute-coverage">How does S2E record and compute coverage?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-the-linux-kernel">Line coverage for the Linux kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-windows-binaries">Line coverage for Windows binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#debugging-code-coverage">Debugging code coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MovingFiles.html">Copying files between the host and the guest</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/Parallel.html">Running S2E on multiple cores</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Parallel.html#how-do-i-process-generated-traces">How do I process generated traces?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Parallel.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/ExecutionTracers.html">Using execution tracers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#recording-basic-traces">1. Recording basic traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#analyzing-traces">2. Analyzing traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#recording-memory-traces">3. Recording memory traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#trace-format-reference">4. Trace format reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ImageInstallation.html">Customizing stock VM images</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#image-creation-overview">Image creation overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#building-linux-images">Building Linux images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#building-windows-images">Building Windows images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#when-should-i-install-my-software">When should I install my software?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#the-s2e-vm-image-format">The S2E VM image format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#general-guidelines-for-vm-images">General guidelines for VM images</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/WritingPlugins.html">Writing S2E plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#starting-with-an-empty-plugin">Starting with an Empty Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#reading-configuration-parameters">Reading Configuration Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#instrumenting-instructions">Instrumenting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#counting-instructions">Counting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#exporting-events">Exporting Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html">Instrumenting guest code with Lua</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#instrumenting-function-calls-and-returns">Instrumenting function calls and returns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#instrumenting-instructions">Instrumenting instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luas2eexecutionstate">LuaS2EExecutionState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luas2eexecutionstatememory">LuaS2EExecutionStateMemory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luas2eexecutionstateregisters">LuaS2EExecutionStateRegisters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luafunctioninstrumentationstate">LuaFunctionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luainstructioninstrumentationstate">LuaInstructionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luaexpression">LuaExpression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#the-g-s2e-object">The <code class="docutils literal notranslate"><span class="pre">g_s2e</span></code> object</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/Concolic.html">Analyzing large programs using concolic execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Concolic.html#faq">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../StateMerging.html">Exponential Analysis Speedup with State Merging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#using-state-merging-in-s2e">Using State Merging in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#state-merging-api">State Merging API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools/ForkProfiler.html">Debugging path explosion with the fork profiler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tools/ForkProfiler.html#using-the-fork-profile-to-debug-path-explosion">Using the fork profile to debug path explosion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">Frequently Asked Questions (FAQ)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-do-i-know-what-s2e-is-doing">How do I know what S2E is doing?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#execution-seems-stuck-slow-what-to-do">Execution seems stuck/slow. What to do?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-do-i-deal-with-path-explosion">How do I deal with path explosion?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-to-keep-memory-usage-low">How to keep memory usage low?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-much-time-is-the-constraint-solver-taking-to-solve-constraints">How much time is the constraint solver taking to solve constraints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#what-do-the-various-fields-in-run-stats-mean">What do the various fields in <code class="docutils literal notranslate"><span class="pre">run.stats</span></code> mean?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#emulating-the-kvm-interface">Emulating the KVM interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#using-system-call-hooks-for-emulation">Using system call hooks for emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#differences-between-actual-kvm-and-kvm-emulation">Differences between actual KVM and KVM emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#adding-symbolic-execution-capabilities-to-kvm">Adding symbolic execution capabilities to KVM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#multi-path-execution">Multi-path execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#handling-symbolic-data">Handling symbolic data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#reference">Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#dynamic-binary-translation">Dynamic binary translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#registering-memory-regions">Registering memory regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#accessing-guest-memory">Accessing guest memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#interrupting-execution">Interrupting execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#virtual-disk-i-o">Virtual disk I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#saving-restoring-device-snapshots">Saving/restoring device snapshots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#setting-the-clock-scale-pointer">Setting the clock scale pointer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#kvm-run-exit-codes">KVM_RUN exit codes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contribute.html">Contributing to S2E</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Profiling/ProfilingS2E.html">Profiling S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Profiling/ProfilingS2E.html#profiling-memory-usage">Profiling memory usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Profiling/ProfilingS2E.html#profiling-cpu-performance">Profiling CPU performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../DebuggingS2E.html">Debugging S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#the-obvious-checks">The obvious checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#record-replay">Record-replay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#valgrind">Valgrind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#debugging-with-gdb">Debugging with gdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#s2e-kernel-debugging">S2E kernel debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#s2e-debug-functions">S2E debug functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Testsuite.html">S2E Testsuite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#building-the-testsuite">Building the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#running-the-testsuite">Running the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#adding-your-own-tests">Adding your own tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#test-configuration-reference">Test configuration reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../WindowsEnvSetup.html">Setting up a Windows development environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#provisioning-a-windows-development-vm">1. Provisioning a Windows development VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#building-visual-studio-projects-remotely">2. Building Visual Studio projects remotely</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#use-case-building-and-running-a-windows-device-driver">3. Use case: building and running a Windows device driver</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html#required-plugins">Required Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Windows/WindowsMonitor.html">WindowsMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Windows/WindowsMonitor.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/RawMonitor.html">RawMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/RawMonitor.html#custom-instruction">Custom Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/RawMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/RawMonitor.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/ModuleExecutionDetector.html">ModuleExecutionDetector</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/ModuleExecutionDetector.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html">ExecutionTracer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#executiontracer">ExecutionTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#moduletracer">ModuleTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#testcasegenerator">TestCaseGenerator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#memorytracer">MemoryTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#translationblocktracer">TranslationBlockTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#instructiontracer">InstructionTracer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/FunctionMonitor.html">FunctionMonitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Linux/FunctionModels.html">FunctionModels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/FunctionModels.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/FunctionModels.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/EdgeKiller.html">EdgeKiller</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/EdgeKiller.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/EdgeKiller.html#required-plugins">Required Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/EdgeKiller.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">S2E</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Automated Generation of Proofs of Vulnerability with S2E</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/Tutorials/PoV/pov.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="automated-generation-of-proofs-of-vulnerability-with-s2e">
+<h1>Automated Generation of Proofs of Vulnerability with S2E<a class="headerlink" href="#automated-generation-of-proofs-of-vulnerability-with-s2e" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, we will show you how to use the S2E analysis platform to automatically find vulnerable spots in
+binaries and generate proofs of the existence of the vulnerabilities. These proofs can then be used by developers to
+easily reproduce, understand, and fix the bugs that lead to the vulnerabilities.</p>
+<p>S2E is a platform for in-vivo analysis of software systems that combines a virtual machine with symbolic execution.
+Users install and run in S2E any x86 or ARM software stack, including programs, libraries, the OS kernel, and drivers.
+S2E comes with a comprehensive set of plugins to perform various types of analyses, such as bug finding, performance
+profiling, reverse engineering, and of course vulnerability analysis as well as proof of vulnerabilitiy (PoV)
+generation. Attackers exploit binaries by supplying carefully-crafted inputs that force the program to execute malicious
+code or leak confidential data out of the program’s memory. An attacker typically feeds programs abnormally large
+strings in an attempt to gain control of the program counter. The attacker would choose the input data such that the
+corrupted program counter points to the location of the malicious payload, e.g., the attacker’s shellcode.</p>
+<p>Automating this can be decomposed in two parts: finding the vulnerable program location and generating the proof of
+vulnerability (PoV). In this tutorial, we will assume that the vulnerable instruction has been found and will
+focus on explaining how to generate the PoV.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Although not required, we recommend that you get familiar with the DARPA CyberGrandChallenge (CGC) in order to have
+a better understanding of this tutorial. The CGC documentation is on
+<a class="reference external" href="https://github.com/CyberGrandChallenge/cgc-release-documentation">Github</a>
+and details about the event are <a class="reference external" href="http://archive.darpa.mil/cybergrandchallenge/">here</a>.</p>
+<p class="last">DARPA’s <a class="reference external" href="http://archive.darpa.mil/cybergrandchallenge/">Cyber Grand Challenge</a> (CGC) was the world’s first
+all-machine hacking tournament. S2E was a key component in CodeJitsu’s Cyber Reasoning System (CRS) and was used to
+automatically to find vulnerabilities and exploit them. This tutorial walks you through the theory behind automated
+PoV generation. After you are done reading it, you can get your hands dirty in this <a class="reference external" href="index.html">follow-up</a>.</p>
+</div>
+<div class="section" id="understanding-the-execution-of-a-vulnerable-program">
+<h2>Understanding the Execution of a Vulnerable Program<a class="headerlink" href="#understanding-the-execution-of-a-vulnerable-program" title="Permalink to this headline">¶</a></h2>
+<p>Consider the following program. It receives data from the network and stores it into a buffer. The buffer has a length
+of 4 bytes and the receive function tries to write 12 bytes into it, causing a buffer overflow.</p>
+<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+    <span class="n">receive</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Since the processor executes machine instructions, we must reason about the binary form of this program. Here is how the
+assembly code for this program could look like, with the most important instructions explained.</p>
+<div class="highlight-none notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span>push    ebp
+mov     ebp, esp
+sub     esp, 4         ; Allocate 4 bytes on the stack for buf
+lea     eax, [ebp-4]   ; Compute address of buf
+push    12             ; Push 12 for 2nd parameter of receive
+push    eax            ; Push address of buf for 1st param of receive
+call    receive
+xor     eax, eax       ; Set return value to 0
+leave                  ; Clean the stack frame
+ret                    ; Return from the main function
+</pre></div>
+</td></tr></table></div>
+<p>Let’s now see what the program would execute if the attacker sends the string <code class="docutils literal notranslate"><span class="pre">AAAABBBBCCCC</span></code>. Assume that the stack
+pointer register is <code class="docutils literal notranslate"><span class="pre">0xf0</span></code> at instruction 1 and the frame pointer is <code class="docutils literal notranslate"><span class="pre">0x1000</span></code>. After executing instruction 6 and
+right before calling receive, the program stack could look like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>0xf8: 0xabc0    ; argv
+0xf4: 0xdef0    ; argc
+0xf0: 0x800231  ; return address
+0xec: 0x1000    ; saved frame pointer
+0xe8: buf       ; space for the buffer (allocated at line 3)
+0xe4: 12        ; size of the parameter passed to receive
+0xe0: 0xe8      ; address of the buffer on the stack
+</pre></div>
+</div>
+<p>After calling receive, the stack looks like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>0xf8: 0xabc0    ; argv
+0xf4: 0xdef0    ; argc
+0xf0: CCCC      ; return address
+0xec: BBBB      ; saved frame pointer
+0xe8: AAAA      ; space for the buffer (allocated at line 3)
+0xe4: 12        ; size of the parameter passed to receive
+0xe0: 0xe8      ; address of the buffer on the stack
+</pre></div>
+</div>
+<p>As you can see, the receive call overwrote the neighbouring memory locations, corrupting the original frame pointer and
+the return address. The return instruction at line 10 will jump straight to the address <code class="docutils literal notranslate"><span class="pre">CCCC</span></code>, fully controlled by
+the attacker. All the attacker needs to do here is to figure out what bytes of the inputs end up in the program counter.</p>
+<p>An automated PoV generator would have to do here is to detect when the input reaches the program counter, figure out
+which bytes of the input end up in the program counter, and compute the actual input byte values so that the program
+counter has the desired address.</p>
+<div class="section" id="using-symbolic-execution-to-generate-povs">
+<h3>Using Symbolic Execution to Generate PoVs<a class="headerlink" href="#using-symbolic-execution-to-generate-povs" title="Permalink to this headline">¶</a></h3>
+<p>Performing this mapping can be done with a simple technique called symbolic execution. In normal execution (aka
+“concrete” execution), the program gets concrete inputs (e.g., <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;abc&quot;</span></code>, etc.), performs computations on
+them, and produces concrete outputs. In symbolic execution, the program gets “symbolic” inputs instead (e.g., λ<sub>0</sub>λ<sub>1</sub>λ<sub>2</sub>λ<sub>3</sub>). These symbolic inputs propagate through the program and build
+mathematical formulas (“symbolic expressions” or “symbolic values”) as execution progresses.</p>
+<p>Symbolic values coexist side-by-side with concrete values, and just like concrete values, can be read and written to
+memory and processor registers. Moreover, at any point of execution, it is possible to plug any such mathematical
+formula into a solver in order to compute concrete inputs, e.g., to generate a PoV.</p>
+<p>Executing a program symbolically requires a symbolic execution engine. You can think of it as an emulator that
+continuously fetches binary instructions, decodes them, checks if the operands contain symbolic data, and if so creates
+a symbolic expression out of the operands, and otherwise computes the result concretely as usual. The engine extends the
+register file and the memory with an array of pointers that store a reference to the symbolic expression or null if the
+location is concrete. When the system starts, there is no symbolic data in the system and everything runs concretely. In
+order to initiate symbolic execution, the engine therefore needs to provide a mechanism  to create fresh symbolic
+variables and write them to the desired memory location. S2E, which is based on virtualization, conveniently provides a
+custom machine instruction (e.g., a special x86 instruction for x86 targets) that can be used from inline assembly.</p>
+<p>In order to run the program above symbolically, one needs to define a source of symbolic values. This source is the
+receive system call. The symbolic execution engine would need to somehow intercept the call to <code class="docutils literal notranslate"><span class="pre">receive</span></code> and replace
+it with a custom implementation that injects symbolic values into the buffer instead of reading concrete data from the
+network. When using S2E, this can be easily done with <code class="docutils literal notranslate"><span class="pre">LD_PRELOAD</span></code> or, for static binaries, by tweaking the receive
+syscall in the Linux kernel. S2E provides a custom x86 instruction to create symbolic values. For the example above,
+this can be as simple as transforming receive into:</p>
+<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">receive</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">s2e_make_symbolic</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="s">&quot;input_buffer&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">size</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p><code class="docutils literal notranslate"><span class="pre">s2e_make_symbolic</span></code> is nothing more than a function written in assembly that contains a hard-coded sequence of bytes
+for the custom x86 opcode that instructs the symbolic execution engine to write a fresh symbolic value to the desired
+memory location. Each symbolic variable gets a name (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;input_buffer&quot;</span></code>) in order to simplify test case
+generation. When running the previous example inside a symbolic execution engine, the stack would look like this when
+receive returns:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>0xf8: 0xabc0     ; argv
+0xf4: 0xdef0     ; argc
+0xf0: λ11λ10λ9λ8 ; input_buffer[8..11]
+0xec: λ7λ6λ5λ4   ; input_buffer[4..7]
+0xe8: λ3λ2λ1λ0   ; input_buffer[0..3]
+0xe4: 12         ; size of the parameter passed to receive
+0xe0: 0xe8       ; address of the buffer on the stack
+</pre></div>
+</div>
+<p>The symbolic execution engine eventually reaches the return instruction at line 10, at which point it tries to write the
+symbolic value at address 0xe8 into the program counter. The engine detects that the value is symbolic and stops
+execution. The engine cannot continue execution at this stage because it does not know the target of a symbolic program
+counter. A symbolic program counter could point to any memory location and the analysis engine would have a pretty hard
+time choosing on its own a concrete value that makes sense.</p>
+<p>This is where S2E analysis plugins come into play. Plugins hook into the execution engine and react to various events of
+interest. The S2E engine exposes dozens of events, allowing developers to implement powerful analysis tools. For
+example, plugins could observe the instruction stream and react to symbolic pointers. This is useful for PoV generation,
+as symbolic pointers that end up in critical registers (like a program counter) are often an indication of a
+vulnerability. Plugins could also look at which instructions were executed, in order to compute code coverage, etc.</p>
+<p>S2E uses the <code class="docutils literal notranslate"><span class="pre">Recipe</span></code> plugin in order to determine whether an instruction can be exploited and generate inputs for the
+PoV. The recipe plugin takes as input a set of pre-computed constraints for registers (the “recipe”). When a potentially
+vulnerable spot is reached, the plugin appends the recipe constraints to the current set of path constraints, then asks
+the solver to compute concrete inputs. If the solver succeeds in computing the inputs, the plugin found a PoV. If not,
+the recipe plugin resumes execution, looking for other vulnerable spots. In the example above, suppose that the recipe
+states that the program counter must be equal to <code class="docutils literal notranslate"><span class="pre">0x801002</span></code> and the frame pointer must be set to <code class="docutils literal notranslate"><span class="pre">0xdeadbeef</span></code> in
+order to demonstrate the vulnerability. When execution reaches the return instruction, the solver will be fed additional
+constraints λ<sub>11</sub>λ<sub>10</sub>λ<sub>9</sub>λ<sub>8</sub> == 0x00801002 and λ<sub>7</sub>λ<sub>6</sub>λ<sub>5</sub>λ<sub>4</sub> == 0xdeadbeef.  The solver will determine that this is feasible, and will then return the
+following concrete input bytes: <code class="docutils literal notranslate"><span class="pre">ff</span> <span class="pre">ff</span> <span class="pre">ff</span> <span class="pre">ff</span> <span class="pre">ef</span> <span class="pre">be</span> <span class="pre">ad</span> <span class="pre">de</span> <span class="pre">02</span> <span class="pre">10</span> <span class="pre">80</span> <span class="pre">00</span></code>. Values for λ<sub>3</sub>λ<sub>2</sub>λ<sub>1</sub>λ<sub>0</sub> are not important (i.e., they have no constraints), so the solver can choose anything for them
+(here <code class="docutils literal notranslate"><span class="pre">0xffffffff</span></code>).</p>
+<p>The following is the simplest possible recipe accepted by the <code class="docutils literal notranslate"><span class="pre">Recipe</span></code> plugin. It specifies a <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code>
+vulnerability, in which the attacker can control the program counter (EIP register), as well as a general purpose
+register (here, it is <code class="docutils literal notranslate"><span class="pre">EAX</span></code>). The mask specifies which bits of these registers the attacker can control. The lines of
+the form <code class="docutils literal notranslate"><span class="pre">EIP[0]</span> <span class="pre">==</span> <span class="pre">$pc[0]</span></code> represent constraints on the symbolic registers. The left hand side is the register, the
+right hand side is a variable that represents a concrete value negotiated with the CGC framework (the framework chooses
+a random <code class="docutils literal notranslate"><span class="pre">EIP</span></code> value to check that the exploit works for any <code class="docutils literal notranslate"><span class="pre">EIP</span></code> value).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We use the DARPA CyberGrandChallenge terminology, which defines <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">2</span></code> vulnerabilities.
+Refer to the CGC <a class="reference external" href="https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/walk-throughs/understanding-cfe-povs.md">documentation</a> for more details.</p>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:type=1
+:arch=i386
+:platform=generic
+:gp=EAX
+:reg_mask=0xffffffff
+:pc_mask=0xffffffff
+EIP[0] == $pc[0]
+EIP[1] == $pc[1]
+EIP[2] == $pc[2]
+EIP[3] == $pc[3]
+EAX[0] == $gp[0]
+EAX[1] == $gp[1]
+EAX[2] == $gp[2]
+EAX[3] == $gp[3]
+</pre></div>
+</div>
+<p>The following is a more complex recipe that contains shellcode. The lines of the form <code class="docutils literal notranslate"><span class="pre">[EIP+XXX]</span> <span class="pre">==</span> <span class="pre">YY</span></code> represent a
+constraint on a memory location at address <code class="docutils literal notranslate"><span class="pre">EIP</span> <span class="pre">+</span> <span class="pre">XXX</span></code>. For example, <code class="docutils literal notranslate"><span class="pre">EIP+0</span></code> must be equal to <code class="docutils literal notranslate"><span class="pre">0xb8</span></code>. When the
+symbolic execution engine encounters a symbolic program counter, it checks that the recipe constraints can be satisfied,
+and if so, generates the PoV.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Set GP and EIP with shellcode
+# mov eax $gp
+# mov ebx, $pc
+# jmp ebx
+:type 1
+:reg_mask=0xffffffff
+:pc_mask=0xffffffff
+:gp=EAX
+:exec_mem=EIP
+[EIP+0] == 0xb8
+[EIP+1] == $gp[0]
+[EIP+2] == $gp[1]
+[EIP+3] == $gp[2]
+[EIP+4] == $gp[3]
+[EIP+5] == 0xbb
+[EIP+6] == $pc[0]
+[EIP+7] == $pc[1]
+[EIP+8] == $pc[2]
+[EIP+9] == $pc[3]
+[EIP+10] == 0xff
+[EIP+11] == 0xe3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="identifying-advanced-vulnerability-patterns-with-s2e">
+<h2>Identifying Advanced Vulnerability Patterns with S2E<a class="headerlink" href="#identifying-advanced-vulnerability-patterns-with-s2e" title="Permalink to this headline">¶</a></h2>
+<p>In the previous sections, we explained how to detect basic return address overwrites and generate simple PoVs. The idea
+was to use symbolic execution in order to track the flow of symbolic input data into sensitive registers, such as the
+program counter, then use the constraint solver in order to generate valid PoVs according to pre-computed recipes. PoV
+generation leverages the ability of S2E to detect memory accesses through symbolic pointers, detect changes of control
+flow to a symbolic address, and detect function calls with symbolic parameters. When S2E detects these events, it
+notifies the recipe plugin. The plugin then goes through the set of recipes and if one of them satisfies the current
+path constraints, generates a PoV. This is sufficient to exploit stack/heap overflows, arbitrary memory writes, lack of
+input validation, etc.</p>
+<p>In this section, we will look into more advanced vulnerability patterns that S2E can detect. All these patterns are
+based on the ability of S2E to detect uses of symbolic pointers, like assignment to program counter or simple
+dereference. We will see how to detect and exploit function pointer overwrites, reads and writes to arbitrary memory
+locations, as well as function calls that have symbolic parameters.</p>
+<div class="section" id="function-pointer-overwrite">
+<h3>Function Pointer Overwrite<a class="headerlink" href="#function-pointer-overwrite" title="Permalink to this headline">¶</a></h3>
+<p>In the following example, <code class="docutils literal notranslate"><span class="pre">f_ptr</span></code> is overwritten by the receive function. So instead of calling <code class="docutils literal notranslate"><span class="pre">f_ptr</span></code>, the program
+ends up calling a pointer set by the attacker.</p>
+<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">f_ptr</span><span class="p">)(</span><span class="kt">void</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+    <span class="n">f_ptr</span> <span class="o">=</span> <span class="n">f</span><span class="p">;</span> <span class="c1">// f is a function defined elsewhere in the program</span>
+    <span class="n">receive</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">f_ptr</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>When <code class="docutils literal notranslate"><span class="pre">f_ptr</span></code> is called, S2E detects the attempt to set <code class="docutils literal notranslate"><span class="pre">EIP</span></code> to a symbolic value and tries every available recipe.
+This is very similar to the case of return address overwrites, in which the return instruction fetches the symbolic
+value stored on the stack and attempts to assign it to the program counter. Here, we have a call (or jump) instruction
+that computes the target (e.g., by getting it from a register or from a memory location specified by the operand) before
+writing it to the program counter. The recipe plugin catches the write and tries to figure out if there is a recipe that
+can force the program counter to go to an interesting address.</p>
+</div>
+<div class="section" id="arbitrary-writes">
+<h3>Arbitrary Writes<a class="headerlink" href="#arbitrary-writes" title="Permalink to this headline">¶</a></h3>
+<p>The code snippet below contains an arbitrary write vulnerability. It exemplifies a situation that commonly occurs with
+heap overflow vulnerabilities. An attacker may overwrite the memory location specified by input bytes <code class="docutils literal notranslate"><span class="pre">[32:35]</span></code> with
+the value specified by input bytes <code class="docutils literal notranslate"><span class="pre">[0:3]</span></code>.</p>
+<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Initialize a with the address of a legitimate global variable</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">g_my_var</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+
+    <span class="n">receive</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">buffer</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">*</span><span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>The trick to exploit such vulnerabilities automatically is to collect addresses of all sorts of interesting targets
+during execution. Such targets include locations of return addresses on the stack, various code pointers, etc. When S2E
+finds an arbitrary write, the recipe plugin uses that write to overwrite every potential target with attacker-controlled
+data. Later on, as S2E continues execution, it will detect the use of the overwritten return address and handle it as
+the common case of return address / code pointer overwrite.</p>
+<p>The recipe plugin instruments call and ret instructions to keep a LIFO structure for locations of return addresses to be
+used as potential targets for arbitrary writes. This is a best effort attempt at exploitation: if the binary interrupts
+execution between the arbitrary write vulnerability and the following return instruction (e.g., by means of an exit),
+the exploitation attempt will fail. We discuss later ways to identify more potential targets to improve the chances of
+successfully exploiting arbitrary writes.</p>
+</div>
+<div class="section" id="arbitrary-reads">
+<h3>Arbitrary Reads<a class="headerlink" href="#arbitrary-reads" title="Permalink to this headline">¶</a></h3>
+<p>S2E also supports exploitation of arbitrary memory reads. The following code snippet has a pointer <code class="docutils literal notranslate"><span class="pre">a</span></code> to a structure
+that contains a function pointer <code class="docutils literal notranslate"><span class="pre">f_ptr</span></code>. The program dereferences <code class="docutils literal notranslate"><span class="pre">a</span></code> and then calls <code class="docutils literal notranslate"><span class="pre">f_ptr</span></code>. The attacker can
+overwrite <code class="docutils literal notranslate"><span class="pre">a</span></code> to point to the buffer buffer, which would allow setting <code class="docutils literal notranslate"><span class="pre">f_ptr</span></code> to an arbitrary value and thus
+execute arbitrary code.</p>
+<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">test</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">abcd</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">f_ptr</span><span class="p">)(</span><span class="kt">void</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">test</span> <span class="n">g_test1</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="n">my_func1</span><span class="p">};</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Initialize a with the address of a legitimate global variable</span>
+    <span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">g_test1</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+
+    <span class="c1">// This receive overflows by 4 bytes, overwriting pointer a</span>
+    <span class="c1">// with attacker-controlled data.</span>
+    <span class="n">receive</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span><span class="p">);</span>
+
+    <span class="c1">// Reads attacker-controller pointer value from a,</span>
+    <span class="c1">// then reads the address of a function stored in f_ptr</span>
+    <span class="c1">// (also attacker controlled), and finally calls that function.</span>
+    <span class="n">a</span><span class="o">-&gt;</span><span class="n">f_ptr</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>When S2E identifies an arbitrary read, the recipe plugin looks for memory locations (e.g., <code class="docutils literal notranslate"><span class="pre">buffer</span></code>) that contain
+symbolic data (i.e., derived from user input). The plugin forces constraints on the target of the read operation (e.g.,
+<code class="docutils literal notranslate"><span class="pre">a</span></code>) to make it point to one of these locations, and let execution go forward. By doing so, if any of the values read
+from symbolic memory are used, e.g., as target of a write operation, or of an indirect control instruction, the plugin
+can detect and exploit it as explained in previous scenarios.  The line invoking the function pointer <code class="docutils literal notranslate"><span class="pre">a-&gt;f_ptr()</span></code>
+triggers the arbitrary read vulnerability. S2E automatically overwrites pointer <code class="docutils literal notranslate"><span class="pre">a</span></code> with the address of buffer, so
+that <code class="docutils literal notranslate"><span class="pre">f_ptr</span></code> tries to invoke symbolic bytes at <code class="docutils literal notranslate"><span class="pre">buffer[4:7]</span></code>. This is then handled as a function pointer overwrite
+case.</p>
+</div>
+<div class="section" id="function-calls-with-symbolic-parameters">
+<h3>Function Calls with Symbolic Parameters<a class="headerlink" href="#function-calls-with-symbolic-parameters" title="Permalink to this headline">¶</a></h3>
+<p>There are cases where the ability to pass arbitrary arguments to certain functions can be exploited to exfiltrate data.
+The following example transmits 128 bytes stored at the memory location pointed to by <code class="docutils literal notranslate"><span class="pre">a</span></code>. Unfortunately, this
+location can be controlled by the attacker through a buffer overflow. The attacker can therefore set it to any address
+and exfiltrate pretty much anything from the address space of the binary, such as encryption keys, passwords, or other
+secrets.</p>
+<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">char</span> <span class="n">g_long_string</span><span class="p">[</span><span class="mi">128</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;...&quot;</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Initialize a to the address of a legitimate string</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="n">g_a_string</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+
+    <span class="c1">// Overflow 4 bytes past the buffer</span>
+    <span class="n">receive</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span><span class="p">);</span>
+
+    <span class="c1">// a contains attacker-controlled data, allowing to exfiltrate</span>
+    <span class="c1">// any data in the address space.</span>
+    <span class="n">transmit</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">128</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Detecting such cases for S2E is straightforward. The recipe plugin instruments every critical function (e.g.,
+<code class="docutils literal notranslate"><span class="pre">transmit()</span></code>) to check whether any of the critical parameters can be made to point to interesting data. It then
+applies recipes to produce a <code class="docutils literal notranslate"><span class="pre">Type`2</span></code> PoV which aims to leak a flag in the secret page. The challenge is to
+automatically identify such functions (not only <code class="docutils literal notranslate"><span class="pre">transmit()</span></code>) inside the CGC binaries. Before starting the analysis of
+the binary, S2E disassembles it, extracts all function addresses, then invokes every function with canned parameters. If
+the function produces the expected output, identification succeeded.</p>
+<blockquote>
+<div>S2E uses <a class="reference external" href="https://github.com/S2E/s2e/tree/master/tools/tools/revgen32">RevGen</a>, an x86-to-LLVM translator,
+in order to extract function types from the binary before analyzing it.</div></blockquote>
+</div>
+</div>
+<div class="section" id="generating-replayable-povs">
+<h2>Generating Replayable PoVs<a class="headerlink" href="#generating-replayable-povs" title="Permalink to this headline">¶</a></h2>
+<p>In the CGC framework, a PoV is a normal program that communicates with the vulnerable binary in order to exploit it.
+Communication can be done through a pipe or a network. A PoV can send data to the binary and receive data that the
+binary outputs. PoVs are free to make computations on the data they get from the challenge binary in order to generate
+input for the binary that will lead to exploitation.</p>
+<p>The example below shows a simple PoV that sends a long string that triggers a buffer overflow in the challenge binary.
+Note that even if data sent by the binary is not used, it must still be consumed by the PoV, otherwise the binary could
+block when its transmit buffer is full.</p>
+<table>
+<tr><th>PoV</th><th>Challenge Binary</th></tr>
+<tr>
+    <td><div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(...)</span> <span class="p">{</span>
+    <span class="n">transmit</span><span class="p">(</span>
+       <span class="s">&quot;aaaaaaaaaaaaaaaa&quot;</span>
+       <span class="s">&quot;bbbbbbbbbbbbbbbb&quot;</span>
+       <span class="s">&quot;cccccccc&quot;</span><span class="p">,</span> <span class="mi">40</span>
+    <span class="p">);</span>
+
+    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+    <span class="n">receive</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</td>
+<td><div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(...)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+
+    <span class="n">receive</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">+</span> <span class="mi">8</span><span class="p">);</span>
+
+    <span class="n">transmit</span><span class="p">(</span><span class="s">&quot;done&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</td>
+</tr>
+</table><p>In this section, we will discuss some of the challenges that symbolic execution engines face in order to generate
+correct and reliable PoVs.</p>
+<p>S2E generates a PoV for the above example as follows. First, S2E instruments the program to monitor calls to the receive
+and transmit functions. S2E makes the contents of the receive buffer symbolic and records what the binary writes through
+the transmit function. It maintains an ordered list of these calls. When a path terminates and is exploitable, S2E
+generates concrete inputs and attaches them to the corresponding receive entry in the list. Second, for every receive
+invoked by the binary, S2E generates a corresponding write in the PoV. This write contains the concrete data computed by
+the solver. Likewise, S2E generates a receive operation for every transmit done by the binary. In its simplest form, the
+PoV ignores the contents sent by the binary.</p>
+<p>The complexity of generating a PoV depends on whether the challenge binary is deterministic or not, and whether it
+requires the PoV to perform computations. A deterministic binary is one that does not use randomness, making PoV
+generation easy. When the symbolic execution engine detects a vulnerable point, it calls the constraint solver in order
+to get concrete inputs. These concrete inputs can then be used to exploit the binary. Moreover, they are guaranteed to
+work on every exploitation attempt.</p>
+<p>Generating PoVs for non-deterministic input is much harder than for deterministic ones. Non-determinism occurs when the
+challenge binary relies on random data to implement its functionality. This often happens in challenge-response
+algorithms, where a program sends a random value to the client and expects the client to reply with a correct response
+based on some computation on that random value. A simplified version of this is when a program generates a random value
+(or “cookie”), sends that cookie to the client, then expects the client to send that cookie back unmodified on the next
+request in order to operate properly.</p>
+<p>S2E handles non-deterministic binaries that use simple cookies. Consider the following scenario. A challenge binary
+calls the random number generator, records the random number, then transmits it. It then expects to receive that number
+from the remote host in order to continue with execution. S2E has no trouble making the random value symbolic and
+getting to the vulnerability. The problem is that by default, the generated PoV is invalid: the constraint solver does
+not know that the received value has any connection to the written value and as a result generates a bogus concrete
+value that does not match the random data. Moreover, the random value will be different on every run, so it is
+impossible to hard-code a fixed value in the PoV. The following code snippet shows such a case.</p>
+<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
+    <span class="c1">// S2E returns a symbolic value instead of the original concrete value</span>
+    <span class="kt">int</span> <span class="n">cookie</span> <span class="o">=</span> <span class="n">random</span><span class="p">();</span>
+    <span class="c1">// The binary sends the random value to the client</span>
+    <span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cookie</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cookie</span><span class="p">));</span>
+    <span class="c1">// S2E creates a fresh symbolic value for data</span>
+    <span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
+    <span class="c1">// data is not constrained, so S2E can explore both outcomes of the if</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">!=</span> <span class="n">cookie</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// When arriving here, S2E generates an unreplayable PoV because</span>
+    <span class="c1">// it did not realize that data and cookie are connected together</span>
+    <span class="n">vulnerable_code</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">naive_pov</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">data0</span><span class="p">;</span>
+  <span class="c1">// The POV expects to read 4 bytes of data written by the program.</span>
+  <span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
+  <span class="c1">// 1234 is a random value chosen by the solver for the cookie. It was</span>
+  <span class="c1">// valid only for one path and is unlikely to be useful in the next run.</span>
+  <span class="kt">int</span> <span class="n">data1</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">;</span>
+  <span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data1</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>A correct PoV would look like this:</p>
+<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">correct_pov</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">data0</span><span class="p">;</span>
+  <span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data0</span><span class="p">));</span>
+  <span class="kt">int</span> <span class="n">data1</span> <span class="o">=</span> <span class="n">data0</span><span class="p">;</span>
+  <span class="c1">// Transmit the previously received data</span>
+  <span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data1</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>To generate a correct PoV, S2E looks at all branch conditions and looks for cases where the content of a receive buffer
+is compared with a symbolic value derived from the random number generator. Once it found such a comparison, it can
+easily generate the correct PoV code by mapping the symbolic value created in the receive call to the symbolic value
+written by the transmit function.</p>
+<p>A much harder case happens when the PoV needs to perform computations. Consider the slightly modified above example:</p>
+<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">cookie</span> <span class="o">=</span> <span class="n">random</span><span class="p">();</span>
+    <span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cookie</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cookie</span><span class="p">));</span>
+    <span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">*</span> <span class="mi">8</span> <span class="o">!=</span> <span class="n">cookie</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">vulnerable_code</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>A valid PoV would look something like this:</p>
+<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">correct_pov</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">data0</span><span class="p">;</span>
+  <span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data0</span><span class="p">));</span>
+  <span class="kt">int</span> <span class="n">data1</span> <span class="o">=</span> <span class="n">data0</span> <span class="o">/</span> <span class="mi">8</span><span class="p">;</span>
+  <span class="c1">// Transmit the previously received data</span>
+  <span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data1</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Generating a valid PoV in the general case where computations on transmitted data are involved requires embedding a
+constraint solver directly inside the PoV itself. The PoV would have to solve the equation (<code class="docutils literal notranslate"><span class="pre">date</span> <span class="pre">*</span> <span class="pre">8</span> <span class="pre">==</span> <span class="pre">cookie</span></code>) in
+order to exploit the binary. For some simple cases like here, it may be possible to invert the equation, though in
+general, conditions are of the form <code class="docutils literal notranslate"><span class="pre">f(x,y,...)=0</span></code>, making this task practically impossible without running the actual
+solver. The following snippet shows how would an automatically generated PoV with an embedded solver look like.</p>
+<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">correct_pov_with_solver</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">data0</span><span class="p">,</span> <span class="n">data1</span><span class="p">;</span>
+  <span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data0</span><span class="p">));</span>
+  <span class="c1">// pseudo code that takes data0 as input and computes data1</span>
+  <span class="n">solve</span><span class="p">(</span><span class="s">&quot;%s * 8 == %s&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">data0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">data1</span><span class="p">);</span>
+  <span class="c1">// Transmit the previously received data</span>
+  <span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data1</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Unfortunately, we ran out of time and didn’t have time to implement this solution. The main challenge was to fit an
+entire solver within the size and memory limits of a PoV, as well as modifying the solver to accommodate a very
+restricted runtime environment, that has primitive memory allocation, no standard library, etc.</p>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>In this tutorial, you have learnt the theory behind automated PoV generation as well as various practical
+issues that arise when building a robust PoV generator. Now it is a good time to get your hands dirty
+by actually <a class="reference external" href="index.html">generating</a> PoVs for a few vulnerable binaries.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="index.html" class="btn btn-neutral float-right" title="Using S2E to generate PoVs for Linux, Windows, and CGC binaries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../BasicLinuxSymbex/SourceCode.html" class="btn btn-neutral" title="Instrumenting Program Source Code for S2E" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Cyberhaven
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-75283635-2', 'auto');
+      ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1116 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Symbolic Execution Extensions for KVM &mdash; S2E 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contributing to S2E" href="../Contribute.html" />
+    <link rel="prev" title="Frequently Asked Questions (FAQ)" href="../FAQ.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> S2E
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../s2e-env.html">Start here: setting up S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../s2e-env.html#using-s2e-env">Using s2e-env</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#creating-a-new-environment">Creating a new environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../s2e-env.html#s2e-activate"><code class="docutils literal notranslate"><span class="pre">s2e_activate</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#building-s2e">Building S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#updating-the-source-code">Updating the source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#building-an-image">Building an image</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../s2e-env.html#windows-images">Windows images</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#creating-a-new-analysis-project">Creating a new analysis project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#target-program-arguments">Target program arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#using-seed-files">Using seed files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#running-your-analysis">Running your analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#parsing-an-execution-trace">Parsing an execution trace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../s2e-env.html#importing-and-exporting-projects">Importing and exporting projects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../s2e-env.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../BuildingS2E.html">Building the S2E platform manually</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BuildingS2E.html#building-using-docker">Building using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BuildingS2E.html#building-s2e-manually">Building S2E manually</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../BuildingS2E.html#required-packages">Required packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../BuildingS2E.html#checking-out-s2e">Checking out S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../BuildingS2E.html#building">Building</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../BuildingS2E.html#updating">Updating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../BuildingS2E.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/s2e.so.html">Symbolic Execution of Linux Binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/s2e.so.html#getting-started">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/s2e.so.html#using-s2e-so">Using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/s2e.so.html#what-about-other-symbolic-input">What about other symbolic input?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/s2e.so.html#configuring-s2e-for-use-with-s2e-so">Configuring S2E for use with <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/s2e.so.html#modifying-and-building-s2e-so">Modifying and building <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/SourceCode.html">Instrumenting Program Source Code for S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/SourceCode.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/SourceCode.html#compiling-and-running">Compiling and running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/SourceCode.html#preparing-the-program-for-symbolic-execution">Preparing the program for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/SourceCode.html#running-the-program-in-s2e">Running the program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/BasicLinuxSymbex/SourceCode.html#terminating-execution-paths">Terminating execution paths</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Use Cases</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/PoV/pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/PoV/pov.html#using-symbolic-execution-to-generate-povs">Using Symbolic Execution to Generate PoVs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/pov.html#identifying-advanced-vulnerability-patterns-with-s2e">Identifying Advanced Vulnerability Patterns with S2E</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/PoV/pov.html#function-pointer-overwrite">Function Pointer Overwrite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/PoV/pov.html#arbitrary-writes">Arbitrary Writes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/PoV/pov.html#arbitrary-reads">Arbitrary Reads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/PoV/pov.html#function-calls-with-symbolic-parameters">Function Calls with Symbolic Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/pov.html#generating-replayable-povs">Generating Replayable PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/pov.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/PoV/index.html">Using S2E to generate PoVs for Linux, Windows, and CGC binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/index.html#quickstart-on-windows-and-linux">Quickstart on Windows and Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/index.html#understanding-recipes">Understanding recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/index.html#povs-for-darpa-decree-cgc-binaries">PoVs for DARPA Decree/CGC binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/index.html#understanding-cgc-style-povs">Understanding CGC-style PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/index.html#plugin-architecture-overview">Plugin architecture overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/index.html#plugins-involved-in-pov-generation">Plugins involved in PoV generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/index.html#the-bootstrap-script">The bootstrap script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/kaitai-s2e">Combining Kaitai Struct and S2E for analyzing parsers [external]</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/malware-s2e">Analyzing trigger-based malware with S2E [external]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/SystemTap/index.html">Using SystemTap with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/SystemTap/index.html#building-and-running-systemtap-in-s2e">Building and running SystemTap in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/SystemTap/index.html#creating-a-simple-systemtap-script-for-symbolic-execution">Creating a simple SystemTap script for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/SystemTap/index.html#running-the-script-in-s2e">Running the script in S2E</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/WindowsDLL/index.html">Analysis of Windows DLLs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDLL/index.html#preparing-the-test-environment">Preparing the test environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDLL/index.html#generate-basic-block-coverage">Generate basic block coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html">Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#setting-up-s2e">Setting up S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#setting-up-the-windows-environment">Setting up the Windows Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#building-the-sample-driver">Building the Sample Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#creating-an-s2e-driver-project">Creating an S2E Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#customizing-the-driver-project">Customizing the Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#running-the-driver">Running the Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#getting-code-coverage-reports">Getting Code Coverage Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#testing-error-recovery-code">Testing Error Recovery Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#generating-crash-dumps">Generating Crash Dumps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#understanding-s2e-logs-and-test-cases">Understanding S2E Logs and Test Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#customizing-fault-injection">Customizing Fault Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/WindowsDrivers/FaultInjection.html#debugging-tips">Debugging Tips</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html">Translating binaries to LLVM with Revgen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#using-revgen">Using Revgen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#prerequisites">1. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#build-the-cgc-binaries">2. Build the CGC binaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#translating-a-binary">3. Translating a binary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#running-a-translated-cgc-binary">4. Running a translated CGC binary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#design-and-implementation">Design and implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#translating-basic-blocks-to-llvm">Translating basic blocks to LLVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#stitching-basic-blocks-into-functions">Stitching basic blocks into functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#assumptions">Assumptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#running-translated-binaries">Running translated binaries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#evaluation">Evaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../EquivalenceTesting.html">Equivalence Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../EquivalenceTesting.html#program-to-test">Program to Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../EquivalenceTesting.html#configuring-s2e">Configuring S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../EquivalenceTesting.html#running-the-program-in-s2e">Running the Program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../EquivalenceTesting.html#interpreting-the-results">Interpreting the Results</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Howtos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Howtos/Coverage/index.html">Measuring code coverage with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Howtos/Coverage/index.html#building-coreutils">Building Coreutils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Howtos/Coverage/index.html#running-coreutils-concretely-in-s2e">Running Coreutils concretely in S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Howtos/Coverage/index.html#generating-line-coverage">Generating line coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/Coverage/index.html#line-coverage-for-shared-libraries">Line coverage for shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/Coverage/index.html#basic-block-coverage">Basic block coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/Coverage/index.html#code-coverage-during-symbolic-execution">Code coverage during symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/Coverage/index.html#how-does-s2e-record-and-compute-coverage">How does S2E record and compute coverage?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/Coverage/index.html#line-coverage-for-the-linux-kernel">Line coverage for the Linux kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/Coverage/index.html#line-coverage-for-windows-binaries">Line coverage for Windows binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/Coverage/index.html#debugging-code-coverage">Debugging code coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Howtos/Parallel.html">Running S2E on multiple cores</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/Parallel.html#how-do-i-process-generated-traces">How do I process generated traces?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/Parallel.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Howtos/ExecutionTracers.html">Using execution tracers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/ExecutionTracers.html#recording-basic-traces">1. Recording basic traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/ExecutionTracers.html#analyzing-traces">2. Analyzing traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/ExecutionTracers.html#recording-memory-traces">3. Recording memory traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/ExecutionTracers.html#trace-format-reference">4. Trace format reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ImageInstallation.html">Customizing stock VM images</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ImageInstallation.html#image-creation-overview">Image creation overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ImageInstallation.html#building-linux-images">Building Linux images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ImageInstallation.html#building-windows-images">Building Windows images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ImageInstallation.html#when-should-i-install-my-software">When should I install my software?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ImageInstallation.html#the-s2e-vm-image-format">The S2E VM image format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ImageInstallation.html#general-guidelines-for-vm-images">General guidelines for VM images</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Howtos/WritingPlugins.html">Writing S2E plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/WritingPlugins.html#starting-with-an-empty-plugin">Starting with an Empty Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/WritingPlugins.html#reading-configuration-parameters">Reading Configuration Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/WritingPlugins.html#instrumenting-instructions">Instrumenting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/WritingPlugins.html#counting-instructions">Counting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/WritingPlugins.html#exporting-events">Exporting Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Howtos/LuaInstrumentation.html">Instrumenting guest code with Lua</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/LuaInstrumentation.html#instrumenting-function-calls-and-returns">Instrumenting function calls and returns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/LuaInstrumentation.html#instrumenting-instructions">Instrumenting instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/LuaInstrumentation.html#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Howtos/LuaInstrumentation.html#luas2eexecutionstate">LuaS2EExecutionState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Howtos/LuaInstrumentation.html#luas2eexecutionstatememory">LuaS2EExecutionStateMemory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Howtos/LuaInstrumentation.html#luas2eexecutionstateregisters">LuaS2EExecutionStateRegisters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Howtos/LuaInstrumentation.html#luafunctioninstrumentationstate">LuaFunctionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Howtos/LuaInstrumentation.html#luainstructioninstrumentationstate">LuaInstructionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Howtos/LuaInstrumentation.html#luaexpression">LuaExpression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Howtos/LuaInstrumentation.html#the-g-s2e-object">The <code class="docutils literal notranslate"><span class="pre">g_s2e</span></code> object</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Howtos/Concolic.html">Analyzing large programs using concolic execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/Concolic.html#faq">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../StateMerging.html">Exponential Analysis Speedup with State Merging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../StateMerging.html#using-state-merging-in-s2e">Using State Merging in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../StateMerging.html#state-merging-api">State Merging API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../StateMerging.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools/ForkProfiler.html">Debugging path explosion with the fork profiler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tools/ForkProfiler.html#using-the-fork-profile-to-debug-path-explosion">Using the fork profile to debug path explosion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently Asked Questions (FAQ)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FAQ.html#how-do-i-know-what-s2e-is-doing">How do I know what S2E is doing?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FAQ.html#execution-seems-stuck-slow-what-to-do">Execution seems stuck/slow. What to do?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FAQ.html#how-do-i-deal-with-path-explosion">How do I deal with path explosion?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FAQ.html#how-to-keep-memory-usage-low">How to keep memory usage low?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FAQ.html#how-much-time-is-the-constraint-solver-taking-to-solve-constraints">How much time is the constraint solver taking to solve constraints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FAQ.html#what-do-the-various-fields-in-run-stats-mean">What do the various fields in <code class="docutils literal notranslate"><span class="pre">run.stats</span></code> mean?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Symbolic Execution Extensions for KVM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#emulating-the-kvm-interface">Emulating the KVM interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-system-call-hooks-for-emulation">Using system call hooks for emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#differences-between-actual-kvm-and-kvm-emulation">Differences between actual KVM and KVM emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-symbolic-execution-capabilities-to-kvm">Adding symbolic execution capabilities to KVM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#multi-path-execution">Multi-path execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#handling-symbolic-data">Handling symbolic data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reference">Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dynamic-binary-translation">Dynamic binary translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#registering-memory-regions">Registering memory regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accessing-guest-memory">Accessing guest memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interrupting-execution">Interrupting execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#virtual-disk-i-o">Virtual disk I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#saving-restoring-device-snapshots">Saving/restoring device snapshots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-the-clock-scale-pointer">Setting the clock scale pointer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kvm-run-exit-codes">KVM_RUN exit codes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Contribute.html">Contributing to S2E</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Profiling/ProfilingS2E.html">Profiling S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Profiling/ProfilingS2E.html#profiling-memory-usage">Profiling memory usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Profiling/ProfilingS2E.html#profiling-cpu-performance">Profiling CPU performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../DebuggingS2E.html">Debugging S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../DebuggingS2E.html#the-obvious-checks">The obvious checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DebuggingS2E.html#record-replay">Record-replay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DebuggingS2E.html#valgrind">Valgrind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DebuggingS2E.html#debugging-with-gdb">Debugging with gdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DebuggingS2E.html#s2e-kernel-debugging">S2E kernel debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DebuggingS2E.html#s2e-debug-functions">S2E debug functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Testsuite.html">S2E Testsuite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Testsuite.html#building-the-testsuite">Building the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Testsuite.html#running-the-testsuite">Running the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Testsuite.html#adding-your-own-tests">Adding your own tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Testsuite.html#test-configuration-reference">Test configuration reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../WindowsEnvSetup.html">Setting up a Windows development environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsEnvSetup.html#provisioning-a-windows-development-vm">1. Provisioning a Windows development VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsEnvSetup.html#building-visual-studio-projects-remotely">2. Building Visual Studio projects remotely</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsEnvSetup.html#use-case-building-and-running-a-windows-device-driver">3. Use case: building and running a Windows device driver</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Linux/LinuxMonitor.html#required-plugins">Required Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/Windows/WindowsMonitor.html">WindowsMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Windows/WindowsMonitor.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/RawMonitor.html">RawMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/RawMonitor.html#custom-instruction">Custom Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/RawMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/RawMonitor.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/ModuleExecutionDetector.html">ModuleExecutionDetector</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/ModuleExecutionDetector.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/Tracers/ExecutionTracer.html">ExecutionTracer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Tracers/ExecutionTracer.html#executiontracer">ExecutionTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Tracers/ExecutionTracer.html#moduletracer">ModuleTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Tracers/ExecutionTracer.html#testcasegenerator">TestCaseGenerator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Tracers/ExecutionTracer.html#memorytracer">MemoryTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Tracers/ExecutionTracer.html#translationblocktracer">TranslationBlockTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Tracers/ExecutionTracer.html#instructiontracer">InstructionTracer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/FunctionMonitor.html">FunctionMonitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/Linux/FunctionModels.html">FunctionModels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Linux/FunctionModels.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/Linux/FunctionModels.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugins/EdgeKiller.html">EdgeKiller</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/EdgeKiller.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/EdgeKiller.html#required-plugins">Required Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins/EdgeKiller.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">S2E</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Symbolic Execution Extensions for KVM</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/DesignAndImplementation/KvmInterface.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="symbolic-execution-extensions-for-kvm">
+<h1><a class="toc-backref" href="#id1">Symbolic Execution Extensions for KVM</a><a class="headerlink" href="#symbolic-execution-extensions-for-kvm" title="Permalink to this headline">¶</a></h1>
+<p>This document presents extensions to the Linux KVM virtualization interface that enable building multi-path analysis
+tools, such as symbolic execution engines. In a nutshell, we built <code class="docutils literal notranslate"><span class="pre">libs2e.so</span></code>, a shared library that implements the
+S2E symbolic execution engine. This library can be preloaded into a target hypervisor process. The library intercepts
+and emulates calls to <code class="docutils literal notranslate"><span class="pre">/dev/kvm</span></code> to provide symbolic execution capabilities to vanilla hypervisors like QEMU.</p>
+<p>We will (1) provide an overview of how KVM works, (2) show how to build a library that emulates vanilla KVM using
+a dynamic binary translator as a CPU emulation engine, (3) how to add symbolic execution capabilities on top of that,
+and (4) provide a reference of the new KVM extensions so that you can integrate S2E into your own hypervisors.</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#symbolic-execution-extensions-for-kvm" id="id1">Symbolic Execution Extensions for KVM</a><ul>
+<li><a class="reference internal" href="#kernel-based-virtual-machine-kvm" id="id2">Kernel-based Virtual Machine (KVM)</a></li>
+<li><a class="reference internal" href="#emulating-the-kvm-interface" id="id3">Emulating the KVM interface</a><ul>
+<li><a class="reference internal" href="#using-system-call-hooks-for-emulation" id="id4">Using system call hooks for emulation</a></li>
+<li><a class="reference internal" href="#differences-between-actual-kvm-and-kvm-emulation" id="id5">Differences between actual KVM and KVM emulation</a></li>
+<li><a class="reference internal" href="#summary" id="id6">Summary</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#adding-symbolic-execution-capabilities-to-kvm" id="id7">Adding symbolic execution capabilities to KVM</a><ul>
+<li><a class="reference internal" href="#multi-path-execution" id="id8">Multi-path execution</a></li>
+<li><a class="reference internal" href="#handling-symbolic-data" id="id9">Handling symbolic data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#reference" id="id10">Reference</a><ul>
+<li><a class="reference internal" href="#dynamic-binary-translation" id="id11">Dynamic binary translation</a></li>
+<li><a class="reference internal" href="#registering-memory-regions" id="id12">Registering memory regions</a></li>
+<li><a class="reference internal" href="#accessing-guest-memory" id="id13">Accessing guest memory</a></li>
+<li><a class="reference internal" href="#interrupting-execution" id="id14">Interrupting execution</a></li>
+<li><a class="reference internal" href="#virtual-disk-i-o" id="id15">Virtual disk I/O</a></li>
+<li><a class="reference internal" href="#saving-restoring-device-snapshots" id="id16">Saving/restoring device snapshots</a></li>
+<li><a class="reference internal" href="#setting-the-clock-scale-pointer" id="id17">Setting the clock scale pointer</a></li>
+<li><a class="reference internal" href="#kvm-run-exit-codes" id="id18">KVM_RUN exit codes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="kernel-based-virtual-machine-kvm">
+<h2><a class="toc-backref" href="#id2">Kernel-based Virtual Machine (KVM)</a><a class="headerlink" href="#kernel-based-virtual-machine-kvm" title="Permalink to this headline">¶</a></h2>
+<p>The Linux kernel exposes the KVM interface through the <code class="docutils literal notranslate"><span class="pre">/dev/kvm</span></code> file. A program (that we call a KVM client) that
+wants to create a VM opens that file and sends commands to it using the <code class="docutils literal notranslate"><span class="pre">ioctl</span></code> interface. The most important commands
+are creating and setting the state of the virtual CPU (<code class="docutils literal notranslate"><span class="pre">KVM_CREATE_VM</span></code>, <code class="docutils literal notranslate"><span class="pre">KVM_CREATE_VCPU</span></code>, <code class="docutils literal notranslate"><span class="pre">KVM_SET_REGS</span></code> and its
+friends), registering guest physical memory (<code class="docutils literal notranslate"><span class="pre">KVM_SET_USER_MEMORY_REGION</span></code>), starting the VM (<code class="docutils literal notranslate"><span class="pre">KVM_RUN</span></code>), and
+injecting interrupts in the guest (<code class="docutils literal notranslate"><span class="pre">KVM_INTERRUPT</span></code>). A detailed list of commands is available in the Linux kernel
+<a class="reference external" href="https://github.com/torvalds/linux/blob/master/Documentation/virtual/kvm/api.txt">documentation</a>. The figure below
+shows the architecture of a standard KVM setup.</p>
+<a class="reference internal image-reference" href="../_images/kvm_interface.svg"><img alt="../_images/kvm_interface.svg" src="../_images/kvm_interface.svg" width="75%" /></a>
+<p>It is up to the KVM client (running in user space) to emulate virtual hardware, as the KVM kernel driver only provides a
+virtual CPU. The clients are responsible for handling I/O, memory-mapped I/O, injecting interrupts in the guest, and
+performing DMA. During initialization, the client first allocates a chunk of virtual memory using the plain <code class="docutils literal notranslate"><span class="pre">mmap()</span></code>
+system call, then registers this memory as guest physical memory using <code class="docutils literal notranslate"><span class="pre">KVM_SET_USER_MEMORY_REGION</span></code>. KVM treats any
+memory access that falls outside registered regions as memory-mapped I/O.</p>
+<p>When the guest executes an instruction that accesses unmapped physical memory, <code class="docutils literal notranslate"><span class="pre">KVM_RUN</span></code> returns to the client, which
+determines the type of I/O access and emulates it accordingly. For example, when a guest instruction writes to physical
+address <code class="docutils literal notranslate"><span class="pre">OxB8000</span></code> the following occurs:</p>
+<ul class="simple">
+<li>The virtual CPU (VCPU) attempts to access that memory and realizes that it is unmapped</li>
+<li>The VCPU triggers a VM exit, giving control back to the KVM driver</li>
+<li>KVM determines the cause of the VM exit and returns to user space from the KVM_RUN call</li>
+<li>The client reads the faulting guest physical address and determines the associated virtual device</li>
+<li>The client calls the I/O handler of the VGA virtual device, which eventually displays a character in the
+upper left corner of the screen.</li>
+<li>Once the I/O emulation is done, the client resumes the guest VM by calling <code class="docutils literal notranslate"><span class="pre">KVM_RUN</span></code> again.</li>
+</ul>
+<p>The KVM client injects interrupts in the guest using the <code class="docutils literal notranslate"><span class="pre">KVM_INTERRUPT</span></code> ioctl. Let us take the example of a virtual
+clock device. This kind of device would typically trigger a periodic interrupt, e.g., every 10 ms. In order to emulate
+it, the client process registers a periodic timer signal handler with the host OS. At the lowest level, the host OS
+configures the host machine’s clock to generate periodic host interrupts. When a host interrupt occurs, the host CPU
+automatically interrupts the running guest VM, context switches to the host OS, which then delivers the timer signal to
+the client process. The client then calls the virtual clock device emulation code, which then uses <code class="docutils literal notranslate"><span class="pre">KVM_INTERRUPT</span></code> to
+inject the virtual interrupt into the guest. At the next invocation of <code class="docutils literal notranslate"><span class="pre">KVM_RUN</span></code>, the host CPU reloads the guest
+context and triggers the guest’s interrupt handler.</p>
+<p>The KVM client also handles DMA. Remember that during initialization, the client mapped host virtual
+memory in its address space, which it then instructed to be used as guest physical memory by KVM. A virtual device
+handler would just read and write to that mapped host virtual memory in order to exchange data with the guest VM.
+It can do so from another thread while the guest VM is running, or from the same thread when the guest VM is interrupted
+by a signal and control is returned to the client.</p>
+<p>The above is the minimum required to run a guest such as Windows: a virtual CPU and a collection of virtual devices. KVM
+implements many more features that can be optionally used. It has hypercalls, nested virtualization, various MSRs, etc.
+KVM provides an interface to verify which features are available (called <cite>capabilities</cite>). For more details, refer to the
+various KVM documentation files in the Linux <a class="reference external" href="https://github.com/torvalds/linux/tree/master/Documentation/virtual/kvm">source
+tree</a>. You can also browse QEMU’s <a class="reference external" href="https://github.com/qemu/qemu/blob/master/accel/kvm/kvm-all.c">source
+code</a> to understand which KVM features it uses.
+Finally, there is a great article <a class="reference external" href="https://lwn.net/Articles/658511/">here</a> that explains in detail how to write
+your own KVM client from scratch.</p>
+</div>
+<div class="section" id="emulating-the-kvm-interface">
+<h2><a class="toc-backref" href="#id3">Emulating the KVM interface</a><a class="headerlink" href="#emulating-the-kvm-interface" title="Permalink to this headline">¶</a></h2>
+<p>KVM is great for running code at native speeds, but what if we actually want to do some advanced analysis on the guest
+code? What if we want to instrument it? One common method for doing that is to use dynamic binary translation.
+The dynamic binary translator (DBT) takes a chunk of guest code, disassembles it, injects instrumentation code,
+reassembles it, then runs the result on the host CPU. QEMU comes with a powerful DBT that can be used instead of KVM
+to run the guest OS. One could take QEMU and modify its DBT in order to analyze guest code.
+An alternative to this is to write a CPU emulator, wrap it under the KVM interface, and let QEMU use it transparently.</p>
+<p>Emulating the KVM interface allows decoupling the CPU emulation and code instrumentation infrastructure from virtual
+hardware emulation. This is very powerful, as one is not stuck anymore with a given KVM client implementation. The
+client can live on its own and upgrading it becomes straightforward. For example, the first prototype of S2E released
+back in 2011 was tightly coupled to QEMU and was de facto stuck with the QEMU version of that time (v1.0). The current
+version of S2E however emulates the KVM interface and is not tied to any particular client. In fact, upgrading
+from QEMU 1.0 to QEMU 3.0 was fairly straightforward, despite over six years separating these two versions.</p>
+<div class="section" id="using-system-call-hooks-for-emulation">
+<h3><a class="toc-backref" href="#id4">Using system call hooks for emulation</a><a class="headerlink" href="#using-system-call-hooks-for-emulation" title="Permalink to this headline">¶</a></h3>
+<p>There are different ways in which one can implement a KVM-compatible CPU emulator. We chose to take the DBT implemented
+by QEMU and refactor it into a standalone user-space library. The advantage of this compared to building our own
+emulation is that we get the maturity and performance of QEMU’s DBT, with only a small overhead incurred by the
+indirection of the KVM interface. Overall, it took about six person-month to refactor the code, most of it was the
+tedious task of moving code around. We will explain the process in details later below.</p>
+<p>Our KVM CPU emulator comes as a user-space shared library that can be loaded into the KVM client using <code class="docutils literal notranslate"><span class="pre">LD_PRELOAD</span></code>.
+The library intercepts the <code class="docutils literal notranslate"><span class="pre">open</span></code> and <code class="docutils literal notranslate"><span class="pre">ioctl</span></code> system calls to <code class="docutils literal notranslate"><span class="pre">/dev/kvm</span></code>, as well as <code class="docutils literal notranslate"><span class="pre">mmap</span></code> and a few others.
+The <code class="docutils literal notranslate"><span class="pre">open</span></code> hook checks that the file name is <code class="docutils literal notranslate"><span class="pre">/dev/kvm</span></code>, and if so, returns a fake handle that will be later checked
+and intercepted by the <code class="docutils literal notranslate"><span class="pre">ioctl</span></code> and other system call hooks. We could also have replaced the KVM driver itself and
+provided a kernel-mode version of this library, but this would have caused needless complexity and unnecessary switches
+to kernel mode.</p>
+<p>We refer to the real KVM driver that ships with the Linux kernel as <em>native KVM</em> and to our DBT-based emulation of KVM
+as <em>emulated KVM</em>, implemented by the <em>KVM emulation engine</em>.</p>
+</div>
+<div class="section" id="differences-between-actual-kvm-and-kvm-emulation">
+<h3><a class="toc-backref" href="#id5">Differences between actual KVM and KVM emulation</a><a class="headerlink" href="#differences-between-actual-kvm-and-kvm-emulation" title="Permalink to this headline">¶</a></h3>
+<p>Implementing a KVM-compatible interface poses several challenges. In theory, there should be no difference between the
+native KVM implementation and a DBT-based one, except for speed (and of course different CPU features). A proper
+implementation of the emulated KVM should give the same outputs for identical inputs (CPU state, interrupts, etc.). In
+practice however, due to how the DBT works, there are some differences. The most important one is the significant delay
+with which the DBT handles injected guest interrupts. This may cause problems for some guest OSes. A lesser problem is
+the inconsistent state of the emulated CPU when handling I/O operations. This only matters if the KVM client
+reads the CPU state while handling I/O (e.g., VAPIC emulation in QEMU).</p>
+<p>The first difference between actual KVM and KVM emulation is the interrupt injection delay. The virtualization hardware
+on the host CPU triggers a VM exit as soon as there is an external interrupt sent to the host (timer, network, etc). It
+also triggers a VM exit as soon as the guest unmasks interrupts (e.g., by writing to APIC registers or executing the
+<code class="docutils literal notranslate"><span class="pre">sti</span></code> instruction) and there are pending interrupts (injected by the client with <code class="docutils literal notranslate"><span class="pre">KVM_INTERRUPT</span></code>). All this happens
+without delays at instruction granularity. In contrast, emulated KVM is much slower to react to these events. In the
+worst case, the delays may starve lower priority interrupts, causing hangs. Some guests may even crash if interrupts
+come too late (e.g., there is a timer DPC in the Windows XP  kernel that is wrongly allocated on the stack, which causes
+a crash if the interrupt happens too late, i.e., after the stack is cleaned).</p>
+<p>For performance reasons, the DBT cannot check interrupts at every instruction. Instead, it checks them at control flow
+change boundaries, i.e., when there is an instruction that modifies the program counter. When the DBT enables
+translation block chaining (a technique that speeds up emulation by running translated code continuously without calling
+the DBT), pending interrupts are not checked at all and it is up to the KVM client to break the translation block chain
+when there is a pending interrupt. Unfortunately, native KVM does not provide a standard API for that and the most
+reliable way we found to handle this is to add an additional <code class="docutils literal notranslate"><span class="pre">KVM_FORCE_EXIT</span></code> call which the client would invoke
+when there are pending interrupts.</p>
+<p>The second difference is the imprecise state on device I/O. When native KVM returns from <code class="docutils literal notranslate"><span class="pre">KVM_RUN</span></code> because the
+guest executed an I/O instruction, the guest CPU’s program counter points to the next instruction. In emulated KVM,
+however, the program counter can point to some previous instruction close by. This is because the DBT does
+not update the program counter after each instruction, for performance reasons. Instead, the DBT updates it at the next
+control flow change (i.e., when the guest explicitly sets the program counter), or when there is an exception.</p>
+<p>This is not a problem unless the KVM client reads the CPU state when handling I/O. On QEMU, this seems to only matter
+for VAPIC emulation. OSes like Windows heavily read and write the APIC’s Task Priority Register (TPR). This may trigger
+an excessive amount of CPU exits and kernel-user mode switches, slowing down the guest considerably. To solve this, QEMU
+patches the guest to replace the I/O instruction that accesses the TPR with a call to BIOS code that emulates the APIC’s
+TPR without causing a VM exit. To do this patching, QEMU checks the instruction pattern at the program counter that
+accessed the <a class="reference external" href="https://github.com/qemu/qemu/blob/master/hw/i386/kvmvapic.c">VAPIC</a>. If this program counter is wrong
+(like in emulated KVM), patching will fail. We extended the KVM interface with the <code class="docutils literal notranslate"><span class="pre">KVM_CAP_DBT</span></code> flag to disable the
+VAPIC when emulated KVM is present. Disabling it does not cause noticeable slowdowns because there are no kernel-user
+mode switches involved anyway.</p>
+</div>
+<div class="section" id="summary">
+<h3><a class="toc-backref" href="#id6">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+<p>To summarize, we implemented a shared library that hooks KVM calls in order to emulate the KVM interface. The library
+uses DBT-based CPU emulation. In order to accommodate for shortcomings of the DBT-based method, we added two extensions
+to KVM: <code class="docutils literal notranslate"><span class="pre">KVM_CAP_DBT</span></code> and <code class="docutils literal notranslate"><span class="pre">KVM_FORCE_EXIT</span></code>. The first is a capability that signals to the KVM client the presence of
+a DBT-based implementation so that it can adjust its behavior accordingly. The second allows faster interrupt injection.
+We do not believe that these two extensions are fundamental, they could probably be eliminated with a better engineering
+of the CPU emulator.</p>
+</div>
+</div>
+<div class="section" id="adding-symbolic-execution-capabilities-to-kvm">
+<h2><a class="toc-backref" href="#id7">Adding symbolic execution capabilities to KVM</a><a class="headerlink" href="#adding-symbolic-execution-capabilities-to-kvm" title="Permalink to this headline">¶</a></h2>
+<p>In the previous section, we have seen how to build a KVM emulation engine out of a DBT that only supports one execution
+path and no symbolic data. In this section, we will show how to extend that engine as well as the KVM interface in order
+to support symbolic execution. We will primarily focus on the KVM interface, treating the symbolic execution engine
+itself as a black box. The design and implementation of the symbolic execution engine will be covered in another write
+up.</p>
+<p>Before we begin, let us recap how symbolic execution works. Programs take inputs, perform some computations on them, and
+generate some output. If there is a conditional branch, such as <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(x</span> <span class="pre">+</span> <span class="pre">2)</span> <span class="pre">...</span> <span class="pre">else</span> <span class="pre">...</span></code>, the predicate is evaluated
+and one or the other branch is executed. During normal execution (e.g., when running on a normal CPU), all inputs have a
+concrete value (e.g., <code class="docutils literal notranslate"><span class="pre">x=1</span></code> or <code class="docutils literal notranslate"><span class="pre">x=12</span></code>) and exercise only one path at a time on each run. Symbolic execution replaces
+the concrete inputs with symbols (e.g., <code class="docutils literal notranslate"><span class="pre">x=λ</span></code>) and builds symbolic expressions (e.g., <code class="docutils literal notranslate"><span class="pre">λ</span> <span class="pre">+</span> <span class="pre">2</span></code>) as the program
+executes. When a symbolic expression reaches a conditional branch, the engine calls a constraint solver to determine
+which branch to follow. In case both outcomes are feasible, the engine splits the current execution path in two by
+taking a snapshot of the system state (CPU, RAM, devices) and then executes each path independently. Each path also gets
+a constraint (e.g., <code class="docutils literal notranslate"><span class="pre">λ</span> <span class="pre">+</span> <span class="pre">2</span> <span class="pre">!=</span> <span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">λ</span> <span class="pre">+</span> <span class="pre">2</span> <span class="pre">==</span> <span class="pre">0</span></code>) so that the constraint solver can remember where execution came
+from and compute concrete outputs when execution terminates.</p>
+<p>A symbolic execution engine can be decomposed in two main components: one that enables multi-path execution and another
+one that handles symbolic data storage and propagation. Hypervisors such as QEMU of VMware  already let users take as
+many snapshots as they want. These snapshots include CPU, memory, as well as device state. Multi-path execution requires
+the ability to quickly create lightweight whole-system snapshots and be able to switch between them at any time. On top
+of that, a symbolic execution engine adds the ability to store symbolic data in the snapshots and perform computations
+on that symbolic data.</p>
+<div class="section" id="multi-path-execution">
+<h3><a class="toc-backref" href="#id8">Multi-path execution</a><a class="headerlink" href="#multi-path-execution" title="Permalink to this headline">¶</a></h3>
+<p>The hypervisor needs to be aware of multi-path execution. A vanilla hypervisor normally runs a single path at a time
+and all guest memory accesses go to a fixed area of host virtual memory, all disk accesses go to the same file, etc.
+In multi-path mode, however, it is necessary to redirect these addresses to <em>per-path</em> storage. In other words, each
+execution path would have its own area of virtual memory, disk storage, and even device state. Furthermore, this must
+be done efficiently using copy-on-write, as each path can have several gigabytes of state.</p>
+<p>One approach to solve this is to add several extensions to the KVM interface. The extensions include a call to
+read/write memory, a call to read/write the virtual disk, and a callback to save and restore device state. The purpose
+of these calls is to redirect disk or DMA accesses done by the hypervisor’s virtual devices to per-state storage. This
+level of indirection allows keeping the KVM emulation engine decoupled from the hypervisor, which does not need to be
+aware of the mechanics of how snapshots are stored, how copy-on-write is implemented, etc. This is all done by the
+symbolic execution engine. We will present next each call individually.</p>
+<p>The first extension lets the hypervisor specify memory regions that must be saved in the system snapshot. During
+initialization, immediately after the hypervisor maps guest physical memory, it must now invoke the
+<code class="docutils literal notranslate"><span class="pre">KVM_CAP_MEM_FIXED_REGION</span></code> API, specifying the host virtual address and the size of the allocated region. The KVM
+emulation engine uses this information to initialize per-state storage for that memory region, copy any data from the
+original mapped region, then forbid access to that region. The hypervisor cannot dereference the original memory
+anymore and must instead call <code class="docutils literal notranslate"><span class="pre">KVM_CAP_MEM_RW</span></code>, which we will introduce next.</p>
+<p>The second extension implements memory accesses. When the hypervisor needs to access guest physical memory (e.g., when
+performing DMA), instead of directly dereferencing a pointer to that memory, it must now invoke the <code class="docutils literal notranslate"><span class="pre">KVM_CAP_MEM_RW</span></code>
+API. This call takes as parameters a source and destination pointer, the direction of the transfer (read/write), and
+the length. The symbolic execution engine uses this information to lookup the actual per-state data associated with the
+given host virtual address and returns (or writes) the requested data.</p>
+<p>Finally, a few extensions are needed to manage the disk and device state. Instead of accessing the virtual disk file
+using read or write system calls, the hypervisor must now call <code class="docutils literal notranslate"><span class="pre">KVM_DISK_RW</span></code>. Handling device state is a bit
+different: instead of intercepting reads/and writes to every byte of the device state (which would be completely
+impractical), the symbolic execution engine leverages the hypervisor’s ability to save and restore device state to/from
+a file. However, instead of using a file, the hypervisor calls the <code class="docutils literal notranslate"><span class="pre">KVM_DEV_SNAPSHOT</span></code> API. This call is only required
+when forking or switching to a new execution path. You can find more details about these APIs in the reference below.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You may be wondering if these multi-path extensions are necessary. The short answer is no. If we can find a
+system-level approach to managing the state (vs. manually inserting indirections in the code), then we do not need
+them anymore. For example, it is possible to use the <code class="docutils literal notranslate"><span class="pre">fork()</span></code> system call of the host in order to create a new
+execution path (but this is prohibitively expensive, as there would be one hypervisor process per path), or
+implement lightweight system snapshots by tweaking the page tables of the host (see <a class="reference external" href="https://www.usenix.org/conference/osdi12/technical-sessions/presentation/belay">Dune</a> [OSDI‘12] and <a class="reference external" href="https://www.usenix.org/conference/hotos13/session/bugnion">Hummingbird</a> [HOTOS‘13]). We plan to port S2E to the latter
+approach, which would bring many more benefits besides simplified APIs (e.g., much faster state snapshotting and
+state switching).</p>
+</div>
+</div>
+<div class="section" id="handling-symbolic-data">
+<h3><a class="toc-backref" href="#id9">Handling symbolic data</a><a class="headerlink" href="#handling-symbolic-data" title="Permalink to this headline">¶</a></h3>
+<p>To keep things simple, we decided that symbolic data cannot leak into the KVM client and therefore the KVM API does not
+need support for symbolic data exchange. We observed that symbolic data does not usually propagate through this
+interface: QEMU does not normally read CPU registers or memory locations that contain symbolic data. Likewise, data
+exchanged between the guest and the virtual devices is concrete. In cases where symbolic data does leak, the KVM
+emulation engine concretizes it. Here is what happens when a program tries to print a string containing symbolic
+characters:</p>
+<blockquote>
+<div><ul class="simple">
+<li>The program running in the guest calls <code class="docutils literal notranslate"><span class="pre">printf(&quot;%s&quot;,</span> <span class="pre">buf);</span></code> where <code class="docutils literal notranslate"><span class="pre">buf</span></code> has one or more symbolic characters.</li>
+<li><code class="docutils literal notranslate"><span class="pre">printf</span></code> formats the string into a temporary buffer (which now has symbolic characters too), then issues
+a <code class="docutils literal notranslate"><span class="pre">write</span></code> system call with the address of that temporary buffer and the file descriptor of the console as
+a parameter.</li>
+<li>The kernel forwards the <code class="docutils literal notranslate"><span class="pre">write</span></code> request to the console driver.</li>
+<li>The console driver writes each character to the video memory.</li>
+<li>The KVM emulation engine determines that the write requires a VM exit to the hypervisor because the address points
+to a memory-mapped I/O region. The engine also checks whether the instruction has symbolic data in its data operand
+and if yes, concretizes the symbolic data before calling the hypervisor, which sees the concrete value.
+Concretization adds a path constraint to ensure correct symbolic execution when control is passed back to
+the program.</li>
+</ul>
+</div></blockquote>
+<p>Restricting the KVM interface to concrete data brings massive simplifications to the system. There is no need to rewrite
+a potentially large and complex hypervisor to support symbolic data. And in practice, simply redirecting the program’s
+output to <code class="docutils literal notranslate"><span class="pre">/dev/null</span></code> or a symbolic file in a RAM disk is enough to work around most concretizations issues (e.g.,
+when symbolic data is written to the console or the virtual disk). Of course, one may want to symbolically execute
+virtual devices (e.g., when testing device drivers). The solution for this is to write a symbolic device model, which we
+leave out for another tutorial.</p>
+</div>
+</div>
+<div class="section" id="reference">
+<h2><a class="toc-backref" href="#id10">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<p>This section explains in detail the new KVM extensions that a KVM client should support in order to be compatible
+with the KVM emulation engine. Each command is described as follows:</p>
+<ul class="simple">
+<li>Command: indicates the name of the command.</li>
+<li>Capability: indicates the KVM capability that signals the presence of that command.</li>
+<li>Requirement: indicates when that capability/command must be supported. Some commands are only required for multi-path
+execution, some are required in all cases.</li>
+<li>Any associated data structures. These are passed along the command identifier to the <code class="docutils literal notranslate"><span class="pre">ioctl</span></code> system call.</li>
+<li>The command description.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Here is a pointer to S2E’s source code where you can find the implementation of all these extensions.
+<a class="reference external" href="https://github.com/S2E/s2e/blob/master/libs2e/src/libs2e.c">libs2e.c</a> is the main entry point of the
+<code class="docutils literal notranslate"><span class="pre">libs2e.so</span></code> shared library. This module intercepts IOCTLs to <code class="docutils literal notranslate"><span class="pre">/dev/kvm</span></code> and forwards them to the appropriate
+handlers. If you are lost in the 90 KLOC that comprise <code class="docutils literal notranslate"><span class="pre">libs2e.so</span></code>, just start from this file and work your
+way up to the other components. This should help you get started hacking!</p>
+</div>
+<div class="section" id="dynamic-binary-translation">
+<h3><a class="toc-backref" href="#id11">Dynamic binary translation</a><a class="headerlink" href="#dynamic-binary-translation" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Command</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>Capability</td>
+<td>KVM_CAP_DBT</td>
+</tr>
+<tr class="row-odd"><td>Requirement</td>
+<td>Mandatory for any KVM emulation engine that uses DBT</td>
+</tr>
+</tbody>
+</table>
+<p>This capability indicates to the client that the underlying KVM implementation uses dynamic binary translation instead
+of actual hardware virtualization. Until the KVM emulation engine perfectly mimics the native KVM interface, this
+capability allows the client to adjust its behavior to support the KVM emulation engine.</p>
+</div>
+<div class="section" id="registering-memory-regions">
+<h3><a class="toc-backref" href="#id12">Registering memory regions</a><a class="headerlink" href="#registering-memory-regions" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Command</td>
+<td>KVM_MEM_REGISTER_FIXED_REGION</td>
+</tr>
+<tr class="row-even"><td>Capability</td>
+<td>KVM_CAP_MEM_FIXED_REGION</td>
+</tr>
+<tr class="row-odd"><td>Requirement</td>
+<td><ul class="first last simple">
+<li>Mandatory for a KVM emulation engine that supports multi-path execution</li>
+<li>Optional for single-path implementations</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">kvm_fixed_region</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+    <span class="n">__u64</span> <span class="n">host_address</span><span class="p">;</span>
+    <span class="n">__u64</span> <span class="n">size</span><span class="p">;</span>
+
+    <span class="cp">#define KVM_MEM_SHARED_CONCRETE 1</span>
+    <span class="n">__u32</span> <span class="n">flags</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>The KVM client must call this API after it allocates guest physical memory (either RAM or ROM) in order to register them
+with the KVM emulation engine. The client must register all memory regions before calling <code class="docutils literal notranslate"><span class="pre">KVM_RUN</span></code>. The client must
+not later pass to <code class="docutils literal notranslate"><span class="pre">KVM_SET_USER_MEMORY_REGION</span></code> any region (or part thereof) that has not been previously registered
+with <code class="docutils literal notranslate"><span class="pre">KVM_MEM_REGISTER_FIXED_REGION</span></code>.</p>
+<p>This API lets the KVM emulation engine register internal data structures that will track later accesses done with
+<code class="docutils literal notranslate"><span class="pre">KVM_MEM_RW</span></code>. After this API return, the memory chunk specified by <code class="docutils literal notranslate"><span class="pre">host_address</span></code> and <code class="docutils literal notranslate"><span class="pre">size</span></code> becomes read and
+write-protected. The client must not access it directly anymore and must always use <code class="docutils literal notranslate"><span class="pre">KVM_MEM_RW</span></code> instead. Protecting
+the region is helpful to catch any stray accesses and help with debugging.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">KVM_MEM_SHARED_CONCRETE</span></code> flag specifies whether the given memory chunk may be shared among all execution paths.
+This is useful for video memory, which is typically write-only and whose state does not matter for correct guest
+execution (i.e., different execution paths clobbering each other’s frame buffers has usually no bad effect on
+execution correctness as long as guest code does not read that data back).</p>
+</div>
+<div class="section" id="accessing-guest-memory">
+<h3><a class="toc-backref" href="#id13">Accessing guest memory</a><a class="headerlink" href="#accessing-guest-memory" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Command</td>
+<td>KVM_MEM_RW</td>
+</tr>
+<tr class="row-even"><td>Capability</td>
+<td>KVM_CAP_MEM_RW</td>
+</tr>
+<tr class="row-odd"><td>Requirement</td>
+<td>Mandatory for all KVM emulation engine implementations</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">kvm_mem_rw</span> <span class="p">{</span>
+    <span class="cm">/* source and dest are always host pointers */</span>
+    <span class="n">__u64</span> <span class="n">source</span><span class="p">;</span>
+    <span class="n">__u64</span> <span class="n">dest</span><span class="p">;</span>
+    <span class="n">__u64</span> <span class="n">is_write</span><span class="p">;</span>
+    <span class="n">__u64</span> <span class="n">length</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>This capability signals to the KVM client that the KVM emulation engine requires the KVM client to perform all accesses
+to physical memory through the <code class="docutils literal notranslate"><span class="pre">KVM_CAP_MEM_RW</span> <span class="pre">API</span></code>. For single-path emulators, this is required to properly flush
+CPU’s code cache in case DMA touches memory that contains code. For multi-path emulators, this also ensures that data is
+read/written from/to the correct execution state.</p>
+</div>
+<div class="section" id="interrupting-execution">
+<h3><a class="toc-backref" href="#id14">Interrupting execution</a><a class="headerlink" href="#interrupting-execution" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Command</td>
+<td>KVM_FORCE_EXIT</td>
+</tr>
+<tr class="row-even"><td>Capability</td>
+<td>KVM_CAP_FORCE_EXIT</td>
+</tr>
+<tr class="row-odd"><td>Requirement</td>
+<td>Mandatory for KVM emulation engine implementations that cannot respond quickly to interrupt injection</td>
+</tr>
+</tbody>
+</table>
+<p>This capability signals to the KVM client that the KVM emulation engine cannot return from KVM_RUN quickly enough
+(e.g., when there are signals present). A KVM client must call <code class="docutils literal notranslate"><span class="pre">KVM_FORCE_EXIT</span></code> when it would otherwise want
+KVM_RUN to exit and when <code class="docutils literal notranslate"><span class="pre">KVM_CAP_FORCE_EXIT</span></code> is present.</p>
+</div>
+<div class="section" id="virtual-disk-i-o">
+<h3><a class="toc-backref" href="#id15">Virtual disk I/O</a><a class="headerlink" href="#virtual-disk-i-o" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Command</td>
+<td>KVM_DISK_RW</td>
+</tr>
+<tr class="row-even"><td>Capability</td>
+<td>KVM_CAP_DISK_RW</td>
+</tr>
+<tr class="row-odd"><td>Requirement</td>
+<td><ul class="first last simple">
+<li>Mandatory for a KVM emulation engine that supports multi-path execution</li>
+<li>Optional for single-path implementations or when the client does not support virtual disks</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">kvm_disk_rw</span> <span class="p">{</span>
+    <span class="cm">/* Address of the buffer in host memory */</span>
+    <span class="n">__u64</span> <span class="n">host_address</span><span class="p">;</span>
+    <span class="cm">/* 512-byte sectors */</span>
+    <span class="n">__u64</span> <span class="n">sector</span><span class="p">;</span>
+    <span class="cm">/* input: sectors to read/write, output: sectors read/written */</span>
+    <span class="n">__u32</span> <span class="n">count</span><span class="p">;</span>
+    <span class="n">__u8</span> <span class="n">is_write</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>The KVM client must invoke this command when it otherwise would write disk data to a file. The KVM emulation engine
+takes the disk data specified in the <code class="docutils literal notranslate"><span class="pre">kvm_disk_rw</span></code> structure and store it in a location that is associated with the
+current execution path. If the client fails to invoke this command while in multi-path execution, the disk state would
+be shared by all execution paths, leading to virtual disk corruption, as the different paths would clobber each other’s
+disk data.</p>
+<p>In practice, KVM clients should implement copy-on-write mechanisms. In case of reads, the client must call first
+<code class="docutils literal notranslate"><span class="pre">KVM_DISK_RW</span></code> to get any dirty sectors, and if there are none, read from the underlying image file. In case of writes,
+the client should directly call <code class="docutils literal notranslate"><span class="pre">KVM_DISK_RW</span></code> with the modified sector data.</p>
+</div>
+<div class="section" id="saving-restoring-device-snapshots">
+<h3><a class="toc-backref" href="#id16">Saving/restoring device snapshots</a><a class="headerlink" href="#saving-restoring-device-snapshots" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Command</td>
+<td>KVM_DEV_SNAPSHOT</td>
+</tr>
+<tr class="row-even"><td>Capability</td>
+<td>KVM_CAP_DEV_SNAPSHOT</td>
+</tr>
+<tr class="row-odd"><td>Requirement</td>
+<td><ul class="first last simple">
+<li>Mandatory for a KVM emulation engine that supports multi-path execution</li>
+<li>Optional for single-path implementations</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">kvm_dev_snapshot</span> <span class="p">{</span>
+    <span class="n">__u64</span> <span class="n">buffer</span><span class="p">;</span>
+    <span class="cm">/* If is_write == 0, indicates expected size in case of error */</span>
+    <span class="n">__u32</span> <span class="n">size</span><span class="p">;</span>
+
+    <span class="cm">/* Only when is_write == 0, indicates the position from which reading the state */</span>
+    <span class="n">__u32</span> <span class="n">pos</span><span class="p">;</span>
+    <span class="n">__u8</span> <span class="n">is_write</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>This command should only be called when KVM_RUN returns the <code class="docutils literal notranslate"><span class="pre">KVM_EXIT_SAVE_DEV_STATE</span></code> or
+<code class="docutils literal notranslate"><span class="pre">KVM_EXIT_RESTORE_DEV_STATE</span></code> exit code.</p>
+<p>When saving a device snapshot (<code class="docutils literal notranslate"><span class="pre">is_write</span> <span class="pre">=</span> <span class="pre">1</span></code>), only <code class="docutils literal notranslate"><span class="pre">buffer</span></code> and <code class="docutils literal notranslate"><span class="pre">size</span></code> are valid. <code class="docutils literal notranslate"><span class="pre">buffer</span></code> must point to a host
+virtual address containing the state of all virtual devices. The KVM client  must call <code class="docutils literal notranslate"><span class="pre">KVM_DEV_SNAPSHOT</span></code> only once.
+The call returns the number of bytes written, which should be equal to <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p>
+<p>When restoring a device snapshot (<code class="docutils literal notranslate"><span class="pre">is_write</span> <span class="pre">=</span> <span class="pre">0</span></code>), the commands allows reading any range of snapshot data previously
+saved. <code class="docutils literal notranslate"><span class="pre">pos</span></code> and <code class="docutils literal notranslate"><span class="pre">size</span></code> must be set to read the desired chunk of data. The KVM client must call <code class="docutils literal notranslate"><span class="pre">KVM_DEV_SNAPSHOT</span></code>
+multiple times. The call returns the number of bytes effectively read, which may be smaller than <code class="docutils literal notranslate"><span class="pre">size</span></code> in case
+the specified range exceeds the amount of data in the snapshot.</p>
+</div>
+<div class="section" id="setting-the-clock-scale-pointer">
+<h3><a class="toc-backref" href="#id17">Setting the clock scale pointer</a><a class="headerlink" href="#setting-the-clock-scale-pointer" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Command</td>
+<td>KVM_SET_CLOCK_SCALE</td>
+</tr>
+<tr class="row-even"><td>Capability</td>
+<td>KVM_CAP_CPU_CLOCK_SCALE</td>
+</tr>
+<tr class="row-odd"><td>Requirement</td>
+<td><ul class="first last simple">
+<li>Mandatory when the overhead of the KVM emulation engine is large</li>
+<li>Optional otherwise</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This command communicates to the KVM emulation engine the address of a variable that contains the clock scale.
+The address must be in the KVM client’s address space.
+The KVM client must honor this factor as soon as possible, typically the next time a virtual device calls a time-related
+function (e.g., to schedule a timer interrupt).</p>
+<p>The clock scale is an integer that specifies by what factor the client must slow down the guest’s virtual clock.
+A factor of one indicates no slow down (real-time). A factor of two indicates that the client must run its clock
+two times slower than real-time. In other words, for every second of elapsed time seen by the guest, the wall time
+would have advanced by two seconds.</p>
+<p>The KVM emulation engine sets the clock scale when it performs slow operations, e.g., interpreting LLVM instructions
+in the symbolic execution engine. This may be several orders of magnitude slower than real-time (100-1000x clock
+scale factor). Failing to set the factor accordingly would cause the client to inject timer interrupts too
+frequently, preventing any progress of the guest.</p>
+</div>
+<div class="section" id="kvm-run-exit-codes">
+<h3><a class="toc-backref" href="#id18">KVM_RUN exit codes</a><a class="headerlink" href="#kvm-run-exit-codes" title="Permalink to this headline">¶</a></h3>
+<p>When the KVM_RUN command exits, it indicates to the KVM client the reason of the exit in the form of an exit code. In
+addition to the standard codes, the KVM emulation engine adds the following exit codes. They should be implemented by
+any client that supports multi-path execution.</p>
+<p><code class="docutils literal notranslate"><span class="pre">KVM_EXIT_FLUSH_DISK</span></code></p>
+<blockquote>
+<div><p>This exit code indicates to the client that it must flush any buffers associated with virtual disks.
+The client should call <code class="docutils literal notranslate"><span class="pre">KVM_DISK_RW</span></code> in order to flush any in-progress transfers before invoking <code class="docutils literal notranslate"><span class="pre">KVM_RUN</span></code> again.</p>
+<p>The KVM emulation engine returns this code when it is ready to fork a new execution path or in any other case where
+it needs the disk state to be consistent.</p>
+<p>Implementing this code is optional if the client does not support virtual disks.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">KVM_EXIT_SAVE_DEV_STATE</span></code></p>
+<blockquote>
+<div><p>This exit code indicates to the client that it must take a snapshot of all virtual devices and send the
+snapshot data to the KVM emulation engine using the <code class="docutils literal notranslate"><span class="pre">KVM_DEV_SNAPSHOT</span></code> command.</p>
+<p>The KVM emulation engine returns this code when it is ready to fork a new execution path or wants to switch to
+another execution path. In either case, it needs the virtual device state to be committed to the per-state storage
+before continuing.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">KVM_EXIT_RESTORE_DEV_STATE</span></code></p>
+<blockquote>
+<div><p>This exit code indicates to the client that it must restore a snapshot of all virtual devices after reading
+the snapshot data from the KVM emulation engine by using the <code class="docutils literal notranslate"><span class="pre">KVM_DEV_SNAPSHOT</span></code> command.</p>
+<p>The KVM emulation engine returns this code when it wants to switch to another execution path and needs the client
+to restore the associated virtual device state.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">KVM_EXIT_CLONE_PROCESS</span></code></p>
+<blockquote>
+<div><p>This exit code indicates to the KVM client that it must re-initialize the state of all its threads.</p>
+<p>The KVM emulation engine returns this code after it calls the <code class="docutils literal notranslate"><span class="pre">fork()</span></code> system call in order to create a new
+instance of the emulator. In this new instance, there is only one thread (the one that called <code class="docutils literal notranslate"><span class="pre">fork()</span></code>). The
+client must ensure that before calling KVM_RUN again, the new process instance is completely independent from the
+parent one and can run on its own. In particular, the client must close and re-open any file descriptors that
+<code class="docutils literal notranslate"><span class="pre">fork()</span></code> would otherwise share with the parent.</p>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Contribute.html" class="btn btn-neutral float-right" title="Contributing to S2E" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../FAQ.html" class="btn btn-neutral" title="Frequently Asked Questions (FAQ)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Cyberhaven
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-75283635-2', 'auto');
+      ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

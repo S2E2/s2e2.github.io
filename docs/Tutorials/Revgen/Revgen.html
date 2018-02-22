@@ -1,0 +1,909 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Translating binaries to LLVM with Revgen &mdash; S2E 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Equivalence Testing" href="../../EquivalenceTesting.html" />
+    <link rel="prev" title="Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection" href="../WindowsDrivers/FaultInjection.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> S2E
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../s2e-env.html">Start here: setting up S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#using-s2e-env">Using s2e-env</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#creating-a-new-environment">Creating a new environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../s2e-env.html#s2e-activate"><code class="docutils literal notranslate"><span class="pre">s2e_activate</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#building-s2e">Building S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#updating-the-source-code">Updating the source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#building-an-image">Building an image</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../s2e-env.html#windows-images">Windows images</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#creating-a-new-analysis-project">Creating a new analysis project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#target-program-arguments">Target program arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#using-seed-files">Using seed files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#running-your-analysis">Running your analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#parsing-an-execution-trace">Parsing an execution trace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../s2e-env.html#importing-and-exporting-projects">Importing and exporting projects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../BuildingS2E.html">Building the S2E platform manually</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../BuildingS2E.html#building-using-docker">Building using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../BuildingS2E.html#building-s2e-manually">Building S2E manually</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#required-packages">Required packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#checking-out-s2e">Checking out S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#building">Building</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#updating">Updating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../BuildingS2E.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html">Symbolic Execution of Linux Binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#getting-started">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#using-s2e-so">Using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#what-about-other-symbolic-input">What about other symbolic input?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#configuring-s2e-for-use-with-s2e-so">Configuring S2E for use with <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#modifying-and-building-s2e-so">Modifying and building <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html">Instrumenting Program Source Code for S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#compiling-and-running">Compiling and running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#preparing-the-program-for-symbolic-execution">Preparing the program for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#running-the-program-in-s2e">Running the program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#terminating-execution-paths">Terminating execution paths</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Use Cases</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../PoV/pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../PoV/pov.html#using-symbolic-execution-to-generate-povs">Using Symbolic Execution to Generate PoVs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/pov.html#identifying-advanced-vulnerability-patterns-with-s2e">Identifying Advanced Vulnerability Patterns with S2E</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../PoV/pov.html#function-pointer-overwrite">Function Pointer Overwrite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PoV/pov.html#arbitrary-writes">Arbitrary Writes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PoV/pov.html#arbitrary-reads">Arbitrary Reads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PoV/pov.html#function-calls-with-symbolic-parameters">Function Calls with Symbolic Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/pov.html#generating-replayable-povs">Generating Replayable PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/pov.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../PoV/index.html">Using S2E to generate PoVs for Linux, Windows, and CGC binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/index.html#quickstart-on-windows-and-linux">Quickstart on Windows and Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/index.html#understanding-recipes">Understanding recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/index.html#povs-for-darpa-decree-cgc-binaries">PoVs for DARPA Decree/CGC binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/index.html#understanding-cgc-style-povs">Understanding CGC-style PoVs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/index.html#plugin-architecture-overview">Plugin architecture overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/index.html#plugins-involved-in-pov-generation">Plugins involved in PoV generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PoV/index.html#the-bootstrap-script">The bootstrap script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/kaitai-s2e">Combining Kaitai Struct and S2E for analyzing parsers [external]</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/malware-s2e">Analyzing trigger-based malware with S2E [external]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemTap/index.html">Using SystemTap with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SystemTap/index.html#building-and-running-systemtap-in-s2e">Building and running SystemTap in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SystemTap/index.html#creating-a-simple-systemtap-script-for-symbolic-execution">Creating a simple SystemTap script for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SystemTap/index.html#running-the-script-in-s2e">Running the script in S2E</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../WindowsDLL/index.html">Analysis of Windows DLLs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDLL/index.html#preparing-the-test-environment">Preparing the test environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDLL/index.html#generate-basic-block-coverage">Generate basic block coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html">Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#setting-up-s2e">Setting up S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#setting-up-the-windows-environment">Setting up the Windows Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#building-the-sample-driver">Building the Sample Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#creating-an-s2e-driver-project">Creating an S2E Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#customizing-the-driver-project">Customizing the Driver Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#running-the-driver">Running the Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#getting-code-coverage-reports">Getting Code Coverage Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#testing-error-recovery-code">Testing Error Recovery Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#generating-crash-dumps">Generating Crash Dumps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#understanding-s2e-logs-and-test-cases">Understanding S2E Logs and Test Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#customizing-fault-injection">Customizing Fault Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#debugging-tips">Debugging Tips</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Translating binaries to LLVM with Revgen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#using-revgen">Using Revgen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">1. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-the-cgc-binaries">2. Build the CGC binaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#translating-a-binary">3. Translating a binary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-a-translated-cgc-binary">4. Running a translated CGC binary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#design-and-implementation">Design and implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#translating-basic-blocks-to-llvm">Translating basic blocks to LLVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stitching-basic-blocks-into-functions">Stitching basic blocks into functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assumptions">Assumptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-translated-binaries">Running translated binaries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#evaluation">Evaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../EquivalenceTesting.html">Equivalence Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#program-to-test">Program to Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#configuring-s2e">Configuring S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#running-the-program-in-s2e">Running the Program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EquivalenceTesting.html#interpreting-the-results">Interpreting the Results</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Howtos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/Coverage/index.html">Measuring code coverage with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/Coverage/index.html#building-coreutils">Building Coreutils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/Coverage/index.html#running-coreutils-concretely-in-s2e">Running Coreutils concretely in S2E</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/Coverage/index.html#generating-line-coverage">Generating line coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-shared-libraries">Line coverage for shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#basic-block-coverage">Basic block coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#code-coverage-during-symbolic-execution">Code coverage during symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#how-does-s2e-record-and-compute-coverage">How does S2E record and compute coverage?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-the-linux-kernel">Line coverage for the Linux kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-windows-binaries">Line coverage for Windows binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#debugging-code-coverage">Debugging code coverage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MovingFiles.html">Copying files between the host and the guest</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/Parallel.html">Running S2E on multiple cores</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Parallel.html#how-do-i-process-generated-traces">How do I process generated traces?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Parallel.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/ExecutionTracers.html">Using execution tracers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#recording-basic-traces">1. Recording basic traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#analyzing-traces">2. Analyzing traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#recording-memory-traces">3. Recording memory traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/ExecutionTracers.html#trace-format-reference">4. Trace format reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ImageInstallation.html">Customizing stock VM images</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#image-creation-overview">Image creation overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#building-linux-images">Building Linux images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#building-windows-images">Building Windows images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#when-should-i-install-my-software">When should I install my software?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#the-s2e-vm-image-format">The S2E VM image format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ImageInstallation.html#general-guidelines-for-vm-images">General guidelines for VM images</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/WritingPlugins.html">Writing S2E plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#starting-with-an-empty-plugin">Starting with an Empty Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#reading-configuration-parameters">Reading Configuration Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#instrumenting-instructions">Instrumenting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#counting-instructions">Counting Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/WritingPlugins.html#exporting-events">Exporting Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html">Instrumenting guest code with Lua</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#instrumenting-function-calls-and-returns">Instrumenting function calls and returns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#instrumenting-instructions">Instrumenting instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luas2eexecutionstate">LuaS2EExecutionState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luas2eexecutionstatememory">LuaS2EExecutionStateMemory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luas2eexecutionstateregisters">LuaS2EExecutionStateRegisters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luafunctioninstrumentationstate">LuaFunctionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luainstructioninstrumentationstate">LuaInstructionInstrumentationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#luaexpression">LuaExpression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Howtos/LuaInstrumentation.html#the-g-s2e-object">The <code class="docutils literal notranslate"><span class="pre">g_s2e</span></code> object</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Howtos/Concolic.html">Analyzing large programs using concolic execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Howtos/Concolic.html#faq">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../StateMerging.html">Exponential Analysis Speedup with State Merging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#using-state-merging-in-s2e">Using State Merging in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#state-merging-api">State Merging API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../StateMerging.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools/ForkProfiler.html">Debugging path explosion with the fork profiler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tools/ForkProfiler.html#using-the-fork-profile-to-debug-path-explosion">Using the fork profile to debug path explosion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">Frequently Asked Questions (FAQ)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-do-i-know-what-s2e-is-doing">How do I know what S2E is doing?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#execution-seems-stuck-slow-what-to-do">Execution seems stuck/slow. What to do?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-do-i-deal-with-path-explosion">How do I deal with path explosion?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-to-keep-memory-usage-low">How to keep memory usage low?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-much-time-is-the-constraint-solver-taking-to-solve-constraints">How much time is the constraint solver taking to solve constraints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#what-do-the-various-fields-in-run-stats-mean">What do the various fields in <code class="docutils literal notranslate"><span class="pre">run.stats</span></code> mean?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#emulating-the-kvm-interface">Emulating the KVM interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#using-system-call-hooks-for-emulation">Using system call hooks for emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#differences-between-actual-kvm-and-kvm-emulation">Differences between actual KVM and KVM emulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#adding-symbolic-execution-capabilities-to-kvm">Adding symbolic execution capabilities to KVM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#multi-path-execution">Multi-path execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#handling-symbolic-data">Handling symbolic data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#reference">Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#dynamic-binary-translation">Dynamic binary translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#registering-memory-regions">Registering memory regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#accessing-guest-memory">Accessing guest memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#interrupting-execution">Interrupting execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#virtual-disk-i-o">Virtual disk I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#saving-restoring-device-snapshots">Saving/restoring device snapshots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#setting-the-clock-scale-pointer">Setting the clock scale pointer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#kvm-run-exit-codes">KVM_RUN exit codes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contribute.html">Contributing to S2E</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Profiling/ProfilingS2E.html">Profiling S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Profiling/ProfilingS2E.html#profiling-memory-usage">Profiling memory usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Profiling/ProfilingS2E.html#profiling-cpu-performance">Profiling CPU performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../DebuggingS2E.html">Debugging S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#the-obvious-checks">The obvious checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#record-replay">Record-replay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#valgrind">Valgrind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#debugging-with-gdb">Debugging with gdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#s2e-kernel-debugging">S2E kernel debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DebuggingS2E.html#s2e-debug-functions">S2E debug functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Testsuite.html">S2E Testsuite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#building-the-testsuite">Building the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#running-the-testsuite">Running the testsuite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#adding-your-own-tests">Adding your own tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Testsuite.html#test-configuration-reference">Test configuration reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../WindowsEnvSetup.html">Setting up a Windows development environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#provisioning-a-windows-development-vm">1. Provisioning a Windows development VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#building-visual-studio-projects-remotely">2. Building Visual Studio projects remotely</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowsEnvSetup.html#use-case-building-and-running-a-windows-device-driver">3. Use case: building and running a Windows device driver</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html#required-plugins">Required Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Windows/WindowsMonitor.html">WindowsMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Windows/WindowsMonitor.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/RawMonitor.html">RawMonitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/RawMonitor.html#custom-instruction">Custom Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/RawMonitor.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/RawMonitor.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/ModuleExecutionDetector.html">ModuleExecutionDetector</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/ModuleExecutionDetector.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html">ExecutionTracer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#executiontracer">ExecutionTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#moduletracer">ModuleTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#testcasegenerator">TestCaseGenerator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#memorytracer">MemoryTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#translationblocktracer">TranslationBlockTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Tracers/ExecutionTracer.html#instructiontracer">InstructionTracer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/FunctionMonitor.html">FunctionMonitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/Linux/FunctionModels.html">FunctionModels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/FunctionModels.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/FunctionModels.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Plugins/EdgeKiller.html">EdgeKiller</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/EdgeKiller.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/EdgeKiller.html#required-plugins">Required Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Plugins/EdgeKiller.html#configuration-sample">Configuration Sample</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">S2E</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Translating binaries to LLVM with Revgen</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/Tutorials/Revgen/Revgen.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="translating-binaries-to-llvm-with-revgen">
+<h1>Translating binaries to LLVM with Revgen<a class="headerlink" href="#translating-binaries-to-llvm-with-revgen" title="Permalink to this headline">¶</a></h1>
+<p>Revgen is a tool that takes a binary and turns (“lifts”) it into LLVM bitcode. It does so in four steps:</p>
+<ul class="simple">
+<li>Disassemble the binary using IDA Pro</li>
+<li>Recover the control flow graph (CFG) using <a class="reference external" href="https://github.com/trailofbits/mcsema">McSema</a></li>
+<li>Translate each basic block in the CFG into a chunk of LLVM bitcode by using QEMU’s translator</li>
+<li>Stitch together translated basic blocks into LLVM functions</li>
+</ul>
+<p>Revgen relies on QEMU’s translator to extract the semantics of machine instructions into a simple intermediate
+representation (IR) and S2E’s LLVM translator to turn this IR into LLVM bitcode. This brings two main advantages over
+competing approaches:</p>
+<ul class="simple">
+<li><strong>Better precision.</strong> QEMU developers spent 15+ years building translators that are precise enough to
+emulate actual operating systems. Even a seemingly simple x86 instruction such as <code class="docutils literal notranslate"><span class="pre">call</span></code> needs more than ten pages
+of pseudo code in the Intel instruction set manual. Revgen effortlessly captures the complex behavior of all
+machine instructions, including system instructions not normally used in user programs.</li>
+<li><strong>Better reliability.</strong> Implementing a translator from scratch brings bugs and incompleteness. Revgen, however,
+can handle pretty much every instruction that QEMU supports, even the most exotic ones.</li>
+</ul>
+<p>In the rest of this document, we will show how to use Revgen, how it works under the hood, and give a brief overview of
+its performance. As we will see, the main drawback of relying on QEMU’s translator is the high overhead of the generated
+code (15-30x larger binaries). Revgen would need to reuse various optimization passes in order to bring this
+overhead down.</p>
+<div class="section" id="using-revgen">
+<h2>Using Revgen<a class="headerlink" href="#using-revgen" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we show how to use Revgen on DARPA CGC binaries. We cleaned up and made stable our initial <a class="reference external" href="http://dslab.epfl.ch/pubs/revgen.pdf">prototype</a> of Revgen in order to analyze CGC binaries, so it supports these binaries the
+best. Other types of binaries will be supported in the future.</p>
+<div class="section" id="prerequisites">
+<h3>1. Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<p>Before starting, make sure that you have a functional S2E environment and that you have a working IDA Pro setup. Check
+that:</p>
+<blockquote>
+<div><ul class="simple">
+<li>IDA can disassemble CGC binaries. You will need to install the CGC plugins, which you can find
+<a class="reference external" href="http://idabook.com/cgc/">here</a>. If you cannot find pre-compiled plugins for your IDA version, you will
+need to compile the plugin yourself using the IDA Pro SDK.</li>
+<li>IDA has a working Python environment with the <code class="docutils literal notranslate"><span class="pre">protobuf</span></code> library installed.
+Running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">protobuf</span></code> should work in most cases.</li>
+<li>The <code class="docutils literal notranslate"><span class="pre">IDA_ROOT</span></code> variable is set to the IDA Pro path, e.g., <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">IDA_ROOT=/opt/ida-6.8</span></code>.</li>
+</ul>
+</div></blockquote>
+<p>Revgen uses <a class="reference external" href="https://github.com/S2E/s2e/blob/master/tools/tools/scripts/ida/mcsema_get_cfg.py">McSema</a> to recover
+the CFG of the binary, and that requires IDA Pro. Note that this is an older version of McSema scripts
+(from 2016). <a class="reference external" href="https://github.com/trailofbits/mcsema">McSema2</a> has been released in the meantime, which should have
+much better CFG recovery. We plan to port Revgen to the latest version.</p>
+</div>
+<div class="section" id="build-the-cgc-binaries">
+<h3>2. Build the CGC binaries<a class="headerlink" href="#build-the-cgc-binaries" title="Permalink to this headline">¶</a></h3>
+<p>S2E comes with a Docker image and <a class="reference external" href="https://github.com/S2E/decree/blob/master/README.md">instructions</a> on how to build
+all DARPA CyberGrandChallenge binaries. After you have completed this step, you should have a <code class="docutils literal notranslate"><span class="pre">samples</span></code> folder that
+contains ~280 binaries:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls -1 <span class="nv">$S2E_ENV</span>/source/decree/samples
+CADET_00001
+CADET_00003
+CROMU_00001
+CROMU_00002
+CROMU_00003
+CROMU_00004
+CROMU_00005
+CROMU_00006
+...
+</pre></div>
+</div>
+</div>
+<div class="section" id="translating-a-binary">
+<h3>3. Translating a binary<a class="headerlink" href="#translating-a-binary" title="Permalink to this headline">¶</a></h3>
+<p>Let us first translate the <code class="docutils literal notranslate"><span class="pre">CADET_00001</span></code> binary. For this, set the <code class="docutils literal notranslate"><span class="pre">S2E_PREFIX</span></code> and <code class="docutils literal notranslate"><span class="pre">IDA_ROOT</span></code> variables,
+then run <code class="docutils literal notranslate"><span class="pre">revgen.sh</span></code>. This tutorial assumes that your S2E environment is in <code class="docutils literal notranslate"><span class="pre">$S2E_ENV</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">IDA_ROOT</span><span class="o">=</span>/opt/ida-6.8
+<span class="nb">export</span> <span class="nv">S2E_PREFIX</span><span class="o">=</span><span class="nv">$S2E_ENV</span>/install
+<span class="nv">$S2E_PREFIX</span>/bin/revgen.sh <span class="nv">$S2E_ENV</span>/source/decree/samples/CADET_00001
+</pre></div>
+</div>
+<p>You should get the following console output:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">stat: cannot stat &#39;$S2E_ENV/source/decree/samples/CADET_00001.pbcfg&#39;: No such file or directory</span>
+<span class="go">[IDA    ] Writing CFG to $S2E_ENV/source/decree/samples/CADET_00001.pbcfg...</span>
+
+<span class="go">[REVGEN ] Translating $S2E_ENV/source/decree/samples/CADET_00001 to $S2E_ENV/source/decree/samples/CADET_00001.bc...</span>
+<span class="go">warning: Linking two modules of different data layouts: &#39;$S2E_ENV/install/lib/X86BitcodeLibrary.bc&#39; is &#39;e-m:e-p:32:32-f64:32:64-f80:32-n8:16:32-S128&#39; whereas &#39;tcg-llvm&#39; is &#39;e-m:e-i64:64-f80:128-n8:16:32:64-S128&#39;</span>
+
+<span class="go">[4] RevGen:generateFunctionCall -   &gt;Function 0x804860c does not exist</span>
+<span class="go">[LLVMDIS] Generating LLVM disassembly to $S2E_ENV/source/decree/samples/CADET_00001.ll...</span>
+<span class="go">[CLANG  ] Compiling LLVM bitcode of CGC binary to native binary $S2E_ENV/source/decree/samples/CADET_00001.rev...</span>
+</pre></div>
+</div>
+<p>You will find the following output files in the <code class="docutils literal notranslate"><span class="pre">$S2E_ENV/source/decree/samples</span></code> folder.
+The meaning of each file is explained in the <code class="docutils literal notranslate"><span class="pre">revgen.sh</span></code> script, but here is an explanation of the most important
+ones:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">CADET_00001</span></code>: the original binary</li>
+<li><code class="docutils literal notranslate"><span class="pre">CADET_00001.pbcfg</span></code>: the CFG extracted by IDA Pro / McSema</li>
+<li><code class="docutils literal notranslate"><span class="pre">CADET_00001.bc</span></code>: the LLVM bitcode file created by RevGen</li>
+<li><code class="docutils literal notranslate"><span class="pre">CADET_00001.rev</span></code>: the LLVM bitcode file compiled to an ELF binary that you can run on your Linux host</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="running-a-translated-cgc-binary">
+<h3>4. Running a translated CGC binary<a class="headerlink" href="#running-a-translated-cgc-binary" title="Permalink to this headline">¶</a></h3>
+<p>Revgen comes with a runtime library that translates Decree system calls to their Linux counterparts. This allows
+you to run the translated Decree binaries on your Linux host. For example, running <code class="docutils literal notranslate"><span class="pre">CADET_00001</span></code> as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">user@ubuntu:~$ $</span>S2E_ENV/source/decree/samples/CADET_00001.rev
+
+<span class="go">Welcome to Palindrome Finder</span>
+
+<span class="go">    Please enter a possible palindrome: sdf</span>
+<span class="go">            Nope, that&#39;s not a palindrome</span>
+
+<span class="go">    Please enter a possible palindrome: aaa</span>
+<span class="go">            Yes, that&#39;s a palindrome!</span>
+
+<span class="go">    Please enter a possible palindrome:</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Revgen currently supports only CGC binaries. It may or may not be able to generate a bitcode file for other
+kinds of binaries (e.g., Linux or Windows) and cannot run non-CGC binaries.</p>
+<p class="last">Some CGC binaries may fail to translate because of various limitations of the (old) McSema script that Revgen uses.</p>
+</div>
+</div>
+</div>
+<div class="section" id="design-and-implementation">
+<h2>Design and implementation<a class="headerlink" href="#design-and-implementation" title="Permalink to this headline">¶</a></h2>
+<p>Revgen’s design is straightforward: it takes a list of basic blocks, calls a translator to turn them to equivalent
+pieces of LLVM bitcode, then stitches these pieces of bitcode together in order to reconstruct original functions.</p>
+<p>At a high level, the translator takes a block of machine code (e.g., x86) and turns it into a QEMU-specific intermediate
+representation (IR). The translator then transforms this IR to the desired target instruction set (in Revgen’s case,
+LLVM). The translator is composed of the <a class="reference external" href="https://github.com/S2E/s2e/tree/master/libcpu">CPU emulation library (libcpu)</a>, which generates the IR, and of the <a class="reference external" href="https://github.com/S2E/s2e/tree/master/libtcg">Tiny Code Generator library
+(libtcg)</a>, which handles the IR to LLVM conversion. We extracted
+<code class="docutils literal notranslate"><span class="pre">libcpu</span></code> and <code class="docutils literal notranslate"><span class="pre">libtcg</span></code> from QEMU and made both available as standalone libraries. We added LLVM translation
+capabilities to <code class="docutils literal notranslate"><span class="pre">libtcg</span></code>, which you can find <a class="reference external" href="https://github.com/S2E/s2e/tree/master/libtcg/src/tcg-llvm.cpp">here</a>.</p>
+<p>In the rest of this section, we will explain in more details how the translator works and how Revgen uses it to build an
+LLVM version of an entire binary. We will also see what it takes to run such binaries and discuss the assumptions that
+Revgen makes about them.</p>
+<div class="section" id="translating-basic-blocks-to-llvm">
+<h3>Translating basic blocks to LLVM<a class="headerlink" href="#translating-basic-blocks-to-llvm" title="Permalink to this headline">¶</a></h3>
+<p>Revgen takes the binary file and the CFG recovered my McSema, and turns every basic block in that CFG into a piece of
+LLVM code. Revgen stops when it has translated all basic blocks in the CFG. The result is a set of independent LLVM
+functions, one for each basic block. Revgen’s translator handles basic blocks in two steps: (1) it turns a basic block
+into a sequence of micro-operations and then (2) converts them to LLVM instructions. We will see next this process in
+more details.</p>
+<p>First, the translator  converts machine instructions into an equivalent sequence of micro-operations. For example, the
+translator decomposes the x86 instruction <code class="docutils literal notranslate"><span class="pre">inc</span> <span class="pre">[eax]</span></code> into a load to a temporary register, an increment of that
+register, and a memory store. This implements the effects of incrementing the memory location stored in the <code class="docutils literal notranslate"><span class="pre">eax</span></code>
+register. The resulting sequence of micro-operations forms a <em>translation block</em>.</p>
+<p>Second, the translator maps each micro-operation to LLVM instructions, using a code dictionary. The dictionary
+associates each micro-operation with a sequence of LLVM instructions that implement the operation. Most conversions are
+one-to-one mappings between micro-operations and LLVM instructions (e.g., arithmetic, shift, load/store
+operations).</p>
+<p>The translator also handles instructions that manipulate system state. Revgen accurately translates to LLVM
+instructions like <code class="docutils literal notranslate"><span class="pre">fsave</span></code> or <code class="docutils literal notranslate"><span class="pre">mov</span> <span class="pre">cr0,</span> <span class="pre">eax</span></code>. The former saves the state of the floating point unit, while the latter
+sets the control register (e.g., to enable 32-bit protected mode, which changes the behavior of many instructions).</p>
+<p>For this, the translator uses <em>emulation helpers</em>. An emulation helper is a piece of C code that emulates complex
+machine instructions that do not have equivalent micro-operations. Revgen compiles emulation helpers to LLVM and adds
+them to the code dictionary, transparently enabling the support of machine instructions that manipulate system state.
+Helpers are implemented in <code class="docutils literal notranslate"><span class="pre">libcpu</span></code> and you can find them <a class="reference external" href="https://github.com/S2E/s2e/tree/master/libcpu/src/target-i386">here</a>.</p>
+<p>Third, the translator packages the sequence of LLVM instructions into an LLVM function that is <em>equivalent</em> to the
+original basic block taken from the binary.  More precisely, given the same register and memory input, the translated
+code produces the same output as what the original binary does if executed on a real processor.</p>
+<p>To illustrate this process, let us consider the following function. This function invokes the exit system call
+with a status code passed as a parameter on the stack. The function is composed of two basic blocks: one starting
+at address <code class="docutils literal notranslate"><span class="pre">0x804860C</span></code> and another one at <code class="docutils literal notranslate"><span class="pre">0x8048618</span></code>.</p>
+<div class="highlight-asm notranslate"><div class="highlight"><pre><span></span>.text:0804860C ; int __cdecl sub_804860C(int status)
+.text:0804860C sub_804860C     proc near
+.text:0804860C
+.text:0804860C
+.text:0804860C status          = dword ptr  4
+.text:0804860C
+.text:0804860C                 mov     eax, 1
+.text:08048611                 push    ebx
+.text:08048612                 mov     ebx, [esp+4+status] ; status
+.text:08048616                 int     80h             ; LINUX - sys_exit
+.text:08048616 sub_804860C     endp
+.text:08048616
+.text:08048618 ; ---------------------------------------------------------------------------
+.text:08048618                 pop     ebx
+.text:08048619                 retn
+</pre></div>
+</div>
+<p>Revgen turns these two blocks into two LLVM functions that look like this:</p>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span> <span class="k">i64</span> <span class="vg">@tcg-llvm-tb-804860c-c-a3-0-4000b7</span><span class="p">(</span><span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="k">nocapture</span><span class="p">)</span> <span class="k">local_unnamed_addr</span> <span class="vg">#17</span> <span class="p">{</span>
+  <span class="nv nv-Anonymous">%2</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">5</span>
+
+  <span class="c">; mov eax, 1</span>
+  <span class="nv nv-Anonymous">%3</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span>
+  <span class="k">store</span> <span class="k">i32</span> <span class="m">1</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%3</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
+
+  <span class="c">; push ebx</span>
+  <span class="nv nv-Anonymous">%4</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">3</span>
+  <span class="nv">%ebx</span> <span class="p">=</span> <span class="k">load</span> <span class="k">i32</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%4</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!377</span>
+  <span class="nv nv-Anonymous">%5</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">4</span>
+  <span class="nv">%esp</span> <span class="p">=</span> <span class="k">load</span> <span class="k">i32</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%5</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!377</span>
+  <span class="nv nv-Anonymous">%6</span> <span class="p">=</span> <span class="k">add</span> <span class="k">i32</span> <span class="nv">%esp</span><span class="p">,</span> <span class="m">-4</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!378</span>
+  <span class="k">tail</span> <span class="k">call</span> <span class="kt">void</span> <span class="vg">@__stl_mmu</span><span class="p">(</span><span class="k">i32</span> <span class="nv nv-Anonymous">%6</span><span class="p">,</span> <span class="k">i32</span> <span class="nv">%ebx</span><span class="p">,</span> <span class="k">i32</span> <span class="m">1</span><span class="p">),</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!377</span>
+
+  <span class="c">; mov ebx, [esp+4+status]</span>
+  <span class="k">store</span> <span class="k">i32</span> <span class="nv nv-Anonymous">%6</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%5</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
+  <span class="nv nv-Anonymous">%7</span> <span class="p">=</span> <span class="k">add</span> <span class="k">i32</span> <span class="nv">%esp</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!378</span>
+  <span class="nv nv-Anonymous">%8</span> <span class="p">=</span> <span class="k">tail</span> <span class="k">call</span> <span class="k">i32</span> <span class="vg">@__ldl_mmu</span><span class="p">(</span><span class="k">i32</span> <span class="nv nv-Anonymous">%7</span><span class="p">,</span> <span class="k">i32</span> <span class="m">1</span><span class="p">),</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!378</span>
+  <span class="k">store</span> <span class="k">i32</span> <span class="nv nv-Anonymous">%8</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%4</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
+
+  <span class="c">; int 0x80</span>
+  <span class="k">store</span> <span class="k">i32</span> <span class="m">134514198</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%2</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
+  <span class="k">tail</span> <span class="k">call</span> <span class="kt">void</span> <span class="vg">@helper_raise_interrupt</span><span class="p">(</span><span class="k">i32</span> <span class="m">128</span><span class="p">,</span> <span class="k">i32</span> <span class="m">2</span><span class="p">)</span>
+  <span class="k">ret</span> <span class="k">i64</span> <span class="m">0</span>
+<span class="p">}</span>
+
+<span class="k">define</span> <span class="k">i64</span> <span class="vg">@tcg-llvm-tb-8048618-2-99-0-4000b7</span><span class="p">(</span><span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="k">nocapture</span><span class="p">)</span> <span class="k">local_unnamed_addr</span> <span class="vg">#17</span> <span class="p">{</span>
+  <span class="c">; pop ebx</span>
+  <span class="nv nv-Anonymous">%2</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">5</span>
+  <span class="nv nv-Anonymous">%3</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">4</span>
+  <span class="nv">%esp</span> <span class="p">=</span> <span class="k">load</span> <span class="k">i32</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%3</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!379</span>
+  <span class="nv nv-Anonymous">%4</span> <span class="p">=</span> <span class="k">tail</span> <span class="k">call</span> <span class="k">i32</span> <span class="vg">@__ldl_mmu</span><span class="p">(</span><span class="k">i32</span> <span class="nv">%esp</span><span class="p">,</span> <span class="k">i32</span> <span class="m">1</span><span class="p">),</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!379</span>
+  <span class="nv nv-Anonymous">%5</span> <span class="p">=</span> <span class="k">add</span> <span class="k">i32</span> <span class="nv">%esp</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!380</span>
+  <span class="k">store</span> <span class="k">i32</span> <span class="nv nv-Anonymous">%5</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%3</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
+
+  <span class="c">; retn</span>
+  <span class="nv nv-Anonymous">%6</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">3</span>
+  <span class="k">store</span> <span class="k">i32</span> <span class="nv nv-Anonymous">%4</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%6</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
+  <span class="nv nv-Anonymous">%7</span> <span class="p">=</span> <span class="k">tail</span> <span class="k">call</span> <span class="k">i32</span> <span class="vg">@__ldl_mmu</span><span class="p">(</span><span class="k">i32</span> <span class="nv nv-Anonymous">%5</span><span class="p">,</span> <span class="k">i32</span> <span class="m">1</span><span class="p">),</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!380</span>
+  <span class="nv nv-Anonymous">%8</span> <span class="p">=</span> <span class="k">add</span> <span class="k">i32</span> <span class="nv">%esp</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!380</span>
+  <span class="k">store</span> <span class="k">i32</span> <span class="nv nv-Anonymous">%8</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%3</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
+  <span class="k">store</span> <span class="k">i32</span> <span class="nv nv-Anonymous">%7</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%2</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
+  <span class="k">ret</span> <span class="k">i64</span> <span class="m">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Each function takes a pointer to a <code class="docutils literal notranslate"><span class="pre">CPUX86State</span></code> structure. This structure models the CPU’s register file. All machine
+instructions are translated into LLVM instructions that operate on this CPU state structure.
+To handle memory accesses, the translator emits calls to <code class="docutils literal notranslate"><span class="pre">__stX_mmu</span></code> and <code class="docutils literal notranslate"><span class="pre">__ldX_mmu</span></code> helpers. We will explain later
+why the translator generates these instead of native LLVM load/store instructions. The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">0x80</span></code> instruction is
+complex and the translator calls the <code class="docutils literal notranslate"><span class="pre">helper_raise_interrupt</span></code> function to handle it.</p>
+</div>
+<div class="section" id="stitching-basic-blocks-into-functions">
+<h3>Stitching basic blocks into functions<a class="headerlink" href="#stitching-basic-blocks-into-functions" title="Permalink to this headline">¶</a></h3>
+<p>Now that Revgen created a set of LLVM functions that represent individual basic blocks of the binary,
+it needs to assemble them into a bigger function that represents the original function of the binary.
+This is straightforward: Revgen creates a new LLVM function and fills it with calls to the translated basic blocks.
+So our example above would look like this:</p>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span> <span class="k">i64</span> <span class="vg">@__revgen_sub_804860c_804860c</span><span class="p">()</span> <span class="k">local_unnamed_addr</span> <span class="vg">#0</span> <span class="p">{</span>
+  <span class="nv nv-Anonymous">%1</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="vg">@myenv</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span>
+  <span class="k">br</span> <span class="kt">label</span> <span class="nv nv-Anonymous">%2</span>
+
+<span class="c">; &lt;label&gt;:2:                                      ; preds = %0</span>
+  <span class="nv nv-Anonymous">%9</span> <span class="p">=</span> <span class="k">call</span> <span class="k">i64</span> <span class="vg">@tcg-llvm-tb-804860c-c-a3-0-4000b7</span><span class="p">(</span><span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%1</span><span class="p">)</span>
+  <span class="k">br</span> <span class="kt">label</span> <span class="nv nv-Anonymous">%10</span>
+
+<span class="c">; &lt;label&gt;:3:                                     ; preds = %2</span>
+  <span class="nv nv-Anonymous">%11</span> <span class="p">=</span> <span class="k">call</span> <span class="k">i64</span> <span class="vg">@tcg-llvm-tb-8048618-2-99-0-4000b7</span><span class="p">(</span><span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%1</span><span class="p">)</span>
+  <span class="k">ret</span> <span class="k">i64</span> <span class="nv nv-Anonymous">%11</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">__revgen_sub_804860c_804860c</span></code> is an LLVM function that represents the function called <code class="docutils literal notranslate"><span class="pre">sub_804860c</span></code>
+in the original binary.</p>
+<p>Notice how basic blocks are connected together with branch instructions. The example above shows a simple case where
+control goes directly from the first basic block to the second (which assumes that the <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">0x80</span></code> instruction actually
+returns).</p>
+<p>Handling basic blocks that have several successors is more complex. There can be as few as two successors for simple
+direct conditional branches, and many more for switch statements. Luckily for Revgen, IDA Pro and McSema perform the
+(very) complex task of computing successors. All Revgen does is read the program counter and call the basic block
+associated with it, like this:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">eip</span> <span class="o">=</span> <span class="n">tcg</span><span class="o">-</span><span class="n">llvm</span><span class="o">-</span><span class="n">tb</span><span class="o">-</span><span class="n">abc</span><span class="p">(</span><span class="n">env</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">eip</span> <span class="o">==</span> <span class="mh">0xabc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">tcg</span><span class="o">-</span><span class="n">llvm</span><span class="o">-</span><span class="n">tb</span><span class="o">-</span><span class="n">abc</span><span class="p">(</span><span class="n">env</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">eip</span> <span class="o">==</span> <span class="mh">0xdef</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">tcg</span><span class="o">-</span><span class="n">llvm</span><span class="o">-</span><span class="n">tb</span><span class="o">-</span><span class="n">def</span><span class="p">(</span><span class="n">env</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">abort</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The call to <code class="docutils literal notranslate"><span class="pre">abort()</span></code> is important to terminate the translated program cleanly in case of unexpected program counters.
+This may happen in cases where the binary’s CFG was not recovered properly and the program modifies the program counter
+to an unexpected value, e.g., in case of self modifying code.</p>
+<p>As an exercise, open the <code class="docutils literal notranslate"><span class="pre">CADET_00001.ll</span></code> file that Revgen generated and try to find the translated basic blocks and
+functions.</p>
+</div>
+<div class="section" id="assumptions">
+<h3>Assumptions<a class="headerlink" href="#assumptions" title="Permalink to this headline">¶</a></h3>
+<p>The current implementation of Revgen makes several assumptions about the input binary.</p>
+<p>First, the binary is statically linked. Revgen does not currently handle calls to dynamically linked library functions.
+An approach to handle calls is to read the emulated stack content and pass its data to LLVM call
+instructions, as well as store the return values to the appropriate register (e.g., to <code class="docutils literal notranslate"><span class="pre">env-&gt;regs[R_EAX]</span></code> for x86
+programs). Doing this requires to know the calling convention of the API and to assume that the API is not
+sensitive to the aspect of the translated binary (dual stack, different program counters, etc.).</p>
+<p>Second, an x86 binary runs in a 32/64-bit protected mode environment with a flat memory model and in user space. This is
+important, as the translator may disassemble instructions differently depending on the execution mode. For example,
+attempting to translate the x86 <code class="docutils literal notranslate"><span class="pre">sysret</span></code> instruction outside protected mode will cause the translator to emit a
+general protection fault <a class="reference external" href="https://github.com/S2E/s2e/tree/master/libcpu/src/target-i386/translate.c#L6934">exception</a>,
+aborting the translation process. This behavior is inherited from QEMU’s dynamic binary translator. In general, binaries
+should come with some sort of section headers describing which execution model they assume so that Revgen can configure
+the translator properly.</p>
+<p>Third, the input binary may not have self-modifying code. Removing this restriction would certainly be possible given
+adequate runtime support, but in that case we would pretty much end up re-implementing QEMU. QEMU handles self-modifying
+by detecting writes to code sections and re-translating modified code on the fly.</p>
+</div>
+<div class="section" id="running-translated-binaries">
+<h3>Running translated binaries<a class="headerlink" href="#running-translated-binaries" title="Permalink to this headline">¶</a></h3>
+<p>In the previous section, we have seen how Revgen translates machine code to LLVM. We will now see how to run it. This
+requires linking the translated bitcode file with a run time that sets up the initial CPU state and provides
+emulation helpers that resolve memory accesses and translate system calls.</p>
+<p><strong>Initializing the CPU state.</strong>
+The runtime must first initialize the emulated CPU state, in particular the stack pointer register. The translated code
+retains all the assumptions of the original binary about the stack layout. In particular, it assumes that local
+variables, return addresses, and parameters are located at precise memory addresses when doing stack pointer arithmetic.
+The runtime library preserves the original stack layout by using a dual-stack architecture.  There is one <em>native</em> stack
+used by  the LLVM program and one <em>implicit</em> stack, whose pointer is stored in the CPU state structure (e.g.,
+<code class="docutils literal notranslate"><span class="pre">env-&gt;regs[R_ESP]</span></code> for x86) and which is manipulated by the translated code. The runtime
+allocates the implicit stack and sets the implicit stack pointer before calling the main entry point of the program.</p>
+<p><strong>Resolving pointer arithmetic.</strong>
+Revgen embeds a copy of the original binary in the translated binary in order to resolve accesses to its sections at
+runtime. Revgen stores each section of the binary in a separate LLVM array. For example, if a program contains a
+hard-coded load from address <code class="docutils literal notranslate"><span class="pre">0x801234</span></code> that is actually a load from offset <code class="docutils literal notranslate"><span class="pre">0x1234</span></code> of the data section, the
+runtime will remap the access to the appropriate array. Revgen does not make any sophisticated attempt at lifting global
+variables and therefore resorts to this kind of runtime patching.</p>
+<p><strong>Translating system calls.</strong>
+For a program to be useful, it has to generally interact with its environment, which is done through system calls.
+Depending on the system call flavor (interrupt, syscall, sysenter…), the translator generates a call to a specific
+helper function. The runtime needs to implement that helper function so that it can translate the system call of the
+original platform to that of the target platform (e.g., <a class="reference external" href="https://github.com/S2E/s2e/blob/master/tools/lib/X86RuntimeLibrary/Runtime.cpp#L534">Decree/CGC to vanilla Linux</a>). This is very similar to what
+user emulation mode in QEMU does.</p>
+</div>
+</div>
+<div class="section" id="evaluation">
+<h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
+<p>Revgen produces a translated binary that is about 15-30x bigger than the original. This overhead is high for several
+reasons:</p>
+<ol class="arabic simple">
+<li>Revgen does not attempt to perform any sort of optimizations. All it does is a straightforward translation
+of the binary to LLVM using QEMU’s translator. It does not attempt to reconstruct variables, simplify
+stack accesses, recover function parameters, lift exceptions, etc.</li>
+<li>Revgen wraps each memory access into a function call. This makes it simpler to run the translated binary,
+but results in a larger overhead because of the extra call instruction and possible inlining of that call.</li>
+<li>Revgen embeds the entire original binary in the translated binary. This allows Revgen to correctly translate
+data memory accesses at run time, but doubles the size of the binary.</li>
+</ol>
+<p>Ideally, all the above should be done statically during translation. This would make a standalone LLVM binary that can
+be linked with the standard library and ran directly on any architecture. This requires much more complex lifting,
+similar to what McSema does. An non-exhaustive list of needed tasks would be to lift local and global variables, recover
+library function calls, support multi-threading, signals, <a class="reference external" href="https://blog.trailofbits.com/2019/01/21/how-mcsema-handles-c-exceptions/">exceptions</a>, long jumps, and many more. Proper lifting
+would massively cut overhead because it would enable the LLVM toolchain to perform code optimization.
+In its current state, the code generated by Revgen cannot be optimized by the compiler.</p>
+<p>In the remainder of this section, you will find results for CGC binaries. You can generate the evaluation data using the
+<a class="reference external" href="https://github.com/S2E/s2e/tree/master/tools/tools/scripts/revgen/revgen-gen-stats.sh">revgen-gen-stats.sh</a> script.
+It computes the size of various output files as well as the time it takes to generate them. This data is useful to
+benchmark Revgen. Here is a sample output of the script:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">BinaryName      InputBinSize    RevgenBinSize   RevgenBcSize    CfgSize IdaTimeMs       RevgenTimeMs    CompileTimeMs</span>
+<span class="go">CADET_00001     4352    93124   370160  10616   1606    3508    5527</span>
+<span class="go">CADET_00003     4352    93124   370160  10616   2292    2348    5463</span>
+<span class="go">CROMU_00001     14616   195040  645784  52420   5275    2929    13887</span>
+<span class="go">CROMU_00002     18756   363416  782796  58706   5716    4138    19192</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+<p>You can find the complete data in the <code class="docutils literal notranslate"><span class="pre">cgc-binaries.stats</span></code> in the <a class="reference external" href="https://github.com/S2E/s2e/tree/master/docs/src/Tutorials/Revgen">documentation</a> repository. The bar chart below shows the size
+overhead of binaries produced by Revgen by comparing the original and translated binary size. You can generate the chart
+using this <a class="reference external" href="https://github.com/S2E/s2e/blob/master/tools/tools/scripts/revgen/revgen-plot-stats.r">script</a> (written
+in <a class="reference external" href="https://www.r-project.org/">R</a>).</p>
+<img alt="../../_images/cgc-binaries.svg" src="../../_images/cgc-binaries.svg" /></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../EquivalenceTesting.html" class="btn btn-neutral float-right" title="Equivalence Testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../WindowsDrivers/FaultInjection.html" class="btn btn-neutral" title="Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Cyberhaven
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-75283635-2', 'auto');
+      ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>
