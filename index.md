@@ -87,7 +87,7 @@ software routers, testing embedded systems, and more.-->
       <li>S²E launched 392 successful attacks, twice as much as Mayhem and Xandra</li>
     </ul>
     <p>
-    Want to run S²E on CGC binaries? Check out the <a href="https://github.com/s2e/docs">tutorials</a>! <!-- and the blog posts! -->
+    Want to run S²E on CGC binaries? Check out the <a href="docs">tutorials</a>! <!-- and the blog posts! -->
     </p>
     <div class="row">
       <div class="col-xs-6 col-sm-6 col-md-6">
