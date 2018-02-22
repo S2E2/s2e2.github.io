@@ -4,3 +4,4 @@ relative_permalinks: false
 pygments: true
 highlighter: pygments
 exclude: ["vendor"]
+include: ["_static", "_images", "_sources"]
