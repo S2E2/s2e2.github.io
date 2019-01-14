@@ -5,6 +5,27 @@ title: Releases
 
 ## Latest Releases
 
+You can find the latest stable version of S2E on master. We compile here from time to time a list of features
+available as of a given date.
+
+
+### 14 Jan. 2019
+
+ * QEMU 3.0 support
+ * Windows 7 32-bit guest support
+ * Ubuntu 18.04 host support
+ * Documentation updates
+    * KVM interface design
+    * Testing error recovery code in Windows drivers with multi-path fault injection
+    * Using SystemTap with S2E
+    * Combining Kaitai Struct and S2E for analyzing parsers
+    * Analyzing trigger-based malware with S2E
+    * Automated proof of vulnerability generation on Linux, Windows, and Decree platforms
+    * Getting code coverage for various types of binaries
+    * Setting up Windows development environment
+ * Various engine fixes and refactorings
+
+
 ### 16 Oct. 2017 - S²E V2.0
 
  * Rearchitected version of S²E, decoupled from QEMU
