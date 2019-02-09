@@ -158,7 +158,7 @@ $ docker run --rm -ti -w $(pwd) -v $HOME:$HOME cyberhaven/s2e-demo \
   </p>
 
     <p align="center">
-    <script type="text/javascript" src="https://asciinema.org/a/85i9kg0ybndpsahm1n1sdninp.js" id="asciicast-85i9kg0ybndpsahm1n1sdninp" async></script>
+    <script id="asciicast-LHZauKgydWDKo4b78jiR2uZ36" src="https://asciinema.org/a/LHZauKgydWDKo4b78jiR2uZ36.js" async></script>
     </p>
   </div>
 </div>
