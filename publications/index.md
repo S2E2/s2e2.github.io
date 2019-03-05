@@ -17,7 +17,7 @@ Vitaly Chipounov and George Candea.
 Vitaly Chipounov, Volodymyr Kuznetsov, George Candea.
 *16th Intl. Conference on Architectural Support for Programming Languages and Operating Systems* (<a href="http://asplos11.cs.ucr.edu/" target="_blank">ASPLOS</a>), Newport Beach, CA, March 2011.
 **BEST PAPER AWARD**
-<a href="/doc/s2e-asplos-talk-redist.pdf" target="_blank">Presentation Slides</a>
+<a href="/files/s2e-asplos-talk-redist.pdf" target="_blank">Presentation Slides</a>
 
 <a href="http://dslab.epfl.ch/pubs/ddt.pdf" target="_blank">Testing Closed-Source Binary Device Drivers with DDT</a>.
 Volodymyr Kuznetsov, Vitaly Chipounov, George Candea.
