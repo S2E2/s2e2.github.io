@@ -71,12 +71,8 @@
                         {% elsif item_url != '/' and page.url contains item_url %}
                            class="page-current"
                         {% endif %}
-                        >{% if p.title == 'Contributors' %}<hr/>{% endif %}
-                        {% if p.title == 'Open Positions' %}<hr/>
-                        <a href="{{site.baseurl}}{{ p.url|remove:'index.html' }}"><b>We are hiring!</b></a></li>
-                        {% else %}
+                        >
                         <a href="{{site.baseurl}}{{ p.url|remove:'index.html' }}">{{ p.title }}</a></li>
-                        {% endif %}
                     {% endif %}
                   {% endfor %}
                 {% endfor %}
