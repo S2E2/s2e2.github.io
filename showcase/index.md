@@ -7,8 +7,67 @@ title: Showcase
 ## Showcase
 
 S²E is currently being used for several scientific projects across the
-world. This page lists some of them. <br/>We'll be happy to list yours as well,
+world. This page lists some of them. We'll be happy to list yours as well,
 just drop us a line!
+
+
+-   **<a href="https://publications.cispa.saarland/2922/1/malpity-eurosp2019.pdf">MALPITY: Automatic Identification
+    and Exploitation of Tarpit Vulnerabilities in Malware</a>**
+    at Saarland University (Sebastian Walla and Christian Rossow).
+
+    This paper proposes techniques to automatically find network inputs that would slow down malware to the point
+    of making it unusable (tarpit vulnerabilities). MALPITY uses S2E in single-path mode, taking advantage of
+    its powerful instrumentation capabilities in order to monitor malware network activity. This allowed MALPITY to
+    find 12 previously unknown vulnerabilities, e.g., in Pushdo, SalityP2P, or bashlite.
+
+
+-   **<a href="https://www-users.cs.umn.edu/~kjlu/papers/tss.pdf">Unleashing Use-Before-Initialization Vulnerabilities
+    in the Linux Kernel Using Targeted Stack Spraying</a>**
+    at Georgia Institute of Technology, DFKI, MPI-SWS, CISPA, and Saarland University (Kangjie Lu et al.).
+
+    Kernel stack spraying consists in running syscalls in such a way that their invocation leaves user-controlled
+    data on the stack, which can then be used to trigger vulnerabilities from the use of uninitialized variables.
+    The implementation of the stack sprayer uses S2E to find as many code paths as possible that have user-controlled
+    data on the kernel stack. That data is then matched against subsequent syscalls that happen to have uninitialized
+    data at the controlled locations.
+
+
+-   **<a href="https://www.usenix.org/system/files/conference/woot17/woot17-paper-patrick-evans.pdf">POTUS: Probing
+    Off-The-Shelf USB Drivers with Symbolic Fault Injection</a>**
+    (<a href="https://www.usenix.org/sites/default/files/conference/protected-files/woot17_slides_patrick-evans.pdf">slides</a>)
+    at Royal Holloway, University of London (James Patrick-Evans, Lorenzo Cavallaro, and Johannes Kinder).
+    *Awarded Best Paper*.
+
+    USB client device drivers are a haven for software bugs, due to the sheer variety of devices and the tendency
+    of maintenance to slip as devices age. At the same time, the high privilege level of drivers makes them a prime
+    target for exploitation. We present the design and implementation of POTUS, a system for automatically
+    finding vulnerabilities in USB device drivers for Linux, which is based on fault injection, concurrency fuzzing,
+    and symbolic execution.
+
+    Built on the S2E framework, POTUS exercises the driver under test in a complete
+    virtual machine. It includes a generic USB device that can impersonate arbitrary devices and implements
+    a symbolic fault model. With our prototype implementation, we found and confirmed two previously undiscovered
+    zero-days in the mainline Linux kernel
+    [<a href="https://www.cvedetails.com/cve/CVE-2016-5400/">CVE-2016-5400</a>,
+    <a href="https://www.cvedetails.com/cve/CVE-2017-15102/">CVE-2017-15102</a>].
+    Furthermore, we show that one of these vulnerabilities can lead to
+    a data-only exploit affecting even hardened systems protected with the latest software and hardware defenses.
+
+
+-   **<a href="https://www.usenix.org/system/files/conference/atc17/atc17-kim.pdf">CAB-Fuzz: Practical Concolic
+    Testing Techniques for COTS Operating Systems</a>**
+    at Georgia Tech, Purdue University (Su Yong Kim et al.)
+
+    CAB-FUZZ exploits real programs interacting with COTS OSes to construct proper contexts to explore deep and
+    complex kernel states without debug information. We applied CAB-FUZZ to Windows 7 and Windows Server 2008 and
+    found 21 undisclosed unique crashes, including two local privilege escalation vulnerabilities
+    (<a href="https://www.cvedetails.com/cve/CVE-2015-6098/">CVE-2015-6098</a> and
+    <a href="https://www.cvedetails.com/cve/CVE-2016-0040/">CVE-2016-0040</a>) and one information disclosure
+    vulnerability in a cryptography driver
+    (<a href="https://www.cvedetails.com/cve/CVE-2016-7219/">CVE-2016-7219</a>).
+    CAB-FUZZ found vulnerabilities that are non-trivial to discover; five vulnerabilities have existed for 14 years,
+    and we could trigger them even in the initial version of Windows XP (August 2001).
+
 
 -   **<a href="https://www.usenix.org/conference/woot15/workshop-program/presentation/bazhaniuk" target="_blank">Symbolic Execution for BIOS Security</a>** at
     Intel Corporation (Oleksandr Bazhaniuk, John Loucaides, Lee Rosenbaum, Mark R. Tuttle, and Vincent Zimmer).
