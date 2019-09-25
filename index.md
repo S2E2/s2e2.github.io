@@ -6,71 +6,60 @@ title: Overview
 <h1>{{ site.name }}</h1>
 <hr />
 
-S²E is a platform for writing tools that analyze the properties and
-behavior of software systems. S²E comes as a modular library that gives virtual machines
-symbolic execution and program analysis capabilities. S²E runs
-unmodified x86, x86-64, or ARM software stacks, including programs,
-libraries, the kernel, and drivers. Symbolic execution then
-automatically explores hundreds of thousands of paths through the
-system, while analyzers check that the desired properties hold on
-these paths and selectors focus path exploration on components of interest.
+S²E is a platform for writing tools that analyze the properties and behavior of software systems. Researchers have used
+S²E to develop performance profilers, reverse engineering tools for proprietary software, vulnerability finding tools
+for both kernel-mode and user-mode binaries, scalable file system checkers, symbolic execution engines for interpreted
+languages, tools for finding trojan messages in distributed systems, verifying software routers, testing embedded
+systems, and more.
 
-<!-- We have used S²E to develop a
-comprehensive performance profiler, a reverse engineering tool for
-proprietary software, and a bug finding tool for both kernel-mode
-and user-mode binaries. Others have used S²E to build scalable
-file system checkers, symbolic execution engines for interpreted languages,
-tools for finding trojan messages in distributed systems, verifying
-software routers, testing embedded systems, and more.-->
+S²E comes as a modular library that gives virtual machines symbolic execution and program analysis capabilities. S²E
+runs unmodified x86, x86-64, or ARM software stacks, including programs, libraries, the kernel, and drivers. Symbolic
+execution then automatically explores hundreds of thousands of paths through the system, while analyzers check that the
+desired properties hold on these paths and selectors focus path exploration on components of interest.
 
 
 <hr/>
 
 <div class="row">
   <div class="col-xs-12 col-md-12 vcenter">
-    <a href="http://cyberhaven.io" target="ch"><img align="left" src="{{site.baseurl}}/images/cyberhaven-small.png" style="vertical-align:middle; width:64px; padding: 10px"/></a>
-
+    <!--
+    <a href="http://cyberhaven.io" target="ch"><img align="left" src="{{site.baseurl}}/images/cyberhaven-small.png"
+    style="vertical-align:middle; width:64px; padding: 10px"/></a>
+    -->
     S²E is now commercially supported by Cyberhaven. It is free for non-commercial use.
-    S²E was a research project of the Dependable Systems Lab at EPFL in Lausanne. <br/>
-    For academic projects, please contact
-    <a href="http://dslab.epfl.ch">DSLAB</a>. For commercial use, contact <a href="mailto:info@cyberhaven.io?subject=S2E%20License">Cyberhaven</a>.
+    S²E was a research project of the Dependable Systems Lab at EPFL in Lausanne.
+    For academic projects, please contact <a href="http://dslab.epfl.ch">DSLAB</a>.
+    For commercial use, contact <a href="mailto:info@cyberhaven.io?subject=S2E%20License">Cyberhaven</a>.
   </div>
 </div>
 
 <hr/>
 
 <div class="row">
-  <div class="col-xs-6 col-sm-5 col-md-4">
-    <img src="images/arch.png" class="img-responsive"/>
-  </div>
-  <div class="col-xs-6 col-sm-7 col-md-8">
-    <h4>Find security vulnerabilities in binaries</h4>
-    <ul>
-      <li>Work at any level of the stack: applications, libraries, kernel drivers, and device firmware</li>
-      <li>Generate test cases to prove the existence of vulnerabilities, without false positives</li>
-      <li>Easy integration in your workflow with advanced support for Windows and Linux targets</li>
-      <li>Automatically run entire software stacks on hundreds of thousands of paths to find corner case vulnerabilities
-      out of reach of traditional testing tools</li>
-    </ul>
-  </div>
-  <div class="col-xs-12 col-sm-12 col-md-8">
-    <h4>Unprecedented modularity and flexibility</h4>
-    <ul>
-      <li>Your existing analysis tools get the power of multi-path analysis for free</li>
-      <li>S²E emulates the KVM interface, easily adaptable to any KVM-based virtualization solution</li>
-      <li>Composed of independent libraries with well-defined interfaces</li>
-      <li>Want to use S²E but don’t want the overhead of a VM? You can effortlessly integrate S²E into your binary analysis projects.</li>
-    </ul>
-  </div>
-  <div class="col-xs-12 col-sm-12 col-md-8">
-    <h4>State-of-the-art program analysis techniques</h4>
-    <ul>
-    <li>Efficient navigation through large state spaces with concolic and symbolic execution, state merging, static analysis, function summaries, incremental constraint solving</li>
-    <li>Security checking, testing, verification, reverse engineering, performance profiling, etc.</li>
-    <li>Quickly prototype your research ideas by combining existing plugins or writing your own</li>
-    <li>Used by hundreds of researchers around the world</li>
-    </ul>
-  </div>
+    <div class="col-xs-12 col-md-12 vcenter">
+        <h4>Finding security vulnerabilities in binaries</h4>
+        <p>
+        Security researchers around the world use S²E to find critical vulnerabilities
+        in all kinds of software. Here is a sample of some of the CVEs:
+        </p>
+
+        <p>
+        <a href="https://www.cvedetails.com/cve/CVE-2017-15102/" target="cve">CVE-2017-15102</a>,
+        <a href="https://www.cvedetails.com/cve/CVE-2016-5400/" target="cve">CVE-2016-5400</a>:
+        several vulnerabilities in Linux USB drivers that caused denial of service and complete system compromise.<br/>
+
+        <a href="https://www.cvedetails.com/cve/CVE-2016-7219/" target="cve">CVE-2016-7219</a>: information disclosure in a
+        cryptography driver that affected all versions of Windows from Vista to 10.<br/>
+        <a href="https://www.cvedetails.com/cve/CVE-2016-0040/" target="cve">CVE-2016-0040</a>,
+        <a href="https://www.cvedetails.com/cve/CVE-2015-6098/" target="cve">CVE-2015-6098</a>: buffer overflows in kernel
+        components leading to local privilege escalation on various versions of Windows.<br/>
+
+
+        <a href="http://www.cvedetails.com/cve/CVE-2015-1536/" target="cve">CVE-2015-1536</a>:
+        improper (un)marshalling of bitmaps triggered through the Android clipboard,
+        integer overflow, and null pointer dereferencing that can crash the system, no permissions needed.
+        </p>
+    </div>
 </div>
 
 <hr/>
@@ -107,11 +96,53 @@ software routers, testing embedded systems, and more.-->
 <hr/>
 
 <div class="row">
+  <div class="col-xs-6 col-sm-5 col-md-4">
+    <img src="images/arch.png" class="img-responsive"/>
+  </div>
+  <div class="col-xs-6 col-sm-7 col-md-8">
+    <h4>S²E is powerful</h4>
+    <ul>
+      <li>It works at any level of the stack: applications, libraries, kernel drivers, and device firmware.</li>
+      <li>It generates test cases to prove the existence of vulnerabilities, without false positives.</li>
+      <li>It has advanced support for Windows and Linux targets with built-in support for execution tracing, code coverage,
+      and profiling.</li>
+      <li>It automatically runs entire software stacks on hundreds of thousands of paths to find corner case vulnerabilities
+      out of reach of traditional testing tools.</li>
+    </ul>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-8">
+    <h4>S²E is modular and flexible</h4>
+    <ul>
+      <li>You can run your existing analysis tools such as fuzzers or sanitizers on top of S²E to get the power of
+      multi-path analysis for free.</li>
+      <li>Even if you don't need symbolic execution, you can still use S²E as a powerful single-path
+      instrumentation platform.</li>
+      <li>Do you want to use S²E but don’t want the overhead of a VM? S²E emulates the KVM interface, which makes it easy
+      to integrate into custom binary analysis projects.</li>
+    </ul>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-8">
+    <h4>S²E supports state-of-the-art program analysis techniques</h4>
+    <ul>
+    <li>Efficient navigation through large state spaces with concolic and symbolic execution, state merging,
+    static analysis, function summaries, incremental constraint solving.</li>
+    <li>Security checking, testing, verification, reverse engineering, performance profiling, etc.</li>
+    <li>Quickly prototype your research ideas by combining existing plugins or writing your own.</li>
+    <li>Used by hundreds of researchers around the world.</li>
+    </ul>
+  </div>
+</div>
+
+<hr/>
+
+<!--
+<div class="row">
   <div class="col-xs-7 col-sm-7 col-md-4">
     <img src="images/android-vuln.png" width="100%"/>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-8">
-    <h4>S²E discovered <a href="http://www.cvedetails.com/cve/CVE-2015-1536/?q=CVE-2015-1536" target="cve">CVE-2015-1536</a> in Android 5.0.2</h4>
+    <h4>S²E discovered <a href="http://www.cvedetails.com/cve/CVE-2015-1536/?q=CVE-2015-1536" target="cve">CVE-2015-1536</a>
+    in Android 5.0.2</h4>
     <ul>
       <li>Found 3 unknown bugs in < 5 minutes</li>
       <li>Improper (un)marshalling of bitmaps triggered through the clipboard</li>
@@ -128,11 +159,12 @@ software routers, testing embedded systems, and more.-->
       </li>
       <li>2 x NULL pointer dereferencing that can crash the system</li>
     </ul>
-  </div>  
+  </div>
 
 </div>
 
 <hr/>
+-->
 
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12">
