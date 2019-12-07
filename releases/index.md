@@ -8,6 +8,23 @@ title: Releases
 You can find the latest stable version of S2E on master. We compile here from time to time a list of features
 available as of a given date.
 
+### 07 Dec 2019
+ * Upgraded the code generation backend (TCG, Tiny Code Generator) from version 1.0 to 4.0.
+   This is a prerequisite for upgrading the x86 translator to support new instruction sets.
+ * Tutorial on how to [profile](https://s2e.systems/docs/Profiling/ProfilingS2E.html) S2E.
+ * Fixed memory leaks and optimized memory usage in KLEE. Made all KLEE expressions immutable, merged ``MemoryObject``
+   and ``ObjectState``, removed unused fields, use reference counting for all objects, minimize memory allocations, etc.
+ * [Optimized](https://github.com/S2E/klee/commit/afaaaaebf0815fa3755cdf07e818efb77c16234d) calling of external
+   functions in KLEE. Invoke these functions directly instead of generating complex LLVM stubs for every call site.
+ * [Fixed](https://github.com/S2E/klee/commit/3216200aaacae7f124803acbcd79b05855f432d2)
+   sign extension in solver interface that was resulting in incorrect solver results.
+ * [Fixed](https://github.com/S2E/klee/commit/823ca86f6ca5d03bdbe75d6c1e319b7a7f9d52c8) performance bug in the
+   expression simplifier that was causing symbolic execution to get stuck on large expressions.
+ * [Upgraded](https://github.com/S2E/build-scripts/commit/9802fee21cc8da3321da72cce237551e280498a7) the docker image
+   from Ubuntu 16.04 to 18.04.
+ * Ubuntu 16.04 is not supported anymore due to `glib` package issues.
+
+
 ### 29 May 2019
  * Support for symbolic FP/MMX/SSE registers on x86 guests. You can now run programs that use these registers
    without forcing concretizations when symbolic data enters them. Big thanks to [@humeafo](https://github.com/humeafo)
