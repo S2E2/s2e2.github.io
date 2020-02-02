@@ -8,7 +8,15 @@ title: Releases
 You can find the latest stable version of S2E on master. We compile here from time to time a list of features
 available as of a given date.
 
+### 03 Feb 2020
+
+ * Upgraded to LLVM 9.0.0 from 3.9.1.
+ * S2E now compiles with Clang 9.0.
+ * Consolidated the 14 repositories that composed ``libs2e`` into a [monorepo](https://github.com/s2e/s2e).
+   The old repositories will be deleted after Feb 14. 
+
 ### 07 Dec 2019
+
  * Upgraded the code generation backend (TCG, Tiny Code Generator) from version 1.0 to 4.0.
    This is a prerequisite for upgrading the x86 translator to support new instruction sets.
  * Tutorial on how to [profile](https://s2e.systems/docs/Profiling/ProfilingS2E.html) S2E.
@@ -24,8 +32,8 @@ available as of a given date.
    from Ubuntu 16.04 to 18.04.
  * Ubuntu 16.04 is not supported anymore due to `glib` package issues.
 
-
 ### 29 May 2019
+
  * Support for symbolic FP/MMX/SSE registers on x86 guests. You can now run programs that use these registers
    without forcing concretizations when symbolic data enters them. Big thanks to [@humeafo](https://github.com/humeafo)
    for implementing this!
@@ -40,8 +48,7 @@ available as of a given date.
    [Alan Wang](https://www.linkedin.com/in/zhongjie-wang-09001922/)).
  * Many other bug fixes and improvements both in the code and the documentation.
 
-
-### 14 January 2019
+### 14 Jan 2019
 
  * QEMU 3.0 support
  * Windows 7 32-bit guest support
@@ -57,8 +64,7 @@ available as of a given date.
     * Setting up Windows development environment
  * Various engine fixes and refactorings
 
-
-### 16 October 2017 - S²E V2.0
+### 16 Oct 2017 - S²E V2.0
 
  * Rearchitected version of S²E, decoupled from QEMU
  * KVM-compatible interface
@@ -110,18 +116,18 @@ available as of a given date.
 
 The following releases are archived.
 
-### 05 Dec. 2013 - S²E V1.3
+### 05 Dec 2013 - S²E V1.3
 
   * x86-64 guests support, LLVM 3.2
 
-### 27 Apr. 2012 - S²E V1.2
+### 27 Apr 2012 - S²E V1.2
 
   * QEMU 1.0, LLVM 3.0, Clang
   * S²E now includes the latest features of QEMU and uses a modern toolchain
   * Concolic Execution
   * Reuse your existing testsuites to easily reach deep parts of programs under analysis
 
-### 10 Sep. 2011 - S²E V1.1
+### 10 Sep 2011 - S²E V1.1
 
   * Experimental ARM support
   * Analyze embedded applications
