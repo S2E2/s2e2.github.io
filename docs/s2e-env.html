@@ -515,13 +515,12 @@ still work, but we do not actively support them anymore.</p>
 <div class="section" id="installing-s2e-env">
 <h2><a class="toc-backref" href="#id2">Installing s2e-env</a><a class="headerlink" href="#installing-s2e-env" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> can be obtained and built from GitHub using the following commands:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt-get install git gcc python python-dev virtualenv</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt-get install git gcc python3 python3-dev python3-venv</span>
 
 <span class="go">git clone https://github.com/s2e/s2e-env.git</span>
 <span class="go">cd s2e-env</span>
 
-<span class="gp">#</span> Optional: install s2e-env in a virtual env
-<span class="go">virtualenv venv</span>
+<span class="go">python3 -m venv venv</span>
 <span class="go">. venv/bin/activate</span>
 <span class="go">pip install --upgrade pip</span>
 
@@ -551,9 +550,7 @@ analysis targets, known as “projects”.</p>
 </div>
 <p>This will fetch the required source code, install S2E’s dependencies (via apt) and create the directory structure
 described <a class="reference external" href="https://github.com/s2e/s2e-env/blob/master/README.md">here</a>. If you want to skip the dependency
-installation step (e.g. if you have already installed the dependencies) use the <code class="docutils literal notranslate"><span class="pre">--skip-dependencies</span></code> flag. Note that
-if you are using Ubuntu 14.04, you must install CMake manually - S2E requires version 3.4.3 or newer, which is not
-available in the Ubuntu 14.04 repositories.</p>
+installation step (e.g. if you have already installed the dependencies) use the <code class="docutils literal notranslate"><span class="pre">--skip-dependencies</span></code> flag.</p>
 <div class="section" id="s2e-activate">
 <h4><a class="toc-backref" href="#id5"><code class="docutils literal notranslate"><span class="pre">s2e_activate</span></code></a><a class="headerlink" href="#s2e-activate" title="Permalink to this headline">¶</a></h4>
 <p>By default, all other <code class="docutils literal notranslate"><span class="pre">s2e</span></code> subcommands only work when executed in the root directory of your environment. However,
