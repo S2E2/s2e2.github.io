@@ -66,7 +66,7 @@ desired properties hold on these paths and selectors focus path exploration on c
 
 <div class="row">
   <div class="col-xs-9 col-sm-9 col-md-8">
-    <h4>S²E competed in the finals of the <a target="cgc" href="https://www.cybergrandchallenge.com/">DARPA Cyber Grand Challenge</a></h4>
+    <h4 id="s2e-cgc">S²E competed in the finals of the <a target="cgc" href="https://www.cybergrandchallenge.com/">DARPA Cyber Grand Challenge</a></h4>
     <ul>
       <li>The Cyber Grand Challenge is a competition where opponents are computers whose goal is to automatically find, exploit, and defend running services against
       vulnerabilities.</li>
