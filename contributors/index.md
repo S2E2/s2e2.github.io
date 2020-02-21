@@ -3,7 +3,7 @@ layout: default
 title: Contributors
 ---
 
-## Active Contributors
+## Contributors
 
 <div class="row align-items-start">
   <div class="col-xs-6 col-sm-5 col-md-2 text-center">
@@ -65,7 +65,9 @@ title: Contributors
 
 </div>
 
-## Past Contributors
+<hr/>
+
+<div>
 
 <p>
 <a href="https://www.linkedin.com/in/volodymyrkuznetsov">Volodymyr Kuznetsov</a><br/>
@@ -127,3 +129,5 @@ Lightweight snapshotting
 <a>Andreas Kirchner</a><br/>
 First S2E ARM prototype
 </p>
+
+</div>

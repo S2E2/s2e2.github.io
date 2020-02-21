@@ -3,7 +3,7 @@ layout: default
 title: Publications
 ---
 
-### Publications
+## Publications
 
 <a href="http://dslab.epfl.ch/pubs/s2e-tocs.pdf" target="_blank">The S2E Platform: Design, Implementation, and Applications</a>.
 Vitaly Chipounov, Volodymyr Kuznetsov, and George Candea.
