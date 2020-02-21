@@ -23,24 +23,25 @@
 
     <meta name="description" content="S2E">
     <title>{% if page.url != '/index.html' %}{{ page.title }} - {% endif %}{{ site.name }}</title>
-    <style>
-      body { padding-top: 70px; }
-    </style>
   </head>
 
   <body>
     <div class="container">
+      <!--
+      {% if page.title != 'Overview' %}
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
           <div class="navbar-header">
             <a class="navbar-brand" href="{{site.baseurl}}/">
-              {% if page.title != 'Overview' %}
-                {{ site.name }}
-              {% endif %}
+
+                {{ site.name }} - {{ page.title }}
+
             </a>
           </div>
         </div>
       </nav>
+      {% endif %}
+      -->
 
       <!--
       <header class="site-header">
@@ -57,6 +58,7 @@
         <div class="col-sm-3 col-md-2">
           <div class="sidebar-nav-fixed pull-right affix" role="navigation">
             <nav>
+              <hr/>
               <ul class="list-unstyled site-nav">
                 <li class="page-current"><a href="{{site.baseurl}}/">Overview</a></li>
                 <li><a href="https://github.com/s2e" target="_blank">Source repository</a><li>
