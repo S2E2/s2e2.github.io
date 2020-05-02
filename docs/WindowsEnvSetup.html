@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="LinuxMonitor" href="Plugins/Linux/LinuxMonitor.html" />
     <link rel="prev" title="S2E Testsuite" href="Testsuite.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -495,19 +497,19 @@ for development (e.g., building Windows-specific components of S2E, such as the
 <div><ol class="arabic simple">
 <li>You have a working S2E environment on a Linux host machine</li>
 <li>You have a working hypervisor (VMware, Virtual Box, etc.)</li>
-<li>You have access to a 64-bit Windows 10 1803 ISO (e.g. through MSDN)</li>
+<li>You have access to a 64-bit Windows 10 1909 ISO (e.g. through MSDN)</li>
 <li>You have an Internet connection (the installation will download several GBs)</li>
 <li>You have enough disk space and free memory (you will need at least 60 GB of disk and 4 GB of RAM for the VM).</li>
 </ol>
 </div></blockquote>
 <div class="section" id="provisioning-a-windows-development-vm">
 <h2>1. Provisioning a Windows development VM<a class="headerlink" href="#provisioning-a-windows-development-vm" title="Permalink to this headline">¶</a></h2>
-<p>First, you need to build a Windows VM. At the end of this section, you will have a Windows 10 VM with Visual Studio 2017
+<p>First, you need to build a Windows VM. At the end of this section, you will have a Windows 10 VM with Visual Studio 2019
 Community Edition, the Windows Driver Kit, and an SSH server. Visual Studio will be installed with all C/C++ development
 options (support for XP, 7, 8.1, 10). You will be able to SSH into this VM, rsync files, and do remote builds.</p>
 <ol class="loweralpha">
 <li><p class="first"><strong>Install a Windows 10 VM.</strong> Use 60GB of disk and 4GB of RAM for the guest. Any 64-bit Windows 10 version should
-work, but it is recommended you use the latest one (the scripts were tested with version 1803).</p>
+work, but it is recommended you use the latest one (the scripts were tested with version 1909).</p>
 <p>Preferably use <code class="docutils literal notranslate"><span class="pre">s2e</span></code> as login for the admin user. Most scripts assume <code class="docutils literal notranslate"><span class="pre">s2e</span></code> as default
 user name, so you will not have to override this user name later. Other than that, a vanilla installation will do.</p>
 <p>When you get to the Windows desktop, take a snapshot so that you can restore quickly in case of problems later.</p>
@@ -624,7 +626,7 @@ paths against the given search paths.</p>
         <a href="Plugins/Linux/LinuxMonitor.html" class="btn btn-neutral float-right" title="LinuxMonitor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Testsuite.html" class="btn btn-neutral" title="S2E Testsuite" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Testsuite.html" class="btn btn-neutral float-left" title="S2E Testsuite" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -650,25 +652,16 @@ paths against the given search paths.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
+  
  
 <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

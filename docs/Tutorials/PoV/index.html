@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Using SystemTap with S2E" href="../SystemTap/index.html" />
     <link rel="prev" title="Automated Generation of Proofs of Vulnerability with S2E" href="pov.html" /> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -552,7 +554,7 @@ host machine under GDB, as follows.</p>
 <li>Confirm that the PoVs exercise the vulnerabilities</li>
 </ol>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> gdb --args ./vulnerabilities s2e-last/_tmp_input-recipe-type1_i386_generic_shellcode_eax.rcp@0x804883e-pov-type1-3
-<span class="go">(gdb) r</span>
+<span class="gp gp-VirtualEnv">(gdb)</span> <span class="go">r</span>
 </pre></div>
 </div>
 <p>The program should crash at program counter <code class="docutils literal notranslate"><span class="pre">0x44556677</span></code> and contain <code class="docutils literal notranslate"><span class="pre">0xccddeeff</span></code> in the <code class="docutils literal notranslate"><span class="pre">eax</span></code> register.</p>
@@ -563,7 +565,7 @@ host machine under GDB, as follows.</p>
 
 <span class="go">Program received signal SIGSEGV, Segmentation fault.</span>
 <span class="go">0x44556677 in ?? ()</span>
-<span class="go">(gdb) info registers</span>
+<span class="gp gp-VirtualEnv">(gdb)</span> <span class="go">info registers</span>
 <span class="go">eax            0xccddeeff       -857870593</span>
 <span class="go">ecx            0x44556677       1146447479</span>
 <span class="go">edx            0x40     64</span>
@@ -847,7 +849,7 @@ because not all states have been killed. The analysis must therefore be manually
         <a href="../SystemTap/index.html" class="btn btn-neutral float-right" title="Using SystemTap with S2E" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="pov.html" class="btn btn-neutral" title="Automated Generation of Proofs of Vulnerability with S2E" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pov.html" class="btn btn-neutral float-left" title="Automated Generation of Proofs of Vulnerability with S2E" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -873,25 +875,16 @@ because not all states have been killed. The analysis must therefore be manually
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
+  
  
 <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

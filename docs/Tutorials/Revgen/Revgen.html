@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Equivalence Testing" href="../../EquivalenceTesting.html" />
     <link rel="prev" title="Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection" href="../WindowsDrivers/FaultInjection.html" /> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -667,7 +669,7 @@ at address <code class="docutils literal notranslate"><span class="pre">0x804860
   <span class="nv nv-Anonymous">%5</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">4</span>
   <span class="nv">%esp</span> <span class="p">=</span> <span class="k">load</span> <span class="k">i32</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%5</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!377</span>
   <span class="nv nv-Anonymous">%6</span> <span class="p">=</span> <span class="k">add</span> <span class="k">i32</span> <span class="nv">%esp</span><span class="p">,</span> <span class="m">-4</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!378</span>
-  <span class="k">tail</span> <span class="k">call</span> <span class="kt">void</span> <span class="vg">@__stl_mmu</span><span class="p">(</span><span class="k">i32</span> <span class="nv nv-Anonymous">%6</span><span class="p">,</span> <span class="k">i32</span> <span class="nv">%ebx</span><span class="p">,</span> <span class="k">i32</span> <span class="m">1</span><span class="p">),</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!377</span>
+  <span class="k">tail</span> <span class="k">call</span> <span class="k">void</span> <span class="vg">@__stl_mmu</span><span class="p">(</span><span class="k">i32</span> <span class="nv nv-Anonymous">%6</span><span class="p">,</span> <span class="k">i32</span> <span class="nv">%ebx</span><span class="p">,</span> <span class="k">i32</span> <span class="m">1</span><span class="p">),</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!377</span>
 
   <span class="c">; mov ebx, [esp+4+status]</span>
   <span class="k">store</span> <span class="k">i32</span> <span class="nv nv-Anonymous">%6</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%5</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
@@ -677,7 +679,7 @@ at address <code class="docutils literal notranslate"><span class="pre">0x804860
 
   <span class="c">; int 0x80</span>
   <span class="k">store</span> <span class="k">i32</span> <span class="m">134514198</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%2</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
-  <span class="k">tail</span> <span class="k">call</span> <span class="kt">void</span> <span class="vg">@helper_raise_interrupt</span><span class="p">(</span><span class="k">i32</span> <span class="m">128</span><span class="p">,</span> <span class="k">i32</span> <span class="m">2</span><span class="p">)</span>
+  <span class="k">tail</span> <span class="k">call</span> <span class="k">void</span> <span class="vg">@helper_raise_interrupt</span><span class="p">(</span><span class="k">i32</span> <span class="m">128</span><span class="p">,</span> <span class="k">i32</span> <span class="m">2</span><span class="p">)</span>
   <span class="k">ret</span> <span class="k">i64</span> <span class="m">0</span>
 <span class="p">}</span>
 
@@ -715,11 +717,11 @@ This is straightforward: Revgen creates a new LLVM function and fills it with ca
 So our example above would look like this:</p>
 <div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span> <span class="k">i64</span> <span class="vg">@__revgen_sub_804860c_804860c</span><span class="p">()</span> <span class="k">local_unnamed_addr</span> <span class="vg">#0</span> <span class="p">{</span>
   <span class="nv nv-Anonymous">%1</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="vg">@myenv</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span>
-  <span class="k">br</span> <span class="kt">label</span> <span class="nv nv-Anonymous">%2</span>
+  <span class="k">br</span> <span class="k">label</span> <span class="nv nv-Anonymous">%2</span>
 
 <span class="c">; &lt;label&gt;:2:                                      ; preds = %0</span>
   <span class="nv nv-Anonymous">%9</span> <span class="p">=</span> <span class="k">call</span> <span class="k">i64</span> <span class="vg">@tcg-llvm-tb-804860c-c-a3-0-4000b7</span><span class="p">(</span><span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%1</span><span class="p">)</span>
-  <span class="k">br</span> <span class="kt">label</span> <span class="nv nv-Anonymous">%10</span>
+  <span class="k">br</span> <span class="k">label</span> <span class="nv nv-Anonymous">%10</span>
 
 <span class="c">; &lt;label&gt;:3:                                     ; preds = %2</span>
   <span class="nv nv-Anonymous">%11</span> <span class="p">=</span> <span class="k">call</span> <span class="k">i64</span> <span class="vg">@tcg-llvm-tb-8048618-2-99-0-4000b7</span><span class="p">(</span><span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%1</span><span class="p">)</span>
@@ -848,7 +850,7 @@ in <a class="reference external" href="https://www.r-project.org/">R</a>).</p>
         <a href="../../EquivalenceTesting.html" class="btn btn-neutral float-right" title="Equivalence Testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../WindowsDrivers/FaultInjection.html" class="btn btn-neutral" title="Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../WindowsDrivers/FaultInjection.html" class="btn btn-neutral float-left" title="Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -874,25 +876,16 @@ in <a class="reference external" href="https://www.r-project.org/">R</a>).</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
+  
  
 <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

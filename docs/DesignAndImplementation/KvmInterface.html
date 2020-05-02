@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Contributing to S2E" href="../Contribute.html" />
     <link rel="prev" title="Frequently Asked Questions (FAQ)" href="../FAQ.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -482,7 +484,7 @@ and emulates calls to <code class="docutils literal notranslate"><span class="pr
 a dynamic binary translator as a CPU emulation engine, (3) how to add symbolic execution capabilities on top of that,
 and (4) provide a reference of the new KVM extensions so that you can integrate S2E into your own hypervisors.</p>
 <div class="contents topic" id="contents">
-<p class="topic-title first">Contents</p>
+<p class="topic-title">Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#symbolic-execution-extensions-for-kvm" id="id1">Symbolic Execution Extensions for KVM</a><ul>
 <li><a class="reference internal" href="#kernel-based-virtual-machine-kvm" id="id2">Kernel-based Virtual Machine (KVM)</a></li>
@@ -699,7 +701,7 @@ when forking or switching to a new execution path. You can find more details abo
 system-level approach to managing the state (vs. manually inserting indirections in the code), then we do not need
 them anymore. For example, it is possible to use the <code class="docutils literal notranslate"><span class="pre">fork()</span></code> system call of the host in order to create a new
 execution path (but this is prohibitively expensive, as there would be one hypervisor process per path), or
-implement lightweight system snapshots by tweaking the page tables of the host (see <a class="reference external" href="https://www.usenix.org/conference/osdi12/technical-sessions/presentation/belay">Dune</a> [OSDI‘12] and <a class="reference external" href="https://www.usenix.org/conference/hotos13/session/bugnion">Hummingbird</a> [HOTOS‘13]). We plan to port S2E to the latter
+implement lightweight system snapshots by tweaking the page tables of the host (see <a class="reference external" href="https://www.usenix.org/conference/osdi12/technical-sessions/presentation/belay">Dune</a> [OSDI’12] and <a class="reference external" href="https://www.usenix.org/conference/hotos13/session/bugnion">Hummingbird</a> [HOTOS’13]). We plan to port S2E to the latter
 approach, which would bring many more benefits besides simplified APIs (e.g., much faster state snapshotting and
 state switching).</p>
 </div>
@@ -1055,7 +1057,7 @@ parent one and can run on its own. In particular, the client must close and re-o
         <a href="../Contribute.html" class="btn btn-neutral float-right" title="Contributing to S2E" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../FAQ.html" class="btn btn-neutral" title="Frequently Asked Questions (FAQ)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../FAQ.html" class="btn btn-neutral float-left" title="Frequently Asked Questions (FAQ)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1081,25 +1083,16 @@ parent one and can run on its own. In particular, the client must close and re-o
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
+  
  
 <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
