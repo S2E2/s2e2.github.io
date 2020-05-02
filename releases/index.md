@@ -5,8 +5,15 @@ title: Releases
 
 ## Latest Releases
 
-You can find the latest stable version of S2E on master. We compile here from time to time a list of features
-available as of a given date.
+You can find the latest stable version of S2E on master. We compile here from time to time a list of important updates.
+
+
+### 01 May 2020
+
+ * Upgraded to LLVM 10.0.0
+ * Added support for Ubuntu 20.04 LTS
+ * Updated the Windows 10 image to 1909
+ * Applied latest patches to Windows XP and 7 images (up to 2016 and 2020 respectively)
 
 ### 17 Feb 2020
  * Switched the S2E engine [license](https://github.com/S2E/s2e/blob/master/LICENSE) to MIT
