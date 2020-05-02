@@ -6,9 +6,24 @@ title: Showcase
 
 ## Showcase
 
-S²E is currently being used for several scientific projects across the
-world. This page lists some of them. We'll be happy to list yours as well,
-just drop us a line!
+S²E is used by many scientific projects across the world. This page lists some of them.
+We'll be happy to list yours as well, just drop us a line!
+
+
+-   **<a href="https://download.vusec.net/papers/binrec_eurosys20.pdf">
+    BinRec: Dynamic Binary Lifting and Recompilation</a>** at University of California (Irvine),
+    Vrije Universiteit Amsterdam, KU Leuven (Anil Altinay, Joseph Nash, Taddeus Kroes, et al.).
+
+    BinRec [is a] a new approach to heuristic-free binary recompilation which lifts dynamic traces of a binary to a
+    compiler-level intermediate representation (IR) and lowers the IR back to a “recovered” binary.
+    This enables BinRec to apply rich program transformations, such as compiler-based optimization passes, on top of
+    the recovered representation. [BinRec] can accurately disassemble and lift binaries without heuristics,
+    and can successfully recover obfuscated code and all SPEC INT 2006 benchmarks including C++ applications.
+
+    [The] dynamic lifting engine is built on top of S2E, a framework that facilitates symbolic execution of a single
+    process running in the QEMU virtual machine. Code is translated to LLVM IR in order to be symbolically executed
+    by the KLEE symbolic executor. S2E automatically provides multi-architecture support and sandboxing of input
+    binaries, since it is based on QEMU.
 
 
 -   **<a href="https://publications.cispa.saarland/2922/1/malpity-eurosp2019.pdf">MALPITY: Automatic Identification
