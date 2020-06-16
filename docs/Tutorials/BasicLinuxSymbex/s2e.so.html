@@ -188,6 +188,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#debugging-tips">Debugging Tips</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../MSOffice/index.html">Analyzing Microsoft Office Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MSOffice/index.html#building-a-microsoft-office-image">Building a Microsoft Office image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MSOffice/index.html#creating-a-test-document">2. Creating a test document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MSOffice/index.html#creating-an-analysis-project">3. Creating an analysis project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MSOffice/index.html#running-the-project">4. Running the project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MSOffice/index.html#exercises">5. Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MSOffice/index.html#conclusion">6. Conclusion</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../Revgen/Revgen.html">Translating binaries to LLVM with Revgen</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Revgen/Revgen.html#using-revgen">Using Revgen</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Revgen/Revgen.html#prerequisites">1. Prerequisites</a></li>
@@ -481,8 +490,8 @@ modifying their source code. Before you start, make sure that you have a working
 <div class="section" id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <p>We will symbolically execute the <code class="docutils literal notranslate"><span class="pre">echo</span></code> utility. For this, create a new analysis project as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># $S2EENV is the root of your S2E environment created with s2e init</span>
-s2e new_project -i debian-9.2.1-i386 <span class="nv">$S2EENV</span>/images/debian-9.2.1-i386/guestfs/bin/echo abc
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> <span class="nv">$S2EENV</span> is the root of your S2E environment created with s2e init
+<span class="go">s2e new_project -i debian-9.2.1-i386 $S2EENV/images/debian-9.2.1-i386/guestfs/bin/echo abc</span>
 </pre></div>
 </div>
 <p>This command creates a new analysis project that invokes <code class="docutils literal notranslate"><span class="pre">echo</span></code> with one parameter <code class="docutils literal notranslate"><span class="pre">abc</span></code>, which would normally print
@@ -498,11 +507,11 @@ this could also fail because <code class="docutils literal notranslate"><span cl
 <h2>Using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code><a class="headerlink" href="#using-s2e-so" title="Permalink to this headline">¶</a></h2>
 <p>In this section, we show how to make command line arguments symbolic. Open the <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> file and locate the
 following line:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">S2E_SYM_ARGS</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="nv">LD_PRELOAD</span><span class="o">=</span>./s2e.so ./<span class="si">${</span><span class="nv">TARGET</span><span class="si">}</span> abc &gt; /dev/null <span class="m">2</span>&gt; /dev/null
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">S2E_SYM_ARGS=&quot;&quot; LD_PRELOAD=./s2e.so ./${TARGET} abc &gt; /dev/null 2&gt; /dev/null</span>
 </pre></div>
 </div>
 <p>Modify this line as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">S2E_SYM_ARGS</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">LD_PRELOAD</span><span class="o">=</span>./s2e.so ./<span class="si">${</span><span class="nv">TARGET</span><span class="si">}</span> abc &gt; /dev/null <span class="m">2</span>&gt; /dev/null
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">S2E_SYM_ARGS=&quot;1&quot; LD_PRELOAD=./s2e.so ./${TARGET} abc &gt; /dev/null 2&gt; /dev/null</span>
 </pre></div>
 </div>
 <p>This makes argument 1 (<code class="docutils literal notranslate"><span class="pre">abc</span></code>) symbolic. The process works like this:</p>
@@ -516,7 +525,7 @@ following line:</p>
 <li><p class="first">If not, <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> overwrites the specified arguments with symbolic values. It is possible to make only some
 arguments symbolic and leave others concrete by specifying the corresponding argument IDs.</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">S2E_SYM_ARGS</span><span class="o">=</span><span class="s2">&quot;&lt;ID_0&gt; &lt;ID_1&gt; .. &lt;ID_N&gt;&quot;</span> <span class="c1"># Mark argument &lt;ID_N&gt; as symbolic</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">S2E_SYM_ARGS=&quot;&lt;ID_0&gt; &lt;ID_1&gt; .. &lt;ID_N&gt;&quot; # Mark argument &lt;ID_N&gt; as symbolic</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -533,7 +542,7 @@ in order to minimize unwanted forks:</p>
 <p class="first admonition-title">Warning</p>
 <p>You <strong>must</strong> specify default concrete arguments, so that <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> can overwrite them with symbolic data.
 The following command will not work because there is no argument to make symbolic (<code class="docutils literal notranslate"><span class="pre">abc</span></code> is missing).</p>
-<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">S2E_SYM_ARGS</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">LD_PRELOAD</span><span class="o">=</span>./s2e.so ./<span class="si">${</span><span class="nv">TARGET</span><span class="si">}</span> &gt; /dev/null <span class="m">2</span>&gt; /dev/null
+<div class="last highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">S2E_SYM_ARGS=&quot;1&quot; LD_PRELOAD=./s2e.so ./${TARGET} &gt; /dev/null 2&gt; /dev/null</span>
 </pre></div>
 </div>
 </div>
@@ -541,7 +550,7 @@ The following command will not work because there is no argument to make symboli
 <p class="first admonition-title">Warning</p>
 <p>You cannot make the content of a file symbolic by just marking the file name symbolic. In other words, the
 following will not have the intended consequence:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">S2E_SYM_ARGS</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">LD_PRELOAD</span><span class="o">=</span>./s2e.so /bin/cat /path/to/myfile
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">S2E_SYM_ARGS=&quot;1&quot; LD_PRELOAD=./s2e.so /bin/cat /path/to/myfile</span>
 </pre></div>
 </div>
 <p class="last">Instead of making the <strong>content</strong> of <code class="docutils literal notranslate"><span class="pre">/path/to/myfile</span></code> symbolic, it makes the <strong>file name</strong> itself symbolic.
@@ -555,22 +564,22 @@ arguments symbolic for a statically-linked binary, see workarounds below.</p>
 </div>
 <div class="section" id="what-about-other-symbolic-input">
 <h2>What about other symbolic input?<a class="headerlink" href="#what-about-other-symbolic-input" title="Permalink to this headline">¶</a></h2>
-<p>You can also feed symbolic data to your program through <code class="docutils literal notranslate"><span class="pre">stdin</span></code> or symbolic files.</p>
-<p>For the <code class="docutils literal notranslate"><span class="pre">stdin</span></code> method, the idea is to pipe the symbolic output of one program to the input of another. Symbolic
-output can be generated using the <code class="docutils literal notranslate"><span class="pre">s2ecmd</span></code> utility. The command below passes four symbolic bytes to <code class="docutils literal notranslate"><span class="pre">cat</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./s2ecmd symbwrite <span class="m">4</span> <span class="p">|</span> cat
+<p><strong>Piping symbolic data.</strong> You can also feed symbolic data to your program through <code class="docutils literal notranslate"><span class="pre">stdin</span></code>. The idea is to pipe the
+symbolic output of one program to the input of another. Symbolic output can be generated using the <code class="docutils literal notranslate"><span class="pre">s2ecmd</span></code> utility.
+The command below passes four symbolic bytes to <code class="docutils literal notranslate"><span class="pre">cat</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./s2ecmd symbwrite 4 | cat</span>
 </pre></div>
 </div>
 <p>If your binary is statically linked, you could pass it symbolic arguments as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/bin/echo <span class="k">$(</span>./s2ecmd symbwrite <span class="m">4</span><span class="k">)</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">/bin/echo $(./s2ecmd symbwrite 4)</span>
 </pre></div>
 </div>
 <p>Note that this may be much slower than using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> as symbolic data has to go through several layers of OS and
 libraries before reaching the target binary.</p>
-<p>If your binary takes a file name as a parameter and you want the content of that file to be symbolic, the simplest is to
-create your analysis project as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># The @@ is a placeholder for a concrete file name that contains symbolic data</span>
-s2e new_project -i debian-9.2.1-i386 <span class="nv">$S2EENV</span>/images/debian-9.2.1-i386/guestfs/bin/cat @@
+<p><strong>Using symbolic files.</strong> If your binary takes a file name as a parameter and you want the content of that file to be
+symbolic, the simplest is to create your analysis project as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> The @@ is a placeholder <span class="k">for</span> a concrete file name that contains symbolic data
+<span class="go">s2e new_project -i debian-9.2.1-i386 $S2EENV/images/debian-9.2.1-i386/guestfs/bin/cat @@</span>
 </pre></div>
 </div>
 <p>This generates a bootstrap file that creates a symbolic file in ramdisk (i.e., in <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> on Linux), writes
@@ -582,6 +591,15 @@ some symbolic data to that file, and passes the path to that file to <code class
 to <code class="docutils literal notranslate"><span class="pre">/dev/null</span></code> and the symbolic data is therefore never branched upon. You must tweak the command line
 according to the aspects of the binary you want to test.</p>
 </div>
+<p><strong>Using seed files.</strong> This is the preferred way of using S2E. Unconstrained files created by <code class="docutils literal notranslate"><span class="pre">&#64;&#64;</span></code> may be less
+efficient at guiding the program towards an interesting path. Instead, you can use the concrete data of a file to
+<a class="reference external" href="../../Howtos/Concolic.html">guide</a> path exploration:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e new_project -i debian-9.2.1-i386 $S2EENV/images/debian-9.2.1-i386/guestfs/bin/cat /path/to/file/on/host</span>
+</pre></div>
+</div>
+<p>This commands scans the command line for arguments that look like paths (e.g., <code class="docutils literal notranslate"><span class="pre">/path/to/file/on/host</span></code>) and
+configures <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> to download such paths into the guest. In addition to that, it creates a <code class="docutils literal notranslate"><span class="pre">.symranges</span></code>
+file in the project directory that specifies which byte ranges of the file to make symbolic.</p>
 </div>
 <div class="section" id="configuring-s2e-for-use-with-s2e-so">
 <h2>Configuring S2E for use with <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code><a class="headerlink" href="#configuring-s2e-for-use-with-s2e-so" title="Permalink to this headline">¶</a></h2>
@@ -646,7 +664,7 @@ the <code class="docutils literal notranslate"><span class="pre">make</span></co
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Cyberhaven
+        &copy; Copyright 2018-2020, Cyberhaven
 
     </p>
   </div>

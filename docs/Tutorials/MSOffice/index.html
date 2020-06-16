@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Instrumenting Program Source Code for S2E &mdash; S2E 2.0 documentation</title>
+  <title>Analyzing Microsoft Office Documents &mdash; S2E 2.0 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Automated Generation of Proofs of Vulnerability with S2E" href="../PoV/pov.html" />
-    <link rel="prev" title="Symbolic Execution of Linux Binaries" href="s2e.so.html" /> 
+    <link rel="next" title="Translating binaries to LLVM with Revgen" href="../Revgen/Revgen.html" />
+    <link rel="prev" title="Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection" href="../WindowsDrivers/FaultInjection.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -78,7 +78,7 @@
             
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../s2e-env.html">Start here: setting up S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#using-s2e-env">Using s2e-env</a><ul>
@@ -115,25 +115,25 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="s2e.so.html">Symbolic Execution of Linux Binaries</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="s2e.so.html#getting-started">Getting started</a></li>
-<li class="toctree-l2"><a class="reference internal" href="s2e.so.html#using-s2e-so">Using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="s2e.so.html#what-about-other-symbolic-input">What about other symbolic input?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="s2e.so.html#configuring-s2e-for-use-with-s2e-so">Configuring S2E for use with <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="s2e.so.html#modifying-and-building-s2e-so">Modifying and building <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html">Symbolic Execution of Linux Binaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#getting-started">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#using-s2e-so">Using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#what-about-other-symbolic-input">What about other symbolic input?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#configuring-s2e-for-use-with-s2e-so">Configuring S2E for use with <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/s2e.so.html#modifying-and-building-s2e-so">Modifying and building <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Instrumenting Program Source Code for S2E</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#compiling-and-running">Compiling and running</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#preparing-the-program-for-symbolic-execution">Preparing the program for symbolic execution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#running-the-program-in-s2e">Running the program in S2E</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#terminating-execution-paths">Terminating execution paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html">Instrumenting Program Source Code for S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#compiling-and-running">Compiling and running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#preparing-the-program-for-symbolic-execution">Preparing the program for symbolic execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#running-the-program-in-s2e">Running the program in S2E</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BasicLinuxSymbex/SourceCode.html#terminating-execution-paths">Terminating execution paths</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption"><span class="caption-text">Use Cases</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../PoV/pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../PoV/pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../PoV/pov.html#using-symbolic-execution-to-generate-povs">Using Symbolic Execution to Generate PoVs</a></li>
@@ -188,13 +188,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../WindowsDrivers/FaultInjection.html#debugging-tips">Debugging Tips</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../MSOffice/index.html">Analyzing Microsoft Office Documents</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MSOffice/index.html#building-a-microsoft-office-image">Building a Microsoft Office image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MSOffice/index.html#creating-a-test-document">2. Creating a test document</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MSOffice/index.html#creating-an-analysis-project">3. Creating an analysis project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MSOffice/index.html#running-the-project">4. Running the project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MSOffice/index.html#exercises">5. Exercises</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MSOffice/index.html#conclusion">6. Conclusion</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Analyzing Microsoft Office Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#building-a-microsoft-office-image">Building a Microsoft Office image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-test-document">2. Creating a test document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-an-analysis-project">3. Creating an analysis project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-project">4. Running the project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises">5. Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">6. Conclusion</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Revgen/Revgen.html">Translating binaries to LLVM with Revgen</a><ul>
@@ -464,13 +464,13 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-      <li>Instrumenting Program Source Code for S2E</li>
+      <li>Analyzing Microsoft Office Documents</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/Tutorials/BasicLinuxSymbex/SourceCode.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/Tutorials/MSOffice/index.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -483,205 +483,254 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="instrumenting-program-source-code-for-s2e">
-<h1><a class="toc-backref" href="#id1">Instrumenting Program Source Code for S2E</a><a class="headerlink" href="#instrumenting-program-source-code-for-s2e" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="../../s2e-env.html">s2e-env</a> and <a class="reference external" href="s2e.so.html">s2e.so</a> automate most of the tedious tasks of setting up virtual
-machines, S2E configuration files, launch scripts, etc. This tutorial assumes that you have already built S2E and
-prepared a VM image as described on the <a class="reference external" href="../../BuildingS2E.html">Building the S2E Platform</a> page, that you are
-familiar with <a class="reference external" href="../../s2e-env.html">s2e-env</a>, and that you tried symbolic execution on simple <a class="reference external" href="s2e.so.html">Linux binaries</a>.</p>
-<p>In this tutorial, you will learn in more details what happens under the hood of <a class="reference external" href="../../s2e-env.html">s2e-env</a> and
-<a class="reference external" href="s2e.so.html">s2e.so</a>, in particular how they actually make input symbolic, and how you can do the same for arbitrary
-programs. This may be useful on targets and platforms that are not supported yet by S2E’s project creation scripts. We
-advise you to study how these tools work and adapt them to your own needs. Don’t hesitate to look at their source code.</p>
-<div class="contents topic" id="contents">
-<p class="topic-title">Contents</p>
-<ul class="simple">
-<li><a class="reference internal" href="#instrumenting-program-source-code-for-s2e" id="id1">Instrumenting Program Source Code for S2E</a><ul>
-<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
-<li><a class="reference internal" href="#compiling-and-running" id="id3">Compiling and running</a></li>
-<li><a class="reference internal" href="#preparing-the-program-for-symbolic-execution" id="id4">Preparing the program for symbolic execution</a></li>
-<li><a class="reference internal" href="#running-the-program-in-s2e" id="id5">Running the program in S2E</a></li>
-<li><a class="reference internal" href="#terminating-execution-paths" id="id6">Terminating execution paths</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section" id="introduction">
-<h2><a class="toc-backref" href="#id2">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>We want to cover all of the code of the following program by exploring all the possible paths through it.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+  <div class="section" id="analyzing-microsoft-office-documents">
+<h1>Analyzing Microsoft Office Documents<a class="headerlink" href="#analyzing-microsoft-office-documents" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, we will show how to symbolically execute a VBA macro embedded in an Office document.</p>
+<p>We assume that you already have a working S2E environment. If not, please follow the
+<a class="reference external" href="../../s2e-env.html">setup instructions</a> first.</p>
+<div class="section" id="building-a-microsoft-office-image">
+<h2>Building a Microsoft Office image<a class="headerlink" href="#building-a-microsoft-office-image" title="Permalink to this headline">¶</a></h2>
+<p>In order to analyze anything in S2E, you first need to build a guest VM image that contains the required software, in
+this case Windows and Microsoft Office. S2E supports various combinations of Windows and Office versions (Windows XP, 7,
+10 with Office 2010, 2013, 2016, and 2019). Run the following command to get a list of supported combinations:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env$</span> s2e image_build
+<span class="go">Available image groups:</span>
+<span class="go"> * linux      - Build linux images</span>
+<span class="go"> * windows    - Build windows images</span>
+<span class="go"> * office     - Build office images</span>
+<span class="go"> * office2019 - Build office2019 images</span>
+<span class="go"> * office2016 - Build office2016 images</span>
+<span class="go"> * office2013 - Build office2013 images</span>
+<span class="go"> * office2010 - Build office2010 images</span>
+<span class="go"> * all        - Build all images</span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
-
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Enter two characters: &quot;</span><span class="p">);</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">fgets</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">str</span><span class="p">),</span> <span class="n">stdin</span><span class="p">))</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span> <span class="o">||</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Not enough characters</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;a&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;z&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is lowercase</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is not lowercase</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;0&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;9&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is a digit</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is not a digit</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First and second chars are the same</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First and second chars are not the same</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="go">Available images:</span>
+<span class="go"> * cgc_debian-9.2.1-i386               - Debian i386 image with CGC kernel and user-space packages</span>
+<span class="go"> * debian-9.2.1-i386                   - Debian i386 image</span>
+<span class="go"> * debian-9.2.1-x86_64                 - Debian x86_64 image</span>
+<span class="go"> * windows-10pro1909-x86_64            - Windows 10 Pro 1909 x86_64</span>
+<span class="go"> * windows-10pro1909-x86_64/office2010 - Microsoft Office 2010 32-bit</span>
+<span class="go"> * windows-10pro1909-x86_64/office2013 - Microsoft Office 2013 32-bit</span>
+<span class="go"> * windows-10pro1909-x86_64/office2016 - Microsoft Office 2016 32-bit</span>
+<span class="go"> * windows-10pro1909-x86_64/office2019 - Microsoft Office 2019 32-bit</span>
+<span class="go"> * windows-7sp1ent-x86_64              - Windows 7 Enterprise SP1 x86_64</span>
+<span class="go"> * windows-7sp1ent-x86_64/office2010   - Microsoft Office 2010 32-bit</span>
+<span class="go"> * windows-7sp1ent-x86_64/office2013   - Microsoft Office 2013 32-bit</span>
+<span class="go"> * windows-7sp1ent-x86_64/office2016   - Microsoft Office 2016 32-bit</span>
+<span class="go"> * windows-7sp1pro-i386                - Windows 7 Professional SP1 i386</span>
+<span class="go"> * windows-7sp1pro-i386/office2010     - Microsoft Office 2010 32-bit</span>
+<span class="go"> * windows-7sp1pro-i386/office2013     - Microsoft Office 2013 32-bit</span>
+<span class="go"> * windows-7sp1pro-i386/office2016     - Microsoft Office 2016 32-bit</span>
+<span class="go"> * windows-xpsp3pro-i386               - Windows XP Professional SP3 i386</span>
+<span class="go"> * windows-xpsp3pro-i386/office2010    - Microsoft Office 2010 32-bit</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="compiling-and-running">
-<h2><a class="toc-backref" href="#id3">Compiling and running</a><a class="headerlink" href="#compiling-and-running" title="Permalink to this headline">¶</a></h2>
-<p>First, compile and run the program as usual, to make sure that it works.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gcc -m32 -O3 tutorial1.c -o tutorial1
-$ ./tutorial1
-Enter two characters: ab
-First char is lowercase
-First char is not a digit
-First and second chars are not the same
+<p>You can use <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">image_build</span></code> to build one or more images by either specifying the image names individually or using
+an image group. For example, in order to build Office 2016 on all supported OSes, use <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">image_build</span> <span class="pre">office2016</span></code>.
+For the purpose of this tutorial, let us build Office 2016 on 32-bit Windows 7 SP1.</p>
+<p>Before starting the build, you must first download the required Windows and Office installation disks (ISOs). You can
+get them from MSDN. Look for these two files and download them:</p>
+<ol class="arabic simple">
+<li><code class="docutils literal notranslate"><span class="pre">en_windows_7_professional_with_sp1_x86_dvd_u_677056.iso</span></code>. This contains Windows 7 SP1 32-bit.</li>
+<li><code class="docutils literal notranslate"><span class="pre">en_office_professional_plus_2016_x86_x64_dvd_6962141.iso</span></code>. This contains Office 2016 in 32 and 64-bit versions.
+Installation scripts will select the 32-bit version of Office.</li>
+</ol>
+<p>Once you have the required ISOs, run the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env$</span> s2e image_build -g --iso-dir /path/to/iso/directory windows-7sp1pro-i386/office2016
 </pre></div>
 </div>
-<p>Then, create a new project using <a class="reference external" href="../../s2e-env.html">s2e-env</a> . Once it is created, run it, and check that it runs
-properly in the guest. You will need to run S2E with graphics output enabled so that you can type the input.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>s2e new_project /path/to/tutorial1
-</pre></div>
-</div>
-</div>
-<div class="section" id="preparing-the-program-for-symbolic-execution">
-<h2><a class="toc-backref" href="#id4">Preparing the program for symbolic execution</a><a class="headerlink" href="#preparing-the-program-for-symbolic-execution" title="Permalink to this headline">¶</a></h2>
-<p>In order to execute the program symbolically, it is necessary to specify what values should become symbolic. There are
-many ways to do it in S2E, but the simplest one is to use the S2E opcodes library. This library provides a way for guest
-code to communicate with the S2E system.</p>
-<p>In order to explore all possible paths through the program that correspond to all possible inputs, we want to make these
-inputs symbolic. To accomplish this, we replace the call to <code class="docutils literal notranslate"><span class="pre">fgets()</span></code> by a call to <code class="docutils literal notranslate"><span class="pre">s2e_make_symbolic()</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
-<span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
-<span class="c1">// printf(&quot;Enter two characters: &quot;);</span>
-<span class="c1">// if(!fgets(str, sizeof(str), stdin))</span>
-<span class="c1">//   return 1;</span>
-<span class="n">s2e_make_symbolic</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;str&quot;</span><span class="p">);</span>
-<span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">...</span>
-</pre></div>
-</div>
-<p>Finally, it would be interesting to see an example of input value that cause a program to take a particular execution
-path. This can be useful to reproduce a bug in a debugger, independently of S2E. For that, use the <code class="docutils literal notranslate"><span class="pre">s2e_get_example()</span></code>
-function. This function gives a concrete example of symbolic values that satisfy the current path constraints (i.e., all
-branch conditions along the execution path).</p>
-<p>After these changes, the example program looks as follows:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;s2e/s2e.h&gt;</span><span class="cp"></span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
-
-    <span class="c1">// printf(&quot;Enter two characters: &quot;);</span>
-    <span class="c1">// if (!fgets(str, sizeof(str), stdin)) {</span>
-    <span class="c1">//     return 1;</span>
-    <span class="c1">// }</span>
-
-    <span class="n">s2e_make_symbolic</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;str&quot;</span><span class="p">);</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span> <span class="o">||</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Not enough characters</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;a&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;z&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is lowercase</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is not lowercase</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;0&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;9&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is a digit</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is not a digit</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First and second chars are the same</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First and second chars are not the same</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="n">s2e_get_example</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;&#39;%c%c&#39; %02x %02x</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-           <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+<p>This will take 30-60 minutes and use about 50GB of disk space. The <code class="docutils literal notranslate"><span class="pre">-g</span></code> flag enables graphics output so that you can
+see the progress. The installation is fully automated, you will not be asked to do anything.</p>
+<p>Do not worry if you do not have MSDN or cannot find the files above. You can replace <code class="docutils literal notranslate"><span class="pre">office2016</span></code> in the command line
+above with the version that you have. The image installation script will tell you which ISO name you need if
+it cannot find one inside <code class="docutils literal notranslate"><span class="pre">--iso-dir</span></code>. If you have a physical installation disk, create an ISO image out if it, and
+use that image. Please follow the readme in the <a class="reference external" href="https://github.com/s2e/guest-images">guest-images</a> repository in
+order to understand how to customize the installation.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">There are alternatives to <code class="docutils literal notranslate"><span class="pre">s2e_get_example</span></code> to get test cases. The simplest one is using the <code class="docutils literal notranslate"><span class="pre">TestCaseGenerator</span></code>
-plugin, which is enabled by default, and outputs test cases in <code class="docutils literal notranslate"><span class="pre">s2e-last/debug.txt</span></code>.</p>
+<ul class="last simple">
+<li>Some versions of Office and Windows require a product key in order to run. Please update
+<code class="docutils literal notranslate"><span class="pre">apps.json</span></code> and <code class="docutils literal notranslate"><span class="pre">images.json</span></code> in the <code class="docutils literal notranslate"><span class="pre">guest-images</span></code> repository as appropriate. <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">image_build</span></code> will tell you
+if you need a product key.</li>
+<li>It is strongly recommended to use a file system that supports copy-on-write (XFS, BTRFS) in order to minimize the amount
+of disk space used by guest images. The build script will explain how to set one up if needed.</li>
+<li>The installation scripts verify that the Office installation disk is correct, so you should get an error message
+in case you used the wrong one.</li>
+</ul>
 </div>
-<p>Compile the program and try to run it on your host:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gcc -I<span class="nv">$S2ESRC</span>/guest/common/include -O3 tutorial1.c -o tutorial1
-$ ./tutorial1
-Illegal instruction
+</div>
+<div class="section" id="creating-a-test-document">
+<h2>2. Creating a test document<a class="headerlink" href="#creating-a-test-document" title="Permalink to this headline">¶</a></h2>
+<p>In this step, we will create a Microsoft Word document containing a macro that runs automatically when the document is
+opened. You will need another Windows / Office installation to do that. You have two options:</p>
+<ol class="loweralpha simple">
+<li>Use a separate installation, e.g., the one you normally use for work. It does not have to be the same version
+of Office as the one you built previously.</li>
+<li>Reuse the image that you built in the previous step.
+For that, copy the <code class="docutils literal notranslate"><span class="pre">./images/windows-7sp1pro-i386/office2016/image.raw.s2e</span></code> file and run it in your usual
+QEMU/VirtualBox/VMware. The image is in raw format and you may need to convert it to VMDK or to whatever
+format your hypervisor requires.</li>
+</ol>
+<p>Once you have your Office installation ready, proceed as follows:</p>
+<ol class="loweralpha simple">
+<li>Open Word</li>
+<li>Create a new document</li>
+<li>Open the macros window</li>
+<li>Call the macro <code class="docutils literal notranslate"><span class="pre">AutoOpen</span></code>, then click <code class="docutils literal notranslate"><span class="pre">Create</span></code>. It is important to name the macro <code class="docutils literal notranslate"><span class="pre">AutoOpen</span></code>, so that Word executes
+it automatically when it opens the document. Note that <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">image_build</span></code> configures Office applications
+so that they open macros automatically without prompting the user, which is more convenient for automated testing.</li>
+</ol>
+<img alt="../../_images/word1.png" src="../../_images/word1.png" />
+<p>Then, in the script editor, type the following code:</p>
+<div class="highlight-vbscript notranslate"><div class="highlight"><pre><span></span><span class="k">Public</span><span class="w"> </span><span class="n">Declare</span><span class="w"> </span><span class="n">PtrSafe</span><span class="w"> </span><span class="kd">Sub</span><span class="w"> </span><span class="nf">S2EKillState</span><span class="w"> </span><span class="n">_</span><span class="w"></span>
+<span class="w">  </span><span class="n">Lib</span><span class="w"> </span><span class="s2">&quot;libs2e32.dll&quot;</span><span class="w"> </span><span class="p">(</span><span class="k">ByVal</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="n">Long</span><span class="p">,</span><span class="w"> </span><span class="k">ByVal</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="nb">String</span><span class="p">)</span><span class="w"></span>
+<span class="k">Public</span><span class="w"> </span><span class="n">Declare</span><span class="w"> </span><span class="n">PtrSafe</span><span class="w"> </span><span class="kd">Function</span><span class="w"> </span><span class="nf">S2ESymbolicInt</span><span class="w"> </span><span class="n">_</span><span class="w"></span>
+<span class="w">  </span><span class="n">Lib</span><span class="w"> </span><span class="s2">&quot;libs2e32.dll&quot;</span><span class="w"> </span><span class="p">(</span><span class="k">ByVal</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="k">ByVal</span><span class="w"> </span><span class="n">initialValue</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="n">Long</span><span class="p">)</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="n">Long</span><span class="w"></span>
+
+<span class="kd">Sub</span><span class="w"> </span><span class="nf">AutoOpen</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="kd">Dim</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="n">Long</span><span class="w"></span>
+<span class="w">    </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S2ESymbolicInt</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">123</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">If</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1234</span><span class="w"> </span><span class="k">Then</span><span class="w"></span>
+<span class="w">        </span><span class="n">S2EKillState</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;path 1&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">Else</span><span class="w"></span>
+<span class="w">        </span><span class="n">S2EKillState</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;path 2&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">End</span><span class="w"> </span><span class="k">If</span><span class="w"></span>
+<span class="k">End</span><span class="w"> </span><span class="k">Sub</span><span class="w"></span>
 </pre></div>
 </div>
-<p>You see the <code class="docutils literal notranslate"><span class="pre">Illegal</span> <span class="pre">instruction</span></code> message because all <code class="docutils literal notranslate"><span class="pre">s2e_*</span></code> functions use
-special CPU opcodes that are only recognized by S2E.</p>
+<img alt="../../_images/word2.png" src="../../_images/word2.png" />
+<p>When you are done, click <code class="docutils literal notranslate"><span class="pre">run</span></code> to try it. If everything is OK, you should get an error message saying that
+<code class="docutils literal notranslate"><span class="pre">libs2e32.dll</span></code> was not found. This is fine, this DLL will be available inside the S2E environment.
+Finally, save the document as <code class="docutils literal notranslate"><span class="pre">test.docm</span></code> and copy it to your Linux machine where S2E is installed.</p>
+<p>When ran in S2E, this code will fork two states, one where <code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">==</span> <span class="pre">1234</span></code> and another where <code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">!=</span> <span class="pre">1234</span></code>. These
+two states will terminate with a message <code class="docutils literal notranslate"><span class="pre">path</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">path</span> <span class="pre">2</span></code>. To do this, the macro first imports two functions
+from <code class="docutils literal notranslate"><span class="pre">libs2e32.dll</span></code>: one that returns a symbolic integer and another one that terminates the path that executes it.</p>
+<p>Note that it is important to explicitly kill execution paths, otherwise they will run forever and S2E will never
+terminate. This is because Word is an event-driven GUI program. Unlike a command line tool, it does not
+terminate unless it is closed by the user (or a script). To make things simpler (and faster), we terminate
+the paths directly from the VBA script. Alternatively, you could modify the VBA script to exit Word, in which case the
+path would be terminated by the script that launched Word (i.e., <code class="docutils literal notranslate"><span class="pre">bootstrap.bat</span></code> that you will find in the project
+directory).</p>
 </div>
-<div class="section" id="running-the-program-in-s2e">
-<h2><a class="toc-backref" href="#id5">Running the program in S2E</a><a class="headerlink" href="#running-the-program-in-s2e" title="Permalink to this headline">¶</a></h2>
-<p>Now rerun the program above in S2E, using the launch scripts generated by <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>. You should see several states
-forked, one for each possible program input. Each state is a completely independent snapshot of the whole system. You
-can even interact with each state independently, for example by launching different programs. Try to launch
-<code class="docutils literal notranslate"><span class="pre">tutorial1</span></code> in one of the states again!</p>
-<p>In the host terminal (i.e., the S2E standard output), you see various information about state execution, forking and
-switching. This output is also saved into the <code class="docutils literal notranslate"><span class="pre">s2e-last/debug.txt</span></code> log file. As an exercise, try to follow the
-execution history of a state through the log file.</p>
-</div>
-<div class="section" id="terminating-execution-paths">
-<h2><a class="toc-backref" href="#id6">Terminating execution paths</a><a class="headerlink" href="#terminating-execution-paths" title="Permalink to this headline">¶</a></h2>
-<p>By default, S2E runs paths forever and needs a special order in order to terminate an execution path. The <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>
-tool wraps programs in a script that will take care of terminating paths when the program returns or when it crashes.
-Sometimes, you may want to terminate the execution path yourself, directly from your program. This is particularly
-useful if you run S2E on a system that is not yet supported by <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>, such as embedded OSes.</p>
-<p>Terminating an execution path is accomplished with the <code class="docutils literal notranslate"><span class="pre">s2e_kill_state()</span></code> function. A call to this function
-immediately stops the execution of the current path and exits S2E if there are no more paths to explore. Add a call to
-this function just before the program returns control to the OS. Before that, you may want to print example values in
-the S2E log using <code class="docutils literal notranslate"><span class="pre">s2e_printf()</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
-
-  <span class="p">...</span>
-
-  <span class="n">s2e_get_example</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-  <span class="n">s2e_printf</span><span class="p">(</span><span class="s">&quot;&#39;%c%c&#39; %02x %02x</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-  <span class="n">s2e_kill_state</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&quot;program terminated&quot;</span><span class="p">);</span>
-
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="section" id="creating-an-analysis-project">
+<h2>3. Creating an analysis project<a class="headerlink" href="#creating-an-analysis-project" title="Permalink to this headline">¶</a></h2>
+<p>Before we can run the document in S2E, we need to create a new analysis project. A project contains all the required
+S2E configuration to run the desired application. Run the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env$</span> s2e new_project -n winword -i windows-7sp1pro-i386/office2016 <span class="se">\</span>
+   ./images/windows-7sp1pro-i386/office2016/guestfs/program<span class="se">\ </span>files/microsoft<span class="se">\ </span>office/root/office16/winword.exe /path/to/test.docm
 </pre></div>
 </div>
-<p>When you rerun the program, you will see that the logs contain the message <code class="docutils literal notranslate"><span class="pre">program</span> <span class="pre">terminated</span></code>.</p>
-<p>You can also terminate the execution from a script, using the <code class="docutils literal notranslate"><span class="pre">s2ecmd</span></code> tool.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>guest$ ./tutorial<span class="p">;</span> ./s2ecmd <span class="nb">kill</span> <span class="m">0</span> <span class="s2">&quot;done&quot;</span>
+<p>This command creates a project called <code class="docutils literal notranslate"><span class="pre">winword</span></code> based on the <code class="docutils literal notranslate"><span class="pre">windows-7sp1pro-i386/office2016</span></code> guest image.
+It also tells S2E to start <code class="docutils literal notranslate"><span class="pre">winword.exe</span></code> with <code class="docutils literal notranslate"><span class="pre">test.docm</span></code> as argument. Pay attention to how the paths are specified:</p>
+<ul class="simple">
+<li><strong>Path to the binary.</strong> If you need to analyze a binary that is already
+present on the guest image, you can reference it using a path of the form <code class="docutils literal notranslate"><span class="pre">./images/os/app/guestfs/...</span></code>.
+Image installation scripts mirrored the binaries contained in the guest VM image onto the host file system,
+so that the project creation tool and S2E plugins can easily access them.
+The project creation tool detects these kinds of paths and automatically translates them to something reasonable for the guest,
+in this case <code class="docutils literal notranslate"><span class="pre">c:\program</span> <span class="pre">files\microsoft</span> <span class="pre">office\root\office16\winword.exe</span></code>.</li>
+<li><strong>Path to the document.</strong> The project creation tool scans every argument passed to the application and when it detects
+an argument that looks like a path to a file on the host, it automatically uploads that file to the guest and
+adapts the invocation accordingly. In this particular case, the guest will run the following command:
+<code class="docutils literal notranslate"><span class="pre">c:\program</span> <span class="pre">files\microsoft</span> <span class="pre">office\root\office16\winword.exe</span> <span class="pre">x:\test.docm</span></code>.</li>
+</ul>
+<p>Let us have a quick look at the files created for the project:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env/projects/winword$</span> ls -la
+<span class="go">total 68</span>
+<span class="go">drwxrwxr-x  2 s2e s2e   239 Jun  9 00:24 .</span>
+<span class="go">drwxrwxr-x 52 s2e s2e 12288 Jun  8 23:26 ..</span>
+<span class="go">lrwxrwxrwx  1 s2e s2e    38 Jun  5 20:16 test.docm -&gt; /home/ubuntu/Documents/test.docm</span>
+<span class="go">-rw-rw-r--  1 s2e s2e    62 Jun  5 20:16 test.docm.symranges</span>
+<span class="go">-rw-rw-r--  1 s2e s2e  5244 Jun  7 17:25 bootstrap.sh</span>
+<span class="go">lrwxrwxrwx  1 s2e s2e    68 Jun  5 20:16 guestfs0 -&gt; /home/ubuntu/s2e/env/images/windows-7sp1pro-i386/office2016/guestfs</span>
+<span class="go">lrwxrwxrwx  1 s2e s2e    57 Jun  5 20:16 guestfs1 -&gt; /home/ubuntu/s2e/env/images/windows-7sp1pro-i386/guestfs</span>
+<span class="go">lrwxrwxrwx  1 s2e s2e    46 Jun  5 20:16 guest-tools32 -&gt; /home/ubuntu/s2e/env/install/bin/guest-tools32</span>
+<span class="go">-rwxrw-r--  1 s2e s2e  3181 Jun  5 20:16 launch-s2e.sh</span>
+<span class="go">-rw-rw-r--  1 s2e s2e  2899 Jun  5 20:16 library.lua</span>
+<span class="go">-rw-rw-r--  1 s2e s2e  1322 Jun  5 20:16 models.lua</span>
+<span class="go">-rw-rw-r--  1 s2e s2e  1337 Jun  5 20:16 project.json</span>
+<span class="go">-rw-rw-r--  1 s2e s2e 13921 Jun  5 20:16 s2e-config.lua</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">test.docm</span></code>: this is a symbolic link to <code class="docutils literal notranslate"><span class="pre">test.docm</span></code>, which is the document we want to open. It will be uploaded
+into the guest VM when starting the analysis. You can modify this document and rerun the analysis without
+having to re-create a new project every time.</li>
+<li><code class="docutils literal notranslate"><span class="pre">test.docm.symranges</span></code>: this file specifies which part of the <code class="docutils literal notranslate"><span class="pre">test.docm</span></code> file should be made symbolic.
+Since we do not need to make the content of <code class="docutils literal notranslate"><span class="pre">test.docm</span></code> symbolic, there is no need to modify
+<code class="docutils literal notranslate"><span class="pre">test.docm.symranges</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code>: when S2E starts, it uploads and executes this script in the guest. <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> will download
+<code class="docutils literal notranslate"><span class="pre">test.docm</span></code> from the host, make the file symbolic according to <code class="docutils literal notranslate"><span class="pre">test.docm.symranges</span></code>, then invoke Word.</li>
+<li><code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code>: this is the S2E configuration file. You can use it to configure various S2E analysis plugins.
+You do not need to modify it for this tutorial.</li>
+<li>There are some more files and symbolic links that are not important for this tutorial. You can find more details
+about them <a class="reference external" href="../../s2e-env.html">here</a>.</li>
+</ul>
+</div>
+<div class="section" id="running-the-project">
+<h2>4. Running the project<a class="headerlink" href="#running-the-project" title="Permalink to this headline">¶</a></h2>
+<p>Run S2E as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env/projects/winword$</span> ./launch-s2e.sh
+</pre></div>
+</div>
+<p>The command should terminate after a minute or two. You will see many messages on the screen. These are mostly debug
+logs showing which modules Windows is loading, what processes / threads it creates, etc.</p>
+<p>In case you also want to see the graphics output, comment out <code class="docutils literal notranslate"><span class="pre">GRAPHICS=-nographic</span></code> in <code class="docutils literal notranslate"><span class="pre">launch-s2e.sh</span></code>. You should
+then see something like in the screenshot below:</p>
+<img alt="../../_images/word3.png" src="../../_images/word3.png" />
+<p>The console will show the following output (also recorded in <code class="docutils literal notranslate"><span class="pre">s2e-last/debug.txt</span></code>):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">45 [State 0] BaseInstructions: Inserted symbolic data @0x1283ec of size 0x4: value=&#39;\x7b\x00\x00\x00&#39; pc=0x7d81ce8</span>
+<span class="go">45 [State 0] Forking state 0 at pc = 0x7818743 at pagedir = 0xcf50000</span>
+<span class="go">    state 0</span>
+<span class="go">    state 1</span>
+<span class="go">45 [State 0] BaseInstructions: Killing state 0</span>
+<span class="go">45 [State 0] Terminating state: State was terminated by opcode</span>
+<span class="go">            message: &quot;path 2&quot;</span>
+<span class="go">            status: 0x0</span>
+<span class="go">45 [State 0] TestCaseGenerator: generating test case at address 0x7d81dc8</span>
+<span class="go">45 [State 0] TestCaseGenerator:           v0_value_0 = {0x7b, 0x0, 0x0, 0x0}; (int32_t) 123, (string) &quot;{...&quot;</span>
+<span class="go">45 [State 0] Switching from state 0 to state 1</span>
+<span class="go">45 [State 1] BaseInstructions: Killing state 1</span>
+<span class="go">45 [State 1] Terminating state: State was terminated by opcode</span>
+<span class="go">            message: &quot;path 1&quot;</span>
+<span class="go">            status: 0x0</span>
+<span class="go">45 [State 1] TestCaseGenerator: generating test case at address 0x7d81dc8</span>
+<span class="go">45 [State 1] TestCaseGenerator:           v0_value_0 = {0xd2, 0x4, 0x0, 0x0}; (int32_t) 1234, (string) &quot;....&quot;</span>
+<span class="go">All states were terminated</span>
+</pre></div>
+</div>
+<p>As expected, the VBA macro forked two paths, one in which the value is equal to 1234.</p>
+</div>
+<div class="section" id="exercises">
+<h2>5. Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Remove the call to <code class="docutils literal notranslate"><span class="pre">S2EKillState</span></code> from the macro and rerun the analysis. What do you observe? Does S2E terminate?
+Why, why not?</li>
+<li>Have a look at various functions in <code class="docutils literal notranslate"><span class="pre">libs2e32.dll</span></code> and try to call them from the macro. For example, try to create
+a symbolic byte using <code class="docutils literal notranslate"><span class="pre">S2ESymbolicChar</span></code> or print a message with <code class="docutils literal notranslate"><span class="pre">S2EMessageFmt</span></code>.
+The source for <code class="docutils literal notranslate"><span class="pre">libs2e32.dll</span></code> is located <a class="reference external" href="https://github.com/S2E/s2e/tree/master/guest/windows/libs2e">here</a>.</li>
+<li>Create an Excel document with a macro and the corresponding project, then run it and check the results.</li>
+<li>Modify <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code> to record code <a class="reference external" href="../../Howtos/Coverage/index.html">coverage</a> for various DLLs, e.g.,
+for <code class="docutils literal notranslate"><span class="pre">vbe7.dll</span></code>, then visualize it in IDA.</li>
+</ol>
+</div>
+<div class="section" id="conclusion">
+<h2>6. Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial presented the basics of running VBA macros in S2E. Here are some pointers about more advanced uses
+and things you may want to try next:</p>
+<p><strong>Trigger-based malware analysis.</strong> A malicious macro would typically execute itself if some condition is met, e.g.,
+only execute on a specific day of the week, or if the computer has a particular name. Detonating such macros would
+require making symbolic the results of the system calls that it invokes rather than using <code class="docutils literal notranslate"><span class="pre">S2ESymbolicInt</span></code> as shown
+in this tutorial. You can <a class="reference external" href="https://adrianherrera.github.io/post/malware-s2e">instrument</a> syscalls using EasyHook or
+any other hooking framework of your choice.</p>
+<p><strong>Code coverage analysis.</strong> S2E is currently not well suited to analyze code coverage of higher level languages. For
+example, you will not be able to easily get the actual line of code that forked using <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">forkprofile</span></code>. Instead, you
+will get the location in the interpreter’s library (e.g., <code class="docutils literal notranslate"><span class="pre">vbe7.dll</span></code>). Implementing techniques such as <a class="reference external" href="http://www.stefanbucur.net/assets/pubs/chef.pdf">Chef</a> may alleviate this problem.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env$</span> s2e forkprofile winword
+<span class="gp">#</span> The fork profile shows all the program counters where execution forked:
+<span class="gp">#</span> process_pid module_path:address fork_count source_file:line_number <span class="o">(</span>function_name<span class="o">)</span>
+<span class="go">01704 /Program Files/Common Files/Microsoft Shared/VBA/VBA7/VBE7.DLL:0x65008743    1 (no debug info)</span>
 </pre></div>
 </div>
 </div>
@@ -695,10 +744,10 @@ the S2E log using <code class="docutils literal notranslate"><span class="pre">s
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../PoV/pov.html" class="btn btn-neutral float-right" title="Automated Generation of Proofs of Vulnerability with S2E" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../Revgen/Revgen.html" class="btn btn-neutral float-right" title="Translating binaries to LLVM with Revgen" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="s2e.so.html" class="btn btn-neutral float-left" title="Symbolic Execution of Linux Binaries" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../WindowsDrivers/FaultInjection.html" class="btn btn-neutral float-left" title="Testing Error Recovery Code in Windows Drivers with Multi-Path Fault Injection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

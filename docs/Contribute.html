@@ -188,6 +188,15 @@
 <li class="toctree-l2"><a class="reference internal" href="Tutorials/WindowsDrivers/FaultInjection.html#debugging-tips">Debugging Tips</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials/MSOffice/index.html">Analyzing Microsoft Office Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/MSOffice/index.html#building-a-microsoft-office-image">Building a Microsoft Office image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/MSOffice/index.html#creating-a-test-document">2. Creating a test document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/MSOffice/index.html#creating-an-analysis-project">3. Creating an analysis project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/MSOffice/index.html#running-the-project">4. Running the project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/MSOffice/index.html#exercises">5. Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/MSOffice/index.html#conclusion">6. Conclusion</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorials/Revgen/Revgen.html">Translating binaries to LLVM with Revgen</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Tutorials/Revgen/Revgen.html#using-revgen">Using Revgen</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Tutorials/Revgen/Revgen.html#prerequisites">1. Prerequisites</a></li>
@@ -519,12 +528,10 @@ submit this as a separate patch which makes no semantic changes; don’t put it 
 <code class="docutils literal notranslate"><span class="pre">.clang-format</span></code> file in the root of the repository. Note that Windows guest tools have their own code style.</p>
 <p>To check Python code, run the following <a class="reference external" href="https://www.pylint.org">pylint</a>-based script:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> <span class="nv">$S2EDIR</span>/s2e-env
-<span class="gp">$</span> . venv/bin/activate
-<span class="gp">$</span> pip install pylint
-<span class="gp">$</span> pylint -rn -j8 --rcfile<span class="o">=</span>./pylint_rc s2e_env
+<span class="gp">$</span> ./test.sh
 </pre></div>
 </div>
-<p class="last">There must be no warnings.</p>
+<p class="last">There must be no warnings / errors.</p>
 </dd>
 <dt>Your code must be documented</dt>
 <dd>If you write a plugin, please write Doxygen-style documentation in the source code as well as an <code class="docutils literal notranslate"><span class="pre">.rst</span></code> file that
@@ -558,6 +565,28 @@ that you add (copy/paste below).</p>
 </pre></div>
 </div>
 </dd>
+<dt>Release check list</dt>
+<dd><p class="first">Pull requests for <code class="docutils literal notranslate"><span class="pre">s2e</span></code> and <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> are automatically checked for code style. <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> also has unit
+tests. There are no automated integration tests. Until we have CI do this automatically, please run the following
+checks before merging any significant changes:</p>
+<ol class="last arabic simple">
+<li>Check that the S2E <a class="reference external" href="Testsuite.html">testsuite</a> passes.</li>
+<li>Check code style and unittests in <code class="docutils literal notranslate"><span class="pre">s2e</span></code> and <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>.</li>
+<li>Build a <a class="reference external" href="BuildingS2E.html">docker image</a>.</li>
+<li>Run the docker demo from a fresh folder. This should automatically download the CGC image and run CADET_00001.
+PoVs should be found.</li>
+<li>Build S2E from scratch on a fresh Ubuntu 18/20 LTS install.
+You can use this <a class="reference external" href="https://github.com/S2E/ci/blob/master/tests-s2e-env/install.sh">script</a>.
+Make sure to check out the correct branches.</li>
+<li>Build guest images with <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">image_build</span></code>.</li>
+<li>Run the testsuite again on the freshly built images.</li>
+<li>Merge pull requests.</li>
+<li>Update guest tools binaries on the S2E <a class="reference external" href="https://github.com/S2E/s2e/releases">releases</a> page.</li>
+<li>Push the docker image to dockerhub, possibly after rebuild it to take into account updated guest tools.</li>
+<li>Update the release notes + build documentation for the S2E web site.</li>
+<li>Send release annoucement to <code class="docutils literal notranslate"><span class="pre">s2e-dev</span></code>.</li>
+</ol>
+</dd>
 </dl>
 </div>
 
@@ -581,7 +610,7 @@ that you add (copy/paste below).</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Cyberhaven
+        &copy; Copyright 2018-2020, Cyberhaven
 
     </p>
   </div>
