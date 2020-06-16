@@ -7,13 +7,20 @@ title: Releases
 
 You can find the latest stable version of S2E on master. We compile here from time to time a list of important updates.
 
+### 16 June 2020
+ * Added support for Microsoft Office 2010, 2013, 2016, 2019.
+ * Added tutorial about symbolic execution of VBA macros.
+ * Improved image building makefile to make it easier to add support for other Windows apps.
+ * Better support for seed files in ``s2e new_project``.
+ * Added ``libs2e.dll`` to make it easier to call S2E APIs from other programs.
+ * Removed Windows 8.1 and 10 1703 images.
 
 ### 01 May 2020
 
- * Upgraded to LLVM 10.0.0
- * Added support for Ubuntu 20.04 LTS
- * Updated the Windows 10 image to 1909
- * Applied latest patches to Windows XP and 7 images (up to 2016 and 2020 respectively)
+ * Upgraded to LLVM 10.0.0.
+ * Added support for Ubuntu 20.04 LTS.
+ * Updated the Windows 10 image to 1909.
+ * Applied latest patches to Windows XP and 7 images (up to 2016 and 2020 respectively).
 
 ### 17 Feb 2020
  * Switched the S2E engine [license](https://github.com/S2E/s2e/blob/master/LICENSE) to MIT
@@ -24,7 +31,7 @@ You can find the latest stable version of S2E on master. We compile here from ti
  * Upgraded to LLVM 9.0.0 from 3.9.1.
  * S2E now compiles with Clang 9.0.
  * Consolidated the 14 repositories that composed ``libs2e`` into a [monorepo](https://github.com/s2e/s2e).
-   The old repositories will be deleted after Feb 14. 
+   The old repositories will be deleted after Feb 14.
 
 ### 07 Dec 2019
 
