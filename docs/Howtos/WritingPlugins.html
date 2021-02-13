@@ -197,6 +197,20 @@
 <li class="toctree-l2"><a class="reference internal" href="../Tutorials/MSOffice/index.html#conclusion">6. Conclusion</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/CFI/index.html">Control Flow Integrity Checking with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/CFI/index.html#setting-up-microsoft-office">Setting up Microsoft Office</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/CFI/index.html#running-the-cfi-checker">Running the CFI checker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/CFI/index.html#analyzing-a-malicious-document">Analyzing a malicious document</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/CFI/index.html#locating-cfi-violations">Locating CFI violations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/CFI/index.html#setting-up-windbg-for-analysis">Setting up WinDbg for analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/CFI/index.html#tracing-the-exploit">Tracing the exploit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/CFI/index.html#design-and-implementation">Design and implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/CFI/index.html#limitations">Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/CFI/index.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html">Translating binaries to LLVM with Revgen</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#using-revgen">Using Revgen</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#prerequisites">1. Prerequisites</a></li>
@@ -249,7 +263,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Parallel.html">Running S2E on multiple cores</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Parallel.html#how-do-i-process-generated-traces">How do I process generated traces?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Parallel.html#handling-execution-traces">Handling execution traces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Parallel.html#limitations">Limitations</a></li>
 </ul>
 </li>
@@ -270,11 +284,12 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Writing S2E plugins</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#starting-with-an-empty-plugin">Starting with an Empty Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#reading-configuration-parameters">Reading Configuration Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#instrumenting-instructions">Instrumenting Instructions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#counting-instructions">Counting Instructions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exporting-events">Exporting Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#starting-with-an-empty-plugin">Starting with an empty plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reading-configuration-parameters">Reading configuration parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instrumenting-instructions">Instrumenting instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#counting-instructions">Counting instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exporting-events">Exporting events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#guest-plugin-communication">Guest-plugin communication</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="LuaInstrumentation.html">Instrumenting guest code with Lua</a><ul>
@@ -490,100 +505,35 @@ infrastructure. We take the example of a plugin that counts how many times a spe
 Users of that plugin can specify the instruction to watch in the S2E configuration file. We will also show how to build
 the plugin so that it can communicate with other plugins and expose reusable functionality.</p>
 <div class="section" id="starting-with-an-empty-plugin">
-<h2>Starting with an Empty Plugin<a class="headerlink" href="#starting-with-an-empty-plugin" title="Permalink to this headline">¶</a></h2>
-<p>The first thing to do is to name the plugin and create boilerplate code. Let us name the plugin <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code>.
-You can copy/paste the <code class="docutils literal notranslate"><span class="pre">Example</span></code> plugin that ships with S2E (in the <a class="reference external" href="https://github.com/S2E/s2e/tree/master/libs2eplugins">libs2eplugins</a> directory).</p>
-<p>Create a file named <code class="docutils literal notranslate"><span class="pre">InstructionTracker.h</span></code> in <code class="docutils literal notranslate"><span class="pre">$S2EDIR/libs2eplugins/src/s2e/Plugins</span></code> with the following content:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef S2E_PLUGINS_INSTRTRACKER_H</span>
-<span class="cp">#define S2E_PLUGINS_INSTRTRACKER_H</span>
-
-<span class="c1">// These header files are located in libs2ecore</span>
-<span class="cp">#include</span> <span class="cpf">&lt;s2e/Plugin.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;s2e/CorePlugin.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;s2e/S2EExecutionState.h&gt;</span><span class="cp"></span>
-
-<span class="k">namespace</span> <span class="n">s2e</span> <span class="p">{</span>
-<span class="k">namespace</span> <span class="n">plugins</span> <span class="p">{</span>
-
-<span class="k">class</span> <span class="nc">InstructionTracker</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Plugin</span> <span class="p">{</span>
-    <span class="n">S2E_PLUGIN</span>
-
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">InstructionTracker</span><span class="p">(</span><span class="n">S2E</span> <span class="o">*</span><span class="n">s2e</span><span class="p">)</span> <span class="o">:</span> <span class="n">Plugin</span><span class="p">(</span><span class="n">s2e</span><span class="p">)</span> <span class="p">{}</span>
-
-    <span class="kt">void</span> <span class="n">initialize</span><span class="p">();</span>
-<span class="p">};</span>
-
-<span class="p">}</span> <span class="c1">// namespace plugins</span>
-<span class="p">}</span> <span class="c1">// namespace s2e</span>
-
-<span class="cp">#endif</span>
+<h2>Starting with an empty plugin<a class="headerlink" href="#starting-with-an-empty-plugin" title="Permalink to this headline">¶</a></h2>
+<p>In this tutorial, we will create a plugin that counts executed instructions.
+After setting up your S2E environment, run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ s2e new_plugin InstructionTracker
 </pre></div>
 </div>
-<p>Then, create the corresponding <code class="docutils literal notranslate"><span class="pre">InstructionTracker.cpp</span></code> file in the same directory:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;s2e/S2E.h&gt;</span><span class="cp"></span>
-
-<span class="cp">#include</span> <span class="cpf">&quot;InstructionTracker.h&quot;</span><span class="cp"></span>
-
-<span class="k">namespace</span> <span class="n">s2e</span> <span class="p">{</span>
-<span class="k">namespace</span> <span class="n">plugins</span> <span class="p">{</span>
-
-<span class="c1">// Define a plugin whose class is InstructionTracker and called &quot;InstructionTracker&quot;</span>
-<span class="n">S2E_DEFINE_PLUGIN</span><span class="p">(</span><span class="n">InstructionTracker</span><span class="p">,</span>                   <span class="c1">// Plugin class</span>
-                  <span class="s">&quot;Tutorial - Tracking instructions&quot;</span><span class="p">,</span>   <span class="c1">// Description</span>
-                  <span class="s">&quot;InstructionTracker&quot;</span><span class="p">,</span>                 <span class="c1">// Plugin function name</span>
-                  <span class="c1">// Plugin dependencies would normally go here. However this plugin does not have any dependencies</span>
-                  <span class="p">);</span>
-
-<span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">initialize</span><span class="p">()</span> <span class="p">{</span>
-<span class="p">}</span>
-
-<span class="p">}</span> <span class="c1">// namespace plugins</span>
-<span class="p">}</span> <span class="c1">// namespace s2e</span>
-</pre></div>
-</div>
-<p>Finally, we need to compile the plugin with the rest of S2E. For this, add the following line to
-<code class="docutils literal notranslate"><span class="pre">$S2EDIR/libs2eplugins/src/CMakeLists.txt</span></code>, near the other plugin declarations:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s2e</span><span class="o">/</span><span class="n">Plugins</span><span class="o">/</span><span class="n">InstructionTracker</span><span class="o">.</span><span class="n">cpp</span>
-</pre></div>
-</div>
+<p>This creates the required boilerplate for an S2E plugin:</p>
+<blockquote>
+<div><ul class="simple">
+<li>The plugin source: <code class="docutils literal notranslate"><span class="pre">$S2EENV/source/s2e/libs2eplugins/src/s2e/Plugins/InstructionTracker.cpp</span></code></li>
+<li>The plugin header: <code class="docutils literal notranslate"><span class="pre">$S2EENV/source/s2e/libs2eplugins/src/s2e/Plugins/InstructionTracker.h</span></code></li>
+<li>An entry in the makefile to build the plugin: <code class="docutils literal notranslate"><span class="pre">$S2EENV/source/s2e/libs2eplugins/src/CMakeLists.txt</span></code></li>
+</ul>
+</div></blockquote>
 </div>
 <div class="section" id="reading-configuration-parameters">
-<h2>Reading Configuration Parameters<a class="headerlink" href="#reading-configuration-parameters" title="Permalink to this headline">¶</a></h2>
-<p>We would like to let the user specify which instruction to monitor. For this, we create a configuration variable that
-stores the address of that instruction. Every plugin can have an entry in the S2E configuration file. The entry for our
-plugin would look like this:</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">pluginsConfig</span><span class="p">.</span><span class="n">InstructionTracker</span> <span class="o">=</span> <span class="p">{</span>
+<h2>Reading configuration parameters<a class="headerlink" href="#reading-configuration-parameters" title="Permalink to this headline">¶</a></h2>
+<p>To let users specify which instruction to monitor, the plugin needs a configuration variable that
+stores the address of that instruction. To create one, add the following to your <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code> file:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;InstructionTracker&quot;</span><span class="p">)</span>
+<span class="n">pluginsConfig</span><span class="p">.</span><span class="n">InstructionTracker</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1">-- The address we want to track</span>
     <span class="n">addressToTrack</span> <span class="o">=</span> <span class="mh">0x12345</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>We also need to add our plugin to the <code class="docutils literal notranslate"><span class="pre">Plugins</span></code> table. This can be done one of two ways:</p>
-<ul class="simple">
-<li>If using <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>, add a call to <code class="docutils literal notranslate"><span class="pre">add_plugin</span></code> to <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code>.</li>
-</ul>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;InstructionTracker&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li>If not using <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>, you will have to create the <code class="docutils literal notranslate"><span class="pre">Plugins</span></code> table yourself:</li>
-</ul>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">Plugins</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1">-- List other plugins here</span>
-    <span class="s2">&quot;InstructionTracker&quot;</span><span class="p">,</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>If we run the plugin as it is now, nothing will happen. S2E ignores any unknown configuration value. We need a
-mechanism to explicitly retrieve the configuration value. In S2E, plugins can retrieve the configuration at any time.
-In our case, we do it during the initialization phase.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// From libs2ecore. We need this to read configuration files</span>
-<span class="cp">#include</span> <span class="cpf">&lt;s2e/ConfigFile.h&gt;</span><span class="cp"></span>
-
-<span class="c1">// ...</span>
-
-<span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">initialize</span><span class="p">()</span> <span class="p">{</span>
+<p>For now, this will do nothing. We need to instruct the plugin to read this configuration, e.g., during
+initialization. Open the plugin’s source file and add the following code to the <code class="docutils literal notranslate"><span class="pre">initialize</span></code> method:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">initialize</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">m_address</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint64_t</span><span class="p">)</span> <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getConfig</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getInt</span><span class="p">(</span><span class="n">getConfigKey</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;.addressToTrack&quot;</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
@@ -592,7 +542,7 @@ In our case, we do it during the initialization phase.</p>
 <code class="docutils literal notranslate"><span class="pre">InstructionTracker.h</span></code>.</p>
 </div>
 <div class="section" id="instrumenting-instructions">
-<h2>Instrumenting Instructions<a class="headerlink" href="#instrumenting-instructions" title="Permalink to this headline">¶</a></h2>
+<h2>Instrumenting instructions<a class="headerlink" href="#instrumenting-instructions" title="Permalink to this headline">¶</a></h2>
 <p>To instrument an instruction, an S2E plugin registers to the <code class="docutils literal notranslate"><span class="pre">onTranslateInstructionStart</span></code> core event. There are
 many other core events to which a plugin can register. These events are defined in <code class="docutils literal notranslate"><span class="pre">CorePlugin.h</span></code> in the
 <a class="reference external" href="https://github.com/S2E/s2e/tree/master/libs2ecore">libs2ecore</a> directory.</p>
@@ -614,7 +564,7 @@ declaration.</p>
                                                 <span class="n">S2EExecutionState</span> <span class="o">*</span><span class="n">state</span><span class="p">,</span>
                                                 <span class="n">TranslationBlock</span> <span class="o">*</span><span class="n">tb</span><span class="p">,</span>
                                                 <span class="kt">uint64_t</span> <span class="n">pc</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">m_address</span> <span class="o">==</span> <span class="n">pc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_address</span> <span class="o">==</span> <span class="n">pc</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// When we find an interesting address, ask S2E to invoke our callback when the address is actually</span>
         <span class="c1">// executed</span>
         <span class="n">signal</span><span class="o">-&gt;</span><span class="n">connect</span><span class="p">(</span><span class="n">sigc</span><span class="o">::</span><span class="n">mem_fun</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">InstructionTracker</span><span class="o">::</span><span class="n">onInstructionExecution</span><span class="p">));</span>
@@ -630,21 +580,31 @@ declaration.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Do not confuse <code class="docutils literal notranslate"><span class="pre">onTranslate</span></code> events and <code class="docutils literal notranslate"><span class="pre">onInstructionExecution</span></code> handlers. The former is called during
+instruction translation, the latter when the instruction is executed, and only if the handler has been registered
+during translation. The translation vs. execution difference is due to how dynamic binary translators work.
+If you increment during translation, you will get incorrect results. For example, a loop body
+would typically be translated once and executed several times, so your counter will not be incremented as expected.</p>
+</div>
 </div>
 <div class="section" id="counting-instructions">
-<h2>Counting Instructions<a class="headerlink" href="#counting-instructions" title="Permalink to this headline">¶</a></h2>
+<h2>Counting instructions<a class="headerlink" href="#counting-instructions" title="Permalink to this headline">¶</a></h2>
 <p>We would like to count how many times that particular instruction is executed. There are two options:</p>
 <ol class="arabic simple">
 <li>Count how many times it was executed across all paths</li>
 <li>Count how many times it was executed in each path</li>
 </ol>
-<p>The first option is trivial to implement. Simply add an additional member to the class and increment it every time the
+<p>The first option is easy to implement. Simply add an additional member to the class and increment it every time the
 <code class="docutils literal notranslate"><span class="pre">onInstructionExecution</span></code> callback is invoked.</p>
-<p>The second option requires to keep per-state plugin information. S2E plugins manage per-state information in a class
+<p>The second option requires keeping per-state plugin information. S2E plugins manage per-state information in a class
 that derives from <code class="docutils literal notranslate"><span class="pre">PluginState</span></code>. This class must implement a <code class="docutils literal notranslate"><span class="pre">factory</span></code> method that returns a new instance of the
 class when S2E starts symbolic execution. The <code class="docutils literal notranslate"><span class="pre">clone</span></code> method is used to fork the plugin state. Both <code class="docutils literal notranslate"><span class="pre">factory</span></code> and
 <code class="docutils literal notranslate"><span class="pre">clone</span></code> <strong>must</strong> be implemented.</p>
-<p>Here is how <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code> could implement the plugin state.</p>
+<p>Here is how <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code> could implement the plugin state. Note that the plugin boilerplate already contains
+all the required declarations. All you need to do is to fill them in. You can also delete them if your plugin does
+not need to store per-state information.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">InstructionTrackerState</span> <span class="o">:</span> <span class="k">public</span> <span class="n">PluginState</span> <span class="p">{</span>
 <span class="k">private</span><span class="o">:</span>
     <span class="kt">int</span> <span class="n">m_count</span><span class="p">;</span>
@@ -689,9 +649,9 @@ class when S2E starts symbolic execution. The <code class="docutils literal notr
 </div>
 </div>
 <div class="section" id="exporting-events">
-<h2>Exporting Events<a class="headerlink" href="#exporting-events" title="Permalink to this headline">¶</a></h2>
+<h2>Exporting events<a class="headerlink" href="#exporting-events" title="Permalink to this headline">¶</a></h2>
 <p>All S2E plugins can define custom events. Other plugins can in turn connect to them and also export their own events.
-This scheme is heavily used by stock S2E plugins. For example, the <a class="reference external" href="../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a>
+This scheme is at the center of the S2E plugin infrastructure. For example, the <a class="reference external" href="../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a>
 plugin exports a number of events (e.g. segmentation fault, module load, etc.) that can be intercepted by your own
 plugins.</p>
 <p>In this tutorial, we show how <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code> can expose an event and trigger it when the monitored instruction
@@ -751,6 +711,77 @@ emit an error message instead.</p>
 <p>It is not always necessary to specify the dependencies. For example, a plugin may want to work with reduced
 functionality if a dependent plugin is missing. Attempting to call <code class="docutils literal notranslate"><span class="pre">s2e()-&gt;getPlugin()</span></code> returns <code class="docutils literal notranslate"><span class="pre">nullptr</span></code> if
 the requested plugin is missing.</p>
+</div>
+<div class="section" id="guest-plugin-communication">
+<h2>Guest-plugin communication<a class="headerlink" href="#guest-plugin-communication" title="Permalink to this headline">¶</a></h2>
+<p>Guest code can send commands to plugins. S2E uses this extensively. For example, the Windows and Linux monitoring
+plugins notify other plugins about loaded modules, processes, and threads by receiving this information from a guest
+driver. The driver extract this information using the guest OS APIs, then sends it to the appropriate plugins.</p>
+<p>In this part of the tutorial, we will modify the <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code> plugin so that guest code can configure
+which address to monitor. This can be useful, e.g., in case the address to track is not known before S2E starts
+(ASLR, dynamically loaded modules, etc.).</p>
+<p>Guest code uses the <code class="docutils literal notranslate"><span class="pre">s2e_invoke_plugin</span></code> function to call a plugin. This call takes a pointer to a plugin-specific
+data structure that contains the command to run and execute. The following example shows how to send a command
+to the <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code> plugin:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;s2e/s2e.h&gt;</span><span class="cp"></span>
+
+<span class="k">enum</span> <span class="n">S2E_INSTRUCTIONTRACKER_COMMANDS</span> <span class="p">{</span>
+    <span class="n">SET_ADDRESS</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">S2E_INSTRUCTIONTRACKER_COMMAND</span> <span class="p">{</span>
+    <span class="n">S2E_TESTPLUGIN_COMMANDS</span> <span class="n">Command</span><span class="p">;</span>
+
+    <span class="k">union</span> <span class="p">{</span>
+        <span class="c1">// Command parameters go here</span>
+        <span class="kt">uint64_t</span> <span class="n">address</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">S2E_INSTRUCTIONTRACKER_COMMAND</span> <span class="n">cmd</span><span class="p">;</span>
+    <span class="n">cmd</span><span class="p">.</span><span class="n">Command</span> <span class="o">=</span> <span class="n">SET_ADDRESS</span><span class="p">;</span>
+    <span class="n">cmd</span><span class="p">.</span><span class="n">address</span> <span class="o">=</span> <span class="mh">0x12345</span><span class="p">;</span>
+
+    <span class="n">s2e_invoke_plugin</span><span class="p">(</span><span class="s">&quot;InstructionTracker&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cmd</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cmd</span><span class="p">));</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This code invokes the <code class="docutils literal notranslate"><span class="pre">handleOpcodeInvocation</span></code> method in the <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code> plugin. You will need to modify
+it so that it accepts the command:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">handleOpcodeInvocation</span><span class="p">(</span><span class="n">S2EExecutionState</span> <span class="o">*</span><span class="n">state</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">guestDataPtr</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">guestDataSize</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">S2E_INSTRUCTIONTRACKER_COMMAND</span> <span class="n">command</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">guestDataSize</span> <span class="o">!=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">command</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">getWarningsStream</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;mismatched S2E_INSTRUCTIONTRACKER_COMMAND size</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">mem</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">read</span><span class="p">(</span><span class="n">guestDataPtr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">command</span><span class="p">,</span> <span class="n">guestDataSize</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">getWarningsStream</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;could not read transmitted data</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">command</span><span class="p">.</span><span class="n">Command</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="nl">SET_ADDRESS</span><span class="p">:</span>
+            <span class="n">m_address</span> <span class="o">=</span> <span class="n">command</span><span class="p">.</span><span class="n">address</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">default</span><span class="o">:</span>
+            <span class="n">getWarningsStream</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Unknown command &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">command</span><span class="p">.</span><span class="n">Command</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You will also need to update the <code class="docutils literal notranslate"><span class="pre">InstructionTracker.h</span></code> header with the proper structure definitions.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">S2E does not enforce the data format between the guest code and the associated plugins. The template shown above
+is merely a suggestion. You can simplify it if needed. For example, if you know that your plugin has only
+one command, you could just call <code class="docutils literal notranslate"><span class="pre">s2e_invoke_plugin</span></code> with null arguments.</p>
+</div>
 </div>
 </div>
 

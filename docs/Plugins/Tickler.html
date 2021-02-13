@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>BaseInstructions &mdash; S2E 2.0 documentation</title>
+  <title>Automated malware analysis &mdash; S2E 2.0 documentation</title>
   
 
   
@@ -34,9 +34,7 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Copying files between the host and the guest" href="../MovingFiles.html" />
-    <link rel="prev" title="Measuring code coverage with S2E" href="../Howtos/Coverage/index.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -238,7 +236,7 @@
 </li>
 </ul>
 <p class="caption"><span class="caption-text">Howtos</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../Howtos/Coverage/index.html">Measuring code coverage with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Howtos/Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Howtos/Coverage/index.html#building-coreutils">Building Coreutils</a></li>
@@ -255,7 +253,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../Howtos/Coverage/index.html#debugging-code-coverage">Debugging code coverage</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Communicating between the guest and S2E plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
@@ -263,7 +261,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Howtos/Parallel.html">Running S2E on multiple cores</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Howtos/Parallel.html#handling-execution-traces">Handling execution traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Howtos/Parallel.html#how-do-i-process-generated-traces">How do I process generated traces?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Howtos/Parallel.html#limitations">Limitations</a></li>
 </ul>
 </li>
@@ -479,13 +477,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>BaseInstructions</li>
+      <li>Automated malware analysis</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/Plugins/BaseInstructions.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/Plugins/Tickler.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -498,38 +496,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="baseinstructions">
-<h1>BaseInstructions<a class="headerlink" href="#baseinstructions" title="Permalink to this headline">¶</a></h1>
-<p>S2E provides a means for guest code code to communicate with plugins by providing a special machine instruction.
-S2E extends the x86 instruction set with a custom instruction. When guest code executes this instruction, S2E
-invokes plugins that listen for that instruction (using the <code class="docutils literal notranslate"><span class="pre">CorePlugin::onCustomInstruction</span></code> event).
-The instruction has the following format:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># S2E custom instruction format</span>
-<span class="mi">0</span><span class="n">f</span> <span class="mi">3</span><span class="n">f</span> <span class="n">XX</span> <span class="n">XX</span> <span class="n">YY</span> <span class="n">YY</span> <span class="n">YY</span> <span class="n">YY</span> <span class="n">YY</span> <span class="n">YY</span>
-
-<span class="n">XX</span><span class="p">:</span> <span class="mi">16</span><span class="o">-</span><span class="n">bit</span> <span class="n">instruction</span> <span class="n">code</span><span class="o">.</span> <span class="n">Each</span> <span class="n">plugin</span> <span class="n">should</span> <span class="n">have</span> <span class="n">a</span> <span class="n">unique</span> <span class="n">one</span><span class="o">.</span>
-<span class="n">YY</span><span class="p">:</span> <span class="mi">6</span><span class="o">-</span><span class="nb">bytes</span> <span class="n">operands</span><span class="o">.</span> <span class="n">Freely</span> <span class="n">defined</span> <span class="n">by</span> <span class="n">the</span> <span class="n">instruction</span> <span class="n">code</span><span class="o">.</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">BaseInstructions</span></code> plugin uses the above format to implement basic functionality (e.g., creating symbolic
-variables, get current state id, check if a memory location is symbolic, etc.). Refer to
-<code class="docutils literal notranslate"><span class="pre">guest/common/include/s2e/s2e.h</span></code> for a complete set of APIs.</p>
-<p>Plugins should not define new custom instruction codes. There are two problems with this format:
-(1) one needs to manually allocate plugin-specific opcodes and (2) each plugin is forced to listen to all S2E
-instruction invocations and filter out those of no interest.</p>
-<p>Instead, plugins should implement the <code class="docutils literal notranslate"><span class="pre">IPluginInvoker</span></code> interface. This interface provides a method that
-the <code class="docutils literal notranslate"><span class="pre">BaseInstructions</span></code> plugin calls when the guest invokes the <code class="docutils literal notranslate"><span class="pre">s2e_invoke_plugin()</span></code> API. This API lets guest
-code pass arbitrary data to specific plugins. Each plugin can define its own data format.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp"># Definition in s2e.h</span>
-<span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">s2e_invoke_plugin</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pluginName</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">dataSize</span><span class="p">);</span>
-
-<span class="p">...</span>
-
-<span class="n">s2e_invoke_plugin</span><span class="p">(</span><span class="s">&quot;MyPlugin&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">command</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">command</span><span class="p">));</span>
-</pre></div>
-</div>
-<p>See the <a class="reference external" href="https://github.com/S2E/s2e/blob/master/guest/common/include/s2e/s2e.h">source code</a> for more information
-about custom instructions.</p>
+  <div class="section" id="automated-malware-analysis">
+<h1>Automated malware analysis<a class="headerlink" href="#automated-malware-analysis" title="Permalink to this headline">¶</a></h1>
+<p>In this section, we will explain how to configure S2E in order to automatically analyze large numbers of documents.</p>
+<p>The main challenge resides in deciding when to terminate the analysis. In case of a malicious document, it is pretty
+simple: when the first CFI violation is detected. For benign documents, however, it is more involved.</p>
+<p>In this section, we will discuss how to configure the CFI checker so that it can be run unattended. This is useful if
+you want, e.g., integrate S2E into a malware scanning service.</p>
+<p>TODO: discuss the tickler.</p>
+<blockquote>
+<div>The tickler is a tool that interacts with the Word UI, e.g., by dismissing various messages boxes and
+scrolling the document. We will discuss it in more details later.</div></blockquote>
 </div>
 
 
@@ -537,15 +514,6 @@ about custom instructions.</p>
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../MovingFiles.html" class="btn btn-neutral float-right" title="Copying files between the host and the guest" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../Howtos/Coverage/index.html" class="btn btn-neutral float-left" title="Measuring code coverage with S2E" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

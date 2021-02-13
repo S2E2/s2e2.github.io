@@ -197,6 +197,20 @@
 <li class="toctree-l2"><a class="reference internal" href="../Tutorials/MSOffice/index.html#conclusion">6. Conclusion</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials/CFI/index.html">Control Flow Integrity Checking with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/CFI/index.html#setting-up-microsoft-office">Setting up Microsoft Office</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/CFI/index.html#running-the-cfi-checker">Running the CFI checker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/CFI/index.html#analyzing-a-malicious-document">Analyzing a malicious document</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/CFI/index.html#locating-cfi-violations">Locating CFI violations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/CFI/index.html#setting-up-windbg-for-analysis">Setting up WinDbg for analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorials/CFI/index.html#tracing-the-exploit">Tracing the exploit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/CFI/index.html#design-and-implementation">Design and implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/CFI/index.html#limitations">Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorials/CFI/index.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html">Translating binaries to LLVM with Revgen</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#using-revgen">Using Revgen</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Tutorials/Revgen/Revgen.html#prerequisites">1. Prerequisites</a></li>
@@ -249,7 +263,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Running S2E on multiple cores</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#how-do-i-process-generated-traces">How do I process generated traces?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handling-execution-traces">Handling execution traces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#limitations">Limitations</a></li>
 </ul>
 </li>
@@ -270,11 +284,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="WritingPlugins.html">Writing S2E plugins</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="WritingPlugins.html#starting-with-an-empty-plugin">Starting with an Empty Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="WritingPlugins.html#reading-configuration-parameters">Reading Configuration Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="WritingPlugins.html#instrumenting-instructions">Instrumenting Instructions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="WritingPlugins.html#counting-instructions">Counting Instructions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="WritingPlugins.html#exporting-events">Exporting Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WritingPlugins.html#starting-with-an-empty-plugin">Starting with an empty plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WritingPlugins.html#reading-configuration-parameters">Reading configuration parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WritingPlugins.html#instrumenting-instructions">Instrumenting instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WritingPlugins.html#counting-instructions">Counting instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WritingPlugins.html#exporting-events">Exporting events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WritingPlugins.html#guest-plugin-communication">Guest-plugin communication</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="LuaInstrumentation.html">Instrumenting guest code with Lua</a><ul>
@@ -485,26 +500,20 @@
             
   <div class="section" id="parallel-s2e">
 <h1>Parallel S2E<a class="headerlink" href="#parallel-s2e" title="Permalink to this headline">¶</a></h1>
-<p>S2E can be run in multi-process mode in order to speed up path exploration. Each process is called a worker. Each
-worker periodically checks whether there are processor cores available, and if yes, forks itself. The child worker
-inherits half of the states of the parent.</p>
-<p>To enable multi-process mode, set the environment variable <code class="docutils literal notranslate"><span class="pre">S2E_MAX_PROCESSES=XX</span></code>, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> is the maximum number
-of S2E instances you would like to have.</p>
-<p>Add the <code class="docutils literal notranslate"><span class="pre">-nographic</span></code> option as it is not possible to fork a new S2E window.</p>
-<div class="section" id="how-do-i-process-generated-traces">
-<h2>How do I process generated traces?<a class="headerlink" href="#how-do-i-process-generated-traces" title="Permalink to this headline">¶</a></h2>
-<p>In multi-process mode, S2E outputs traces in the <code class="docutils literal notranslate"><span class="pre">s2e-last/XX</span></code> folders, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> is the sequence number of the
+<p>S2E can be run in multi-process (or <cite>parallel</cite>) mode in order to speed up path exploration. Each process is called a
+worker. Each worker periodically checks whether there are processor cores available, and if yes, forks itself. The child
+worker inherits half of the states of the parent. Plugins may customize the state partition.</p>
+<p>To enable parallel mode, open <code class="docutils literal notranslate"><span class="pre">launch-s2e.sh</span></code> and set the environment variable <code class="docutils literal notranslate"><span class="pre">S2E_MAX_PROCESSES=XX</span></code>, where <code class="docutils literal notranslate"><span class="pre">XX</span></code>
+is the maximum number of S2E instances you would like to have. Add the <code class="docutils literal notranslate"><span class="pre">-nographic</span></code> option as it is not possible to
+fork a new S2E window.</p>
+<div class="section" id="handling-execution-traces">
+<h2>Handling execution traces<a class="headerlink" href="#handling-execution-traces" title="Permalink to this headline">¶</a></h2>
+<p>In parallel mode, S2E outputs traces in <code class="docutils literal notranslate"><span class="pre">s2e-last/XX</span></code> folders, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> is the sequence number of the
 S2E instance. S2E increments this number each time it launches a new instance. Note that instances can also terminate,
 e.g., when they finish exploring their respective state subtree.</p>
 <p>Each trace file contains a subtree of the global execution tree. Therefore, analysis tools must process the traces in
-the relative order of their creation. The relative order is defined by the sequence number of the instance. This can be
-done by specifying multiple <code class="docutils literal notranslate"><span class="pre">-trace</span></code> arguments to the offline analysis tools. For example, generating the fork
-profile of a multi-core run can be done as follows:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span>S2EDIR/build-s2e/tools-release/tools/forkprofiler/forkprofiler -outputdir<span class="o">=</span>s2e-last/    <span class="se">\</span>
-    -trace<span class="o">=</span>s2e-last/0/ExecutionTracer.dat -trace<span class="o">=</span>s2e-last/1/ExecutionTracer.dat         <span class="se">\</span>
-    -trace<span class="o">=</span>s2e-last/2/ExecutionTracer.dat -trace<span class="o">=</span>s2e-last/3/ExecutionTracer.dat
-</pre></div>
-</div>
+the relative order of their creation. The relative order is defined by the sequence number of the instance. The
+<code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">execution_trace</span></code> tool takes care of putting the traces in the right order automatically.</p>
 </div>
 <div class="section" id="limitations">
 <h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
@@ -514,7 +523,6 @@ machines for now.</li>
 <li>It is not possible to have a separate S2E window for each process for now. If you start with <code class="docutils literal notranslate"><span class="pre">-nographic</span></code>, you will
 not be able to manipulate the console. To start the program that you want to symbolically execute in the guest, use
 the <a class="reference external" href="../MovingFiles.html">HostFiles</a> plugin or the <code class="docutils literal notranslate"><span class="pre">-vnc</span> <span class="pre">:1</span></code> option.</li>
-<li>Because S2E uses the <code class="docutils literal notranslate"><span class="pre">fork</span></code> system call, S2E cannot run on Windows in multi-core mode.</li>
 </ul>
 </div>
 </div>

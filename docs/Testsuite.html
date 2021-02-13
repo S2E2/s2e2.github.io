@@ -197,6 +197,20 @@
 <li class="toctree-l2"><a class="reference internal" href="Tutorials/MSOffice/index.html#conclusion">6. Conclusion</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials/CFI/index.html">Control Flow Integrity Checking with S2E</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/CFI/index.html#setting-up-microsoft-office">Setting up Microsoft Office</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/CFI/index.html#running-the-cfi-checker">Running the CFI checker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/CFI/index.html#analyzing-a-malicious-document">Analyzing a malicious document</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/CFI/index.html#locating-cfi-violations">Locating CFI violations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/CFI/index.html#setting-up-windbg-for-analysis">Setting up WinDbg for analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorials/CFI/index.html#tracing-the-exploit">Tracing the exploit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/CFI/index.html#design-and-implementation">Design and implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/CFI/index.html#limitations">Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorials/CFI/index.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorials/Revgen/Revgen.html">Translating binaries to LLVM with Revgen</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Tutorials/Revgen/Revgen.html#using-revgen">Using Revgen</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Tutorials/Revgen/Revgen.html#prerequisites">1. Prerequisites</a></li>
@@ -249,7 +263,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Howtos/Parallel.html">Running S2E on multiple cores</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Howtos/Parallel.html#how-do-i-process-generated-traces">How do I process generated traces?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/Parallel.html#handling-execution-traces">Handling execution traces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Howtos/Parallel.html#limitations">Limitations</a></li>
 </ul>
 </li>
@@ -270,11 +284,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Howtos/WritingPlugins.html">Writing S2E plugins</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#starting-with-an-empty-plugin">Starting with an Empty Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#reading-configuration-parameters">Reading Configuration Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#instrumenting-instructions">Instrumenting Instructions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#counting-instructions">Counting Instructions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#exporting-events">Exporting Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#starting-with-an-empty-plugin">Starting with an empty plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#reading-configuration-parameters">Reading configuration parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#instrumenting-instructions">Instrumenting instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#counting-instructions">Counting instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#exporting-events">Exporting events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Howtos/WritingPlugins.html#guest-plugin-communication">Guest-plugin communication</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Howtos/LuaInstrumentation.html">Instrumenting guest code with Lua</a><ul>
@@ -602,8 +617,7 @@ to the binary in the <code class="docutils literal notranslate"><span class="pre
 input files.</p>
 </li>
 <li><p class="first"><strong>options</strong>: a list of parameters to be passed to <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">new_project</span></code>. In general, these are usual parameters with
-leading dashes stripped and others converted to underscores, e.g., <code class="docutils literal notranslate"><span class="pre">--enable-pov-generation</span></code>
-becomes <code class="docutils literal notranslate"><span class="pre">enable_pov_generation:</span> <span class="pre">true</span></code>.</p>
+leading dashes stripped and others converted to underscores.</p>
 </li>
 <li><p class="first"><strong>build-options</strong>: a list of options that control test project generation.</p>
 <blockquote>

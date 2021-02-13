@@ -1,0 +1,10 @@
+==========
+CFIChecker
+==========
+
+This document presents the design and implementation of the CFI checker.
+Refer to this `tutorial <../Tutorials/CFI/index.rst>`__ for usage instructions.
+
+Configuration
+=============
+
