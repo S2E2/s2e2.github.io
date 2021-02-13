@@ -7,6 +7,14 @@ title: Releases
 
 You can find the latest stable version of S2E on master. We compile here from time to time a list of important updates.
 
+### 14 Feb 2021
+ * Added control flow integrity checker with Microsoft Office support.
+ * ``UserSpaceTracer`` plugin supports per-thread tracing.
+ * Added the ``Tickler`` plugin and the corresponding Windows guest tool in order to automatically
+   click on dialog boxes while testing Microsoft Office and other apps.
+ * Added the ``Screenshot`` plugin in order to record screenshots of the guest.
+ * Added a command to ``s2e-env`` to automatically generate S2E plugin boilerplate.
+
 ### 16 June 2020
  * Added support for Microsoft Office 2010, 2013, 2016, 2019.
  * Added tutorial about symbolic execution of VBA macros.
