@@ -22,14 +22,9 @@ desired properties hold on these paths and selectors focus path exploration on c
 
 <div class="row">
   <div class="col-xs-12 col-md-12 vcenter">
-    <!--
-    <a href="http://cyberhaven.io" target="ch"><img align="left" src="{{site.baseurl}}/images/cyberhaven-small.png"
-    style="vertical-align:middle; width:64px; padding: 10px"/></a>
-    -->
-    S²E is released under the MIT license and supported by Cyberhaven.
+    S²E is released under the MIT license and supported by the community.
     S²E was a research project of the Dependable Systems Lab at EPFL in Lausanne.
     For academic projects, please contact <a href="http://dslab.epfl.ch">DSLAB</a>.
-    For commercial use, contact <a href="mailto:info@cyberhaven.io?subject=S2E%20License">Cyberhaven</a>.
   </div>
 </div>
 
