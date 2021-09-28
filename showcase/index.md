@@ -10,12 +10,25 @@ S²E is used by many scientific projects across the world. This page lists some 
 We'll be happy to list yours as well, just drop us a line!
 
 
+-   **<a href="https://www.usenix.org/system/files/osdi20-hu.pdf">Automated Reasoning and Detection of Specious
+    Configuration in Large Systems with Symbolic Execution</a>** at Johns Hopkins University
+    (Yigong Hu, Gongqi Huang, and Peng Huang).
+
+    This paper introduces Violet — a tool that uses symbolic execution in order to detect software misconfigurations
+    that lead to extremely poor performance. Violet makes symbolic the configuration parameters of the program under test,
+    which allows the tool to automatically explore the program along paths that depend on these parameters.
+    In addition to that, Violet runs a benchmark on each path, making it possible to determine paths that perform poorly,
+    while showing users which combinations of parameters actually cause the problem. Violet helped identify
+    problematic configurations for MySQL, Postgres, Apache, and Squid, which prompted the maintainers of these systems
+    to clarify the documentation.
+
+
 -   **<a href="https://download.vusec.net/papers/binrec_eurosys20.pdf">
     BinRec: Dynamic Binary Lifting and Recompilation</a>** at University of California (Irvine),
     Vrije Universiteit Amsterdam, KU Leuven (Anil Altinay, Joseph Nash, Taddeus Kroes, et al.).
 
     BinRec [is a] a new approach to heuristic-free binary recompilation which lifts dynamic traces of a binary to a
-    compiler-level intermediate representation (IR) and lowers the IR back to a “recovered” binary.
+    compiler-level intermediate representation (IR) and lowers the IR back to a "recovered" binary.
     This enables BinRec to apply rich program transformations, such as compiler-based optimization passes, on top of
     the recovered representation. [BinRec] can accurately disassemble and lift binaries without heuristics,
     and can successfully recover obfuscated code and all SPEC INT 2006 benchmarks including C++ applications.
