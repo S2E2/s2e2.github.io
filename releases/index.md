@@ -7,6 +7,10 @@ title: Releases
 
 You can find the latest stable version of S2E on master. We compile here from time to time a list of important updates.
 
+### 03 May 2022
+ * Upgraded the symbolic execution engine to LLVM 14.
+ * Added support for Debian 11 and Ubuntu 22.04 LTS.
+
 ### 14 Feb 2021
  * Added control flow integrity checker with Microsoft Office support.
  * ``UserSpaceTracer`` plugin supports per-thread tracing.
