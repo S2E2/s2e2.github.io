@@ -1,64 +1,34 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profiling S2E &mdash; S2E 2.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Debugging S2E" href="../DebuggingS2E.html" />
     <link rel="prev" title="Contributing to S2E" href="../Contribute.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> S2E
-          
-
-          
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -66,18 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../s2e-env.html">Start here: setting up S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
@@ -132,7 +92,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Use Cases</span></p>
+<p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Tutorials/PoV/pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
@@ -237,7 +197,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Howtos</span></p>
+<p class="caption" role="heading"><span class="caption-text">Howtos</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Howtos/Coverage/index.html">Measuring code coverage with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Howtos/Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
@@ -308,7 +268,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<p class="caption" role="heading"><span class="caption-text">Scaling Symbolic Execution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Howtos/Concolic.html">Analyzing large programs using concolic execution</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Howtos/Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
@@ -335,7 +295,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
@@ -392,7 +352,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Plugin Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
@@ -436,82 +396,42 @@
 </li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">S2E</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Profiling S2E</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="../_sources/Profiling/ProfilingS2E.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="profiling-s2e">
-<h1>Profiling S2E<a class="headerlink" href="#profiling-s2e" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="profiling-s2e">
+<h1>Profiling S2E<a class="headerlink" href="#profiling-s2e" title="Permalink to this headline"></a></h1>
 <p>This page explains how to profile memory and CPU performance.</p>
-<div class="section" id="profiling-memory-usage">
-<h2>Profiling memory usage<a class="headerlink" href="#profiling-memory-usage" title="Permalink to this headline">¶</a></h2>
+<section id="profiling-memory-usage">
+<h2>Profiling memory usage<a class="headerlink" href="#profiling-memory-usage" title="Permalink to this headline"></a></h2>
 <p>We are going to use <a class="reference external" href="https://github.com/KDE/heaptrack">heaptrack</a>. Its main advantage over competing profilers
 is that it is possible to inject it in a running S2E process. Others require using <code class="docutils literal notranslate"><span class="pre">LD_PRELOAD</span></code>, which interferes
 with <code class="docutils literal notranslate"><span class="pre">libs2e.so</span></code> and causes crashes. The disadvantage is that you cannot inject it before S2E starts.</p>
 <ol class="arabic">
-<li><p class="first">Build <code class="docutils literal notranslate"><span class="pre">heaptrack</span></code> from source. Avoid using the one that ships with Ubuntu 18.04, it may not be as reliable.</p>
-</li>
-<li><p class="first">Start S2E</p>
-</li>
-<li><p class="first">Inject <code class="docutils literal notranslate"><span class="pre">heaptrack</span></code> into the running S2E instance:</p>
+<li><p>Build <code class="docutils literal notranslate"><span class="pre">heaptrack</span></code> from source. Avoid using the one that ships with Ubuntu 18.04, it may not be as reliable.</p></li>
+<li><p>Start S2E</p></li>
+<li><p>Inject <code class="docutils literal notranslate"><span class="pre">heaptrack</span></code> into the running S2E instance:</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ps aux <span class="p">|</span> grep qemu
 ubuntu    <span class="m">31044</span> <span class="m">96</span>.7  <span class="m">4</span>.7 <span class="m">3487216</span> <span class="m">1191460</span> pts/8 Sl   <span class="m">13</span>:54   <span class="m">0</span>:03 /home/ubuntu/s2e/env/install/bin/qemu-system-i386 -drive <span class="nv">file</span><span class="o">=</span>/home/ubuntu/s2e/env/images/debian-9.2.1-i386/image.raw.s2e,format<span class="o">=</span>s2e,cache<span class="o">=</span>writeback -k en-us -nographic -monitor null -m 256M -enable-kvm -serial file:serial.txt -net none -net nic,model<span class="o">=</span>e1000 -loadvm ready
@@ -525,7 +445,7 @@ injection finished
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">Wait for S2E to terminate or kill it manually. You will see the following output:</p>
+<li><p>Wait for S2E to terminate or kill it manually. You will see the following output:</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>heaptrack stats:
         allocations:            <span class="m">6836389</span>
@@ -542,22 +462,21 @@ Heaptrack finished! Now run the following to investigate the data:
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">Open the resulting file in the <code class="docutils literal notranslate"><span class="pre">heaptrack</span></code> GUI</p>
+<li><p>Open the resulting file in the <code class="docutils literal notranslate"><span class="pre">heaptrack</span></code> GUI</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ heaptrack_gui <span class="s2">&quot;/home/ubuntu/heaptrack/build/heaptrack.qemu-system-i38.31044.gz&quot;</span>
 </pre></div>
 </div>
 </li>
 </ol>
 <img alt="../_images/heaptrack.png" src="../_images/heaptrack.png" />
-</div>
-<div class="section" id="profiling-cpu-performance">
-<h2>Profiling CPU performance<a class="headerlink" href="#profiling-cpu-performance" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="profiling-cpu-performance">
+<h2>Profiling CPU performance<a class="headerlink" href="#profiling-cpu-performance" title="Permalink to this headline"></a></h2>
 <p>We are going to use <a class="reference external" href="https://github.com/KDAB/hotspot">hotspot</a>. It is a convenient GUI wrapper around the Linux
 <cite>perf</cite> tool.</p>
 <ol class="arabic">
-<li><p class="first">Build <code class="docutils literal notranslate"><span class="pre">hotspot</span></code> from source</p>
-</li>
-<li><p class="first">Start <code class="docutils literal notranslate"><span class="pre">hotspot</span></code></p>
+<li><p>Build <code class="docutils literal notranslate"><span class="pre">hotspot</span></code> from source</p></li>
+<li><p>Start <code class="docutils literal notranslate"><span class="pre">hotspot</span></code></p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ hotspot
 </pre></div>
@@ -567,72 +486,52 @@ Heaptrack finished! Now run the following to investigate the data:
 </ol>
 <img alt="../_images/hotspot1.png" src="../_images/hotspot1.png" />
 <ol class="arabic" start="3">
-<li><p class="first">Start S2E</p>
-</li>
-<li><p class="first">Start profiling</p>
+<li><p>Start S2E</p></li>
+<li><p>Start profiling</p>
 <blockquote>
 <div><ul class="simple">
-<li>Click on <code class="docutils literal notranslate"><span class="pre">Record</span> <span class="pre">Data</span></code></li>
-<li>Select <code class="docutils literal notranslate"><span class="pre">Attach</span> <span class="pre">To</span> <span class="pre">Process(es)</span></code></li>
-<li>Select the S2E instance you want to profile</li>
-<li>Click <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Recording</span></code></li>
+<li><p>Click on <code class="docutils literal notranslate"><span class="pre">Record</span> <span class="pre">Data</span></code></p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Attach</span> <span class="pre">To</span> <span class="pre">Process(es)</span></code></p></li>
+<li><p>Select the S2E instance you want to profile</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Recording</span></code></p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">Stop recording and view results</p>
-</li>
+<li><p>Stop recording and view results</p></li>
 </ol>
 <img alt="../_images/hotspot2.png" src="../_images/hotspot2.png" />
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../DebuggingS2E.html" class="btn btn-neutral float-right" title="Debugging S2E" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../Contribute.html" class="btn btn-neutral float-left" title="Contributing to S2E" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../Contribute.html" class="btn btn-neutral float-left" title="Contributing to S2E" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../DebuggingS2E.html" class="btn btn-neutral float-right" title="Debugging S2E" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2018-2020, Cyberhaven
-
-    </p>
+    <p>&#169; Copyright 2018-2020, Cyberhaven.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-
-  
-  
-    
-  
  
 <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

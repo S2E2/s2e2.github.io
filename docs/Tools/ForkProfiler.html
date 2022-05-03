@@ -1,64 +1,34 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Debugging path explosion with the fork profiler &mdash; S2E 2.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Frequently Asked Questions (FAQ)" href="../FAQ.html" />
     <link rel="prev" title="Exponential Analysis Speedup with State Merging" href="../StateMerging.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> S2E
-          
-
-          
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -66,18 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../s2e-env.html">Start here: setting up S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
@@ -132,7 +92,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Use Cases</span></p>
+<p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Tutorials/PoV/pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
@@ -237,7 +197,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Howtos</span></p>
+<p class="caption" role="heading"><span class="caption-text">Howtos</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Howtos/Coverage/index.html">Measuring code coverage with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Howtos/Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
@@ -308,7 +268,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<p class="caption" role="heading"><span class="caption-text">Scaling Symbolic Execution</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Howtos/Concolic.html">Analyzing large programs using concolic execution</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Howtos/Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
@@ -335,7 +295,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
@@ -392,7 +352,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Plugin Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
@@ -436,77 +396,39 @@
 </li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">S2E</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Debugging path explosion with the fork profiler</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="../_sources/Tools/ForkProfiler.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="debugging-path-explosion-with-the-fork-profiler">
-<h1>Debugging path explosion with the fork profiler<a class="headerlink" href="#debugging-path-explosion-with-the-fork-profiler" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="debugging-path-explosion-with-the-fork-profiler">
+<h1>Debugging path explosion with the fork profiler<a class="headerlink" href="#debugging-path-explosion-with-the-fork-profiler" title="Permalink to this headline"></a></h1>
 <p>The fork profile gives you a summary of all the locations in the system that forked.
 This helps debug sources of path explosion.</p>
 <p>In order to obtain a fork profile, run the <cite>forkprofile</cite> subcommand as follows:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> s2e new_project /home/users/coreutils-8.26/build/bin/cat -T @@
-<span class="gp">$</span> ... launch s2e and <span class="nb">let</span> it run <span class="k">for</span> a <span class="k">while</span> ...
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>s2e new_project /home/users/coreutils-8.26/build/bin/cat -T @@
+<span class="gp">$ </span>... launch s2e and <span class="nb">let</span> it run <span class="k">for</span> a <span class="k">while</span> ...
 
-<span class="gp">$</span> s2e forkprofile cat
+<span class="gp">$ </span>s2e forkprofile cat
 <span class="go">INFO: [symbols] Looking for debug information for /home/vitaly/s2e/env/projects/cat-symb/././cat</span>
 <span class="go">INFO: [forkprofile] # The fork profile shows all the program counters where execution forked:</span>
 <span class="go">INFO: [forkprofile] # process_pid module_path:address fork_count source_file:line_number (function_name)</span>
@@ -517,71 +439,53 @@ This helps debug sources of path explosion.</p>
 </div>
 <p>The trace above shows that the <cite>cat</cite> module (which has a pid 1309) forked at three different program counters.
 The source information (if available) gives the source file, the line, and the function name where the forks occurred.</p>
-<div class="section" id="using-the-fork-profile-to-debug-path-explosion">
-<h2>Using the fork profile to debug path explosion<a class="headerlink" href="#using-the-fork-profile-to-debug-path-explosion" title="Permalink to this headline">¶</a></h2>
+<section id="using-the-fork-profile-to-debug-path-explosion">
+<h2>Using the fork profile to debug path explosion<a class="headerlink" href="#using-the-fork-profile-to-debug-path-explosion" title="Permalink to this headline"></a></h2>
 <ol class="arabic simple">
-<li>Spot locations that should not fork.
+<li><p>Spot locations that should not fork.
 For example, your program might write something to the console. This typically results in forks in the
 OS’s console driver. The source information will point to the responsible linux kernel driver, allowing
-you to quickly fix your bootstrap script (e.g., by redirecting output to <cite>/dev/null</cite> or a symbolic file).</li>
-<li>Identify library functions that can be optimized.
+you to quickly fix your bootstrap script (e.g., by redirecting output to <cite>/dev/null</cite> or a symbolic file).</p></li>
+<li><p>Identify library functions that can be optimized.
 You will immediately see if the program forks in functions such as <cite>strlen</cite> or <cite>atoi</cite>. These functions can
 be replaced with <a class="reference external" href="../Plugins/Linux/FunctionModels.html">function models</a> that eliminate forks altogether, although
-at the expense of generating more complex expressions.</li>
-<li>Identify sections of code that can benefit of <a class="reference external" href="../StateMerging.html">state merging</a>.
+at the expense of generating more complex expressions.</p></li>
+<li><p>Identify sections of code that can benefit of <a class="reference external" href="../StateMerging.html">state merging</a>.
 Certain types of code sections are hard to model and can be instead surrounded by <cite>s2e_merge_group_begin()</cite> and
-<cite>s2e_merge_group_end()</cite> API calls, which will merge into one state the subtree in between these two calls.</li>
+<cite>s2e_merge_group_end()</cite> API calls, which will merge into one state the subtree in between these two calls.</p></li>
 </ol>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../FAQ.html" class="btn btn-neutral float-right" title="Frequently Asked Questions (FAQ)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../StateMerging.html" class="btn btn-neutral float-left" title="Exponential Analysis Speedup with State Merging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../StateMerging.html" class="btn btn-neutral float-left" title="Exponential Analysis Speedup with State Merging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../FAQ.html" class="btn btn-neutral float-right" title="Frequently Asked Questions (FAQ)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2018-2020, Cyberhaven
-
-    </p>
+    <p>&#169; Copyright 2018-2020, Cyberhaven.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-
-  
-  
-    
-  
  
 <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

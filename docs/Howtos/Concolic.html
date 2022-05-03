@@ -1,64 +1,34 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Analyzing large programs using concolic execution &mdash; S2E 2.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Exponential Analysis Speedup with State Merging" href="../StateMerging.html" />
     <link rel="prev" title="Instrumenting guest code with Lua" href="LuaInstrumentation.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> S2E
-          
-
-          
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -66,18 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../s2e-env.html">Start here: setting up S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
@@ -132,7 +92,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Use Cases</span></p>
+<p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Tutorials/PoV/pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Tutorials/PoV/pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
@@ -237,7 +197,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Howtos</span></p>
+<p class="caption" role="heading"><span class="caption-text">Howtos</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Coverage/index.html">Measuring code coverage with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
@@ -308,7 +268,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<p class="caption" role="heading"><span class="caption-text">Scaling Symbolic Execution</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Analyzing large programs using concolic execution</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
@@ -335,7 +295,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
@@ -392,7 +352,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Plugin Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
@@ -436,70 +396,32 @@
 </li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">S2E</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Analyzing large programs using concolic execution</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="../_sources/Howtos/Concolic.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="analyzing-large-programs-using-concolic-execution">
-<h1>Analyzing large programs using concolic execution<a class="headerlink" href="#analyzing-large-programs-using-concolic-execution" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="analyzing-large-programs-using-concolic-execution">
+<h1>Analyzing large programs using concolic execution<a class="headerlink" href="#analyzing-large-programs-using-concolic-execution" title="Permalink to this headline"></a></h1>
 <p>Symbolic execution may get stuck at the start of an execution and have a hard time reaching deep paths.
 This is caused by path selection heuristics and the constraint solver. Path selection heuristics may not know
 well which execution paths to choose so that execution can go deeper. For example, in a loop that depends on a
@@ -521,7 +443,7 @@ the help of a search heuristic), recomputes a new set of concrete values, and pr
 terminates. Plugins that implement custom search heuristics can optimize path selection for different needs
 (high code coverage, bug finding, etc.).</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>You may be familiar with a different form of concolic execution initially introduced by the DART paper (PLDI 2005).
 DART runs programs <em>concretely</em> along one path while collecting path constraints. When the program
 terminates, DART takes one constraint, negates it, computes an alternate set of concrete input values, then re-runs
@@ -530,12 +452,12 @@ the program again using these new concrete inputs in order to exercise the new p
 fork the state of the program. In contrast, symbolic execution (and S2E) interprets instructions symbolically and
 builds an execution tree as a result of forking states when encountering a branch instruction that depends on
 symbolic data.</p>
-<p class="last">In the context of S2E, <em>concolic execution</em> refers to normal symbolic execution where symbolic values are
+<p>In the context of S2E, <em>concolic execution</em> refers to normal symbolic execution where symbolic values are
 augmented with concrete data. Symbolic execution merely uses the concrete inputs as a seed to guide path exploration
 along specific paths of the execution tree.</p>
 </div>
-<div class="section" id="executing-programs-in-concolic-mode">
-<h2>Executing programs in concolic mode<a class="headerlink" href="#executing-programs-in-concolic-mode" title="Permalink to this headline">¶</a></h2>
+<section id="executing-programs-in-concolic-mode">
+<h2>Executing programs in concolic mode<a class="headerlink" href="#executing-programs-in-concolic-mode" title="Permalink to this headline"></a></h2>
 <p>Concolic execution is the default mode of operation of S2E. You do not need to do anything special other than
 specifying initial concrete data (<em>seeds</em>) when creating symbolic values.</p>
 <p>At the lowest level, one can create symbolic values with <code class="docutils literal notranslate"><span class="pre">s2e_make_symbolic()</span></code>. This API writes the specified number
@@ -545,9 +467,9 @@ of symbolic inputs with the concrete ones during expression evaluation (e.g., at
 <p>You can also create symbolic files, symbolic program arguments, symbolic standard input, etc. All these methods
 eventually call <code class="docutils literal notranslate"><span class="pre">s2e_make_symbolic()</span></code>. You may find more information about this
 <a class="reference external" href="../Tutorials/BasicLinuxSymbex/s2e.so.html">here</a> and <a class="reference external" href="../Tutorials/BasicLinuxSymbex/SourceCode.html">here</a>.</p>
-</div>
-<div class="section" id="faq">
-<h2>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="faq">
+<h2>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline"></a></h2>
 <p><strong>How is concolic execution as implemented in S2E similar to / different from symbolic execution as implemented
 in KLEE?</strong></p>
 <p>Concolic execution builds upon symbolic execution. They both require symbolic inputs, they both interpret instructions
@@ -576,14 +498,14 @@ the solver compared to vanilla symbolic execution.</p>
 <p><strong>The test case generator produces inputs that do not look at all like my initial concrete seed, what is wrong?</strong></p>
 <p>Consider the following function. It makes a 4-byte buffer symbolic while using the concrete data stored there
 as seed (<code class="docutils literal notranslate"><span class="pre">abcd</span></code>).</p>
-<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">};</span>
-    <span class="n">s2e_make_symbolic</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">),</span> <span class="s2">&quot;mydata&quot;</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;d&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;found&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;b&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;c&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;d&#39;</span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="n">s2e_make_symbolic</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;mydata&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;d&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;c&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;found&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The first path (i.e., state 0) follows the concrete inputs and terminate without printing anything.
@@ -637,56 +559,38 @@ the feasibility of a branch condition (and computing new sets of concrete inputs
 <p><strong>I want to use the content of a file as a seed for concolic execution. How do I do it?</strong></p>
 <p>Please refer to the <a class="reference external" href="../Tutorials/BasicLinuxSymbex/s2e.so.html">s2e.so</a> tutorial, which explains all the different
 ways you can create symbolic data.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../StateMerging.html" class="btn btn-neutral float-right" title="Exponential Analysis Speedup with State Merging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="LuaInstrumentation.html" class="btn btn-neutral float-left" title="Instrumenting guest code with Lua" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="LuaInstrumentation.html" class="btn btn-neutral float-left" title="Instrumenting guest code with Lua" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../StateMerging.html" class="btn btn-neutral float-right" title="Exponential Analysis Speedup with State Merging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2018-2020, Cyberhaven
-
-    </p>
+    <p>&#169; Copyright 2018-2020, Cyberhaven.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-
-  
-  
-    
-  
  
 <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

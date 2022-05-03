@@ -1,64 +1,34 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Building the S2E platform manually &mdash; S2E 2.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Symbolic Execution of Linux Binaries" href="Tutorials/BasicLinuxSymbex/s2e.so.html" />
     <link rel="prev" title="Creating analysis projects with s2e-env" href="s2e-env.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> S2E
-          
-
-          
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -66,18 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="s2e-env.html">Start here: setting up S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
@@ -132,7 +92,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Use Cases</span></p>
+<p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Tutorials/PoV/pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Tutorials/PoV/pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
@@ -237,7 +197,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Howtos</span></p>
+<p class="caption" role="heading"><span class="caption-text">Howtos</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Howtos/Coverage/index.html">Measuring code coverage with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Howtos/Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
@@ -308,7 +268,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<p class="caption" role="heading"><span class="caption-text">Scaling Symbolic Execution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Howtos/Concolic.html">Analyzing large programs using concolic execution</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Howtos/Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
@@ -335,7 +295,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
@@ -392,7 +352,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Plugin Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
@@ -436,92 +396,54 @@
 </li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">S2E</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Building the S2E platform manually</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="_sources/BuildingS2E.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="building-the-s2e-platform-manually">
-<h1>Building the S2E platform manually<a class="headerlink" href="#building-the-s2e-platform-manually" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="building-the-s2e-platform-manually">
+<h1>Building the S2E platform manually<a class="headerlink" href="#building-the-s2e-platform-manually" title="Permalink to this headline"></a></h1>
 <p>The simplest way to build S2E is to use the <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> tool. It is the preferred method for development. See <a class="reference external" href="s2e-env.html">Using
 s2e-env</a> for instructions. However, some build features are not exposed by <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> and you will have
 to run them manually.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">S2E builds and runs on Ubuntu 18.04 or 20.04 LTS (64-bit).
+<p class="admonition-title">Note</p>
+<p>S2E builds and runs on Ubuntu 22.04 LTS and Debian 11 (64-bit).
 Earlier versions may still work, but we do not support them anymore.</p>
 </div>
-<div class="section" id="building-using-docker">
-<h2>Building using Docker<a class="headerlink" href="#building-using-docker" title="Permalink to this headline">¶</a></h2>
+<section id="building-using-docker">
+<h2>Building using Docker<a class="headerlink" href="#building-using-docker" title="Permalink to this headline"></a></h2>
 <p>You can create a self-contained docker image that lets you analyze any supported binary. The following command builds
 the demo docker image.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> Checkout S2E sources <span class="o">(</span>using Google Repo<span class="o">)</span>
-<span class="gp">#</span> S2EDIR must be in your home folder <span class="o">(</span>e.g., /home/user/s2e<span class="o">)</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Checkout S2E sources <span class="o">(</span>using Google Repo<span class="o">)</span>
+<span class="gp"># </span>S2EDIR must be <span class="k">in</span> your home folder <span class="o">(</span>e.g., /home/user/s2e<span class="o">)</span>
 <span class="go">cd $S2EDIR</span>
 <span class="go">repo init -u https://github.com/s2e/manifest.git</span>
 <span class="go">repo sync</span>
 
-<span class="gp">#</span> Create a build directory
+<span class="gp"># </span>Create a build directory
 <span class="go">mkdir build &amp;&amp; cd build</span>
 
-<span class="gp">#</span> Build the docker image
+<span class="gp"># </span>Build the docker image
 <span class="go">make -f $S2EDIR/Makefile.docker demo</span>
 </pre></div>
 </div>
@@ -538,23 +460,23 @@ The command also takes your current user and group id in order to create the env
 permissions (docker uses root by default).</p>
 <p>You may specify any binary you want and are not restricted to binaries stored inside the container. You just need to
 mount the folder that contains it using the <code class="docutils literal notranslate"><span class="pre">-v</span></code> option.</p>
-</div>
-<div class="section" id="building-s2e-manually">
-<h2>Building S2E manually<a class="headerlink" href="#building-s2e-manually" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="building-s2e-manually">
+<h2>Building S2E manually<a class="headerlink" href="#building-s2e-manually" title="Permalink to this headline"></a></h2>
 <p>In addition to using the <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> tool, you can also build S2E manually.</p>
-<div class="section" id="required-packages">
-<h3>Required packages<a class="headerlink" href="#required-packages" title="Permalink to this headline">¶</a></h3>
+<section id="required-packages">
+<h3>Required packages<a class="headerlink" href="#required-packages" title="Permalink to this headline"></a></h3>
 <p>You must install a few packages in order to build S2E manually. Instead of giving you a list that will get out-of-date
 very quickly, we will give you some pointers that should be always up-to-date:</p>
 <ul class="simple">
-<li>The packages for the build toolchain and S2E dependencies can be found in the S2E docker
-<a class="reference external" href="https://github.com/S2E/s2e/blob/master/Dockerfile">file</a>.</li>
-<li>The packages required to build the guest images can be found
-<a class="reference external" href="https://github.com/S2E/guest-images/blob/master/README.md">here</a>.</li>
+<li><p>The packages for the build toolchain and S2E dependencies can be found in the S2E docker
+<a class="reference external" href="https://github.com/S2E/s2e/blob/master/Dockerfile">file</a>.</p></li>
+<li><p>The packages required to build the guest images can be found
+<a class="reference external" href="https://github.com/S2E/guest-images/blob/master/README.md">here</a>.</p></li>
 </ul>
-</div>
-<div class="section" id="checking-out-s2e">
-<h3>Checking out S2E<a class="headerlink" href="#checking-out-s2e" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="checking-out-s2e">
+<h3>Checking out S2E<a class="headerlink" href="#checking-out-s2e" title="Permalink to this headline"></a></h3>
 <p>The S2E source code can be obtained from the S2E git repository using the following commands. Here <code class="docutils literal notranslate"><span class="pre">$S2EDIR</span></code> is the
 directory that will hold both the S2E source and build directories.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd $S2EDIR</span>
@@ -564,91 +486,73 @@ directory that will hold both the S2E source and build directories.</p>
 </div>
 <p>This will set up the S2E repositories in <code class="docutils literal notranslate"><span class="pre">$S2EDIR</span></code>.</p>
 <p>In order to contribute to S2E (e.g., submit new features or report bugs), please see <a class="reference external" href="Contribute.html">here</a>.</p>
-</div>
-<div class="section" id="building">
-<h3>Building<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="building">
+<h3>Building<a class="headerlink" href="#building" title="Permalink to this headline"></a></h3>
 <p>The S2E Makefile can be run as follows:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mkdir $S2EDIR/build</span>
 <span class="go">cd $S2EDIR/build</span>
 <span class="go">make -f $S2EDIR/Makefile install</span>
 
-<span class="gp">#</span> Go make some coffee, this will take some <span class="nb">time</span> <span class="o">(</span>approx. <span class="m">60</span> mins on a <span class="m">4</span>-core machine<span class="o">)</span>
+<span class="gp"># </span>Go make some coffee, this will take some <span class="nb">time</span> <span class="o">(</span>approx. <span class="m">60</span> mins on a <span class="m">4</span>-core machine<span class="o">)</span>
 </pre></div>
 </div>
 <p>By default, the <code class="docutils literal notranslate"><span class="pre">make</span></code> command compiles and installs S2E in release mode to <code class="docutils literal notranslate"><span class="pre">$S2EDIR/build/opt</span></code>. To change this
 location, set the <code class="docutils literal notranslate"><span class="pre">S2E_PREFIX</span></code> environment variable when running <code class="docutils literal notranslate"><span class="pre">make</span></code>.</p>
 <p>To compile S2E in debug mode, use <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install-debug</span></code>.</p>
 <p>Note that the Makefile automatically uses the maximum number of available processors in order to speed up compilation.</p>
-</div>
-<div class="section" id="updating">
-<h3>Updating<a class="headerlink" href="#updating" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="updating">
+<h3>Updating<a class="headerlink" href="#updating" title="Permalink to this headline"></a></h3>
 <p>You can use the same Makefile to recompile S2E either when changing it yourself or when pulling new versions through
 <code class="docutils literal notranslate"><span class="pre">repo</span> <span class="pre">sync</span></code>. Note that the Makefile will not automatically reconfigure the packages; for deep changes you might need
 to either start from scratch by issuing <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code> or to force the reconfiguration of specific modules by deleting
 the corresponding files from the <code class="docutils literal notranslate"><span class="pre">stamps</span></code> subdirectory.</p>
-</div>
-<div class="section" id="building-the-documentation">
-<h3>Building the documentation<a class="headerlink" href="#building-the-documentation" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="building-the-documentation">
+<h3>Building the documentation<a class="headerlink" href="#building-the-documentation" title="Permalink to this headline"></a></h3>
 <p>The S2E documentation is written in <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> format. HTML
 documentation can be built as follows:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> sudo apt-get install linkchecker
-<span class="gp">$</span> pip install sphinx_rtd_theme
-<span class="gp">$</span> <span class="nb">cd</span> <span class="nv">$S2EDIR</span>/s2e/docs/sphinx
-<span class="gp">$</span> ./build.sh
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo apt-get install linkchecker
+<span class="gp">$ </span>pip install sphinx_rtd_theme
+<span class="gp">$ </span><span class="nb">cd</span> <span class="nv">$S2EDIR</span>/s2e/docs/sphinx
+<span class="gp">$ </span>./build.sh
 </pre></div>
 </div>
 <p>The documentation will be located in <code class="docutils literal notranslate"><span class="pre">$S2EDIR/s2e/docs/sphinx/build/html/index.html</span></code>.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="Tutorials/BasicLinuxSymbex/s2e.so.html" class="btn btn-neutral float-right" title="Symbolic Execution of Linux Binaries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="s2e-env.html" class="btn btn-neutral float-left" title="Creating analysis projects with s2e-env" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="s2e-env.html" class="btn btn-neutral float-left" title="Creating analysis projects with s2e-env" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Tutorials/BasicLinuxSymbex/s2e.so.html" class="btn btn-neutral float-right" title="Symbolic Execution of Linux Binaries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2018-2020, Cyberhaven
-
-    </p>
+    <p>&#169; Copyright 2018-2020, Cyberhaven.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-
-  
-  
-    
-  
  
 <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

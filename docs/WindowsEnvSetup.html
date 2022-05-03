@@ -1,64 +1,34 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Setting up a Windows development environment &mdash; S2E 2.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="LinuxMonitor" href="Plugins/Linux/LinuxMonitor.html" />
     <link rel="prev" title="S2E Testsuite" href="Testsuite.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> S2E
-          
-
-          
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -66,18 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="s2e-env.html">Start here: setting up S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
@@ -132,7 +92,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Use Cases</span></p>
+<p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Tutorials/PoV/pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Tutorials/PoV/pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
@@ -237,7 +197,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Howtos</span></p>
+<p class="caption" role="heading"><span class="caption-text">Howtos</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Howtos/Coverage/index.html">Measuring code coverage with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Howtos/Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
@@ -308,7 +268,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<p class="caption" role="heading"><span class="caption-text">Scaling Symbolic Execution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Howtos/Concolic.html">Analyzing large programs using concolic execution</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Howtos/Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
@@ -335,7 +295,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
@@ -392,7 +352,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Plugin Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
@@ -436,77 +396,39 @@
 </li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">S2E</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Setting up a Windows development environment</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="_sources/WindowsEnvSetup.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="setting-up-a-windows-development-environment">
-<h1>Setting up a Windows development environment<a class="headerlink" href="#setting-up-a-windows-development-environment" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="setting-up-a-windows-development-environment">
+<h1>Setting up a Windows development environment<a class="headerlink" href="#setting-up-a-windows-development-environment" title="Permalink to this headline"></a></h1>
 <p>This tutorial explains how to quickly set up a Windows development environment
 in which you can build Windows applications and device drivers. This is useful
 when you want to develop the S2E <a class="reference external" href="https://github.com/S2E/s2e/tree/master/guest/windows">guest tools</a>
 for Windows (e.g, the <code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code> guest driver) or simply want to build and run various Windows applications in S2E.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This tutorial is not about how to compile and run S2E itself on a Windows machine.
+<p class="admonition-title">Note</p>
+<p>This tutorial is not about how to compile and run S2E itself on a Windows machine.
 We do not support running S2E on Windows hosts yet, but we got reports
 that S2E builds and runs in the Windows 10 WSL environment or in a docker container.</p>
 </div>
@@ -519,59 +441,56 @@ for development (e.g., building Windows-specific components of S2E, such as the
 <p>Prerequisites:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>You have a working S2E environment on a Linux host machine</li>
-<li>You have a working hypervisor (VMware, Virtual Box, etc.)</li>
-<li>You have access to a 64-bit Windows 10 1909 ISO (e.g. through MSDN)</li>
-<li>You have an Internet connection (the installation will download several GBs)</li>
-<li>You have enough disk space and free memory (you will need at least 60 GB of disk and 4 GB of RAM for the VM).</li>
+<li><p>You have a working S2E environment on a Linux host machine</p></li>
+<li><p>You have a working hypervisor (VMware, Virtual Box, etc.)</p></li>
+<li><p>You have access to a 64-bit Windows 10 1909 ISO (e.g. through MSDN)</p></li>
+<li><p>You have an Internet connection (the installation will download several GBs)</p></li>
+<li><p>You have enough disk space and free memory (you will need at least 60 GB of disk and 4 GB of RAM for the VM).</p></li>
 </ol>
 </div></blockquote>
-<div class="section" id="provisioning-a-windows-development-vm">
-<h2>1. Provisioning a Windows development VM<a class="headerlink" href="#provisioning-a-windows-development-vm" title="Permalink to this headline">¶</a></h2>
+<section id="provisioning-a-windows-development-vm">
+<h2>1. Provisioning a Windows development VM<a class="headerlink" href="#provisioning-a-windows-development-vm" title="Permalink to this headline"></a></h2>
 <p>First, you need to build a Windows VM. At the end of this section, you will have a Windows 10 VM with Visual Studio 2019
 Community Edition, the Windows Driver Kit, and an SSH server. Visual Studio will be installed with all C/C++ development
 options (support for XP, 7, 8.1, 10). You will be able to SSH into this VM, rsync files, and do remote builds.</p>
 <ol class="loweralpha">
-<li><p class="first"><strong>Install a Windows 10 VM.</strong> Use 60GB of disk and 4GB of RAM for the guest. Any 64-bit Windows 10 version should
+<li><p><strong>Install a Windows 10 VM.</strong> Use 60GB of disk and 4GB of RAM for the guest. Any 64-bit Windows 10 version should
 work, but it is recommended you use the latest one (the scripts were tested with version 1909).</p>
 <p>Preferably use <code class="docutils literal notranslate"><span class="pre">s2e</span></code> as login for the admin user. Most scripts assume <code class="docutils literal notranslate"><span class="pre">s2e</span></code> as default
 user name, so you will not have to override this user name later. Other than that, a vanilla installation will do.</p>
 <p>When you get to the Windows desktop, take a snapshot so that you can restore quickly in case of problems later.</p>
 </li>
-<li><p class="first"><strong>Provision the guest.</strong> Open PowerShell with admin rights and run the <code class="docutils literal notranslate"><span class="pre">Setup-DevHost.ps1</span></code> script. You will need
+<li><p><strong>Provision the guest.</strong> Open PowerShell with admin rights and run the <code class="docutils literal notranslate"><span class="pre">Setup-DevHost.ps1</span></code> script. You will need
 to access this script from the guest, e.g., by mapping your host directories to the guest
 using shared folders on VirtualBox/VMware.</p>
 <p>Wait until the script terminates. It is fully automated, no manual intervention is required.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Do <strong>NOT</strong> run the provisioning script on your host Windows environment. The script assumes a fresh Windows
+<p class="admonition-title">Warning</p>
+<p>Do <strong>NOT</strong> run the provisioning script on your host Windows environment. The script assumes a fresh Windows
 installation in a VM and may damage your existing Visual Studio environment if you already have one. If you
 still wish to run the script on your host (e.g., you do not have Visual Studio or want to set up SSH), carefully
 examine its content to make sure it will not interfere. Delete problematic sections if necessary.</p>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">The script requires Internet access to run successfully. It mainly uses the
+<p class="admonition-title">Warning</p>
+<p>The script requires Internet access to run successfully. It mainly uses the
 <a class="reference external" href="https://chocolatey.org/">Chocolatey</a> package manager in order to install software.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">You may install any additional packages that you want in the guest.
+<p class="admonition-title">Note</p>
+<p>You may install any additional packages that you want in the guest.
 Chocolatey comes with a vast list of supported Windows applications.
 Just add <code class="docutils literal notranslate"><span class="pre">choco</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">package_name</span></code> to the PowerShell script.</p>
 </div>
 </li>
-<li><p class="first"><strong>Check installation correctness.</strong> Open Visual Studio and try to build the S2E guest tools in x86/x64
-debug/release combinations. You should not get any errors.</p>
-</li>
-<li><p class="first"><strong>Check remote connection.</strong> Check that you can SSH into the VM. You should get a Windows command prompt.</p>
-</li>
-<li><p class="first">Finally, do not forget to take a snapshot.</p>
-</li>
+<li><p><strong>Check installation correctness.</strong> Open Visual Studio and try to build the S2E guest tools in x86/x64
+debug/release combinations. You should not get any errors.</p></li>
+<li><p><strong>Check remote connection.</strong> Check that you can SSH into the VM. You should get a Windows command prompt.</p></li>
+<li><p>Finally, do not forget to take a snapshot.</p></li>
 </ol>
-</div>
-<div class="section" id="building-visual-studio-projects-remotely">
-<h2>2. Building Visual Studio projects remotely<a class="headerlink" href="#building-visual-studio-projects-remotely" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="building-visual-studio-projects-remotely">
+<h2>2. Building Visual Studio projects remotely<a class="headerlink" href="#building-visual-studio-projects-remotely" title="Permalink to this headline"></a></h2>
 <p>In this section, we explain how to build Visual Studio projects in the VM that you built in the previous section.</p>
 <p>a. Copy your public SSH key into the guest VM. This is important, as the remote build script would ask you to type the
 VM password several times, which is not convenient.</p>
@@ -583,14 +502,14 @@ $ ./ssh-copy-id-win.sh s2e@192.168.122.12
 </pre></div>
 </div>
 <ol class="loweralpha simple" start="2">
-<li>Checkout some Visual Studio projects to your Linux host. For example, like this:</li>
+<li><p>Checkout some Visual Studio projects to your Linux host. For example, like this:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span>
 $ git clone https://github.com/Microsoft/Windows-driver-samples.git
 </pre></div>
 </div>
 <ol class="loweralpha simple" start="3">
-<li>Choose some project to build remotely, e.g., <code class="docutils literal notranslate"><span class="pre">filesys/miniFilter/scanner</span></code>:</li>
+<li><p>Choose some project to build remotely, e.g., <code class="docutils literal notranslate"><span class="pre">filesys/miniFilter/scanner</span></code>:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nv">REMOTE_HOST</span><span class="o">=</span><span class="m">192</span>.126.122.12 <span class="nv">REMOTE_FOLDER</span><span class="o">=</span>myfolder ~/s2e/env/source/s2e/scripts/windows/remote-msbuild.sh <span class="se">\</span>
    Windows-driver-samples/filesys/miniFilter/scanner
@@ -602,9 +521,9 @@ local one. You can customize the target build directory, the host address, the u
 environment variables (see the script header for details).</p>
 <p>When this command completes, you should have all the build artifacts locally, in the
 <code class="docutils literal notranslate"><span class="pre">Windows-driver-samples/filesys/miniFilter/scanner</span></code> folder. Look for <code class="docutils literal notranslate"><span class="pre">*.exe</span></code> and <code class="docutils literal notranslate"><span class="pre">*.sys</span></code> files.</p>
-</div>
-<div class="section" id="use-case-building-and-running-a-windows-device-driver">
-<h2>3. Use case: building and running a Windows device driver<a class="headerlink" href="#use-case-building-and-running-a-windows-device-driver" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="use-case-building-and-running-a-windows-device-driver">
+<h2>3. Use case: building and running a Windows device driver<a class="headerlink" href="#use-case-building-and-running-a-windows-device-driver" title="Permalink to this headline"></a></h2>
 <p>This section assumes that you successfully built the <code class="docutils literal notranslate"><span class="pre">Windows-driver-samples/filesys/miniFilter/scanner</span></code> solution.
 If no, go to the previous section.</p>
 <p>First, we need to create a few symbolic links to the the project binaries, as follows. This is needed because
@@ -636,56 +555,38 @@ $ s2e coverage --sympath ~/Windows-driver-samples/filesys/miniFilter/scanner/ lc
 found and the HTML coverage report will not be generated. In principle, the <cite>*.lines</cite> files already contain paths to the
 source, however these paths are valid only on the build machine. The coverage command will therefore try to match these
 paths against the given search paths.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="Plugins/Linux/LinuxMonitor.html" class="btn btn-neutral float-right" title="LinuxMonitor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="Testsuite.html" class="btn btn-neutral float-left" title="S2E Testsuite" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Testsuite.html" class="btn btn-neutral float-left" title="S2E Testsuite" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Plugins/Linux/LinuxMonitor.html" class="btn btn-neutral float-right" title="LinuxMonitor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2018-2020, Cyberhaven
-
-    </p>
+    <p>&#169; Copyright 2018-2020, Cyberhaven.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-
-  
-  
-    
-  
  
 <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

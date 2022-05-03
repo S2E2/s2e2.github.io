@@ -1,64 +1,34 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Translating binaries to LLVM with Revgen &mdash; S2E 2.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Equivalence Testing" href="../../EquivalenceTesting.html" />
     <link rel="prev" title="Control Flow Integrity Checking with S2E" href="../CFI/index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> S2E
-          
-
-          
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -66,18 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../s2e-env.html">Start here: setting up S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
@@ -132,7 +92,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Use Cases</span></p>
+<p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../PoV/pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../PoV/pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
@@ -237,7 +197,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Howtos</span></p>
+<p class="caption" role="heading"><span class="caption-text">Howtos</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Howtos/Coverage/index.html">Measuring code coverage with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
@@ -308,7 +268,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<p class="caption" role="heading"><span class="caption-text">Scaling Symbolic Execution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Howtos/Concolic.html">Analyzing large programs using concolic execution</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../Howtos/Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
@@ -335,7 +295,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
@@ -392,7 +352,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Plugin Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
@@ -436,117 +396,79 @@
 </li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">S2E</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
-        
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Translating binaries to LLVM with Revgen</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="../../_sources/Tutorials/Revgen/Revgen.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="translating-binaries-to-llvm-with-revgen">
-<h1>Translating binaries to LLVM with Revgen<a class="headerlink" href="#translating-binaries-to-llvm-with-revgen" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="translating-binaries-to-llvm-with-revgen">
+<h1>Translating binaries to LLVM with Revgen<a class="headerlink" href="#translating-binaries-to-llvm-with-revgen" title="Permalink to this headline"></a></h1>
 <p>Revgen is a tool that takes a binary and turns (“lifts”) it into LLVM bitcode. It does so in four steps:</p>
 <ul class="simple">
-<li>Disassemble the binary using IDA Pro</li>
-<li>Recover the control flow graph (CFG) using <a class="reference external" href="https://github.com/trailofbits/mcsema">McSema</a></li>
-<li>Translate each basic block in the CFG into a chunk of LLVM bitcode by using QEMU’s translator</li>
-<li>Stitch together translated basic blocks into LLVM functions</li>
+<li><p>Disassemble the binary using IDA Pro</p></li>
+<li><p>Recover the control flow graph (CFG) using <a class="reference external" href="https://github.com/trailofbits/mcsema">McSema</a></p></li>
+<li><p>Translate each basic block in the CFG into a chunk of LLVM bitcode by using QEMU’s translator</p></li>
+<li><p>Stitch together translated basic blocks into LLVM functions</p></li>
 </ul>
 <p>Revgen relies on QEMU’s translator to extract the semantics of machine instructions into a simple intermediate
 representation (IR) and S2E’s LLVM translator to turn this IR into LLVM bitcode. This brings two main advantages over
 competing approaches:</p>
 <ul class="simple">
-<li><strong>Better precision.</strong> QEMU developers spent 15+ years building translators that are precise enough to
+<li><p><strong>Better precision.</strong> QEMU developers spent 15+ years building translators that are precise enough to
 emulate actual operating systems. Even a seemingly simple x86 instruction such as <code class="docutils literal notranslate"><span class="pre">call</span></code> needs more than ten pages
 of pseudo code in the Intel instruction set manual. Revgen effortlessly captures the complex behavior of all
-machine instructions, including system instructions not normally used in user programs.</li>
-<li><strong>Better reliability.</strong> Implementing a translator from scratch brings bugs and incompleteness. Revgen, however,
-can handle pretty much every instruction that QEMU supports, even the most exotic ones.</li>
+machine instructions, including system instructions not normally used in user programs.</p></li>
+<li><p><strong>Better reliability.</strong> Implementing a translator from scratch brings bugs and incompleteness. Revgen, however,
+can handle pretty much every instruction that QEMU supports, even the most exotic ones.</p></li>
 </ul>
 <p>In the rest of this document, we will show how to use Revgen, how it works under the hood, and give a brief overview of
 its performance. As we will see, the main drawback of relying on QEMU’s translator is the high overhead of the generated
 code (15-30x larger binaries). Revgen would need to reuse various optimization passes in order to bring this
 overhead down.</p>
-<div class="section" id="using-revgen">
-<h2>Using Revgen<a class="headerlink" href="#using-revgen" title="Permalink to this headline">¶</a></h2>
+<section id="using-revgen">
+<h2>Using Revgen<a class="headerlink" href="#using-revgen" title="Permalink to this headline"></a></h2>
 <p>In this section, we show how to use Revgen on DARPA CGC binaries. We cleaned up and made stable our initial <a class="reference external" href="http://dslab.epfl.ch/pubs/revgen.pdf">prototype</a> of Revgen in order to analyze CGC binaries, so it supports these binaries the
 best. Other types of binaries will be supported in the future.</p>
-<div class="section" id="prerequisites">
-<h3>1. Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<section id="prerequisites">
+<h3>1. Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h3>
 <p>Before starting, make sure that you have a functional S2E environment and that you have a working IDA Pro setup. Check
 that:</p>
 <blockquote>
 <div><ul class="simple">
-<li>IDA can disassemble CGC binaries. You will need to install the CGC plugins, which you can find
+<li><p>IDA can disassemble CGC binaries. You will need to install the CGC plugins, which you can find
 <a class="reference external" href="http://idabook.com/cgc/">here</a>. If you cannot find pre-compiled plugins for your IDA version, you will
-need to compile the plugin yourself using the IDA Pro SDK.</li>
-<li>IDA has a working Python environment with the <code class="docutils literal notranslate"><span class="pre">protobuf</span></code> library installed.
-Running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">protobuf</span></code> should work in most cases.</li>
-<li>The <code class="docutils literal notranslate"><span class="pre">IDA_ROOT</span></code> variable is set to the IDA Pro path, e.g., <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">IDA_ROOT=/opt/ida-6.8</span></code>.</li>
+need to compile the plugin yourself using the IDA Pro SDK.</p></li>
+<li><p>IDA has a working Python environment with the <code class="docutils literal notranslate"><span class="pre">protobuf</span></code> library installed.
+Running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">protobuf</span></code> should work in most cases.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">IDA_ROOT</span></code> variable is set to the IDA Pro path, e.g., <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">IDA_ROOT=/opt/ida-6.8</span></code>.</p></li>
 </ul>
 </div></blockquote>
 <p>Revgen uses <a class="reference external" href="https://github.com/S2E/s2e/blob/master/tools/tools/scripts/ida/mcsema_get_cfg.py">McSema</a> to recover
 the CFG of the binary, and that requires IDA Pro. Note that this is an older version of McSema scripts
 (from 2016). <a class="reference external" href="https://github.com/trailofbits/mcsema">McSema2</a> has been released in the meantime, which should have
 much better CFG recovery. We plan to port Revgen to the latest version.</p>
-</div>
-<div class="section" id="build-the-cgc-binaries">
-<h3>2. Build the CGC binaries<a class="headerlink" href="#build-the-cgc-binaries" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="build-the-cgc-binaries">
+<h3>2. Build the CGC binaries<a class="headerlink" href="#build-the-cgc-binaries" title="Permalink to this headline"></a></h3>
 <p>S2E comes with a Docker image and <a class="reference external" href="https://github.com/S2E/decree/blob/master/README.md">instructions</a> on how to build
 all DARPA CyberGrandChallenge binaries. After you have completed this step, you should have a <code class="docutils literal notranslate"><span class="pre">samples</span></code> folder that
 contains ~280 binaries:</p>
@@ -562,9 +484,9 @@ CROMU_00006
 ...
 </pre></div>
 </div>
-</div>
-<div class="section" id="translating-a-binary">
-<h3>3. Translating a binary<a class="headerlink" href="#translating-a-binary" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="translating-a-binary">
+<h3>3. Translating a binary<a class="headerlink" href="#translating-a-binary" title="Permalink to this headline"></a></h3>
 <p>Let us first translate the <code class="docutils literal notranslate"><span class="pre">CADET_00001</span></code> binary. For this, set the <code class="docutils literal notranslate"><span class="pre">S2E_PREFIX</span></code> and <code class="docutils literal notranslate"><span class="pre">IDA_ROOT</span></code> variables,
 then run <code class="docutils literal notranslate"><span class="pre">revgen.sh</span></code>. This tutorial assumes that your S2E environment is in <code class="docutils literal notranslate"><span class="pre">$S2E_ENV</span></code>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">IDA_ROOT</span><span class="o">=</span>/opt/ida-6.8
@@ -589,15 +511,15 @@ The meaning of each file is explained in the <code class="docutils literal notra
 ones:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">CADET_00001</span></code>: the original binary</li>
-<li><code class="docutils literal notranslate"><span class="pre">CADET_00001.pbcfg</span></code>: the CFG extracted by IDA Pro / McSema</li>
-<li><code class="docutils literal notranslate"><span class="pre">CADET_00001.bc</span></code>: the LLVM bitcode file created by RevGen</li>
-<li><code class="docutils literal notranslate"><span class="pre">CADET_00001.rev</span></code>: the LLVM bitcode file compiled to an ELF binary that you can run on your Linux host</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CADET_00001</span></code>: the original binary</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CADET_00001.pbcfg</span></code>: the CFG extracted by IDA Pro / McSema</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CADET_00001.bc</span></code>: the LLVM bitcode file created by RevGen</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CADET_00001.rev</span></code>: the LLVM bitcode file compiled to an ELF binary that you can run on your Linux host</p></li>
 </ul>
 </div></blockquote>
-</div>
-<div class="section" id="running-a-translated-cgc-binary">
-<h3>4. Running a translated CGC binary<a class="headerlink" href="#running-a-translated-cgc-binary" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="running-a-translated-cgc-binary">
+<h3>4. Running a translated CGC binary<a class="headerlink" href="#running-a-translated-cgc-binary" title="Permalink to this headline"></a></h3>
 <p>Revgen comes with a runtime library that translates Decree system calls to their Linux counterparts. This allows
 you to run the translated Decree binaries on your Linux host. For example, running <code class="docutils literal notranslate"><span class="pre">CADET_00001</span></code> as follows:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">user@ubuntu:~$ $</span>S2E_ENV/source/decree/samples/CADET_00001.rev
@@ -614,15 +536,15 @@ you to run the translated Decree binaries on your Linux host. For example, runni
 </pre></div>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
+<p class="admonition-title">Warning</p>
 <p>Revgen currently supports only CGC binaries. It may or may not be able to generate a bitcode file for other
 kinds of binaries (e.g., Linux or Windows) and cannot run non-CGC binaries.</p>
-<p class="last">Some CGC binaries may fail to translate because of various limitations of the (old) McSema script that Revgen uses.</p>
+<p>Some CGC binaries may fail to translate because of various limitations of the (old) McSema script that Revgen uses.</p>
 </div>
-</div>
-</div>
-<div class="section" id="design-and-implementation">
-<h2>Design and implementation<a class="headerlink" href="#design-and-implementation" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="design-and-implementation">
+<h2>Design and implementation<a class="headerlink" href="#design-and-implementation" title="Permalink to this headline"></a></h2>
 <p>Revgen’s design is straightforward: it takes a list of basic blocks, calls a translator to turn them to equivalent
 pieces of LLVM bitcode, then stitches these pieces of bitcode together in order to reconstruct original functions.</p>
 <p>At a high level, the translator takes a block of machine code (e.g., x86) and turns it into a QEMU-specific intermediate
@@ -634,8 +556,8 @@ capabilities to <code class="docutils literal notranslate"><span class="pre">lib
 <p>In the rest of this section, we will explain in more details how the translator works and how Revgen uses it to build an
 LLVM version of an entire binary. We will also see what it takes to run such binaries and discuss the assumptions that
 Revgen makes about them.</p>
-<div class="section" id="translating-basic-blocks-to-llvm">
-<h3>Translating basic blocks to LLVM<a class="headerlink" href="#translating-basic-blocks-to-llvm" title="Permalink to this headline">¶</a></h3>
+<section id="translating-basic-blocks-to-llvm">
+<h3>Translating basic blocks to LLVM<a class="headerlink" href="#translating-basic-blocks-to-llvm" title="Permalink to this headline"></a></h3>
 <p>Revgen takes the binary file and the CFG recovered my McSema, and turns every basic block in that CFG into a piece of
 LLVM code. Revgen stops when it has translated all basic blocks in the CFG. The result is a set of independent LLVM
 functions, one for each basic block. Revgen’s translator handles basic blocks in two steps: (1) it turns a basic block
@@ -680,51 +602,51 @@ at address <code class="docutils literal notranslate"><span class="pre">0x804860
 </pre></div>
 </div>
 <p>Revgen turns these two blocks into two LLVM functions that look like this:</p>
-<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span> <span class="k">i64</span> <span class="vg">@tcg-llvm-tb-804860c-c-a3-0-4000b7</span><span class="p">(</span><span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="k">nocapture</span><span class="p">)</span> <span class="k">local_unnamed_addr</span> <span class="vg">#17</span> <span class="p">{</span>
-  <span class="nv nv-Anonymous">%2</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">5</span>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="vg">@tcg-llvm-tb-804860c-c-a3-0-4000b7</span><span class="p">(</span><span class="nv">%struct.CPUX86State</span><span class="p">*</span><span class="w"> </span><span class="k">nocapture</span><span class="p">)</span><span class="w"> </span><span class="k">local_unnamed_addr</span><span class="w"> </span><span class="vg">#17</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nv nv-Anonymous">%2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">getelementptr</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">,</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">5</span><span class="w"></span>
 
-  <span class="c">; mov eax, 1</span>
-  <span class="nv nv-Anonymous">%3</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span>
-  <span class="k">store</span> <span class="k">i32</span> <span class="m">1</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%3</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
+<span class="w">  </span><span class="c">; mov eax, 1</span>
+<span class="w">  </span><span class="nv nv-Anonymous">%3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">getelementptr</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">,</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="m">0</span><span class="w"></span>
+<span class="w">  </span><span class="k">store</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%3</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span><span class="w"></span>
 
-  <span class="c">; push ebx</span>
-  <span class="nv nv-Anonymous">%4</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">3</span>
-  <span class="nv">%ebx</span> <span class="p">=</span> <span class="k">load</span> <span class="k">i32</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%4</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!377</span>
-  <span class="nv nv-Anonymous">%5</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">4</span>
-  <span class="nv">%esp</span> <span class="p">=</span> <span class="k">load</span> <span class="k">i32</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%5</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!377</span>
-  <span class="nv nv-Anonymous">%6</span> <span class="p">=</span> <span class="k">add</span> <span class="k">i32</span> <span class="nv">%esp</span><span class="p">,</span> <span class="m">-4</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!378</span>
-  <span class="k">tail</span> <span class="k">call</span> <span class="k">void</span> <span class="vg">@__stl_mmu</span><span class="p">(</span><span class="k">i32</span> <span class="nv nv-Anonymous">%6</span><span class="p">,</span> <span class="k">i32</span> <span class="nv">%ebx</span><span class="p">,</span> <span class="k">i32</span> <span class="m">1</span><span class="p">),</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!377</span>
+<span class="w">  </span><span class="c">; push ebx</span>
+<span class="w">  </span><span class="nv nv-Anonymous">%4</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">getelementptr</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">,</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="m">3</span><span class="w"></span>
+<span class="w">  </span><span class="nv">%ebx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">load</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%4</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="nv">!s2e.pc</span><span class="w"> </span><span class="nv nv-Anonymous">!377</span><span class="w"></span>
+<span class="w">  </span><span class="nv nv-Anonymous">%5</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">getelementptr</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">,</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="m">4</span><span class="w"></span>
+<span class="w">  </span><span class="nv">%esp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">load</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%5</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="nv">!s2e.pc</span><span class="w"> </span><span class="nv nv-Anonymous">!377</span><span class="w"></span>
+<span class="w">  </span><span class="nv nv-Anonymous">%6</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv">%esp</span><span class="p">,</span><span class="w"> </span><span class="m">-4</span><span class="p">,</span><span class="w"> </span><span class="nv">!s2e.pc</span><span class="w"> </span><span class="nv nv-Anonymous">!378</span><span class="w"></span>
+<span class="w">  </span><span class="k">tail</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__stl_mmu</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="nv nv-Anonymous">%6</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv">%ebx</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="nv">!s2e.pc</span><span class="w"> </span><span class="nv nv-Anonymous">!377</span><span class="w"></span>
 
-  <span class="c">; mov ebx, [esp+4+status]</span>
-  <span class="k">store</span> <span class="k">i32</span> <span class="nv nv-Anonymous">%6</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%5</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
-  <span class="nv nv-Anonymous">%7</span> <span class="p">=</span> <span class="k">add</span> <span class="k">i32</span> <span class="nv">%esp</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!378</span>
-  <span class="nv nv-Anonymous">%8</span> <span class="p">=</span> <span class="k">tail</span> <span class="k">call</span> <span class="k">i32</span> <span class="vg">@__ldl_mmu</span><span class="p">(</span><span class="k">i32</span> <span class="nv nv-Anonymous">%7</span><span class="p">,</span> <span class="k">i32</span> <span class="m">1</span><span class="p">),</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!378</span>
-  <span class="k">store</span> <span class="k">i32</span> <span class="nv nv-Anonymous">%8</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%4</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
+<span class="w">  </span><span class="c">; mov ebx, [esp+4+status]</span>
+<span class="w">  </span><span class="k">store</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv nv-Anonymous">%6</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%5</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span><span class="w"></span>
+<span class="w">  </span><span class="nv nv-Anonymous">%7</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv">%esp</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="nv">!s2e.pc</span><span class="w"> </span><span class="nv nv-Anonymous">!378</span><span class="w"></span>
+<span class="w">  </span><span class="nv nv-Anonymous">%8</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">tail</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__ldl_mmu</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="nv nv-Anonymous">%7</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="nv">!s2e.pc</span><span class="w"> </span><span class="nv nv-Anonymous">!378</span><span class="w"></span>
+<span class="w">  </span><span class="k">store</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv nv-Anonymous">%8</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%4</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span><span class="w"></span>
 
-  <span class="c">; int 0x80</span>
-  <span class="k">store</span> <span class="k">i32</span> <span class="m">134514198</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%2</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
-  <span class="k">tail</span> <span class="k">call</span> <span class="k">void</span> <span class="vg">@helper_raise_interrupt</span><span class="p">(</span><span class="k">i32</span> <span class="m">128</span><span class="p">,</span> <span class="k">i32</span> <span class="m">2</span><span class="p">)</span>
-  <span class="k">ret</span> <span class="k">i64</span> <span class="m">0</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="c">; int 0x80</span>
+<span class="w">  </span><span class="k">store</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">134514198</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%2</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span><span class="w"></span>
+<span class="w">  </span><span class="k">tail</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@helper_raise_interrupt</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="m">128</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="k">ret</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="m">0</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">define</span> <span class="k">i64</span> <span class="vg">@tcg-llvm-tb-8048618-2-99-0-4000b7</span><span class="p">(</span><span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="k">nocapture</span><span class="p">)</span> <span class="k">local_unnamed_addr</span> <span class="vg">#17</span> <span class="p">{</span>
-  <span class="c">; pop ebx</span>
-  <span class="nv nv-Anonymous">%2</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">5</span>
-  <span class="nv nv-Anonymous">%3</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">4</span>
-  <span class="nv">%esp</span> <span class="p">=</span> <span class="k">load</span> <span class="k">i32</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%3</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!379</span>
-  <span class="nv nv-Anonymous">%4</span> <span class="p">=</span> <span class="k">tail</span> <span class="k">call</span> <span class="k">i32</span> <span class="vg">@__ldl_mmu</span><span class="p">(</span><span class="k">i32</span> <span class="nv">%esp</span><span class="p">,</span> <span class="k">i32</span> <span class="m">1</span><span class="p">),</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!379</span>
-  <span class="nv nv-Anonymous">%5</span> <span class="p">=</span> <span class="k">add</span> <span class="k">i32</span> <span class="nv">%esp</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!380</span>
-  <span class="k">store</span> <span class="k">i32</span> <span class="nv nv-Anonymous">%5</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%3</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
+<span class="k">define</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="vg">@tcg-llvm-tb-8048618-2-99-0-4000b7</span><span class="p">(</span><span class="nv">%struct.CPUX86State</span><span class="p">*</span><span class="w"> </span><span class="k">nocapture</span><span class="p">)</span><span class="w"> </span><span class="k">local_unnamed_addr</span><span class="w"> </span><span class="vg">#17</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c">; pop ebx</span>
+<span class="w">  </span><span class="nv nv-Anonymous">%2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">getelementptr</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">,</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">5</span><span class="w"></span>
+<span class="w">  </span><span class="nv nv-Anonymous">%3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">getelementptr</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">,</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="m">4</span><span class="w"></span>
+<span class="w">  </span><span class="nv">%esp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">load</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%3</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="nv">!s2e.pc</span><span class="w"> </span><span class="nv nv-Anonymous">!379</span><span class="w"></span>
+<span class="w">  </span><span class="nv nv-Anonymous">%4</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">tail</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__ldl_mmu</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="nv">%esp</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="nv">!s2e.pc</span><span class="w"> </span><span class="nv nv-Anonymous">!379</span><span class="w"></span>
+<span class="w">  </span><span class="nv nv-Anonymous">%5</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv">%esp</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="nv">!s2e.pc</span><span class="w"> </span><span class="nv nv-Anonymous">!380</span><span class="w"></span>
+<span class="w">  </span><span class="k">store</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv nv-Anonymous">%5</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%3</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span><span class="w"></span>
 
-  <span class="c">; retn</span>
-  <span class="nv nv-Anonymous">%6</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">0</span><span class="p">,</span> <span class="k">i64</span> <span class="m">3</span>
-  <span class="k">store</span> <span class="k">i32</span> <span class="nv nv-Anonymous">%4</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%6</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
-  <span class="nv nv-Anonymous">%7</span> <span class="p">=</span> <span class="k">tail</span> <span class="k">call</span> <span class="k">i32</span> <span class="vg">@__ldl_mmu</span><span class="p">(</span><span class="k">i32</span> <span class="nv nv-Anonymous">%5</span><span class="p">,</span> <span class="k">i32</span> <span class="m">1</span><span class="p">),</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!380</span>
-  <span class="nv nv-Anonymous">%8</span> <span class="p">=</span> <span class="k">add</span> <span class="k">i32</span> <span class="nv">%esp</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="nv">!s2e.pc</span> <span class="nv nv-Anonymous">!380</span>
-  <span class="k">store</span> <span class="k">i32</span> <span class="nv nv-Anonymous">%8</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%3</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
-  <span class="k">store</span> <span class="k">i32</span> <span class="nv nv-Anonymous">%7</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv nv-Anonymous">%2</span><span class="p">,</span> <span class="k">align</span> <span class="m">4</span>
-  <span class="k">ret</span> <span class="k">i64</span> <span class="m">0</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="c">; retn</span>
+<span class="w">  </span><span class="nv nv-Anonymous">%6</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">getelementptr</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">,</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="m">3</span><span class="w"></span>
+<span class="w">  </span><span class="k">store</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv nv-Anonymous">%4</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%6</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span><span class="w"></span>
+<span class="w">  </span><span class="nv nv-Anonymous">%7</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">tail</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__ldl_mmu</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="nv nv-Anonymous">%5</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="nv">!s2e.pc</span><span class="w"> </span><span class="nv nv-Anonymous">!380</span><span class="w"></span>
+<span class="w">  </span><span class="nv nv-Anonymous">%8</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv">%esp</span><span class="p">,</span><span class="w"> </span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="nv">!s2e.pc</span><span class="w"> </span><span class="nv nv-Anonymous">!380</span><span class="w"></span>
+<span class="w">  </span><span class="k">store</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv nv-Anonymous">%8</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%3</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span><span class="w"></span>
+<span class="w">  </span><span class="k">store</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv nv-Anonymous">%7</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%2</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span><span class="w"></span>
+<span class="w">  </span><span class="k">ret</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="m">0</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Each function takes a pointer to a <code class="docutils literal notranslate"><span class="pre">CPUX86State</span></code> structure. This structure models the CPU’s register file. All machine
@@ -732,25 +654,25 @@ instructions are translated into LLVM instructions that operate on this CPU stat
 To handle memory accesses, the translator emits calls to <code class="docutils literal notranslate"><span class="pre">__stX_mmu</span></code> and <code class="docutils literal notranslate"><span class="pre">__ldX_mmu</span></code> helpers. We will explain later
 why the translator generates these instead of native LLVM load/store instructions. The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">0x80</span></code> instruction is
 complex and the translator calls the <code class="docutils literal notranslate"><span class="pre">helper_raise_interrupt</span></code> function to handle it.</p>
-</div>
-<div class="section" id="stitching-basic-blocks-into-functions">
-<h3>Stitching basic blocks into functions<a class="headerlink" href="#stitching-basic-blocks-into-functions" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="stitching-basic-blocks-into-functions">
+<h3>Stitching basic blocks into functions<a class="headerlink" href="#stitching-basic-blocks-into-functions" title="Permalink to this headline"></a></h3>
 <p>Now that Revgen created a set of LLVM functions that represent individual basic blocks of the binary,
 it needs to assemble them into a bigger function that represents the original function of the binary.
 This is straightforward: Revgen creates a new LLVM function and fills it with calls to the translated basic blocks.
 So our example above would look like this:</p>
-<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span> <span class="k">i64</span> <span class="vg">@__revgen_sub_804860c_804860c</span><span class="p">()</span> <span class="k">local_unnamed_addr</span> <span class="vg">#0</span> <span class="p">{</span>
-  <span class="nv nv-Anonymous">%1</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="nv">%struct.CPUX86State</span><span class="p">,</span> <span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="vg">@myenv</span><span class="p">,</span> <span class="k">i64</span> <span class="m">0</span>
-  <span class="k">br</span> <span class="k">label</span> <span class="nv nv-Anonymous">%2</span>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="vg">@__revgen_sub_804860c_804860c</span><span class="p">()</span><span class="w"> </span><span class="k">local_unnamed_addr</span><span class="w"> </span><span class="vg">#0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nv nv-Anonymous">%1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">getelementptr</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">,</span><span class="w"> </span><span class="nv">%struct.CPUX86State</span><span class="p">*</span><span class="w"> </span><span class="vg">@myenv</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="m">0</span><span class="w"></span>
+<span class="w">  </span><span class="k">br</span><span class="w"> </span><span class="kt">label</span><span class="w"> </span><span class="nv nv-Anonymous">%2</span><span class="w"></span>
 
 <span class="c">; &lt;label&gt;:2:                                      ; preds = %0</span>
-  <span class="nv nv-Anonymous">%9</span> <span class="p">=</span> <span class="k">call</span> <span class="k">i64</span> <span class="vg">@tcg-llvm-tb-804860c-c-a3-0-4000b7</span><span class="p">(</span><span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%1</span><span class="p">)</span>
-  <span class="k">br</span> <span class="k">label</span> <span class="nv nv-Anonymous">%10</span>
+<span class="w">  </span><span class="nv nv-Anonymous">%9</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="vg">@tcg-llvm-tb-804860c-c-a3-0-4000b7</span><span class="p">(</span><span class="nv">%struct.CPUX86State</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%1</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="k">br</span><span class="w"> </span><span class="kt">label</span><span class="w"> </span><span class="nv nv-Anonymous">%10</span><span class="w"></span>
 
 <span class="c">; &lt;label&gt;:3:                                     ; preds = %2</span>
-  <span class="nv nv-Anonymous">%11</span> <span class="p">=</span> <span class="k">call</span> <span class="k">i64</span> <span class="vg">@tcg-llvm-tb-8048618-2-99-0-4000b7</span><span class="p">(</span><span class="nv">%struct.CPUX86State</span><span class="p">*</span> <span class="nv nv-Anonymous">%1</span><span class="p">)</span>
-  <span class="k">ret</span> <span class="k">i64</span> <span class="nv nv-Anonymous">%11</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="nv nv-Anonymous">%11</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="vg">@tcg-llvm-tb-8048618-2-99-0-4000b7</span><span class="p">(</span><span class="nv">%struct.CPUX86State</span><span class="p">*</span><span class="w"> </span><span class="nv nv-Anonymous">%1</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="k">ret</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="nv nv-Anonymous">%11</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">__revgen_sub_804860c_804860c</span></code> is an LLVM function that represents the function called <code class="docutils literal notranslate"><span class="pre">sub_804860c</span></code>
@@ -762,15 +684,15 @@ returns).</p>
 direct conditional branches, and many more for switch statements. Luckily for Revgen, IDA Pro and McSema perform the
 (very) complex task of computing successors. All Revgen does is read the program counter and call the basic block
 associated with it, like this:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">eip</span> <span class="o">=</span> <span class="n">tcg</span><span class="o">-</span><span class="n">llvm</span><span class="o">-</span><span class="n">tb</span><span class="o">-</span><span class="n">abc</span><span class="p">(</span><span class="n">env</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">eip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tcg</span><span class="o">-</span><span class="n">llvm</span><span class="o">-</span><span class="n">tb</span><span class="o">-</span><span class="n">abc</span><span class="p">(</span><span class="n">env</span><span class="p">);</span><span class="w"></span>
 
-<span class="k">if</span> <span class="p">(</span><span class="n">eip</span> <span class="o">==</span> <span class="mh">0xabc</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">tcg</span><span class="o">-</span><span class="n">llvm</span><span class="o">-</span><span class="n">tb</span><span class="o">-</span><span class="n">abc</span><span class="p">(</span><span class="n">env</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">eip</span> <span class="o">==</span> <span class="mh">0xdef</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">tcg</span><span class="o">-</span><span class="n">llvm</span><span class="o">-</span><span class="n">tb</span><span class="o">-</span><span class="n">def</span><span class="p">(</span><span class="n">env</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="n">abort</span><span class="p">();</span>
-<span class="p">}</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">eip</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">0xabc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">tcg</span><span class="o">-</span><span class="n">llvm</span><span class="o">-</span><span class="n">tb</span><span class="o">-</span><span class="n">abc</span><span class="p">(</span><span class="n">env</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">eip</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">0xdef</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">tcg</span><span class="o">-</span><span class="n">llvm</span><span class="o">-</span><span class="n">tb</span><span class="o">-</span><span class="n">def</span><span class="p">(</span><span class="n">env</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">abort</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The call to <code class="docutils literal notranslate"><span class="pre">abort()</span></code> is important to terminate the translated program cleanly in case of unexpected program counters.
@@ -778,9 +700,9 @@ This may happen in cases where the binary’s CFG was not recovered properly and
 to an unexpected value, e.g., in case of self modifying code.</p>
 <p>As an exercise, open the <code class="docutils literal notranslate"><span class="pre">CADET_00001.ll</span></code> file that Revgen generated and try to find the translated basic blocks and
 functions.</p>
-</div>
-<div class="section" id="assumptions">
-<h3>Assumptions<a class="headerlink" href="#assumptions" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="assumptions">
+<h3>Assumptions<a class="headerlink" href="#assumptions" title="Permalink to this headline"></a></h3>
 <p>The current implementation of Revgen makes several assumptions about the input binary.</p>
 <p>First, the binary is statically linked. Revgen does not currently handle calls to dynamically linked library functions.
 An approach to handle calls is to read the emulated stack content and pass its data to LLVM call
@@ -797,9 +719,9 @@ the translator properly.</p>
 <p>Third, the input binary may not have self-modifying code. Removing this restriction would certainly be possible given
 adequate runtime support, but in that case we would pretty much end up re-implementing QEMU. QEMU handles self-modifying
 by detecting writes to code sections and re-translating modified code on the fly.</p>
-</div>
-<div class="section" id="running-translated-binaries">
-<h3>Running translated binaries<a class="headerlink" href="#running-translated-binaries" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="running-translated-binaries">
+<h3>Running translated binaries<a class="headerlink" href="#running-translated-binaries" title="Permalink to this headline"></a></h3>
 <p>In the previous section, we have seen how Revgen translates machine code to LLVM. We will now see how to run it. This
 requires linking the translated bitcode file with a run time that sets up the initial CPU state and provides
 emulation helpers that resolve memory accesses and translate system calls.</p>
@@ -823,20 +745,20 @@ Depending on the system call flavor (interrupt, syscall, sysenter…), the trans
 helper function. The runtime needs to implement that helper function so that it can translate the system call of the
 original platform to that of the target platform (e.g., <a class="reference external" href="https://github.com/S2E/s2e/blob/master/tools/lib/X86RuntimeLibrary/Runtime.cpp#L534">Decree/CGC to vanilla Linux</a>). This is very similar to what
 user emulation mode in QEMU does.</p>
-</div>
-</div>
-<div class="section" id="evaluation">
-<h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="evaluation">
+<h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline"></a></h2>
 <p>Revgen produces a translated binary that is about 15-30x bigger than the original. This overhead is high for several
 reasons:</p>
 <ol class="arabic simple">
-<li>Revgen does not attempt to perform any sort of optimizations. All it does is a straightforward translation
+<li><p>Revgen does not attempt to perform any sort of optimizations. All it does is a straightforward translation
 of the binary to LLVM using QEMU’s translator. It does not attempt to reconstruct variables, simplify
-stack accesses, recover function parameters, lift exceptions, etc.</li>
-<li>Revgen wraps each memory access into a function call. This makes it simpler to run the translated binary,
-but results in a larger overhead because of the extra call instruction and possible inlining of that call.</li>
-<li>Revgen embeds the entire original binary in the translated binary. This allows Revgen to correctly translate
-data memory accesses at run time, but doubles the size of the binary.</li>
+stack accesses, recover function parameters, lift exceptions, etc.</p></li>
+<li><p>Revgen wraps each memory access into a function call. This makes it simpler to run the translated binary,
+but results in a larger overhead because of the extra call instruction and possible inlining of that call.</p></li>
+<li><p>Revgen embeds the entire original binary in the translated binary. This allows Revgen to correctly translate
+data memory accesses at run time, but doubles the size of the binary.</p></li>
 </ol>
 <p>Ideally, all the above should be done statically during translation. This would make a standalone LLVM binary that can
 be linked with the standard library and ran directly on any architecture. This requires much more complex lifting,
@@ -860,56 +782,38 @@ benchmark Revgen. Here is a sample output of the script:</p>
 overhead of binaries produced by Revgen by comparing the original and translated binary size. You can generate the chart
 using this <a class="reference external" href="https://github.com/S2E/s2e/blob/master/tools/tools/scripts/revgen/revgen-plot-stats.r">script</a> (written
 in <a class="reference external" href="https://www.r-project.org/">R</a>).</p>
-<img alt="../../_images/cgc-binaries.svg" src="../../_images/cgc-binaries.svg" /></div>
-</div>
+<img alt="../../_images/cgc-binaries.svg" src="../../_images/cgc-binaries.svg" /></section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../../EquivalenceTesting.html" class="btn btn-neutral float-right" title="Equivalence Testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../CFI/index.html" class="btn btn-neutral float-left" title="Control Flow Integrity Checking with S2E" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../CFI/index.html" class="btn btn-neutral float-left" title="Control Flow Integrity Checking with S2E" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../EquivalenceTesting.html" class="btn btn-neutral float-right" title="Equivalence Testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2018-2020, Cyberhaven
-
-    </p>
+    <p>&#169; Copyright 2018-2020, Cyberhaven.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-
-  
-  
-    
-  
  
 <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

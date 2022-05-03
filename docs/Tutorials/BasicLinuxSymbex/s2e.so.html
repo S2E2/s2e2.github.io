@@ -1,64 +1,34 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Symbolic Execution of Linux Binaries &mdash; S2E 2.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Instrumenting Program Source Code for S2E" href="SourceCode.html" />
     <link rel="prev" title="Building the S2E platform manually" href="../../BuildingS2E.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> S2E
-          
-
-          
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -66,18 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../s2e-env.html">Start here: setting up S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
@@ -132,7 +92,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Use Cases</span></p>
+<p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../PoV/pov.html">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../PoV/pov.html#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
@@ -237,7 +197,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Howtos</span></p>
+<p class="caption" role="heading"><span class="caption-text">Howtos</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Howtos/Coverage/index.html">Measuring code coverage with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
@@ -308,7 +268,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<p class="caption" role="heading"><span class="caption-text">Scaling Symbolic Execution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Howtos/Concolic.html">Analyzing large programs using concolic execution</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../Howtos/Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
@@ -335,7 +295,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
@@ -392,7 +352,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Plugin Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
@@ -436,76 +396,38 @@
 </li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">S2E</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
-        
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Symbolic Execution of Linux Binaries</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="../../_sources/Tutorials/BasicLinuxSymbex/s2e.so.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="symbolic-execution-of-linux-binaries">
-<h1>Symbolic Execution of Linux Binaries<a class="headerlink" href="#symbolic-execution-of-linux-binaries" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="symbolic-execution-of-linux-binaries">
+<h1>Symbolic Execution of Linux Binaries<a class="headerlink" href="#symbolic-execution-of-linux-binaries" title="Permalink to this headline"></a></h1>
 <p>In this tutorial, we will show how to symbolically execute Linux <em>binaries</em>, <em>without</em>
 modifying their source code. Before you start, make sure that you have a working S2E environment.</p>
-<div class="section" id="getting-started">
-<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<section id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <p>We will symbolically execute the <code class="docutils literal notranslate"><span class="pre">echo</span></code> utility. For this, create a new analysis project as follows:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> <span class="nv">$S2EENV</span> is the root of your S2E environment created with s2e init
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span><span class="nv">$S2EENV</span> is the root of your S2E environment created with s2e init
 <span class="go">s2e new_project -i debian-9.2.1-i386 $S2EENV/images/debian-9.2.1-i386/guestfs/bin/echo abc</span>
 </pre></div>
 </div>
@@ -517,9 +439,9 @@ with the VM image that S2E uses.</p>
 <p>Finally, we must explicitly pass the image name using <code class="docutils literal notranslate"><span class="pre">-i</span></code>, because we <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">new_project</span></code> may decide to use
 a 64-bit image to run the binary, because it is in theory possible to run a 32-bit binary on a 64-bit guest. However,
 this could also fail because <code class="docutils literal notranslate"><span class="pre">echo</span></code> might use libraries specific to the 32-bit guest.</p>
-</div>
-<div class="section" id="using-s2e-so">
-<h2>Using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code><a class="headerlink" href="#using-s2e-so" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="using-s2e-so">
+<h2>Using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code><a class="headerlink" href="#using-s2e-so" title="Permalink to this headline"></a></h2>
 <p>In this section, we show how to make command line arguments symbolic. Open the <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> file and locate the
 following line:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">S2E_SYM_ARGS=&quot;&quot; LD_PRELOAD=./s2e.so ./${TARGET} abc &gt; /dev/null 2&gt; /dev/null</span>
@@ -531,13 +453,10 @@ following line:</p>
 </div>
 <p>This makes argument 1 (<code class="docutils literal notranslate"><span class="pre">abc</span></code>) symbolic. The process works like this:</p>
 <ol class="arabic">
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> library is preloaded in the binary using <code class="docutils literal notranslate"><span class="pre">LD_PRELOAD</span></code>.</p>
-</li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> reads from the <code class="docutils literal notranslate"><span class="pre">S2E_SYM_ARGS</span></code> environment variable which arguments to make symbolic.</p>
-</li>
-<li><p class="first">If the variable is missing, <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> leaves all arguments concrete and proceeds with normal execution.</p>
-</li>
-<li><p class="first">If not, <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> overwrites the specified arguments with symbolic values. It is possible to make only some
+<li><p>The <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> library is preloaded in the binary using <code class="docutils literal notranslate"><span class="pre">LD_PRELOAD</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> reads from the <code class="docutils literal notranslate"><span class="pre">S2E_SYM_ARGS</span></code> environment variable which arguments to make symbolic.</p></li>
+<li><p>If the variable is missing, <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> leaves all arguments concrete and proceeds with normal execution.</p></li>
+<li><p>If not, <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> overwrites the specified arguments with symbolic values. It is possible to make only some
 arguments symbolic and leave others concrete by specifying the corresponding argument IDs.</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">S2E_SYM_ARGS=&quot;&lt;ID_0&gt; &lt;ID_1&gt; .. &lt;ID_N&gt;&quot; # Mark argument &lt;ID_N&gt; as symbolic</span>
@@ -550,35 +469,35 @@ arguments symbolic and leave others concrete by specifying the corresponding arg
 the screen and eliminates forks in the kernel. There are some other tricks that <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> enables in <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code>
 in order to minimize unwanted forks:</p>
 <ul class="simple">
-<li>Do not print crashes in the syslog with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">sysctl</span> <span class="pre">-w</span> <span class="pre">debug.exception-trace=0</span></code></li>
-<li>Prevent core dumps from being created with <code class="docutils literal notranslate"><span class="pre">ulimit</span> <span class="pre">-c</span> <span class="pre">0</span></code> (you may want to re-enable them if needed)</li>
+<li><p>Do not print crashes in the syslog with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">sysctl</span> <span class="pre">-w</span> <span class="pre">debug.exception-trace=0</span></code></p></li>
+<li><p>Prevent core dumps from being created with <code class="docutils literal notranslate"><span class="pre">ulimit</span> <span class="pre">-c</span> <span class="pre">0</span></code> (you may want to re-enable them if needed)</p></li>
 </ul>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
+<p class="admonition-title">Warning</p>
 <p>You <strong>must</strong> specify default concrete arguments, so that <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> can overwrite them with symbolic data.
 The following command will not work because there is no argument to make symbolic (<code class="docutils literal notranslate"><span class="pre">abc</span></code> is missing).</p>
-<div class="last highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">S2E_SYM_ARGS=&quot;1&quot; LD_PRELOAD=./s2e.so ./${TARGET} &gt; /dev/null 2&gt; /dev/null</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">S2E_SYM_ARGS=&quot;1&quot; LD_PRELOAD=./s2e.so ./${TARGET} &gt; /dev/null 2&gt; /dev/null</span>
 </pre></div>
 </div>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
+<p class="admonition-title">Warning</p>
 <p>You cannot make the content of a file symbolic by just marking the file name symbolic. In other words, the
 following will not have the intended consequence:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">S2E_SYM_ARGS=&quot;1&quot; LD_PRELOAD=./s2e.so /bin/cat /path/to/myfile</span>
 </pre></div>
 </div>
-<p class="last">Instead of making the <strong>content</strong> of <code class="docutils literal notranslate"><span class="pre">/path/to/myfile</span></code> symbolic, it makes the <strong>file name</strong> itself symbolic.
+<p>Instead of making the <strong>content</strong> of <code class="docutils literal notranslate"><span class="pre">/path/to/myfile</span></code> symbolic, it makes the <strong>file name</strong> itself symbolic.
 The next section explains how to make the content of the file symbolic.</p>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Your binary <strong>must</strong> be dynamically linked, otherwise you cannot use <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code>. In case you want to make
+<p class="admonition-title">Warning</p>
+<p>Your binary <strong>must</strong> be dynamically linked, otherwise you cannot use <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code>. In case you want to make
 arguments symbolic for a statically-linked binary, see workarounds below.</p>
 </div>
-</div>
-<div class="section" id="what-about-other-symbolic-input">
-<h2>What about other symbolic input?<a class="headerlink" href="#what-about-other-symbolic-input" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="what-about-other-symbolic-input">
+<h2>What about other symbolic input?<a class="headerlink" href="#what-about-other-symbolic-input" title="Permalink to this headline"></a></h2>
 <p><strong>Piping symbolic data.</strong> You can also feed symbolic data to your program through <code class="docutils literal notranslate"><span class="pre">stdin</span></code>. The idea is to pipe the
 symbolic output of one program to the input of another. Symbolic output can be generated using the <code class="docutils literal notranslate"><span class="pre">s2ecmd</span></code> utility.
 The command below passes four symbolic bytes to <code class="docutils literal notranslate"><span class="pre">cat</span></code>:</p>
@@ -593,7 +512,7 @@ The command below passes four symbolic bytes to <code class="docutils literal no
 libraries before reaching the target binary.</p>
 <p><strong>Using symbolic files.</strong> If your binary takes a file name as a parameter and you want the content of that file to be
 symbolic, the simplest is to create your analysis project as follows:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> The @@ is a placeholder <span class="k">for</span> a concrete file name that contains symbolic data
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>The @@ is a placeholder <span class="k">for</span> a concrete file name that contains symbolic data
 <span class="go">s2e new_project -i debian-9.2.1-i386 $S2EENV/images/debian-9.2.1-i386/guestfs/bin/cat @@</span>
 </pre></div>
 </div>
@@ -601,8 +520,8 @@ symbolic, the simplest is to create your analysis project as follows:</p>
 some symbolic data to that file, and passes the path to that file to <code class="docutils literal notranslate"><span class="pre">cat</span></code>. The symbolic file must be stored in RAM
 (hence the ramdisk, or tmpfs). Writing symbolic data to a hard drive will concretize it.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">In case of <code class="docutils literal notranslate"><span class="pre">cat</span></code>, you may not see any forks with the command above, as the standard output is redirected
+<p class="admonition-title">Note</p>
+<p>In case of <code class="docutils literal notranslate"><span class="pre">cat</span></code>, you may not see any forks with the command above, as the standard output is redirected
 to <code class="docutils literal notranslate"><span class="pre">/dev/null</span></code> and the symbolic data is therefore never branched upon. You must tweak the command line
 according to the aspects of the binary you want to test.</p>
 </div>
@@ -615,9 +534,9 @@ efficient at guiding the program towards an interesting path. Instead, you can u
 <p>This commands scans the command line for arguments that look like paths (e.g., <code class="docutils literal notranslate"><span class="pre">/path/to/file/on/host</span></code>) and
 configures <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> to download such paths into the guest. In addition to that, it creates a <code class="docutils literal notranslate"><span class="pre">.symranges</span></code>
 file in the project directory that specifies which byte ranges of the file to make symbolic.</p>
-</div>
-<div class="section" id="configuring-s2e-for-use-with-s2e-so">
-<h2>Configuring S2E for use with <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code><a class="headerlink" href="#configuring-s2e-for-use-with-s2e-so" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="configuring-s2e-for-use-with-s2e-so">
+<h2>Configuring S2E for use with <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code><a class="headerlink" href="#configuring-s2e-for-use-with-s2e-so" title="Permalink to this headline"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> automatically configures all plugins required to use <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code>. Read this section if you want to know
 more about the configuration. You do not need to worry about this during normal use and can skip the rest of this
 tutorial.</p>
@@ -639,15 +558,15 @@ libraries are loaded by the process and communicates their location to <code cla
 broadcast this information to any interested plugins. For example, the code coverage plugin uses this information
 to map program counters to a module name.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">There is no <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> for Windows yet. In order to make program arguments symbolic, you must modify the
+<p class="admonition-title">Warning</p>
+<p>There is no <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> for Windows yet. In order to make program arguments symbolic, you must modify the
 source code manually. However, writing symbolic data to the standard input or to the ramdisk works like on Linux.
 On Windows, programs and shared libraries are tracked by a special guest driver, <code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code>, that communicates with
 <code class="docutils literal notranslate"><span class="pre">WindowsMonitor</span></code>.</p>
 </div>
-</div>
-<div class="section" id="modifying-and-building-s2e-so">
-<h2>Modifying and building <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code><a class="headerlink" href="#modifying-and-building-s2e-so" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="modifying-and-building-s2e-so">
+<h2>Modifying and building <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code><a class="headerlink" href="#modifying-and-building-s2e-so" title="Permalink to this headline"></a></h2>
 <p>If you use <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> and stock VM images, <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> is automatically copied into the guest VM each time
 you start the analysis. You do not have to do anything special unless you want to modify it.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> library source can be found in the <code class="docutils literal notranslate"><span class="pre">guest</span></code> folder of the S2E source directory and is built during the
@@ -656,56 +575,38 @@ build directory. This creates <code class="docutils literal notranslate"><span c
 <code class="docutils literal notranslate"><span class="pre">$S2E_PREFIX</span></code> is equal to <code class="docutils literal notranslate"><span class="pre">opt</span></code>).</p>
 <p>The latest build of <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> is copied in your guest VM next time you start the analysis, so all you need is to run
 the <code class="docutils literal notranslate"><span class="pre">make</span></code> command above if you modify the source code of <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="SourceCode.html" class="btn btn-neutral float-right" title="Instrumenting Program Source Code for S2E" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../../BuildingS2E.html" class="btn btn-neutral float-left" title="Building the S2E platform manually" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../BuildingS2E.html" class="btn btn-neutral float-left" title="Building the S2E platform manually" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SourceCode.html" class="btn btn-neutral float-right" title="Instrumenting Program Source Code for S2E" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2018-2020, Cyberhaven
-
-    </p>
+    <p>&#169; Copyright 2018-2020, Cyberhaven.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-
-  
-  
-    
-  
  
 <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

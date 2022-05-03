@@ -1,64 +1,34 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Automated Generation of Proofs of Vulnerability with S2E &mdash; S2E 2.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Using S2E to generate PoVs for Linux, Windows, and CGC binaries" href="index.html" />
     <link rel="prev" title="Instrumenting Program Source Code for S2E" href="../BasicLinuxSymbex/SourceCode.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> S2E
-          
-
-          
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -66,18 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../s2e-env.html">Start here: setting up S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../s2e-env.html#installing-s2e-env">Installing s2e-env</a></li>
@@ -132,7 +92,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Use Cases</span></p>
+<p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Automated Generation of Proofs of Vulnerability with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#understanding-the-execution-of-a-vulnerable-program">Understanding the Execution of a Vulnerable Program</a><ul>
@@ -237,7 +197,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Howtos</span></p>
+<p class="caption" role="heading"><span class="caption-text">Howtos</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Howtos/Coverage/index.html">Measuring code coverage with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../Howtos/Coverage/index.html#line-coverage-for-linux-binaries">Line coverage for Linux binaries</a><ul>
@@ -308,7 +268,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Scaling Symbolic Execution</span></p>
+<p class="caption" role="heading"><span class="caption-text">Scaling Symbolic Execution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Howtos/Concolic.html">Analyzing large programs using concolic execution</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../Howtos/Concolic.html#executing-programs-in-concolic-mode">Executing programs in concolic mode</a></li>
@@ -335,7 +295,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html">Symbolic Execution Extensions for KVM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../DesignAndImplementation/KvmInterface.html#kernel-based-virtual-machine-kvm">Kernel-based Virtual Machine (KVM)</a></li>
@@ -392,7 +352,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Plugin Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Plugin Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../Plugins/Linux/LinuxMonitor.html#options">Options</a></li>
@@ -436,70 +396,32 @@
 </li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">S2E</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
-        
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Automated Generation of Proofs of Vulnerability with S2E</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="../../_sources/Tutorials/PoV/pov.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="automated-generation-of-proofs-of-vulnerability-with-s2e">
-<h1>Automated Generation of Proofs of Vulnerability with S2E<a class="headerlink" href="#automated-generation-of-proofs-of-vulnerability-with-s2e" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="automated-generation-of-proofs-of-vulnerability-with-s2e">
+<h1>Automated Generation of Proofs of Vulnerability with S2E<a class="headerlink" href="#automated-generation-of-proofs-of-vulnerability-with-s2e" title="Permalink to this headline"></a></h1>
 <p>In this tutorial, we will show you how to use the S2E analysis platform to automatically find vulnerable spots in
 binaries and generate proofs of the existence of the vulnerabilities. These proofs can then be used by developers to
 easily reproduce, understand, and fix the bugs that lead to the vulnerabilities.</p>
@@ -515,56 +437,42 @@ corrupted program counter points to the location of the malicious payload, e.g.,
 vulnerability (PoV). In this tutorial, we will assume that the vulnerable instruction has been found and will
 focus on explaining how to generate the PoV.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Although not required, we recommend that you get familiar with the DARPA CyberGrandChallenge (CGC) in order to have
 a better understanding of this tutorial. The CGC documentation is on
 <a class="reference external" href="https://github.com/CyberGrandChallenge/cgc-release-documentation">Github</a>
 and details about the event are <a class="reference external" href="http://archive.darpa.mil/cybergrandchallenge/">here</a>.</p>
-<p class="last">DARPA’s <a class="reference external" href="http://archive.darpa.mil/cybergrandchallenge/">Cyber Grand Challenge</a> (CGC) was the world’s first
+<p>DARPA’s <a class="reference external" href="http://archive.darpa.mil/cybergrandchallenge/">Cyber Grand Challenge</a> (CGC) was the world’s first
 all-machine hacking tournament. S2E was a key component in CodeJitsu’s Cyber Reasoning System (CRS) and was used to
 automatically to find vulnerabilities and exploit them. This tutorial walks you through the theory behind automated
 PoV generation. After you are done reading it, you can get your hands dirty in this <a class="reference external" href="index.html">follow-up</a>.</p>
 </div>
-<div class="section" id="understanding-the-execution-of-a-vulnerable-program">
-<h2>Understanding the Execution of a Vulnerable Program<a class="headerlink" href="#understanding-the-execution-of-a-vulnerable-program" title="Permalink to this headline">¶</a></h2>
+<section id="understanding-the-execution-of-a-vulnerable-program">
+<h2>Understanding the Execution of a Vulnerable Program<a class="headerlink" href="#understanding-the-execution-of-a-vulnerable-program" title="Permalink to this headline"></a></h2>
 <p>Consider the following program. It receives data from the network and stores it into a buffer. The buffer has a length
 of 4 bytes and the receive function tries to write 12 bytes into it, causing a buffer overflow.</p>
-<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
-    <span class="n">receive</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"></span>
+<span class="linenos">2</span><span class="p">{</span><span class="w"></span>
+<span class="linenos">3</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span><span class="w"></span>
+<span class="linenos">4</span><span class="w">    </span><span class="n">receive</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">5</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">6</span><span class="p">}</span><span class="w"></span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Since the processor executes machine instructions, we must reason about the binary form of this program. Here is how the
 assembly code for this program could look like, with the most important instructions explained.</p>
-<div class="highlight-none notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10</pre></div></td><td class="code"><div class="highlight"><pre><span></span>push    ebp
-mov     ebp, esp
-sub     esp, 4         ; Allocate 4 bytes on the stack for buf
-lea     eax, [ebp-4]   ; Compute address of buf
-push    12             ; Push 12 for 2nd parameter of receive
-push    eax            ; Push address of buf for 1st param of receive
-call    receive
-xor     eax, eax       ; Set return value to 0
-leave                  ; Clean the stack frame
-ret                    ; Return from the main function
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>push    ebp
+<span class="linenos"> 2</span>mov     ebp, esp
+<span class="linenos"> 3</span>sub     esp, 4         ; Allocate 4 bytes on the stack for buf
+<span class="linenos"> 4</span>lea     eax, [ebp-4]   ; Compute address of buf
+<span class="linenos"> 5</span>push    12             ; Push 12 for 2nd parameter of receive
+<span class="linenos"> 6</span>push    eax            ; Push address of buf for 1st param of receive
+<span class="linenos"> 7</span>call    receive
+<span class="linenos"> 8</span>xor     eax, eax       ; Set return value to 0
+<span class="linenos"> 9</span>leave                  ; Clean the stack frame
+<span class="linenos">10</span>ret                    ; Return from the main function
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Let’s now see what the program would execute if the attacker sends the string <code class="docutils literal notranslate"><span class="pre">AAAABBBBCCCC</span></code>. Assume that the stack
 pointer register is <code class="docutils literal notranslate"><span class="pre">0xf0</span></code> at instruction 1 and the frame pointer is <code class="docutils literal notranslate"><span class="pre">0x1000</span></code>. After executing instruction 6 and
 right before calling receive, the program stack could look like this:</p>
@@ -593,8 +501,8 @@ the attacker. All the attacker needs to do here is to figure out what bytes of t
 <p>An automated PoV generator would have to do here is to detect when the input reaches the program counter, figure out
 which bytes of the input end up in the program counter, and compute the actual input byte values so that the program
 counter has the desired address.</p>
-<div class="section" id="using-symbolic-execution-to-generate-povs">
-<h3>Using Symbolic Execution to Generate PoVs<a class="headerlink" href="#using-symbolic-execution-to-generate-povs" title="Permalink to this headline">¶</a></h3>
+<section id="using-symbolic-execution-to-generate-povs">
+<h3>Using Symbolic Execution to Generate PoVs<a class="headerlink" href="#using-symbolic-execution-to-generate-povs" title="Permalink to this headline"></a></h3>
 <p>Performing this mapping can be done with a simple technique called symbolic execution. In normal execution (aka
 “concrete” execution), the program gets concrete inputs (e.g., <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;abc&quot;</span></code>, etc.), performs computations on
 them, and produces concrete outputs. In symbolic execution, the program gets “symbolic” inputs instead (e.g., λ<sub>0</sub>λ<sub>1</sub>λ<sub>2</sub>λ<sub>3</sub>). These symbolic inputs propagate through the program and build
@@ -616,17 +524,13 @@ it with a custom implementation that injects symbolic values into the buffer ins
 network. When using S2E, this can be easily done with <code class="docutils literal notranslate"><span class="pre">LD_PRELOAD</span></code> or, for static binaries, by tweaking the receive
 syscall in the Linux kernel. S2E provides a custom x86 instruction to create symbolic values. For the example above,
 this can be as simple as transforming receive into:</p>
-<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">receive</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">s2e_make_symbolic</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="s">&quot;input_buffer&quot;</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">size</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kt">int</span><span class="w"> </span><span class="nf">receive</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"></span>
+<span class="linenos">2</span><span class="p">{</span><span class="w"></span>
+<span class="linenos">3</span><span class="w">    </span><span class="n">s2e_make_symbolic</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;input_buffer&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">4</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">5</span><span class="p">}</span><span class="w"></span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">s2e_make_symbolic</span></code> is nothing more than a function written in assembly that contains a hard-coded sequence of bytes
 for the custom x86 opcode that instructs the symbolic execution engine to write a fresh symbolic value to the desired
 memory location. Each symbolic variable gets a name (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;input_buffer&quot;</span></code>) in order to simplify test case
@@ -668,8 +572,8 @@ the form <code class="docutils literal notranslate"><span class="pre">EIP[0]</sp
 right hand side is a variable that represents a concrete value negotiated with the CGC framework (the framework chooses
 a random <code class="docutils literal notranslate"><span class="pre">EIP</span></code> value to check that the exploit works for any <code class="docutils literal notranslate"><span class="pre">EIP</span></code> value).</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">We use the DARPA CyberGrandChallenge terminology, which defines <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">2</span></code> vulnerabilities.
+<p class="admonition-title">Note</p>
+<p>We use the DARPA CyberGrandChallenge terminology, which defines <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">2</span></code> vulnerabilities.
 Refer to the CGC <a class="reference external" href="https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/walk-throughs/understanding-cfe-povs.md">documentation</a> for more details.</p>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:type=1
@@ -715,10 +619,10 @@ and if so, generates the PoV.</p>
 [EIP+11] == 0xe3
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="identifying-advanced-vulnerability-patterns-with-s2e">
-<h2>Identifying Advanced Vulnerability Patterns with S2E<a class="headerlink" href="#identifying-advanced-vulnerability-patterns-with-s2e" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="identifying-advanced-vulnerability-patterns-with-s2e">
+<h2>Identifying Advanced Vulnerability Patterns with S2E<a class="headerlink" href="#identifying-advanced-vulnerability-patterns-with-s2e" title="Permalink to this headline"></a></h2>
 <p>In the previous sections, we explained how to detect basic return address overwrites and generate simple PoVs. The idea
 was to use symbolic execution in order to track the flow of symbolic input data into sensitive registers, such as the
 program counter, then use the constraint solver in order to generate valid PoVs according to pre-computed recipes. PoV
@@ -731,60 +635,44 @@ input validation, etc.</p>
 based on the ability of S2E to detect uses of symbolic pointers, like assignment to program counter or simple
 dereference. We will see how to detect and exploit function pointer overwrites, reads and writes to arbitrary memory
 locations, as well as function calls that have symbolic parameters.</p>
-<div class="section" id="function-pointer-overwrite">
-<h3>Function Pointer Overwrite<a class="headerlink" href="#function-pointer-overwrite" title="Permalink to this headline">¶</a></h3>
+<section id="function-pointer-overwrite">
+<h3>Function Pointer Overwrite<a class="headerlink" href="#function-pointer-overwrite" title="Permalink to this headline"></a></h3>
 <p>In the following example, <code class="docutils literal notranslate"><span class="pre">f_ptr</span></code> is overwritten by the receive function. So instead of calling <code class="docutils literal notranslate"><span class="pre">f_ptr</span></code>, the program
 ends up calling a pointer set by the attacker.</p>
-<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7
-8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">f_ptr</span><span class="p">)(</span><span class="kt">void</span><span class="p">);</span>
-    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
-    <span class="n">f_ptr</span> <span class="o">=</span> <span class="n">f</span><span class="p">;</span> <span class="c1">// f is a function defined elsewhere in the program</span>
-    <span class="n">receive</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">f_ptr</span><span class="p">();</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"></span>
+<span class="linenos">2</span><span class="p">{</span><span class="w"></span>
+<span class="linenos">3</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">f_ptr</span><span class="p">)(</span><span class="kt">void</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">4</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span><span class="w"></span>
+<span class="linenos">5</span><span class="w">    </span><span class="n">f_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">;</span><span class="w"> </span><span class="c1">// f is a function defined elsewhere in the program</span>
+<span class="linenos">6</span><span class="w">    </span><span class="n">receive</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">7</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">f_ptr</span><span class="p">();</span><span class="w"></span>
+<span class="linenos">8</span><span class="p">}</span><span class="w"></span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>When <code class="docutils literal notranslate"><span class="pre">f_ptr</span></code> is called, S2E detects the attempt to set <code class="docutils literal notranslate"><span class="pre">EIP</span></code> to a symbolic value and tries every available recipe.
 This is very similar to the case of return address overwrites, in which the return instruction fetches the symbolic
 value stored on the stack and attempts to assign it to the program counter. Here, we have a call (or jump) instruction
 that computes the target (e.g., by getting it from a register or from a memory location specified by the operand) before
 writing it to the program counter. The recipe plugin catches the write and tries to figure out if there is a recipe that
 can force the program counter to go to an interesting address.</p>
-</div>
-<div class="section" id="arbitrary-writes">
-<h3>Arbitrary Writes<a class="headerlink" href="#arbitrary-writes" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="arbitrary-writes">
+<h3>Arbitrary Writes<a class="headerlink" href="#arbitrary-writes" title="Permalink to this headline"></a></h3>
 <p>The code snippet below contains an arbitrary write vulnerability. It exemplifies a situation that commonly occurs with
 heap overflow vulnerabilities. An attacker may overwrite the memory location specified by input bytes <code class="docutils literal notranslate"><span class="pre">[32:35]</span></code> with
 the value specified by input bytes <code class="docutils literal notranslate"><span class="pre">[0:3]</span></code>.</p>
-<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="c1">// Initialize a with the address of a legitimate global variable</span>
-    <span class="kt">int</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">g_my_var</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
-
-    <span class="n">receive</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span><span class="p">);</span>
-    <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">buffer</span><span class="p">;</span>
-    <span class="k">return</span> <span class="o">*</span><span class="n">a</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"></span>
+<span class="linenos"> 2</span><span class="p">{</span><span class="w"></span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="c1">// Initialize a with the address of a legitimate global variable</span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">g_my_var</span><span class="p">;</span><span class="w"></span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span><span class="w"></span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="n">receive</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w"></span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="o">*</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">buffer</span><span class="p">;</span><span class="w"></span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">10</span><span class="p">}</span><span class="w"></span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>The trick to exploit such vulnerabilities automatically is to collect addresses of all sorts of interesting targets
 during execution. Such targets include locations of return addresses on the stack, various code pointers, etc. When S2E
 finds an arbitrary write, the recipe plugin uses that write to overwrite every potential target with attacker-controlled
@@ -795,58 +683,37 @@ used as potential targets for arbitrary writes. This is a best effort attempt at
 execution between the arbitrary write vulnerability and the following return instruction (e.g., by means of an exit),
 the exploitation attempt will fail. We discuss later ways to identify more potential targets to improve the chances of
 successfully exploiting arbitrary writes.</p>
-</div>
-<div class="section" id="arbitrary-reads">
-<h3>Arbitrary Reads<a class="headerlink" href="#arbitrary-reads" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="arbitrary-reads">
+<h3>Arbitrary Reads<a class="headerlink" href="#arbitrary-reads" title="Permalink to this headline"></a></h3>
 <p>S2E also supports exploitation of arbitrary memory reads. The following code snippet has a pointer <code class="docutils literal notranslate"><span class="pre">a</span></code> to a structure
 that contains a function pointer <code class="docutils literal notranslate"><span class="pre">f_ptr</span></code>. The program dereferences <code class="docutils literal notranslate"><span class="pre">a</span></code> and then calls <code class="docutils literal notranslate"><span class="pre">f_ptr</span></code>. The attacker can
 overwrite <code class="docutils literal notranslate"><span class="pre">a</span></code> to point to the buffer buffer, which would allow setting <code class="docutils literal notranslate"><span class="pre">f_ptr</span></code> to an arbitrary value and thus
 execute arbitrary code.</p>
-<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">test</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">abcd</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">f_ptr</span><span class="p">)(</span><span class="kt">void</span><span class="p">);</span>
-<span class="p">};</span>
-
-<span class="k">struct</span> <span class="n">test</span> <span class="n">g_test1</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="n">my_func1</span><span class="p">};</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="c1">// Initialize a with the address of a legitimate global variable</span>
-    <span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">g_test1</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
-
-    <span class="c1">// This receive overflows by 4 bytes, overwriting pointer a</span>
-    <span class="c1">// with attacker-controlled data.</span>
-    <span class="n">receive</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span><span class="p">);</span>
-
-    <span class="c1">// Reads attacker-controller pointer value from a,</span>
-    <span class="c1">// then reads the address of a function stored in f_ptr</span>
-    <span class="c1">// (also attacker controlled), and finally calls that function.</span>
-    <span class="n">a</span><span class="o">-&gt;</span><span class="n">f_ptr</span><span class="p">();</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">abcd</span><span class="p">;</span><span class="w"></span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">f_ptr</span><span class="p">)(</span><span class="kt">void</span><span class="p">);</span><span class="w"></span>
+<span class="linenos"> 4</span><span class="p">};</span><span class="w"></span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="n">g_test1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">my_func1</span><span class="p">};</span><span class="w"></span>
+<span class="linenos"> 7</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"></span>
+<span class="linenos"> 8</span><span class="p">{</span><span class="w"></span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="c1">// Initialize a with the address of a legitimate global variable</span>
+<span class="linenos">10</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="o">*</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">g_test1</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">11</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span><span class="w"></span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="w">    </span><span class="c1">// This receive overflows by 4 bytes, overwriting pointer a</span>
+<span class="linenos">14</span><span class="w">    </span><span class="c1">// with attacker-controlled data.</span>
+<span class="linenos">15</span><span class="w">    </span><span class="n">receive</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="w">    </span><span class="c1">// Reads attacker-controller pointer value from a,</span>
+<span class="linenos">18</span><span class="w">    </span><span class="c1">// then reads the address of a function stored in f_ptr</span>
+<span class="linenos">19</span><span class="w">    </span><span class="c1">// (also attacker controlled), and finally calls that function.</span>
+<span class="linenos">20</span><span class="w">    </span><span class="n">a</span><span class="o">-&gt;</span><span class="n">f_ptr</span><span class="p">();</span><span class="w"></span>
+<span class="linenos">21</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">22</span><span class="p">}</span><span class="w"></span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>When S2E identifies an arbitrary read, the recipe plugin looks for memory locations (e.g., <code class="docutils literal notranslate"><span class="pre">buffer</span></code>) that contain
 symbolic data (i.e., derived from user input). The plugin forces constraints on the target of the read operation (e.g.,
 <code class="docutils literal notranslate"><span class="pre">a</span></code>) to make it point to one of these locations, and let execution go forward. By doing so, if any of the values read
@@ -855,45 +722,31 @@ can detect and exploit it as explained in previous scenarios.  The line invoking
 triggers the arbitrary read vulnerability. S2E automatically overwrites pointer <code class="docutils literal notranslate"><span class="pre">a</span></code> with the address of buffer, so
 that <code class="docutils literal notranslate"><span class="pre">f_ptr</span></code> tries to invoke symbolic bytes at <code class="docutils literal notranslate"><span class="pre">buffer[4:7]</span></code>. This is then handled as a function pointer overwrite
 case.</p>
-</div>
-<div class="section" id="function-calls-with-symbolic-parameters">
-<h3>Function Calls with Symbolic Parameters<a class="headerlink" href="#function-calls-with-symbolic-parameters" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="function-calls-with-symbolic-parameters">
+<h3>Function Calls with Symbolic Parameters<a class="headerlink" href="#function-calls-with-symbolic-parameters" title="Permalink to this headline"></a></h3>
 <p>There are cases where the ability to pass arbitrary arguments to certain functions can be exploited to exfiltrate data.
 The following example transmits 128 bytes stored at the memory location pointed to by <code class="docutils literal notranslate"><span class="pre">a</span></code>. Unfortunately, this
 location can be controlled by the attacker through a buffer overflow. The attacker can therefore set it to any address
 and exfiltrate pretty much anything from the address space of the binary, such as encryption keys, passwords, or other
 secrets.</p>
-<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">char</span> <span class="n">g_long_string</span><span class="p">[</span><span class="mi">128</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;...&quot;</span><span class="p">;</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="c1">// Initialize a to the address of a legitimate string</span>
-    <span class="kt">char</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="n">g_a_string</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
-
-    <span class="c1">// Overflow 4 bytes past the buffer</span>
-    <span class="n">receive</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span><span class="p">);</span>
-
-    <span class="c1">// a contains attacker-controlled data, allowing to exfiltrate</span>
-    <span class="c1">// any data in the address space.</span>
-    <span class="n">transmit</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">128</span><span class="p">);</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kt">char</span><span class="w"> </span><span class="n">g_long_string</span><span class="p">[</span><span class="mi">128</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;...&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="linenos"> 2</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"></span>
+<span class="linenos"> 3</span><span class="p">{</span><span class="w"></span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="c1">// Initialize a to the address of a legitimate string</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g_a_string</span><span class="p">;</span><span class="w"></span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span><span class="w"></span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="c1">// Overflow 4 bytes past the buffer</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="n">receive</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="w">    </span><span class="c1">// a contains attacker-controlled data, allowing to exfiltrate</span>
+<span class="linenos">12</span><span class="w">    </span><span class="c1">// any data in the address space.</span>
+<span class="linenos">13</span><span class="w">    </span><span class="n">transmit</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="mi">128</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">14</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">15</span><span class="p">}</span><span class="w"></span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Detecting such cases for S2E is straightforward. The recipe plugin instruments every critical function (e.g.,
 <code class="docutils literal notranslate"><span class="pre">transmit()</span></code>) to check whether any of the critical parameters can be made to point to interesting data. It then
 applies recipes to produce a <code class="docutils literal notranslate"><span class="pre">Type`2</span></code> PoV which aims to leak a flag in the secret page. The challenge is to
@@ -901,12 +754,13 @@ automatically identify such functions (not only <code class="docutils literal no
 the binary, S2E disassembles it, extracts all function addresses, then invokes every function with canned parameters. If
 the function produces the expected output, identification succeeded.</p>
 <blockquote>
-<div>S2E uses <a class="reference external" href="https://github.com/S2E/s2e/tree/master/tools/tools/revgen32">RevGen</a>, an x86-to-LLVM translator,
-in order to extract function types from the binary before analyzing it.</div></blockquote>
-</div>
-</div>
-<div class="section" id="generating-replayable-povs">
-<h2>Generating Replayable PoVs<a class="headerlink" href="#generating-replayable-povs" title="Permalink to this headline">¶</a></h2>
+<div><p>S2E uses <a class="reference external" href="https://github.com/S2E/s2e/tree/master/tools/tools/revgen32">RevGen</a>, an x86-to-LLVM translator,
+in order to extract function types from the binary before analyzing it.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="generating-replayable-povs">
+<h2>Generating Replayable PoVs<a class="headerlink" href="#generating-replayable-povs" title="Permalink to this headline"></a></h2>
 <p>In the CGC framework, a PoV is a normal program that communicates with the vulnerable binary in order to exploit it.
 Communication can be done through a pipe or a network. A PoV can send data to the binary and receive data that the
 binary outputs. PoVs are free to make computations on the data they get from the challenge binary in order to generate
@@ -917,43 +771,28 @@ block when its transmit buffer is full.</p>
 <table>
 <tr><th>PoV</th><th>Challenge Binary</th></tr>
 <tr>
-    <td><div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(...)</span> <span class="p">{</span>
-    <span class="n">transmit</span><span class="p">(</span>
-       <span class="s">&quot;aaaaaaaaaaaaaaaa&quot;</span>
-       <span class="s">&quot;bbbbbbbbbbbbbbbb&quot;</span>
-       <span class="s">&quot;cccccccc&quot;</span><span class="p">,</span> <span class="mi">40</span>
-    <span class="p">);</span>
-
-    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
-    <span class="n">receive</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
-<span class="p">}</span>
+    <td><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(...)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="n">transmit</span><span class="p">(</span><span class="w"></span>
+<span class="linenos"> 3</span><span class="w">       </span><span class="s">&quot;aaaaaaaaaaaaaaaa&quot;</span><span class="w"></span>
+<span class="linenos"> 4</span><span class="w">       </span><span class="s">&quot;bbbbbbbbbbbbbbbb&quot;</span><span class="w"></span>
+<span class="linenos"> 5</span><span class="w">       </span><span class="s">&quot;cccccccc&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="w"></span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="p">);</span><span class="w"></span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span><span class="w"></span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="n">receive</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">10</span><span class="p">}</span><span class="w"></span>
 </pre></div>
-</td></tr></table></div>
+</div>
 </td>
-<td><div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(...)</span> <span class="p">{</span>
-    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
-
-    <span class="n">receive</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">+</span> <span class="mi">8</span><span class="p">);</span>
-
-    <span class="n">transmit</span><span class="p">(</span><span class="s">&quot;done&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
-<span class="p">}</span>
+<td><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(...)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">2</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span><span class="w"></span>
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="w">    </span><span class="n">receive</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">5</span>
+<span class="linenos">6</span><span class="w">    </span><span class="n">transmit</span><span class="p">(</span><span class="s">&quot;done&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">7</span><span class="p">}</span><span class="w"></span>
 </pre></div>
-</td></tr></table></div>
+</div>
 </td>
 </tr>
 </table><p>In this section, we will discuss some of the challenges that symbolic execution engines face in order to generate
@@ -983,210 +822,133 @@ getting to the vulnerability. The problem is that by default, the generated PoV 
 not know that the received value has any connection to the written value and as a result generates a bogus concrete
 value that does not match the random data. Moreover, the random value will be different on every run, so it is
 impossible to hard-code a fixed value in the PoV. The following code snippet shows such a case.</p>
-<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
-    <span class="c1">// S2E returns a symbolic value instead of the original concrete value</span>
-    <span class="kt">int</span> <span class="n">cookie</span> <span class="o">=</span> <span class="n">random</span><span class="p">();</span>
-    <span class="c1">// The binary sends the random value to the client</span>
-    <span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cookie</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cookie</span><span class="p">));</span>
-    <span class="c1">// S2E creates a fresh symbolic value for data</span>
-    <span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
-    <span class="c1">// data is not constrained, so S2E can explore both outcomes of the if</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">!=</span> <span class="n">cookie</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="c1">// When arriving here, S2E generates an unreplayable PoV because</span>
-    <span class="c1">// it did not realize that data and cookie are connected together</span>
-    <span class="n">vulnerable_code</span><span class="p">();</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="nf">naive_pov</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">data0</span><span class="p">;</span>
-  <span class="c1">// The POV expects to read 4 bytes of data written by the program.</span>
-  <span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
-  <span class="c1">// 1234 is a random value chosen by the solver for the cookie. It was</span>
-  <span class="c1">// valid only for one path and is unlikely to be useful in the next run.</span>
-  <span class="kt">int</span> <span class="n">data1</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">;</span>
-  <span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data1</span><span class="p">));</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"></span>
+<span class="linenos"> 2</span><span class="p">{</span><span class="w"></span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w"></span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="c1">// S2E returns a symbolic value instead of the original concrete value</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">cookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">random</span><span class="p">();</span><span class="w"></span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="c1">// The binary sends the random value to the client</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cookie</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">cookie</span><span class="p">));</span><span class="w"></span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="c1">// S2E creates a fresh symbolic value for data</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">10</span><span class="w">    </span><span class="c1">// data is not constrained, so S2E can explore both outcomes of the if</span>
+<span class="linenos">11</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cookie</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">12</span><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">13</span><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="linenos">14</span><span class="w">    </span><span class="c1">// When arriving here, S2E generates an unreplayable PoV because</span>
+<span class="linenos">15</span><span class="w">    </span><span class="c1">// it did not realize that data and cookie are connected together</span>
+<span class="linenos">16</span><span class="w">    </span><span class="n">vulnerable_code</span><span class="p">();</span><span class="w"></span>
+<span class="linenos">17</span><span class="p">}</span><span class="w"></span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="kt">void</span><span class="w"> </span><span class="nf">naive_pov</span><span class="p">()</span><span class="w"></span>
+<span class="linenos">20</span><span class="p">{</span><span class="w"></span>
+<span class="linenos">21</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">data0</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">22</span><span class="w">  </span><span class="c1">// The POV expects to read 4 bytes of data written by the program.</span>
+<span class="linenos">23</span><span class="w">  </span><span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">24</span><span class="w">  </span><span class="c1">// 1234 is a random value chosen by the solver for the cookie. It was</span>
+<span class="linenos">25</span><span class="w">  </span><span class="c1">// valid only for one path and is unlikely to be useful in the next run.</span>
+<span class="linenos">26</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">data1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1234</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">27</span><span class="w">  </span><span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data1</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">28</span><span class="p">}</span><span class="w"></span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>A correct PoV would look like this:</p>
-<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7
-8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">correct_pov</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">data0</span><span class="p">;</span>
-  <span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data0</span><span class="p">));</span>
-  <span class="kt">int</span> <span class="n">data1</span> <span class="o">=</span> <span class="n">data0</span><span class="p">;</span>
-  <span class="c1">// Transmit the previously received data</span>
-  <span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data1</span><span class="p">));</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kt">void</span><span class="w"> </span><span class="nf">correct_pov</span><span class="p">()</span><span class="w"></span>
+<span class="linenos">2</span><span class="p">{</span><span class="w"></span>
+<span class="linenos">3</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">data0</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">4</span><span class="w">  </span><span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data0</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">5</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">data1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data0</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">6</span><span class="w">  </span><span class="c1">// Transmit the previously received data</span>
+<span class="linenos">7</span><span class="w">  </span><span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data1</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">8</span><span class="p">}</span><span class="w"></span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>To generate a correct PoV, S2E looks at all branch conditions and looks for cases where the content of a receive buffer
 is compared with a symbolic value derived from the random number generator. Once it found such a comparison, it can
 easily generate the correct PoV code by mapping the symbolic value created in the receive call to the symbolic value
 written by the transmit function.</p>
 <p>A much harder case happens when the PoV needs to perform computations. Consider the slightly modified above example:</p>
-<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">cookie</span> <span class="o">=</span> <span class="n">random</span><span class="p">();</span>
-    <span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cookie</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cookie</span><span class="p">));</span>
-    <span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">*</span> <span class="mi">8</span> <span class="o">!=</span> <span class="n">cookie</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">vulnerable_code</span><span class="p">();</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"></span>
+<span class="linenos"> 2</span><span class="p">{</span><span class="w"></span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w"></span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">cookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">random</span><span class="p">();</span><span class="w"></span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cookie</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">cookie</span><span class="p">));</span><span class="w"></span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">));</span><span class="w"></span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cookie</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos"> 8</span><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="linenos">10</span><span class="w">    </span><span class="n">vulnerable_code</span><span class="p">();</span><span class="w"></span>
+<span class="linenos">11</span><span class="p">}</span><span class="w"></span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>A valid PoV would look something like this:</p>
-<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7
-8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">correct_pov</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">data0</span><span class="p">;</span>
-  <span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data0</span><span class="p">));</span>
-  <span class="kt">int</span> <span class="n">data1</span> <span class="o">=</span> <span class="n">data0</span> <span class="o">/</span> <span class="mi">8</span><span class="p">;</span>
-  <span class="c1">// Transmit the previously received data</span>
-  <span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data1</span><span class="p">));</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kt">void</span><span class="w"> </span><span class="nf">correct_pov</span><span class="p">()</span><span class="w"></span>
+<span class="linenos">2</span><span class="p">{</span><span class="w"></span>
+<span class="linenos">3</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">data0</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">4</span><span class="w">  </span><span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data0</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">5</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">data1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">6</span><span class="w">  </span><span class="c1">// Transmit the previously received data</span>
+<span class="linenos">7</span><span class="w">  </span><span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data1</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">8</span><span class="p">}</span><span class="w"></span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Generating a valid PoV in the general case where computations on transmitted data are involved requires embedding a
 constraint solver directly inside the PoV itself. The PoV would have to solve the equation (<code class="docutils literal notranslate"><span class="pre">date</span> <span class="pre">*</span> <span class="pre">8</span> <span class="pre">==</span> <span class="pre">cookie</span></code>) in
 order to exploit the binary. For some simple cases like here, it may be possible to invert the equation, though in
 general, conditions are of the form <code class="docutils literal notranslate"><span class="pre">f(x,y,...)=0</span></code>, making this task practically impossible without running the actual
 solver. The following snippet shows how would an automatically generated PoV with an embedded solver look like.</p>
-<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">correct_pov_with_solver</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">data0</span><span class="p">,</span> <span class="n">data1</span><span class="p">;</span>
-  <span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data0</span><span class="p">));</span>
-  <span class="c1">// pseudo code that takes data0 as input and computes data1</span>
-  <span class="n">solve</span><span class="p">(</span><span class="s">&quot;%s * 8 == %s&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">data0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">data1</span><span class="p">);</span>
-  <span class="c1">// Transmit the previously received data</span>
-  <span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data1</span><span class="p">));</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kt">void</span><span class="w"> </span><span class="nf">correct_pov_with_solver</span><span class="p">()</span><span class="w"></span>
+<span class="linenos">2</span><span class="p">{</span><span class="w"></span>
+<span class="linenos">3</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">data0</span><span class="p">,</span><span class="w"> </span><span class="n">data1</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">4</span><span class="w">  </span><span class="n">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data0</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">5</span><span class="w">  </span><span class="c1">// pseudo code that takes data0 as input and computes data1</span>
+<span class="linenos">6</span><span class="w">  </span><span class="n">solve</span><span class="p">(</span><span class="s">&quot;%s * 8 == %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data1</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">7</span><span class="w">  </span><span class="c1">// Transmit the previously received data</span>
+<span class="linenos">8</span><span class="w">  </span><span class="n">transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data1</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">9</span><span class="p">}</span><span class="w"></span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Unfortunately, we ran out of time and didn’t have time to implement this solution. The main challenge was to fit an
 entire solver within the size and memory limits of a PoV, as well as modifying the solver to accommodate a very
 restricted runtime environment, that has primitive memory allocation, no standard library, etc.</p>
-</div>
-<div class="section" id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline"></a></h2>
 <p>In this tutorial, you have learnt the theory behind automated PoV generation as well as various practical
 issues that arise when building a robust PoV generator. Now it is a good time to get your hands dirty
 by actually <a class="reference external" href="index.html">generating</a> PoVs for a few vulnerable binaries.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="index.html" class="btn btn-neutral float-right" title="Using S2E to generate PoVs for Linux, Windows, and CGC binaries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../BasicLinuxSymbex/SourceCode.html" class="btn btn-neutral float-left" title="Instrumenting Program Source Code for S2E" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../BasicLinuxSymbex/SourceCode.html" class="btn btn-neutral float-left" title="Instrumenting Program Source Code for S2E" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-right" title="Using S2E to generate PoVs for Linux, Windows, and CGC binaries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2018-2020, Cyberhaven
-
-    </p>
+    <p>&#169; Copyright 2018-2020, Cyberhaven.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-
-  
-  
-    
-  
  
 <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
