@@ -7,6 +7,11 @@ title: Releases
 
 You can find the latest stable version of S2E on master. We compile here from time to time a list of important updates.
 
+### 24 July 2022
+ * Added support for Ubuntu 22.04 and Debian 11.3 guest images.
+ * Removed support for Debian 9 images.
+ * Replaced ``s2eget`` and ``s2eput`` with ``s2ecmd get|put``.
+
 ### 03 May 2022
  * Upgraded the symbolic execution engine to LLVM 14.
  * Added support for Debian 11 and Ubuntu 22.04 LTS.
