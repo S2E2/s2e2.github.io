@@ -7,16 +7,16 @@ title: Releases
 
 You can find the latest stable version of S2E on master. We compile here from time to time a list of important updates.
 
-### 24 July 2022
+### 2022-07-24
  * Added support for Ubuntu 22.04 and Debian 11.3 guest images.
  * Removed support for Debian 9 images.
  * Replaced ``s2eget`` and ``s2eput`` with ``s2ecmd get|put``.
 
-### 03 May 2022
+### 2022-05-03
  * Upgraded the symbolic execution engine to LLVM 14.
  * Added support for Debian 11 and Ubuntu 22.04 LTS.
 
-### 14 Feb 2021
+### 2021-02-14
  * Added control flow integrity checker with Microsoft Office support.
  * ``UserSpaceTracer`` plugin supports per-thread tracing.
  * Added the ``Tickler`` plugin and the corresponding Windows guest tool in order to automatically
@@ -24,7 +24,7 @@ You can find the latest stable version of S2E on master. We compile here from ti
  * Added the ``Screenshot`` plugin in order to record screenshots of the guest.
  * Added a command to ``s2e-env`` to automatically generate S2E plugin boilerplate.
 
-### 16 June 2020
+### 2020-06-16
  * Added support for Microsoft Office 2010, 2013, 2016, 2019.
  * Added tutorial about symbolic execution of VBA macros.
  * Improved image building makefile to make it easier to add support for other Windows apps.
@@ -32,25 +32,25 @@ You can find the latest stable version of S2E on master. We compile here from ti
  * Added ``libs2e.dll`` to make it easier to call S2E APIs from other programs.
  * Removed Windows 8.1 and 10 1703 images.
 
-### 01 May 2020
+### 2020-05-01
 
  * Upgraded to LLVM 10.0.0.
  * Added support for Ubuntu 20.04 LTS.
  * Updated the Windows 10 image to 1909.
  * Applied latest patches to Windows XP and 7 images (up to 2016 and 2020 respectively).
 
-### 17 Feb 2020
+### 2020-02-17
  * Switched the S2E engine [license](https://github.com/S2E/s2e/blob/master/LICENSE) to MIT
  * Upgraded [s2e-env](https://github.com/s2e/s2e-env) to Python 3
 
-### 03 Feb 2020
+### 2020-02-03
 
  * Upgraded to LLVM 9.0.0 from 3.9.1.
  * S2E now compiles with Clang 9.0.
  * Consolidated the 14 repositories that composed ``libs2e`` into a [monorepo](https://github.com/s2e/s2e).
    The old repositories will be deleted after Feb 14.
 
-### 07 Dec 2019
+### 2019-12-07
 
  * Upgraded the code generation backend (TCG, Tiny Code Generator) from version 1.0 to 4.0.
    This is a prerequisite for upgrading the x86 translator to support new instruction sets.
@@ -67,7 +67,7 @@ You can find the latest stable version of S2E on master. We compile here from ti
    from Ubuntu 16.04 to 18.04.
  * Ubuntu 16.04 is not supported anymore due to `glib` package issues.
 
-### 29 May 2019
+### 2019-05-29
 
  * Support for symbolic FP/MMX/SSE registers on x86 guests. You can now run programs that use these registers
    without forcing concretizations when symbolic data enters them. Big thanks to [@humeafo](https://github.com/humeafo)
@@ -83,7 +83,7 @@ You can find the latest stable version of S2E on master. We compile here from ti
    [Alan Wang](https://www.linkedin.com/in/zhongjie-wang-09001922/)).
  * Many other bug fixes and improvements both in the code and the documentation.
 
-### 14 Jan 2019
+### 2019-01-14
 
  * QEMU 3.0 support
  * Windows 7 32-bit guest support
@@ -99,7 +99,7 @@ You can find the latest stable version of S2E on master. We compile here from ti
     * Setting up Windows development environment
  * Various engine fixes and refactorings
 
-### 16 Oct 2017 - S²E V2.0
+### 2017-10-16 - S2E V2.0
 
  * Rearchitected version of S²E, decoupled from QEMU
  * KVM-compatible interface
@@ -151,18 +151,18 @@ You can find the latest stable version of S2E on master. We compile here from ti
 
 The following releases are archived.
 
-### 05 Dec 2013 - S²E V1.3
+### 2013-12-05 - S2E V1.3
 
   * x86-64 guests support, LLVM 3.2
 
-### 27 Apr 2012 - S²E V1.2
+### 2012-04-27 - S²E V1.2
 
   * QEMU 1.0, LLVM 3.0, Clang
   * S²E now includes the latest features of QEMU and uses a modern toolchain
   * Concolic Execution
   * Reuse your existing testsuites to easily reach deep parts of programs under analysis
 
-### 10 Sep 2011 - S²E V1.1
+### 2011-09-10 - S²E V1.1
 
   * Experimental ARM support
   * Analyze embedded applications
