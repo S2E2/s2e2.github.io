@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FunctionModels &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="functionmodels">
+  <div class="section" id="functionmodels">
 <h1>FunctionModels<a class="headerlink" href="#functionmodels" title="Permalink to this headline"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">FunctionModels</span></code> plugin can be used to reduce <a class="reference external" href="https://en.wikipedia.org/wiki/Symbolic_execution#Path_Explosion">path explosion</a>. It works by replacing typical libc functions with
 a symbolic expression that represents that function’s return value. The <code class="docutils literal notranslate"><span class="pre">FunctionModels</span></code> plugin currently supports
@@ -439,11 +438,11 @@ the following libc functions:</p>
 </ul>
 <p>For example, <code class="docutils literal notranslate"><span class="pre">strlen</span></code> is typically implemented as follows:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Adapted from  µlibc</span>
-<span class="kt">size_t</span><span class="w"> </span><span class="nf">strlen</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">;</span><span class="w"> </span><span class="n">p</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="kt">size_t</span> <span class="nf">strlen</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span> <span class="n">p</span><span class="o">++</span><span class="p">)</span> <span class="p">;</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+    <span class="k">return</span> <span class="n">p</span> <span class="o">-</span> <span class="n">s</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>If the input string <code class="docutils literal notranslate"><span class="pre">s</span></code> is symbolic, each iteration of the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop will result in a state fork. This will
@@ -463,18 +462,18 @@ target program being dynamically linked, so <strong>you cannot use function mode
 load <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> in your <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> script. If you are using <a class="reference external" href="../../s2e-env.html">s2e-env</a> you will be informed
 at project creation time whether you can use the <code class="docutils literal notranslate"><span class="pre">FunctionModels</span></code> plugin. Note however that by default <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>
 will <strong>not</strong> automatically enable the <code class="docutils literal notranslate"><span class="pre">FunctionModels</span></code> plugin.</p>
-<section id="testing">
+<div class="section" id="testing">
 <h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline"></a></h2>
 <p>There is a test suite suite available in <code class="docutils literal notranslate"><span class="pre">guest/linux/function_models/models_test.c</span></code>. This test suite is compiled
 along with the guest tools and placed in <code class="docutils literal notranslate"><span class="pre">$S2EDIR/build-s2e/guest-tools{32,64}/linux/function_models</span></code>. It can be
 used with the <code class="docutils literal notranslate"><span class="pre">s2e-env</span> <span class="pre">new_project</span></code> command to run in a guest virtual machine. You should see the “Good Model”
 message in S2E’s debug output.</p>
-</section>
-<section id="options">
+</div>
+<div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline"></a></h2>
 <p>This plugin does not have any options.</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Creating analysis projects with s2e-env &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="creating-analysis-projects-with-s2e-env">
+  <div class="section" id="creating-analysis-projects-with-s2e-env">
 <h1><a class="toc-backref" href="#id1">Creating analysis projects with <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code></a><a class="headerlink" href="#creating-analysis-projects-with-s2e-env" title="Permalink to this headline"></a></h1>
 <p>S2E is a powerful platform that can analyze software at any level of the software stack. This flexibility requires
 quite a bit of configuration. Most of it is boilerplate that can be automatically generated based on the type of
@@ -467,7 +466,7 @@ Earlier versions may still work, but we do not support them anymore.</p>
 </li>
 </ul>
 </div>
-<section id="installing-s2e-env">
+<div class="section" id="installing-s2e-env">
 <h2><a class="toc-backref" href="#id2">Installing s2e-env</a><a class="headerlink" href="#installing-s2e-env" title="Permalink to this headline"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> can be obtained and built from GitHub using the following commands:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt-get install git gcc python3 python3-dev python3-venv</span>
@@ -479,23 +478,23 @@ Earlier versions may still work, but we do not support them anymore.</p>
 <span class="go">. venv/bin/activate</span>
 <span class="go">pip install --upgrade pip</span>
 
-<span class="gp"># </span>By default, s2e-env uses https to clone repositories.
-<span class="gp"># </span>If you want ssh, please edit s2e_env/dat/config.yaml before running pip install.
-<span class="gp"># </span>If your key is password-protected, use ssh-agent.
+<span class="gp">#</span> By default, s2e-env uses https to clone repositories.
+<span class="gp">#</span> If you want ssh, please edit s2e_env/dat/config.yaml before running pip install.
+<span class="gp">#</span> If your key is password-protected, use ssh-agent.
 <span class="go">pip install .</span>
 
-<span class="gp"># </span>Note: <span class="k">if</span> your pip version is earlier than v19, use the following command:
+<span class="gp">#</span> Note: <span class="k">if</span> your pip version is earlier than v19, use the following command:
 <span class="go">pip install --process-dependency-links .</span>
 </pre></div>
 </div>
-</section>
-<section id="using-s2e-env">
+</div>
+<div class="section" id="using-s2e-env">
 <h2><a class="toc-backref" href="#id3">Using s2e-env</a><a class="headerlink" href="#using-s2e-env" title="Permalink to this headline"></a></h2>
 <p>General instructions for using <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> can be found in its <a class="reference external" href="https://github.com/s2e/s2e-env/blob/master/README.md">README</a>. Help for each command is available by running:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e &lt;subcommand&gt; --help</span>
 </pre></div>
 </div>
-<section id="creating-a-new-environment">
+<div class="section" id="creating-a-new-environment">
 <h3><a class="toc-backref" href="#id4">Creating a new environment</a><a class="headerlink" href="#creating-a-new-environment" title="Permalink to this headline"></a></h3>
 <p>An S2E environment consists of the S2E engine and associated tools, one or more virtual machine images and one or more
 analysis targets, known as “projects”.</p>
@@ -506,7 +505,7 @@ analysis targets, known as “projects”.</p>
 <p>This will fetch the required source code, install S2E’s dependencies (via apt) and create the directory structure
 described <a class="reference external" href="https://github.com/s2e/s2e-env/blob/master/README.md">here</a>. If you want to skip the dependency
 installation step (e.g. if you have already installed the dependencies) use the <code class="docutils literal notranslate"><span class="pre">--skip-dependencies</span></code> flag.</p>
-<section id="s2e-activate">
+<div class="section" id="s2e-activate">
 <h4><a class="toc-backref" href="#id5"><code class="docutils literal notranslate"><span class="pre">s2e_activate</span></code></a><a class="headerlink" href="#s2e-activate" title="Permalink to this headline"></a></h4>
 <p>By default, all other <code class="docutils literal notranslate"><span class="pre">s2e</span></code> subcommands only work when executed in the root directory of your environment. However,
 you can change this behaviour by sourcing <code class="docutils literal notranslate"><span class="pre">s2e_activate</span></code> in the root directory of your environment. Sourcing
@@ -518,9 +517,9 @@ command available, which unsets the S2E environment variables.</p>
 <p>The remainder of this document assumes that you have activated your S2E environment, and so all <code class="docutils literal notranslate"><span class="pre">s2e</span></code> subcommands
 will operate in this environment.</p>
 </div>
-</section>
-</section>
-<section id="building-s2e">
+</div>
+</div>
+<div class="section" id="building-s2e">
 <h3><a class="toc-backref" href="#id6">Building S2E</a><a class="headerlink" href="#building-s2e" title="Permalink to this headline"></a></h3>
 <p>Building S2E is simple. Simply run:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e build</span>
@@ -534,8 +533,8 @@ particular component (after the initial build), we must use the following flag:<
 </pre></div>
 </div>
 <p>This will force the rebuild of the libs2e and QEMU components.</p>
-</section>
-<section id="updating-the-source-code">
+</div>
+<div class="section" id="updating-the-source-code">
 <h3><a class="toc-backref" href="#id7">Updating the source code</a><a class="headerlink" href="#updating-the-source-code" title="Permalink to this headline"></a></h3>
 <p>To update the source code under <code class="docutils literal notranslate"><span class="pre">source</span></code>, run:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e update</span>
@@ -543,16 +542,16 @@ particular component (after the initial build), we must use the following flag:<
 </div>
 <p>This essentially acts as a wrapper around Google’s <a class="reference external" href="https://code.google.com/p/git-repo/">Repo</a> tool, which is used to
 manage the core S2E code.</p>
-</section>
-<section id="building-an-image">
+</div>
+<div class="section" id="building-an-image">
 <h3><a class="toc-backref" href="#id8">Building an image</a><a class="headerlink" href="#building-an-image" title="Permalink to this headline"></a></h3>
 <p>You will need a virtual machine image to run your analysis target in. To see what images are available to build, run:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e image_build</span>
 </pre></div>
 </div>
-<p>This will list an image template name and a description of that image. For example, to build a Linux Debian 9.2.1 i386
+<p>This will list an image template name and a description of that image. For example, to build a Linux Debian 11.3 i386
 image run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e image_build debian-9.2.1-i386</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e image_build debian-11.3-i386</span>
 </pre></div>
 </div>
 <p>This will:</p>
@@ -580,7 +579,7 @@ option.</p>
 </ul>
 <p><strong>NOTE</strong>: The image build process caches intermediate build output in <code class="docutils literal notranslate"><span class="pre">.tmp-output</span></code> that can grow quite large. Once
 the images have been built you may wish to delete this directory if disk space is an issue.</p>
-<section id="windows-images">
+<div class="section" id="windows-images">
 <h4><a class="toc-backref" href="#id9">Windows images</a><a class="headerlink" href="#windows-images" title="Permalink to this headline"></a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> can also be used to build Windows images. The supported Windows versions can be found
 <a class="reference external" href="https://github.com/S2E/guest-images/blob/master/images.json">here</a>. The <code class="docutils literal notranslate"><span class="pre">--iso-dir</span></code> option <strong>must</strong> be
@@ -593,19 +592,32 @@ be used to build a Windows 7, SP1 image:</p>
 <p>Where <code class="docutils literal notranslate"><span class="pre">/path/to/isos</span></code> is a directory containing <code class="docutils literal notranslate"><span class="pre">en_windows_7_enterprise_with_sp1_x64_dvd_u_677651.so</span></code>.</p>
 <p>The ISOs listed in <code class="docutils literal notranslate"><span class="pre">images.json</span></code> are available from <a class="reference external" href="https://msdn.microsoft.com/">MSDN</a>. <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">image_build</span>
 <span class="pre">--iso-dir</span> <span class="pre">/path/to/isos</span> <span class="pre">windows</span></code> can be used to build all Windows images.</p>
-</section>
-</section>
-<section id="creating-a-new-analysis-project">
+</div>
+</div>
+<div class="section" id="creating-a-new-analysis-project">
 <h3><a class="toc-backref" href="#id10">Creating a new analysis project</a><a class="headerlink" href="#creating-a-new-analysis-project" title="Permalink to this headline"></a></h3>
 <p>Now that you have a virtual machine image that you can use to analyze programs in, you will need to create a “project”
 to analyze your target program. To create such a project, run:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e new_project --image &lt;image_name&gt; /path/to/target/binary [target_args...]</span>
 </pre></div>
 </div>
-<p>This will create a new project under the <code class="docutils literal notranslate"><span class="pre">projects</span></code> directory. When you run the analysis the virtual machine image
-that you specified with the <code class="docutils literal notranslate"><span class="pre">--image</span></code> option will be used. The target binary will be inspected so that the
-appropriate configuration files and launch scripts are generated. By default <code class="docutils literal notranslate"><span class="pre">new_project</span></code> will create the following
-files and directories:</p>
+<p>This will create a new project under the <code class="docutils literal notranslate"><span class="pre">projects</span></code> directory. When you run the analysis, the virtual machine image
+that you specified with the <code class="docutils literal notranslate"><span class="pre">--image</span></code> option will be used. You may omit this option to let <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">new_project</span></code>
+autodetect an appropriate guest image.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If your host runs Ubuntu 22.04, dynamically linked binaries that you build on your host will not run
+on Debian images that currently ship with S2E. The libc that ships with Ubuntu 22.04 is incompatible
+with previous versions of the distribution. You have the following options:</p>
+<ol class="arabic simple">
+<li><p>Use the Ubuntu 22.04 guest image. Only a 64-bit image is available as Ubuntu no longer provides 32-bit images.</p></li>
+<li><p>Build your binaries in a Docker environment that matches the guest.</p></li>
+<li><p>Link your binaries statically. You will not be able to use <a class="reference external" href="Tutorials/BasicLinuxSymbex/s2e.so.html">s2e.so</a>.</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">new_project</span></code> will pick the optimal guest for your host and will warn you if you specify
+the wrong one.</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">new_project</span></code> inspects the target binary in order to create the appropriate configuration files and launch scripts:</p>
 <dl class="simple">
 <dt>bootstrap.sh</dt><dd><p>S2E downloads this file from the host into the guest, then executes it. This file contains instructions on how
 to start the program, where to inject symbolic arguments, etc. When <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> creates a VM image, it configures
@@ -638,8 +650,8 @@ arguments are defined in <a class="reference external" href="https://github.com/
 the symranges files allow you to specify which parts of the files to make symbolic.</p>
 </dd>
 </dl>
-</section>
-<section id="target-program-arguments">
+</div>
+<div class="section" id="target-program-arguments">
 <h3><a class="toc-backref" href="#id11">Target program arguments</a><a class="headerlink" href="#target-program-arguments" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">new_project</span></code> command also allows the user to specify any command line arguments they may wish to run their
 program with. These are specified as if the user was running the program normally.</p>
@@ -655,8 +667,8 @@ appropriate bootstrap script that creates this symbolic file and substitutes it 
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e new_project --image &lt;image_name&gt; /bin/cat @@</span>
 </pre></div>
 </div>
-</section>
-<section id="using-seed-files">
+</div>
+<div class="section" id="using-seed-files">
 <h3><a class="toc-backref" href="#id12">Using seed files</a><a class="headerlink" href="#using-seed-files" title="Permalink to this headline"></a></h3>
 <p>Seed files (or test inputs) are concrete inputs for the target program. These files can be anything that the target
 program accepts (e.g. PNG files, documents, etc.). They can be obtained from a fuzzer, generated by hand, etc. These
@@ -672,8 +684,8 @@ it fetch seeds as they come. For further discussion on seed files please see the
 <p>This will create a symbolic link to <code class="docutils literal notranslate"><span class="pre">file.txt</span></code> in the project directory as well as a file called
 <code class="docutils literal notranslate"><span class="pre">file.txt.symranges</span></code>, in which you can specify which parts of the file to make symbolic. By default, the symranges
 file is empty and therefore the file is fully concrete. This mode is useful if you have only one seed file known in advance.</p>
-</section>
-<section id="running-your-analysis">
+</div>
+<div class="section" id="running-your-analysis">
 <h3><a class="toc-backref" href="#id13">Running your analysis</a><a class="headerlink" href="#running-your-analysis" title="Permalink to this headline"></a></h3>
 <p>You will need to <code class="docutils literal notranslate"><span class="pre">cd</span></code> into your project directory to run the analysis. While <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">new_project</span></code> does its best to
 create suitable configuration files, you should first examine these files and modify them as required. You may want to
@@ -681,8 +693,8 @@ add/remove plugins from <code class="docutils literal notranslate"><span class="
 the launch scripts.</p>
 <p>Some “real-world” examples of how to configure your project are presented in the next section.</p>
 <p>Once you have finalized your configuration files and launch scripts, run <code class="docutils literal notranslate"><span class="pre">launch-s2e.sh</span></code> to begin the analysis.</p>
-</section>
-<section id="parsing-an-execution-trace">
+</div>
+<div class="section" id="parsing-an-execution-trace">
 <h3><a class="toc-backref" href="#id14">Parsing an execution trace</a><a class="headerlink" href="#parsing-an-execution-trace" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">execution_trace</span></code> command can be used to parse one or more <code class="docutils literal notranslate"><span class="pre">ExecutionTracer.dat</span></code> files generated by S2E’s
 <a class="reference external" href="Howtos/ExecutionTracers.html">execution tracer</a> plugins.</p>
@@ -695,8 +707,8 @@ For example, to only output the execution trace for states 0 and 34, do:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e execution_trace -p 0 -p 34 my_project</span>
 </pre></div>
 </div>
-</section>
-<section id="importing-and-exporting-projects">
+</div>
+<div class="section" id="importing-and-exporting-projects">
 <h3><a class="toc-backref" href="#id15">Importing and exporting projects</a><a class="headerlink" href="#importing-and-exporting-projects" title="Permalink to this headline"></a></h3>
 <p>Projects can be exported and shared with others. The following command will export a project named my_project as a
 tar.xz archive.</p>
@@ -715,15 +727,15 @@ imported project must have a valid image with the details provided in the <code 
 <li><p>The guest-tools and guestfs directories are not exported. Instead symlinks to these directories are recreated on
 project import.</p></li>
 </ul>
-</section>
-</section>
-<section id="next-steps">
+</div>
+</div>
+<div class="section" id="next-steps">
 <h2><a class="toc-backref" href="#id16">Next steps</a><a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
 <p>Now that you know how to use <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>, why not start using it to analyze binaries from <a class="reference external" href="Tutorials/PoV/index.html">DARPA’s Cyber Grand
 Challenge</a>, programs from <a class="reference external" href="Howtos/Coverage/index.html">Coreutils</a>, or even your own
 programs!</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

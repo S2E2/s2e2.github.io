@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Copying files between the host and the guest &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,35 +419,35 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="copying-files-between-the-host-and-the-guest">
+  <div class="section" id="copying-files-between-the-host-and-the-guest">
 <h1>Copying files between the host and the guest<a class="headerlink" href="#copying-files-between-the-host-and-the-guest" title="Permalink to this headline"></a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">s2eget</span></code> and <code class="docutils literal notranslate"><span class="pre">s2eput</span></code> tools allow transfering files between the guest virtual machine and the host during
+<p>The <code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code> and <code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code> commands allow transfering files between the guest virtual machine and the host during
 symbolic execution even when there is no network available. If you use <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> and stock VM images, these two
 utilities are already included in the guest VM.</p>
-<section id="s2eget">
-<h2><code class="docutils literal notranslate"><span class="pre">s2eget</span></code><a class="headerlink" href="#s2eget" title="Permalink to this headline"></a></h2>
+<div class="section" id="s2ecmd-get">
+<h2><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code><a class="headerlink" href="#s2ecmd-get" title="Permalink to this headline"></a></h2>
 <p>In order to copy a file from the host to the guest VM, add the following command to the desired location in
 your <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./s2eget &lt;filename&gt;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./s2ecmd get &lt;filename&gt;</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span></code> specifies the file to copy from the host into the guest. Note that the filename argument to <code class="docutils literal notranslate"><span class="pre">s2eget</span></code>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span></code> specifies the file to copy from the host into the guest. Note that the filename argument to <code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code>
 must be specified relative to the <code class="docutils literal notranslate"><span class="pre">HostFiles</span></code> plugin base directory (see below).</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span></code> is an executable file that you want to run, you may use the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./s2eget &lt;filename&gt; &amp;&amp; chmod +x ./&lt;filename&gt; &amp;&amp; ./&lt;filename&gt;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./s2ecmd get &lt;filename&gt; &amp;&amp; chmod +x ./&lt;filename&gt; &amp;&amp; ./&lt;filename&gt;</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>To see a real example of how to use this command, have a look at the <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> file generated by <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>.
-This script already contains several invocations of <code class="docutils literal notranslate"><span class="pre">s2eget</span></code>, which copy the binary to analyze from the host to
+This script already contains several invocations of <code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code>, which copy the binary to analyze from the host to
 the guest VM, together with several other support files.</p>
 </div>
-</section>
-<section id="s2eput">
-<h2><code class="docutils literal notranslate"><span class="pre">s2eput</span></code><a class="headerlink" href="#s2eput" title="Permalink to this headline"></a></h2>
+</div>
+<div class="section" id="s2ecmd-put">
+<h2><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code><a class="headerlink" href="#s2ecmd-put" title="Permalink to this headline"></a></h2>
 <p>To copy a file <code class="docutils literal notranslate"><span class="pre">fileName</span></code> from the guest to the host, run the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./s2eput fileName</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./s2ecmd put fileName</span>
 </pre></div>
 </div>
 <p>This uploads <code class="docutils literal notranslate"><span class="pre">fileName</span></code> in the guest to the <code class="docutils literal notranslate"><span class="pre">s2e-last/outfiles</span></code> directory on the host. This is useful, e.g., if a
@@ -457,10 +456,10 @@ program that you are analyzing generates a core dump and you want to inspect it 
 <p class="admonition-title">Note</p>
 <p>The upload will fail if a file with the same name already exists in the outfiles directory.</p>
 </div>
-</section>
-<section id="setting-up-the-hostfiles-plugin">
+</div>
+<div class="section" id="setting-up-the-hostfiles-plugin">
 <h2>Setting up the HostFiles Plugin<a class="headerlink" href="#setting-up-the-hostfiles-plugin" title="Permalink to this headline"></a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">s2eget</span></code> and <code class="docutils literal notranslate"><span class="pre">s2eput</span></code> require configuring the <code class="docutils literal notranslate"><span class="pre">HostFiles</span></code> plugin in the S2E configuration file
+<p><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code> and <code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code> require configuring the <code class="docutils literal notranslate"><span class="pre">HostFiles</span></code> plugin in the S2E configuration file
 (<code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code>). The configuration looks as follows:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">plugins</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">...</span>
@@ -489,8 +488,8 @@ to access files that are stored outside of your project folder. Do not change th
 with the guest. The paths can be either absolute, relative, or empty. If an empty directory is specified the S2E output
 directory will be exported.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">pluginsConfig.HostFiles.allowWrite</span></code> must be set to <code class="docutils literal notranslate"><span class="pre">true</span></code> for allowing writes to the base directories.</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

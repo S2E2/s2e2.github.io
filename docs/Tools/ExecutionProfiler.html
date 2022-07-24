@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Execution Profiler &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -215,8 +214,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -418,28 +417,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="execution-profiler">
+  <div class="section" id="execution-profiler">
 <h1>Execution Profiler<a class="headerlink" href="#execution-profiler" title="Permalink to this headline"></a></h1>
 <p>The execution profiler tool outputs various metrics about the execution, like the number of executed instructions,
 page faults, TLB misses, cache profile, etc.</p>
-<section id="examples">
+<div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline"></a></h2>
-</section>
-<section id="required-plugins">
+</div>
+<div class="section" id="required-plugins">
 <h2>Required Plugins<a class="headerlink" href="#required-plugins" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ExecutionTracer</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">CacheSim</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">InstructionCounter</span></code></p></li>
 </ul>
-</section>
-<section id="optional-plugins">
+</div>
+<div class="section" id="optional-plugins">
 <h2>Optional Plugins<a class="headerlink" href="#optional-plugins" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ModuleTracer</span></code> (for debug information)</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

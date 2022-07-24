@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Measuring code coverage with S2E &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="measuring-code-coverage-with-s2e">
+  <div class="section" id="measuring-code-coverage-with-s2e">
 <h1><a class="toc-backref" href="#id6">Measuring code coverage with S2E</a><a class="headerlink" href="#measuring-code-coverage-with-s2e" title="Permalink to this headline"></a></h1>
 <p>In this tutorial, you will learn how to measure code coverage of binaries on various OSes with S2E.
 Here are some advantages of using S2E for that:</p>
@@ -470,13 +469,13 @@ Branch and function coverage is work in progress and are not supported yet.</p>
 </li>
 </ul>
 </div>
-<section id="line-coverage-for-linux-binaries">
+<div class="section" id="line-coverage-for-linux-binaries">
 <h2><a class="toc-backref" href="#id7">Line coverage for Linux binaries</a><a class="headerlink" href="#line-coverage-for-linux-binaries" title="Permalink to this headline"></a></h2>
 <p>We will use <a class="reference external" href="https://www.gnu.org/software/coreutils/coreutils.html">GNU Core Utilities</a> to illustrate how to get
 code coverage for Linux binaries. Coreutils are the basic file, shell and text
 manipulation utilities of the GNU operating system. This part of the tutorial walks you through the process of using
 S2E to analyze the <code class="docutils literal notranslate"><span class="pre">cat</span></code> program and generate basic block and line coverage information.</p>
-<section id="building-coreutils">
+<div class="section" id="building-coreutils">
 <h3><a class="toc-backref" href="#id8">Building Coreutils</a><a class="headerlink" href="#building-coreutils" title="Permalink to this headline"></a></h3>
 <p>The first step is to build the coreutils package. In this tutorial, we will use version <a class="reference external" href="https://ftp.gnu.org/gnu/coreutils/coreutils-8.26.tar.xz">8.26</a> . We will build a 32-bit version of Coreutils with debug
 symbols (so that we can generate line coverage).</p>
@@ -492,13 +491,13 @@ symbols (so that we can generate line coverage).</p>
 </pre></div>
 </div>
 <p>The coreutils programs will be available in <code class="docutils literal notranslate"><span class="pre">coreutils-8.26/build/bin</span></code>.</p>
-</section>
-<section id="running-coreutils-concretely-in-s2e">
+</div>
+<div class="section" id="running-coreutils-concretely-in-s2e">
 <h3><a class="toc-backref" href="#id9">Running Coreutils concretely in S2E</a><a class="headerlink" href="#running-coreutils-concretely-in-s2e" title="Permalink to this headline"></a></h3>
 <p>Run the following command in order to create a <code class="docutils literal notranslate"><span class="pre">cat</span></code> project. This will instruct S2E to run cat and display
 the contents of <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code>. For the sake of simplicity, no symbolic execution will occur here (as the file
 is concrete and we will not instruct S2E to make it symbolic).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e new_project --image debian-9.2.1-i386 /path/to/coreutils-8.26/build/bin/cat /etc/fstab</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e new_project --image debian-11.3-i386 /path/to/coreutils-8.26/build/bin/cat /etc/fstab</span>
 </pre></div>
 </div>
 <p>After creating the project, run S2E. This should take a few seconds and terminate.</p>
@@ -506,8 +505,8 @@ is concrete and we will not instruct S2E to make it symbolic).</p>
 <span class="go">./launch.s2e.sh</span>
 </pre></div>
 </div>
-</section>
-<section id="generating-line-coverage">
+</div>
+<div class="section" id="generating-line-coverage">
 <h3><a class="toc-backref" href="#id10">Generating line coverage</a><a class="headerlink" href="#generating-line-coverage" title="Permalink to this headline"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> generates line coverage information in the <a class="reference external" href="http://ltp.sourceforge.net/coverage/lcov.php">lcov</a> format.
 The following command will generate an HTML report.</p>
@@ -527,9 +526,9 @@ The following command will generate an HTML report.</p>
 <p>At the moment, S2E does not generate branch coverage or function coverage information, so these will be
 missing from the report.</p>
 </div>
-</section>
-</section>
-<section id="line-coverage-for-shared-libraries">
+</div>
+</div>
+<div class="section" id="line-coverage-for-shared-libraries">
 <h2><a class="toc-backref" href="#id11">Line coverage for shared libraries</a><a class="headerlink" href="#line-coverage-for-shared-libraries" title="Permalink to this headline"></a></h2>
 <p>By default, the S2E code coverage plugin only records coverage information for the main project binary. If the
 binary uses shared libraries, you need to add them manually as follows. In this example, open the <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code>
@@ -579,8 +578,8 @@ exit
 <p>After you have run the commands above, you should have the <code class="docutils literal notranslate"><span class="pre">glibc-2.24</span></code> folder in your project directory.
 Simply re-run the code coverage command above. You should now get the following report:</p>
 <a class="reference internal image-reference" href="../../_images/lcov-libc-sp1.png"><img alt="../../_images/lcov-libc-sp1.png" src="../../_images/lcov-libc-sp1.png" style="width: 640px;" /></a>
-</section>
-<section id="basic-block-coverage">
+</div>
+<div class="section" id="basic-block-coverage">
 <h2><a class="toc-backref" href="#id12">Basic block coverage</a><a class="headerlink" href="#basic-block-coverage" title="Permalink to this headline"></a></h2>
 <p>Sometimes, you do not have source code or debug information. In this case, you can use S2E to compute
 basic block coverage.</p>
@@ -633,8 +632,8 @@ which is shown below.</p>
 </div>
 </div>
 <p>Later we will show how you can use this basic block coverage together with your chosen disassembler.</p>
-</section>
-<section id="code-coverage-during-symbolic-execution">
+</div>
+<div class="section" id="code-coverage-during-symbolic-execution">
 <h2><a class="toc-backref" href="#id13">Code coverage during symbolic execution</a><a class="headerlink" href="#code-coverage-during-symbolic-execution" title="Permalink to this headline"></a></h2>
 <p>So far, we have seen how to get code coverage in concrete single-path executions. Everything works the same
 when symbolic execution is enabled. Each path will get its own coverage file and <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> will automatically
@@ -643,7 +642,7 @@ inputs and will measure the corresponding increase in coverage.</p>
 <p>First, create a new project called <code class="docutils literal notranslate"><span class="pre">cat-symb</span></code> as follows. This will re-generate a new configuration for <code class="docutils literal notranslate"><span class="pre">cat</span></code>
 with symbolic execution enabled. The project that you generated earlier in this tutorial is preserved in the <code class="docutils literal notranslate"><span class="pre">cat</span></code>
 folder.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e new_project -n cat-symb --image debian-9.2.1-i386 /path/to/coreutils-8.26/build/bin/cat -T @@</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e new_project -n cat-symb --image debian-11.3-i386 /path/to/coreutils-8.26/build/bin/cat -T @@</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">&#64;&#64;</span></code> symbol tells <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> to generate a bootstrap file that will run <code class="docutils literal notranslate"><span class="pre">cat</span></code> with a symbolic file as input.
@@ -659,8 +658,8 @@ more representative of using <code class="docutils literal notranslate"><span cl
 </div>
 <p>Then run S2E for a moment and terminate it.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd projects/cat-symb &amp;&amp; ./launch-s2e.sh</span>
-<span class="gp"># </span>...
-<span class="gp"># </span>Terminate S2E after a <span class="k">while</span>
+<span class="gp">#</span> ...
+<span class="gp">#</span> Terminate S2E after a <span class="k">while</span>
 <span class="go">killall -9 qemu-system-i386</span>
 </pre></div>
 </div>
@@ -694,8 +693,8 @@ Radare as follows:</p>
 <p>You will be prompted for the <code class="docutils literal notranslate"><span class="pre">basic_block_coverage.json</span></code> file generated by S2E. Enter the path to this file and the
 basic blocks executed by S2E will be annotated with a <code class="docutils literal notranslate"><span class="pre">Covered</span> <span class="pre">by</span> <span class="pre">S2E</span></code> comment. The image below illustrates this.</p>
 <a class="reference internal image-reference" href="../../_images/r2_cat_coverage.png"><img alt="../../_images/r2_cat_coverage.png" src="../../_images/r2_cat_coverage.png" style="width: 640px;" /></a>
-</section>
-<section id="how-does-s2e-record-and-compute-coverage">
+</div>
+<div class="section" id="how-does-s2e-record-and-compute-coverage">
 <h2><a class="toc-backref" href="#id14">How does S2E record and compute coverage?</a><a class="headerlink" href="#how-does-s2e-record-and-compute-coverage" title="Permalink to this headline"></a></h2>
 <p>In this section, we will take a step back and explain at a high level what components of S2E are involved to
 generate coverage. This is useful in case you would like to extend S2E to generate other types of coverage.</p>
@@ -741,8 +740,8 @@ instrumentation code. This code would then determine the <code class="docutils l
 coverage file. <code class="docutils literal notranslate"><span class="pre">source_pc</span></code> is the address of the current branch instruction and <code class="docutils literal notranslate"><span class="pre">target_pc</span></code> is already
 stored in the program counter register when the instrumentation runs.</p>
 </div>
-</section>
-<section id="line-coverage-for-the-linux-kernel">
+</div>
+<div class="section" id="line-coverage-for-the-linux-kernel">
 <h2><a class="toc-backref" href="#id15">Line coverage for the Linux kernel</a><a class="headerlink" href="#line-coverage-for-the-linux-kernel" title="Permalink to this headline"></a></h2>
 <p>The Linux kernel is just another module as far as S2E is concerned. Recording coverage for it works like for any
 other program.</p>
@@ -754,7 +753,7 @@ the Linux source on your system and the coverage report may be empty.</p>
 <ol class="arabic">
 <li><p>Create a new project or pick an existing one. The analysis target does not matter, so you may also create
 an empty project. In your S2E environment:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e new_project -n linux-kernel -i debian-9.2.1-x86_64 --no-target --type linux</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e new_project -n linux-kernel -i debian-11.3-x86_64 --no-target --type linux</span>
 </pre></div>
 </div>
 </li>
@@ -829,8 +828,8 @@ as short as possible (source files with no coverage will be omitted).</p>
 <a class="reference internal image-reference" href="../../_images/linux-cov.png"><img alt="../../_images/linux-cov.png" src="../../_images/linux-cov.png" style="width: 640px;" /></a>
 </li>
 </ol>
-</section>
-<section id="line-coverage-for-windows-binaries">
+</div>
+<div class="section" id="line-coverage-for-windows-binaries">
 <h2><a class="toc-backref" href="#id16">Line coverage for Windows binaries</a><a class="headerlink" href="#line-coverage-for-windows-binaries" title="Permalink to this headline"></a></h2>
 <p>Line coverage support for Windows binaries is currently in progress. There are two main cases:</p>
 <ol class="arabic">
@@ -846,8 +845,8 @@ that can be read by <code class="docutils literal notranslate"><span class="pre"
 shows in details how to obtain line coverage for Windows kernel binaries.</p>
 </li>
 </ol>
-</section>
-<section id="debugging-code-coverage">
+</div>
+<div class="section" id="debugging-code-coverage">
 <h2><a class="toc-backref" href="#id17">Debugging code coverage</a><a class="headerlink" href="#debugging-code-coverage" title="Permalink to this headline"></a></h2>
 <p>The typical symptom is that the coverage report is empty. Here is a checklist to help with debugging:</p>
 <ul>
@@ -879,16 +878,16 @@ an older version of <code class="docutils literal notranslate"><span class="pre"
 <p>The OS monitor plugin may not be able to find your binaries if these search paths are missing.</p>
 </li>
 <li><p>Check that your project directory contains a symlink to guestfs:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ls -l /home/user/s2e/env/projects/my_project
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ls -l /home/user/s2e/env/projects/my_project
 <span class="go">...</span>
-<span class="go">lrwxrwxrwx 1 user user      51 Apr  8 18:34 guestfs -&gt; /mnt/home3/guest-images/debian-9.2.1-x86_64/guestfs</span>
+<span class="go">lrwxrwxrwx 1 user user      51 Apr  8 18:34 guestfs -&gt; /mnt/home3/guest-images/debian-11.3-x86_64/guestfs</span>
 <span class="go">...</span>
 </pre></div>
 </div>
 </li>
 <li><p>Check that <code class="docutils literal notranslate"><span class="pre">projects/my_project/guestfs/vmlinux</span></code> is valid and contains line information (try <code class="docutils literal notranslate"><span class="pre">addr2line</span></code>)</p></li>
 <li><p>Check that you did not delete temporary image build files, in particular the Linux source code.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ls -l images/.tmp-output/linux-4.9.3-x86_64/linux-4.9.3/
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ls -l images/.tmp-output/linux-4.9.3-x86_64/linux-4.9.3/
 <span class="go">drwxrwxr-x  34 user user      4096 Apr 13 19:22 arch</span>
 <span class="go">drwxrwxr-x   3 user user      4096 Apr 13 19:14 block</span>
 <span class="go">drwxrwxr-x   2 user user      4096 Apr 13 19:12 certs</span>
@@ -900,8 +899,8 @@ an older version of <code class="docutils literal notranslate"><span class="pre"
 </div>
 </li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

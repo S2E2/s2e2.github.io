@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Customizing stock VM images &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="customizing-stock-vm-images">
+  <div class="section" id="customizing-stock-vm-images">
 <h1><a class="toc-backref" href="#id1">Customizing stock VM images</a><a class="headerlink" href="#customizing-stock-vm-images" title="Permalink to this headline"></a></h1>
 <p>This tutorial will give you an overview of the guest image building system provided with S2E so that you can start
 customizing the images for your own needs. You will learn the installation steps and how to customize them
@@ -446,7 +445,7 @@ image building scripts provided with S2E.</p>
 </li>
 </ul>
 </div>
-<section id="image-creation-overview">
+<div class="section" id="image-creation-overview">
 <h2><a class="toc-backref" href="#id2">Image creation overview</a><a class="headerlink" href="#image-creation-overview" title="Permalink to this headline"></a></h2>
 <p>Before you proceed further, read the following documents:</p>
 <ol class="arabic simple">
@@ -478,8 +477,8 @@ Snapshots are saved in a <code class="docutils literal notranslate"><span class=
 (i.e., use <code class="docutils literal notranslate"><span class="pre">cp</span> <span class="pre">-p</span></code>). If the timestamps do not match, the snapshots will fail to resume. This is a protection
 to avoid resuming snapshots in case the base image was modified.</p>
 </div>
-</section>
-<section id="building-linux-images">
+</div>
+<div class="section" id="building-linux-images">
 <h2><a class="toc-backref" href="#id3">Building Linux images</a><a class="headerlink" href="#building-linux-images" title="Permalink to this headline"></a></h2>
 <p>In this section, we briefly discuss how Linux images are built.</p>
 <p>S2E ships with custom Linux kernels, one vanilla and one customized for DARPA CGC binary analysis. The kernels are
@@ -492,14 +491,14 @@ on the host, then inject the <code class="docutils literal notranslate"><span cl
 segmentation faults, etc. S2E will still work and symbolic execution will still function, but you will have to do
 everything manually if <code class="docutils literal notranslate"><span class="pre">LinuxMonitor</span></code> is unavailable.</p>
 </div>
-</section>
-<section id="building-windows-images">
+</div>
+<div class="section" id="building-windows-images">
 <h2><a class="toc-backref" href="#id4">Building Windows images</a><a class="headerlink" href="#building-windows-images" title="Permalink to this headline"></a></h2>
 <p>This works exactly like for Linux images, except that there is no need to re-compile the Windows kernel.
 S2E ships with a custom Windows driver that exposes the kernel events to S2E plugins. This driver is available in
 the <a class="reference external" href="https://github.com/S2E/s2e/tree/master/guest/windows">guest tools</a> repository.</p>
-</section>
-<section id="when-should-i-install-my-software">
+</div>
+<div class="section" id="when-should-i-install-my-software">
 <h2><a class="toc-backref" href="#id5">When should I install my software?</a><a class="headerlink" href="#when-should-i-install-my-software" title="Permalink to this headline"></a></h2>
 <p>If you wish to install your own software, there are two ways to go about it:</p>
 <ol class="arabic">
@@ -509,12 +508,12 @@ various software, you can use that as an example. This method is preferred if yo
 change.</p>
 </li>
 <li><p>Installing every time you start S2E</p>
-<p>Modify <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code>, add <code class="docutils literal notranslate"><span class="pre">s2eget</span></code> to download and run your software. This method is preferred if you intend to
+<p>Modify <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code>, add <code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code> to download and run your software. This method is preferred if you intend to
 change your software very frequently. It adds start up overhead.</p>
 </li>
 </ol>
-</section>
-<section id="the-s2e-vm-image-format">
+</div>
+<div class="section" id="the-s2e-vm-image-format">
 <h2><a class="toc-backref" href="#id6">The S2E VM image format</a><a class="headerlink" href="#the-s2e-vm-image-format" title="Permalink to this headline"></a></h2>
 <p>Existing image formats are not suitable for multi-path execution, because they usually mutate internal bookkeeping
 structures on read operations. Worse, they may write these mutations back to the disk image file, causing VM image
@@ -527,8 +526,8 @@ Therefore, to convert from RAW to S2E, renaming the file is enough (a symlink is
 <p>The S2E image format stores snapshots in a separate file, suffixed by the name of the snapshot. For example, if the
 base image is called “my_image.raw.s2e”, the snapshot <code class="docutils literal notranslate"><span class="pre">ready</span></code> (as in <code class="docutils literal notranslate"><span class="pre">savevm</span> <span class="pre">ready</span></code>) will be saved in the file
 <code class="docutils literal notranslate"><span class="pre">my_image.raw.s2e.ready</span></code> in the same folder as <code class="docutils literal notranslate"><span class="pre">my_image.raw.s2e</span></code>.</p>
-</section>
-<section id="general-guidelines-for-vm-images">
+</div>
+<div class="section" id="general-guidelines-for-vm-images">
 <h2><a class="toc-backref" href="#id7">General guidelines for VM images</a><a class="headerlink" href="#general-guidelines-for-vm-images" title="Permalink to this headline"></a></h2>
 <p>When running in S2E mode, the image <strong>must</strong> be in S2E format. S2E does not support any other image format.</p>
 <p>Any x86 image that boots in vanilla QEMU will work in S2E. However, we enumerate a list of tips and optimizations that
@@ -550,8 +549,8 @@ force the concretization of all symbolic data.</p></li>
 <li><p>Disable unnecessary services to save memory and speed up the guest. Services like file sharing, printing, wireless
 network configuration, or firewall are useless unless you want to test them in S2E.</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

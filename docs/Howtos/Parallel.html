@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Parallel S2E &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="parallel-s2e">
+  <div class="section" id="parallel-s2e">
 <h1>Parallel S2E<a class="headerlink" href="#parallel-s2e" title="Permalink to this headline"></a></h1>
 <p>S2E can be run in multi-process (or <cite>parallel</cite>) mode in order to speed up path exploration. Each process is called a
 worker. Each worker periodically checks whether there are processor cores available, and if yes, forks itself. The child
@@ -428,7 +427,7 @@ worker inherits half of the states of the parent. Plugins may customize the stat
 <p>To enable parallel mode, open <code class="docutils literal notranslate"><span class="pre">launch-s2e.sh</span></code> and set the environment variable <code class="docutils literal notranslate"><span class="pre">S2E_MAX_PROCESSES=XX</span></code>, where <code class="docutils literal notranslate"><span class="pre">XX</span></code>
 is the maximum number of S2E instances you would like to have. Add the <code class="docutils literal notranslate"><span class="pre">-nographic</span></code> option as it is not possible to
 fork a new S2E window.</p>
-<section id="handling-execution-traces">
+<div class="section" id="handling-execution-traces">
 <h2>Handling execution traces<a class="headerlink" href="#handling-execution-traces" title="Permalink to this headline"></a></h2>
 <p>In parallel mode, S2E outputs traces in <code class="docutils literal notranslate"><span class="pre">s2e-last/XX</span></code> folders, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> is the sequence number of the
 S2E instance. S2E increments this number each time it launches a new instance. Note that instances can also terminate,
@@ -436,8 +435,8 @@ e.g., when they finish exploring their respective state subtree.</p>
 <p>Each trace file contains a subtree of the global execution tree. Therefore, analysis tools must process the traces in
 the relative order of their creation. The relative order is defined by the sequence number of the instance. The
 <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">execution_trace</span></code> tool takes care of putting the traces in the right order automatically.</p>
-</section>
-<section id="limitations">
+</div>
+<div class="section" id="limitations">
 <h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>S2E can only run on a shared-memory architecture. S2E cannot start on one machine and fork new instances on other
@@ -446,8 +445,8 @@ machines for now.</p></li>
 not be able to manipulate the console. To start the program that you want to symbolically execute in the guest, use
 the <a class="reference external" href="../MovingFiles.html">HostFiles</a> plugin or the <code class="docutils literal notranslate"><span class="pre">-vnc</span> <span class="pre">:1</span></code> option.</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

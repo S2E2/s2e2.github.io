@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profiling S2E &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,10 +419,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="profiling-s2e">
+  <div class="section" id="profiling-s2e">
 <h1>Profiling S2E<a class="headerlink" href="#profiling-s2e" title="Permalink to this headline"></a></h1>
 <p>This page explains how to profile memory and CPU performance.</p>
-<section id="profiling-memory-usage">
+<div class="section" id="profiling-memory-usage">
 <h2>Profiling memory usage<a class="headerlink" href="#profiling-memory-usage" title="Permalink to this headline"></a></h2>
 <p>We are going to use <a class="reference external" href="https://github.com/KDE/heaptrack">heaptrack</a>. Its main advantage over competing profilers
 is that it is possible to inject it in a running S2E process. Others require using <code class="docutils literal notranslate"><span class="pre">LD_PRELOAD</span></code>, which interferes
@@ -434,7 +433,7 @@ with <code class="docutils literal notranslate"><span class="pre">libs2e.so</spa
 <li><p>Inject <code class="docutils literal notranslate"><span class="pre">heaptrack</span></code> into the running S2E instance:</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ps aux <span class="p">|</span> grep qemu
-ubuntu    <span class="m">31044</span> <span class="m">96</span>.7  <span class="m">4</span>.7 <span class="m">3487216</span> <span class="m">1191460</span> pts/8 Sl   <span class="m">13</span>:54   <span class="m">0</span>:03 /home/ubuntu/s2e/env/install/bin/qemu-system-i386 -drive <span class="nv">file</span><span class="o">=</span>/home/ubuntu/s2e/env/images/debian-9.2.1-i386/image.raw.s2e,format<span class="o">=</span>s2e,cache<span class="o">=</span>writeback -k en-us -nographic -monitor null -m 256M -enable-kvm -serial file:serial.txt -net none -net nic,model<span class="o">=</span>e1000 -loadvm ready
+ubuntu    <span class="m">31044</span> <span class="m">96</span>.7  <span class="m">4</span>.7 <span class="m">3487216</span> <span class="m">1191460</span> pts/8 Sl   <span class="m">13</span>:54   <span class="m">0</span>:03 /home/ubuntu/s2e/env/install/bin/qemu-system-i386 -drive <span class="nv">file</span><span class="o">=</span>/home/ubuntu/s2e/env/images/debian-11.3-i386/image.raw.s2e,format<span class="o">=</span>s2e,cache<span class="o">=</span>writeback -k en-us -nographic -monitor null -m 256M -enable-kvm -serial file:serial.txt -net none -net nic,model<span class="o">=</span>e1000 -loadvm ready
 
 $ heaptrack -p <span class="m">31044</span>
 heaptrack output will be written to <span class="s2">&quot;/home/ubuntu/heaptrack/build/heaptrack.qemu-system-i38.31044.gz&quot;</span>
@@ -469,8 +468,8 @@ Heaptrack finished! Now run the following to investigate the data:
 </li>
 </ol>
 <img alt="../_images/heaptrack.png" src="../_images/heaptrack.png" />
-</section>
-<section id="profiling-cpu-performance">
+</div>
+<div class="section" id="profiling-cpu-performance">
 <h2>Profiling CPU performance<a class="headerlink" href="#profiling-cpu-performance" title="Permalink to this headline"></a></h2>
 <p>We are going to use <a class="reference external" href="https://github.com/KDAB/hotspot">hotspot</a>. It is a convenient GUI wrapper around the Linux
 <cite>perf</cite> tool.</p>
@@ -500,8 +499,8 @@ Heaptrack finished! Now run the following to investigate the data:
 <li><p>Stop recording and view results</p></li>
 </ol>
 <img alt="../_images/hotspot2.png" src="../_images/hotspot2.png" />
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>S2E Testsuite &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,13 +419,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="s2e-testsuite">
+  <div class="section" id="s2e-testsuite">
 <h1>S2E Testsuite<a class="headerlink" href="#s2e-testsuite" title="Permalink to this headline"></a></h1>
 <p>In this document, you will learn how to build and run the S2E testsuite. The testsuite is a collection of programs that
 help test various aspects of the S2E engine. It also serves as a reference for various S2E tutorials. A test is
 comprised of one or more program binaries, a script that sets up an S2E analysis project, runs it, and then checks that
 the results are correct.</p>
-<section id="building-the-testsuite">
+<div class="section" id="building-the-testsuite">
 <h2>Building the testsuite<a class="headerlink" href="#building-the-testsuite" title="Permalink to this headline"></a></h2>
 <p>Before proceeding, set up your S2E environment using <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>. Once it is up and running (i.e., you can create
 analysis projects and run them), you are ready to build and run the testsuite:</p>
@@ -458,8 +457,8 @@ server, you may skip the tests that require it as follows:</p>
 <p>Testsuite generation recreates test projects from scratch and overwrites previously generated tests. Avoid
 modifying generated tests directly and modify the testsuite source instead (see later for details).</p>
 </div>
-</section>
-<section id="running-the-testsuite">
+</div>
+<div class="section" id="running-the-testsuite">
 <h2>Running the testsuite<a class="headerlink" href="#running-the-testsuite" title="Permalink to this headline"></a></h2>
 <p>There are two ways to run the testsuite: using <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">testsuite</span> <span class="pre">run</span></code> or invoking the <code class="docutils literal notranslate"><span class="pre">run-tests</span></code> script.</p>
 <ol class="arabic">
@@ -492,8 +491,8 @@ For example, you can run the project with <code class="docutils literal notransl
 run S2E and will not check the output. Make sure to use <code class="docutils literal notranslate"><span class="pre">run-tests</span></code> or <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">testsuite</span> <span class="pre">run</span></code>
 instead.</p>
 </div>
-</section>
-<section id="adding-your-own-tests">
+</div>
+<div class="section" id="adding-your-own-tests">
 <h2>Adding your own tests<a class="headerlink" href="#adding-your-own-tests" title="Permalink to this headline"></a></h2>
 <p>The testsuite is located in the <a class="reference external" href="https://github.com/S2E/s2e/tree/master/testsuite">testsuite</a> repository.
 In order to add a test, follow these steps:</p>
@@ -521,8 +520,8 @@ to check the test results.</p>
 Just make sure that it checks for <code class="docutils literal notranslate"><span class="pre">S2EDIR</span></code>, sets the proper exit code on failure and creates
 the <code class="docutils literal notranslate"><span class="pre">status</span></code> file as appropriate.</p>
 </div>
-</section>
-<section id="test-configuration-reference">
+</div>
+<div class="section" id="test-configuration-reference">
 <h2>Test configuration reference<a class="headerlink" href="#test-configuration-reference" title="Permalink to this headline"></a></h2>
 <p>This section describes the contents of the <code class="docutils literal notranslate"><span class="pre">config.yml</span></code> file.</p>
 <ul>
@@ -549,8 +548,8 @@ generator creates a project for every usable image, unless it is blacklisted.</p
 <li><p><strong>blacklisted-images</strong>: list of images for which to not create tests.
 This is useful in case a binary is incompatible with a specific OS version.</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

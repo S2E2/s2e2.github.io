@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Using SystemTap with S2E &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="using-systemtap-with-s2e">
+  <div class="section" id="using-systemtap-with-s2e">
 <h1>Using SystemTap with S2E<a class="headerlink" href="#using-systemtap-with-s2e" title="Permalink to this headline"></a></h1>
 <p>SystemTap is a powerful tracing framework on Linux. It can intercept any function calls or instructions in the kernel
 and invoke custom scripts. Such scripts have full access to the system state, can leverage debugging information, etc.</p>
@@ -438,13 +437,13 @@ that can be achieved.</p>
 <li><p>How to use SystemTap</p></li>
 </ol>
 </div>
-<section id="building-and-running-systemtap-in-s2e">
+<div class="section" id="building-and-running-systemtap-in-s2e">
 <h2>Building and running SystemTap in S2E<a class="headerlink" href="#building-and-running-systemtap-in-s2e" title="Permalink to this headline"></a></h2>
 <p>Using SystemTap in S2E is very simple, the workflow looks like this:</p>
 <ol class="arabic simple">
 <li><p>Build the SystemTap probe on your host machine. This will produce a <code class="docutils literal notranslate"><span class="pre">.ko</span></code> file.
 You can conveniently do this from the provided Docker image (see below).</p></li>
-<li><p>Upload the <code class="docutils literal notranslate"><span class="pre">.ko</span></code> file from the host into the guest using <code class="docutils literal notranslate"><span class="pre">s2eget</span></code> in the <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> file.
+<li><p>Upload the <code class="docutils literal notranslate"><span class="pre">.ko</span></code> file from the host into the guest using <code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code> in the <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> file.
 It is best to store the <code class="docutils literal notranslate"><span class="pre">.ko</span></code> directly in the project directory.</p></li>
 </ol>
 <p>The S2E images built by <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> already have SystemTap pre-installed.
@@ -453,20 +452,20 @@ If you want to customize the installed version, have a look at the image install
 <p>You must build the Linux images from scratch in order to have the required Docker containers and kernel <code class="docutils literal notranslate"><span class="pre">*.deb</span></code>
 packages. If you downloaded pre-built images, delete them and rebuild them from scratch. This process will create
 two Docker images on your host: <code class="docutils literal notranslate"><span class="pre">linux-build-i386</span></code> and <code class="docutils literal notranslate"><span class="pre">linux-build-x86_64</span></code>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Create a new analysis project on your host. This tutorial assumes a <span class="m">32</span>-bit project. Adapt the <span class="nb">command</span> lines
-<span class="gp"># </span>accordingly <span class="k">if</span> you need <span class="m">64</span>-bit. The --no-target option instructs s2e to create a generic project structure
-<span class="gp"># </span>that does not target any particular binary. You will <span class="k">then</span> later customize the project manually <span class="k">in</span> order to
-<span class="gp"># </span>fetch the .ko file generated by SystemTap.
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> Create a new analysis project on your host. This tutorial assumes a <span class="m">32</span>-bit project. Adapt the <span class="nb">command</span> lines
+<span class="gp">#</span> accordingly <span class="k">if</span> you need <span class="m">64</span>-bit. The --no-target option instructs s2e to create a generic project structure
+<span class="gp">#</span> that does not target any particular binary. You will <span class="k">then</span> later customize the project manually in order to
+<span class="gp">#</span> fetch the .ko file generated by SystemTap.
 <span class="go">host   $ cd /home/user/s2e/env</span>
-<span class="go">host   $ s2e new_project -n systemtap -i debian-9.2.1-i386 --no-target --type linux</span>
+<span class="go">host   $ s2e new_project -n systemtap -i debian-11.3-i386 --no-target --type linux</span>
 
-<span class="gp"># </span>Start the docker container <span class="k">in</span> order to build the hello world SystemTap probe
+<span class="gp">#</span> Start the docker container in order to build the hello world SystemTap probe
 <span class="go">host   $ docker run --rm -ti -v $HOME:$HOME linux-build-i386</span>
 
-<span class="gp"># </span>Install the kernel packages <span class="k">in</span> the running container
+<span class="gp">#</span> Install the kernel packages in the running container
 <span class="go">docker # dpkg -i /home/user/s2e/env/images/.tmp-output/linux-4.9.3-i386/*.deb</span>
 
-<span class="gp"># </span>Compile the demo probe
+<span class="gp">#</span> Compile the demo probe
 <span class="go">docker # cd /home/user/s2e/env/projects/systemtap</span>
 <span class="go">docker # stap -a i386 -r 4.9.3-s2e  -e &#39;probe vfs.read { log(&quot;hello world&quot;) exit() }&#39; -m simple</span>
 </pre></div>
@@ -478,7 +477,7 @@ of using a Docker image on the host. However, doing so is significantly slower (
 </div>
 <p>At this point, you must have the <code class="docutils literal notranslate"><span class="pre">/home/user/s2e/env/projects/systemtap/simple.ko</span></code> file. Now it is time to update
 <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="si">${</span><span class="nv">S2EGET</span><span class="si">}</span> simple.ko
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="si">${</span><span class="nv">S2ECMD</span><span class="si">}</span> get simple.ko
 sudo staprun simple.ko
 </pre></div>
 </div>
@@ -495,8 +494,8 @@ Waiting for S2E mode...
 hello world
 </pre></div>
 </div>
-</section>
-<section id="creating-a-simple-systemtap-script-for-symbolic-execution">
+</div>
+<div class="section" id="creating-a-simple-systemtap-script-for-symbolic-execution">
 <h2>Creating a simple SystemTap script for symbolic execution<a class="headerlink" href="#creating-a-simple-systemtap-script-for-symbolic-execution" title="Permalink to this headline"></a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -587,16 +586,16 @@ probe module(&quot;pcnet32&quot;).function(&quot;pcnet32_start_xmit&quot;) {
 </div>
 <p>This will result in a module called <code class="docutils literal notranslate"><span class="pre">pcnet_probe.ko</span></code> that we will upload to the VM as explained earlier in this
 tutorial.</p>
-</section>
-<section id="running-the-script-in-s2e">
+</div>
+<div class="section" id="running-the-script-in-s2e">
 <h2>Running the script in S2E<a class="headerlink" href="#running-the-script-in-s2e" title="Permalink to this headline"></a></h2>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">staprun pcnet_probe.ko &amp;</span>
 </pre></div>
 </div>
 <p>This will load the probe into the kernel. Symbolic execution will start when the network card receives the first
 packet. To send a packet, use <code class="docutils literal notranslate"><span class="pre">netcat</span></code> (in the guest) to send a UDP packet:</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

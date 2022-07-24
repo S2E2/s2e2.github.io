@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Trace Printer &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -215,8 +214,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -418,13 +417,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="trace-printer">
+  <div class="section" id="trace-printer">
 <h1>Trace Printer<a class="headerlink" href="#trace-printer" title="Permalink to this headline"></a></h1>
 <p>The trace printer tool outputs for each specified path all the trace items that were collected in these states. Items
 include memory accesses, executed translation blocks, or test cases. This tool is useful to quickly observe the
 execution sequence that led to a particular event that caused a state to terminate. It can also be useful for
 debugging.</p>
-<section id="examples">
+<div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline"></a></h2>
 <p>A complete tutorial on how to generate and display a trace can be found <a class="reference external" href="../Howtos/ExecutionTracers.html">here</a>.</p>
 <p>Assuming you have obtained a trace in <code class="docutils literal notranslate"><span class="pre">ExecutionTracer.dat</span></code>, the following command outputs the translation block
@@ -436,8 +435,8 @@ the execution of each translation block (provided that <code class="docutils lit
     -outputdir<span class="o">=</span>s2e-last/traces -pathId<span class="o">=</span><span class="m">0</span> -pathId<span class="o">=</span><span class="m">34</span> -printMemory
 </pre></div>
 </div>
-</section>
-<section id="required-plugins">
+</div>
+<div class="section" id="required-plugins">
 <h2>Required Plugins<a class="headerlink" href="#required-plugins" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ModuleExecutionDetector</span></code> (only the translation blocks of those modules that are configured will be traced)</p></li>
@@ -445,16 +444,16 @@ the execution of each translation block (provided that <code class="docutils lit
 <li><p><code class="docutils literal notranslate"><span class="pre">TranslationBlockTracer</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ModuleTracer</span></code> (for module information)</p></li>
 </ul>
-</section>
-<section id="optional-plugins">
+</div>
+<div class="section" id="optional-plugins">
 <h2>Optional Plugins<a class="headerlink" href="#optional-plugins" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">TestCaseGenerator</span></code> (for test cases)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">MemoryTracer</span></code> (for memory traces)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">TranslationBlockTracer</span></code> (for executed translation blocks)</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

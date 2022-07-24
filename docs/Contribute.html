@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contributing to S2E &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="contributing-to-s2e">
+  <div class="section" id="contributing-to-s2e">
 <h1>Contributing to S2E<a class="headerlink" href="#contributing-to-s2e" title="Permalink to this headline"></a></h1>
 <p>S2E welcomes any contribution, such as fixing bugs, adding new functionality, documentation, code comments, etc. Below
 are some guidelines which help make code review easier.</p>
@@ -462,8 +461,8 @@ submit this as a separate patch which makes no semantic changes; don’t put it 
 <code class="docutils literal notranslate"><span class="pre">run-clang-format.sh</span></code>, that can be used to format the entire S2E source tree. Alternatively you may use the
 <code class="docutils literal notranslate"><span class="pre">.clang-format</span></code> file in the root of the repository. Note that Windows guest tools have their own code style.</p>
 <p>To check Python code, run the following <a class="reference external" href="https://www.pylint.org">pylint</a>-based script:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> <span class="nv">$S2EDIR</span>/s2e-env
-<span class="gp">$ </span>./test.sh
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> <span class="nv">$S2EDIR</span>/s2e-env
+<span class="gp">$</span> ./test.sh
 </pre></div>
 </div>
 <p>There must be no warnings / errors.</p>
@@ -521,7 +520,7 @@ Make sure to check out the correct branches.</p></li>
 </ol>
 </dd>
 </dl>
-</section>
+</div>
 
 
            </div>

@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FunctionMonitor &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="functionmonitor">
+  <div class="section" id="functionmonitor">
 <h1>FunctionMonitor<a class="headerlink" href="#functionmonitor" title="Permalink to this headline"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">FunctionMonitor</span></code> plugin notifies other plugins of function calls and returns.</p>
 <p>Suppose that you are writing a plugin that needs to monitor calls to a function that starts at address <code class="docutils literal notranslate"><span class="pre">0x400120</span></code> in a
@@ -438,36 +437,36 @@ this decision.</p></li>
 </ol>
 <p>The following part shows the code that implements the steps explained above.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// 1. Write a new analysis plugin (e.g., based on the Example plugin)</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">Example::initialize</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// 2. Get an instance of the FunctionMonitor plugin</span>
-<span class="w">    </span><span class="n">FunctionMonitor</span><span class="w"> </span><span class="o">*</span><span class="n">monitor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getPlugin</span><span class="o">&lt;</span><span class="n">FunctionMonitor</span><span class="o">&gt;</span><span class="p">();</span><span class="w"></span>
+<span class="kt">void</span> <span class="n">Example</span><span class="o">::</span><span class="n">initialize</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 2. Get an instance of the FunctionMonitor plugin</span>
+    <span class="n">FunctionMonitor</span> <span class="o">*</span><span class="n">monitor</span> <span class="o">=</span> <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getPlugin</span><span class="o">&lt;</span><span class="n">FunctionMonitor</span><span class="o">&gt;</span><span class="p">();</span>
 
-<span class="w">    </span><span class="c1">// 3. Get a notification when a function is called</span>
-<span class="w">    </span><span class="n">monitor</span><span class="o">-&gt;</span><span class="n">onCall</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">sigc</span><span class="o">::</span><span class="n">mem_fun</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Example</span><span class="o">::</span><span class="n">onCall</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+    <span class="c1">// 3. Get a notification when a function is called</span>
+    <span class="n">monitor</span><span class="o">-&gt;</span><span class="n">onCall</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">sigc</span><span class="o">::</span><span class="n">mem_fun</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Example</span><span class="o">::</span><span class="n">onCall</span><span class="p">));</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>To monitor the function located at <code class="docutils literal notranslate"><span class="pre">0x400120</span></code>, write the following handlers:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">Example::onCall</span><span class="p">(</span><span class="n">S2EExecutionState</span><span class="w"> </span><span class="o">*</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ModuleDescriptorConstPtr</span><span class="w"> </span><span class="o">&amp;</span><span class="n">source</span><span class="p">,</span><span class="w"></span>
-<span class="w">                     </span><span class="k">const</span><span class="w"> </span><span class="n">ModuleDescriptorConstPtr</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dest</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">callerPc</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">calleePc</span><span class="p">,</span><span class="w"></span>
-<span class="w">                     </span><span class="k">const</span><span class="w"> </span><span class="n">FunctionMonitor</span><span class="o">::</span><span class="n">ReturnSignalPtr</span><span class="w"> </span><span class="o">&amp;</span><span class="n">returnSignal</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Filter out functions we don&#39;t care about</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">regs</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getPc</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mh">0x400120</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">Example</span><span class="o">::</span><span class="n">onCall</span><span class="p">(</span><span class="n">S2EExecutionState</span> <span class="o">*</span><span class="n">state</span><span class="p">,</span> <span class="k">const</span> <span class="n">ModuleDescriptorConstPtr</span> <span class="o">&amp;</span><span class="n">source</span><span class="p">,</span>
+                     <span class="k">const</span> <span class="n">ModuleDescriptorConstPtr</span> <span class="o">&amp;</span><span class="n">dest</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">callerPc</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">calleePc</span><span class="p">,</span>
+                     <span class="k">const</span> <span class="n">FunctionMonitor</span><span class="o">::</span><span class="n">ReturnSignalPtr</span> <span class="o">&amp;</span><span class="n">returnSignal</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Filter out functions we don&#39;t care about</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">regs</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getPc</span><span class="p">()</span> <span class="o">!=</span> <span class="mh">0x400120</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// If you do not want to track returns, do not connect a return signal.</span>
-<span class="w">    </span><span class="c1">// Here, we pass the program counter to the return handler to identify the function</span>
-<span class="w">    </span><span class="c1">// from which execution returns.</span>
-<span class="w">    </span><span class="n">returnSignal</span><span class="o">-&gt;</span><span class="n">connect</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">sigc</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="n">sigc</span><span class="o">::</span><span class="n">mem_fun</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Example</span><span class="o">::</span><span class="n">onRet</span><span class="p">),</span><span class="w"> </span><span class="mh">0x400120</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+    <span class="c1">// If you do not want to track returns, do not connect a return signal.</span>
+    <span class="c1">// Here, we pass the program counter to the return handler to identify the function</span>
+    <span class="c1">// from which execution returns.</span>
+    <span class="n">returnSignal</span><span class="o">-&gt;</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">sigc</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="n">sigc</span><span class="o">::</span><span class="n">mem_fun</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Example</span><span class="o">::</span><span class="n">onRet</span><span class="p">),</span> <span class="mh">0x400120</span><span class="p">));</span>
+<span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">Example::onRet</span><span class="p">(</span><span class="n">S2EExecutionState</span><span class="w"> </span><span class="o">*</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ModuleDescriptorConstPtr</span><span class="w"> </span><span class="o">&amp;</span><span class="n">source</span><span class="p">,</span><span class="w"></span>
-<span class="w">                    </span><span class="k">const</span><span class="w"> </span><span class="n">ModuleDescriptorConstPtr</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dest</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">returnSite</span><span class="p">,</span><span class="w"></span>
-<span class="w">                    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">functionPc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">getDebugStream</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Execution returned from function &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">hexval</span><span class="p">(</span><span class="n">functionPc</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span> <span class="n">Example</span><span class="o">::</span><span class="n">onRet</span><span class="p">(</span><span class="n">S2EExecutionState</span> <span class="o">*</span><span class="n">state</span><span class="p">,</span> <span class="k">const</span> <span class="n">ModuleDescriptorConstPtr</span> <span class="o">&amp;</span><span class="n">source</span><span class="p">,</span>
+                    <span class="k">const</span> <span class="n">ModuleDescriptorConstPtr</span> <span class="o">&amp;</span><span class="n">dest</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">returnSite</span><span class="p">,</span>
+                    <span class="kt">uint64_t</span> <span class="n">functionPc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">getDebugStream</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Execution returned from function &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hexval</span><span class="p">(</span><span class="n">functionPc</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Call/return handlers are paired: whenever the return instruction is executed
@@ -479,7 +478,7 @@ and the stack pointer corresponds to the one at the call instruction, the return
 <p>You can also instrument functions from Lua code using the <code class="docutils literal notranslate"><span class="pre">LuaFunctionInstrumentation</span></code>
 <a class="reference external" href="../Howtos/LuaInstrumentation.html">plugin</a>.</p>
 </div>
-</section>
+</div>
 
 
            </div>

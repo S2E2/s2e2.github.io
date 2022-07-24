@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>How to Write an S2E plugin &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,13 +419,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="how-to-write-an-s2e-plugin">
+  <div class="section" id="how-to-write-an-s2e-plugin">
 <h1>How to Write an S2E plugin<a class="headerlink" href="#how-to-write-an-s2e-plugin" title="Permalink to this headline"></a></h1>
 <p>In this tutorial, we show step-by-step how to write a complete plugin that uses most of the features of the S2E plugin
 infrastructure. We take the example of a plugin that counts how many times a specific instruction has been executed.
 Users of that plugin can specify the instruction to watch in the S2E configuration file. We will also show how to build
 the plugin so that it can communicate with other plugins and expose reusable functionality.</p>
-<section id="starting-with-an-empty-plugin">
+<div class="section" id="starting-with-an-empty-plugin">
 <h2>Starting with an empty plugin<a class="headerlink" href="#starting-with-an-empty-plugin" title="Permalink to this headline"></a></h2>
 <p>In this tutorial, we will create a plugin that counts executed instructions.
 After setting up your S2E environment, run the following command:</p>
@@ -441,8 +440,8 @@ After setting up your S2E environment, run the following command:</p>
 <li><p>An entry in the makefile to build the plugin: <code class="docutils literal notranslate"><span class="pre">$S2EENV/source/s2e/libs2eplugins/src/CMakeLists.txt</span></code></p></li>
 </ul>
 </div></blockquote>
-</section>
-<section id="reading-configuration-parameters">
+</div>
+<div class="section" id="reading-configuration-parameters">
 <h2>Reading configuration parameters<a class="headerlink" href="#reading-configuration-parameters" title="Permalink to this headline"></a></h2>
 <p>To let users specify which instruction to monitor, the plugin needs a configuration variable that
 stores the address of that instruction. To create one, add the following to your <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code> file:</p>
@@ -455,15 +454,15 @@ stores the address of that instruction. To create one, add the following to your
 </div>
 <p>For now, this will do nothing. We need to instruct the plugin to read this configuration, e.g., during
 initialization. Open the plugin’s source file and add the following code to the <code class="docutils literal notranslate"><span class="pre">initialize</span></code> method:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">InstructionTracker::initialize</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">m_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint64_t</span><span class="p">)</span><span class="w"> </span><span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getConfig</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getInt</span><span class="p">(</span><span class="n">getConfigKey</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;.addressToTrack&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">initialize</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">m_address</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint64_t</span><span class="p">)</span> <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getConfig</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getInt</span><span class="p">(</span><span class="n">getConfigKey</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;.addressToTrack&quot;</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Do not forget to add <code class="docutils literal notranslate"><span class="pre">uint64_t</span> <span class="pre">m_address;</span></code> as a private members of class <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code> in
 <code class="docutils literal notranslate"><span class="pre">InstructionTracker.h</span></code>.</p>
-</section>
-<section id="instrumenting-instructions">
+</div>
+<div class="section" id="instrumenting-instructions">
 <h2>Instrumenting instructions<a class="headerlink" href="#instrumenting-instructions" title="Permalink to this headline"></a></h2>
 <p>To instrument an instruction, an S2E plugin registers to the <code class="docutils literal notranslate"><span class="pre">onTranslateInstructionStart</span></code> core event. There are
 many other core events to which a plugin can register. These events are defined in <code class="docutils literal notranslate"><span class="pre">CorePlugin.h</span></code> in the
@@ -471,35 +470,35 @@ many other core events to which a plugin can register. These events are defined 
 <p>Extend your code as follows. Do not forget to add all new member functions to the (private) section of the class
 declaration.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// From libs2ecore. Provides the hexval function</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;s2e/Utils.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;s2e/Utils.h&gt;</span><span class="cp"></span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">InstructionTracker::initialize</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">m_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint64_t</span><span class="p">)</span><span class="w"> </span><span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getConfig</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getInt</span><span class="p">(</span><span class="n">getConfigKey</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;.addressToTrack&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">initialize</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">m_address</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint64_t</span><span class="p">)</span> <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getConfig</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getInt</span><span class="p">(</span><span class="n">getConfigKey</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;.addressToTrack&quot;</span><span class="p">);</span>
 
-<span class="w">    </span><span class="c1">// This indicates that our plugin is interested in monitoring instruction translation.</span>
-<span class="w">    </span><span class="c1">// For this, the plugin registers a callback with the onTranslateInstruction signal.</span>
-<span class="w">    </span><span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getCorePlugin</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">onTranslateInstructionStart</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">sigc</span><span class="o">::</span><span class="n">mem_fun</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InstructionTracker</span><span class="o">::</span><span class="n">onTranslateInstruction</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+    <span class="c1">// This indicates that our plugin is interested in monitoring instruction translation.</span>
+    <span class="c1">// For this, the plugin registers a callback with the onTranslateInstruction signal.</span>
+    <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getCorePlugin</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">onTranslateInstructionStart</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">sigc</span><span class="o">::</span><span class="n">mem_fun</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">InstructionTracker</span><span class="o">::</span><span class="n">onTranslateInstruction</span><span class="p">));</span>
+<span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">InstructionTracker::onTranslateInstruction</span><span class="p">(</span><span class="n">ExecutionSignal</span><span class="w"> </span><span class="o">*</span><span class="n">signal</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                                </span><span class="n">S2EExecutionState</span><span class="w"> </span><span class="o">*</span><span class="n">state</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                                </span><span class="n">TranslationBlock</span><span class="w"> </span><span class="o">*</span><span class="n">tb</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                                </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">pc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">m_address</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">pc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// When we find an interesting address, ask S2E to invoke our callback when the address is actually</span>
-<span class="w">        </span><span class="c1">// executed</span>
-<span class="w">        </span><span class="n">signal</span><span class="o">-&gt;</span><span class="n">connect</span><span class="p">(</span><span class="n">sigc</span><span class="o">::</span><span class="n">mem_fun</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InstructionTracker</span><span class="o">::</span><span class="n">onInstructionExecution</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">onTranslateInstruction</span><span class="p">(</span><span class="n">ExecutionSignal</span> <span class="o">*</span><span class="n">signal</span><span class="p">,</span>
+                                                <span class="n">S2EExecutionState</span> <span class="o">*</span><span class="n">state</span><span class="p">,</span>
+                                                <span class="n">TranslationBlock</span> <span class="o">*</span><span class="n">tb</span><span class="p">,</span>
+                                                <span class="kt">uint64_t</span> <span class="n">pc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_address</span> <span class="o">==</span> <span class="n">pc</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// When we find an interesting address, ask S2E to invoke our callback when the address is actually</span>
+        <span class="c1">// executed</span>
+        <span class="n">signal</span><span class="o">-&gt;</span><span class="n">connect</span><span class="p">(</span><span class="n">sigc</span><span class="o">::</span><span class="n">mem_fun</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">InstructionTracker</span><span class="o">::</span><span class="n">onInstructionExecution</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
 <span class="c1">// This callback is called only when the instruction at our address is executed.</span>
 <span class="c1">// The callback incurs zero overhead for all other instructions</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">InstructionTracker::onInstructionExecution</span><span class="p">(</span><span class="n">S2EExecutionState</span><span class="w"> </span><span class="o">*</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">pc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getDebugStream</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Executing instruction at &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">hexval</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// The plugins can arbitrarily modify/observe the current execution state via the execution state pointer.</span>
-<span class="w">    </span><span class="c1">// Plugins can also call the s2e() method to use the S2E API</span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">onInstructionExecution</span><span class="p">(</span><span class="n">S2EExecutionState</span> <span class="o">*</span><span class="n">state</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">pc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getDebugStream</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Executing instruction at &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hexval</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+    <span class="c1">// The plugins can arbitrarily modify/observe the current execution state via the execution state pointer.</span>
+    <span class="c1">// Plugins can also call the s2e() method to use the S2E API</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -510,8 +509,8 @@ during translation. The translation vs. execution difference is due to how dynam
 If you increment during translation, you will get incorrect results. For example, a loop body
 would typically be translated once and executed several times, so your counter will not be incremented as expected.</p>
 </div>
-</section>
-<section id="counting-instructions">
+</div>
+<div class="section" id="counting-instructions">
 <h2>Counting instructions<a class="headerlink" href="#counting-instructions" title="Permalink to this headline"></a></h2>
 <p>We would like to count how many times that particular instruction is executed. There are two options:</p>
 <ol class="arabic simple">
@@ -527,50 +526,50 @@ class when S2E starts symbolic execution. The <code class="docutils literal notr
 <p>Here is how <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code> could implement the plugin state. Note that the plugin boilerplate already contains
 all the required declarations. All you need to do is to fill them in. You can also delete them if your plugin does
 not need to store per-state information.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">InstructionTrackerState</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">PluginState</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="k">private</span><span class="o">:</span><span class="w"></span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_count</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">InstructionTrackerState</span> <span class="o">:</span> <span class="k">public</span> <span class="n">PluginState</span> <span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">m_count</span><span class="p">;</span>
 
-<span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">    </span><span class="n">InstructionTrackerState</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">m_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">InstructionTrackerState</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">m_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">InstructionTrackerState</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">InstructionTrackerState</span><span class="p">()</span> <span class="p">{}</span>
 
-<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">PluginState</span><span class="w"> </span><span class="o">*</span><span class="n">factory</span><span class="p">(</span><span class="n">Plugin</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">S2EExecutionState</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">InstructionTrackerState</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+    <span class="k">static</span> <span class="n">PluginState</span> <span class="o">*</span><span class="n">factory</span><span class="p">(</span><span class="n">Plugin</span><span class="o">*</span><span class="p">,</span> <span class="n">S2EExecutionState</span><span class="o">*</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">InstructionTrackerState</span><span class="p">();</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="n">InstructionTrackerState</span><span class="w"> </span><span class="o">*</span><span class="n">clone</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">InstructionTrackerState</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+    <span class="n">InstructionTrackerState</span> <span class="o">*</span><span class="n">clone</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">InstructionTrackerState</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">increment</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="o">++</span><span class="n">m_count</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+    <span class="kt">void</span> <span class="n">increment</span><span class="p">()</span> <span class="p">{</span>
+        <span class="o">++</span><span class="n">m_count</span><span class="p">;</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">get</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">m_count</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+    <span class="kt">int</span> <span class="n">get</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">m_count</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>Plugin code can refer to this state using the <code class="docutils literal notranslate"><span class="pre">DECLARE_PLUGINSTATE</span></code> macro:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">InstructionTracker::onInstructionExecution</span><span class="p">(</span><span class="n">S2EExecutionState</span><span class="w"> </span><span class="o">*</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">pc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// This macro declares the plgState variable of type InstructionTrackerState.</span>
-<span class="w">    </span><span class="c1">// It automatically takes care of retrieving the right plugin state attached to the specified execution state</span>
-<span class="w">    </span><span class="n">DECLARE_PLUGINSTATE</span><span class="p">(</span><span class="n">InstructionTrackerState</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">onInstructionExecution</span><span class="p">(</span><span class="n">S2EExecutionState</span> <span class="o">*</span><span class="n">state</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">pc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// This macro declares the plgState variable of type InstructionTrackerState.</span>
+    <span class="c1">// It automatically takes care of retrieving the right plugin state attached to the specified execution state</span>
+    <span class="n">DECLARE_PLUGINSTATE</span><span class="p">(</span><span class="n">InstructionTrackerState</span><span class="p">,</span> <span class="n">state</span><span class="p">);</span>
 
-<span class="w">    </span><span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getDebugStream</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Executing instruction at &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">hexval</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
+    <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getDebugStream</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Executing instruction at &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hexval</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
 
-<span class="w">    </span><span class="c1">// Increment the count</span>
-<span class="w">    </span><span class="n">plgState</span><span class="o">-&gt;</span><span class="n">increment</span><span class="p">();</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+    <span class="c1">// Increment the count</span>
+    <span class="n">plgState</span><span class="o">-&gt;</span><span class="n">increment</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-</section>
-<section id="exporting-events">
+</div>
+<div class="section" id="exporting-events">
 <h2>Exporting events<a class="headerlink" href="#exporting-events" title="Permalink to this headline"></a></h2>
 <p>All S2E plugins can define custom events. Other plugins can in turn connect to them and also export their own events.
 This scheme is at the center of the S2E plugin infrastructure. For example, the <a class="reference external" href="../Plugins/Linux/LinuxMonitor.html">LinuxMonitor</a>
@@ -580,32 +579,32 @@ plugins.</p>
 is executed ten times.</p>
 <p>First, we declare the signal as a <code class="docutils literal notranslate"><span class="pre">public</span></code> field of the <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code> class. It is important that the field
 be public, otherwise other plugins will not be able to register.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">InstructionTracker</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Plugin</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// ...</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">InstructionTracker</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Plugin</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
 
-<span class="w">    </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">        </span><span class="n">sigc</span><span class="o">::</span><span class="n">signal</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">,</span><span class="w"></span>
-<span class="w">                     </span><span class="n">S2EExecutionState</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="c1">// The first parameter of the callback is the state</span>
-<span class="w">                     </span><span class="kt">uint64_t</span><span class="w">             </span><span class="c1">// The second parameter is an integer representing the program counter</span>
-<span class="w">                    </span><span class="o">&gt;</span><span class="w"> </span><span class="n">onPeriodicEvent</span><span class="p">;</span><span class="w"></span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">sigc</span><span class="o">::</span><span class="n">signal</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">,</span>
+                     <span class="n">S2EExecutionState</span> <span class="o">*</span><span class="p">,</span> <span class="c1">// The first parameter of the callback is the state</span>
+                     <span class="kt">uint64_t</span>             <span class="c1">// The second parameter is an integer representing the program counter</span>
+                    <span class="o">&gt;</span> <span class="n">onPeriodicEvent</span><span class="p">;</span>
 
-<span class="w">    </span><span class="c1">//...</span>
-<span class="p">}</span><span class="w"></span>
+    <span class="c1">//...</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Second, we add some logic to trigger the event and invoke the registered callbacks.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">InstructionTracker::onInstructionExecution</span><span class="p">(</span><span class="n">S2EExecutionState</span><span class="w"> </span><span class="o">*</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">pc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">DECLARE_PLUGINSTATE</span><span class="p">(</span><span class="n">InstructionTrackerState</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">onInstructionExecution</span><span class="p">(</span><span class="n">S2EExecutionState</span> <span class="o">*</span><span class="n">state</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">pc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">DECLARE_PLUGINSTATE</span><span class="p">(</span><span class="n">InstructionTrackerState</span><span class="p">,</span> <span class="n">state</span><span class="p">);</span>
 
-<span class="w">    </span><span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getDebugStream</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Executing instruction at &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">hexval</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
+    <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getDebugStream</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Executing instruction at &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hexval</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">plgState</span><span class="o">-&gt;</span><span class="n">increment</span><span class="p">();</span><span class="w"></span>
+    <span class="n">plgState</span><span class="o">-&gt;</span><span class="n">increment</span><span class="p">();</span>
 
-<span class="w">    </span><span class="c1">// Trigger the event</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">plgState</span><span class="o">-&gt;</span><span class="n">get</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">onPeriodicEvent</span><span class="p">.</span><span class="n">emit</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">pc</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+    <span class="c1">// Trigger the event</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">plgState</span><span class="o">-&gt;</span><span class="n">get</span><span class="p">()</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">onPeriodicEvent</span><span class="p">.</span><span class="n">emit</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">pc</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>That is all we need to define and trigger an event. To register for this event, a plugin invokes
@@ -613,18 +612,18 @@ be public, otherwise other plugins will not be able to register.</p>
 <code class="docutils literal notranslate"><span class="pre">S2E_DEFINE_PLUGIN</span></code> macro. In our case, a plugin named <code class="docutils literal notranslate"><span class="pre">MyClient</span></code> would do something like this in its
 initialization routine:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Include the plugin&#39;s header file</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;s2e/Plugins/InstructionCounter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;s2e/Plugins/InstructionCounter.h&gt;</span><span class="cp"></span>
 
 <span class="c1">// Specify dependencies</span>
-<span class="n">S2E_DEFINE_PLUGIN</span><span class="p">(</span><span class="n">MyClient</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;We use InstructionTracker&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MyClient&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;InstructionTracker&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="n">S2E_DEFINE_PLUGIN</span><span class="p">(</span><span class="n">MyClient</span><span class="p">,</span> <span class="s">&quot;We use InstructionTracker&quot;</span><span class="p">,</span> <span class="s">&quot;MyClient&quot;</span><span class="p">,</span> <span class="s">&quot;InstructionTracker&quot;</span><span class="p">);</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">MyClient::initialize</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Get the instance of the plugin</span>
-<span class="w">    </span><span class="n">Instructiontracker</span><span class="w"> </span><span class="o">*</span><span class="n">tracker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getPlugin</span><span class="o">&lt;</span><span class="n">InstructionTracker</span><span class="o">&gt;</span><span class="p">();</span><span class="w"></span>
+<span class="kt">void</span> <span class="n">MyClient</span><span class="o">::</span><span class="n">initialize</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Get the instance of the plugin</span>
+    <span class="n">Instructiontracker</span> <span class="o">*</span><span class="n">tracker</span> <span class="o">=</span> <span class="n">s2e</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getPlugin</span><span class="o">&lt;</span><span class="n">InstructionTracker</span><span class="o">&gt;</span><span class="p">();</span>
 
-<span class="w">    </span><span class="c1">// Register to custom events</span>
-<span class="w">    </span><span class="n">tracker</span><span class="o">-&gt;</span><span class="n">onPeriodicEvent</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="cm">/* Connect a handler method */</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+    <span class="c1">// Register to custom events</span>
+    <span class="n">tracker</span><span class="o">-&gt;</span><span class="n">onPeriodicEvent</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="cm">/* Connect a handler method */</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Note that S2E enforces the plugin dependencies specified in the <code class="docutils literal notranslate"><span class="pre">S2E_DEFINE_PLUGIN</span></code> macro. If a dependency is not
@@ -633,8 +632,8 @@ emit an error message instead.</p>
 <p>It is not always necessary to specify the dependencies. For example, a plugin may want to work with reduced
 functionality if a dependent plugin is missing. Attempting to call <code class="docutils literal notranslate"><span class="pre">s2e()-&gt;getPlugin()</span></code> returns <code class="docutils literal notranslate"><span class="pre">nullptr</span></code> if
 the requested plugin is missing.</p>
-</section>
-<section id="guest-plugin-communication">
+</div>
+<div class="section" id="guest-plugin-communication">
 <h2>Guest-plugin communication<a class="headerlink" href="#guest-plugin-communication" title="Permalink to this headline"></a></h2>
 <p>Guest code can send commands to plugins. S2E uses this extensively. For example, the Windows and Linux monitoring
 plugins notify other plugins about loaded modules, processes, and threads by receiving this information from a guest
@@ -645,56 +644,56 @@ which address to monitor. This can be useful, e.g., in case the address to track
 <p>Guest code uses the <code class="docutils literal notranslate"><span class="pre">s2e_invoke_plugin</span></code> function to call a plugin. This call takes a pointer to a plugin-specific
 data structure that contains the command to run and execute. The following example shows how to send a command
 to the <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code> plugin:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;s2e/s2e.h&gt;</span><span class="cp"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;s2e/s2e.h&gt;</span><span class="cp"></span>
 
-<span class="k">enum</span><span class="w"> </span><span class="nc">S2E_INSTRUCTIONTRACKER_COMMANDS</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">SET_ADDRESS</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">enum</span> <span class="nc">S2E_INSTRUCTIONTRACKER_COMMANDS</span> <span class="p">{</span>
+    <span class="n">SET_ADDRESS</span>
+<span class="p">};</span>
 
-<span class="k">struct</span><span class="w"> </span><span class="nc">S2E_INSTRUCTIONTRACKER_COMMAND</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">S2E_TESTPLUGIN_COMMANDS</span><span class="w"> </span><span class="n">Command</span><span class="p">;</span><span class="w"></span>
+<span class="k">struct</span> <span class="nc">S2E_INSTRUCTIONTRACKER_COMMAND</span> <span class="p">{</span>
+    <span class="n">S2E_TESTPLUGIN_COMMANDS</span> <span class="n">Command</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// Command parameters go here</span>
-<span class="w">        </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">address</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">};</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+    <span class="k">union</span> <span class="p">{</span>
+        <span class="c1">// Command parameters go here</span>
+        <span class="kt">uint64_t</span> <span class="n">address</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">};</span>
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">S2E_INSTRUCTIONTRACKER_COMMAND</span><span class="w"> </span><span class="n">cmd</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">cmd</span><span class="p">.</span><span class="n">Command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SET_ADDRESS</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">cmd</span><span class="p">.</span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x12345</span><span class="p">;</span><span class="w"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="nc">S2E_INSTRUCTIONTRACKER_COMMAND</span> <span class="n">cmd</span><span class="p">;</span>
+    <span class="n">cmd</span><span class="p">.</span><span class="n">Command</span> <span class="o">=</span> <span class="n">SET_ADDRESS</span><span class="p">;</span>
+    <span class="n">cmd</span><span class="p">.</span><span class="n">address</span> <span class="o">=</span> <span class="mh">0x12345</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">s2e_invoke_plugin</span><span class="p">(</span><span class="s">&quot;InstructionTracker&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cmd</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">cmd</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+    <span class="n">s2e_invoke_plugin</span><span class="p">(</span><span class="s">&quot;InstructionTracker&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cmd</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cmd</span><span class="p">));</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>This code invokes the <code class="docutils literal notranslate"><span class="pre">handleOpcodeInvocation</span></code> method in the <code class="docutils literal notranslate"><span class="pre">InstructionTracker</span></code> plugin. You will need to modify
 it so that it accepts the command:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">InstructionTracker::handleOpcodeInvocation</span><span class="p">(</span><span class="n">S2EExecutionState</span><span class="w"> </span><span class="o">*</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">guestDataPtr</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">guestDataSize</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">S2E_INSTRUCTIONTRACKER_COMMAND</span><span class="w"> </span><span class="n">command</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">InstructionTracker</span><span class="o">::</span><span class="n">handleOpcodeInvocation</span><span class="p">(</span><span class="n">S2EExecutionState</span> <span class="o">*</span><span class="n">state</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">guestDataPtr</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">guestDataSize</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">S2E_INSTRUCTIONTRACKER_COMMAND</span> <span class="n">command</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">guestDataSize</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">command</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">getWarningsStream</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;mismatched S2E_INSTRUCTIONTRACKER_COMMAND size</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">guestDataSize</span> <span class="o">!=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">command</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">getWarningsStream</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;mismatched S2E_INSTRUCTIONTRACKER_COMMAND size</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">mem</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">read</span><span class="p">(</span><span class="n">guestDataPtr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">command</span><span class="p">,</span><span class="w"> </span><span class="n">guestDataSize</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">getWarningsStream</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;could not read transmitted data</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">mem</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">read</span><span class="p">(</span><span class="n">guestDataPtr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">command</span><span class="p">,</span> <span class="n">guestDataSize</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">getWarningsStream</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;could not read transmitted data</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">command</span><span class="p">.</span><span class="n">Command</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nl">SET_ADDRESS</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="n">m_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">command</span><span class="p">.</span><span class="n">address</span><span class="p">;</span><span class="w"></span>
-<span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
-<span class="w">            </span><span class="n">getWarningsStream</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Unknown command &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">command</span><span class="p">.</span><span class="n">Command</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">command</span><span class="p">.</span><span class="n">Command</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="nl">SET_ADDRESS</span><span class="p">:</span>
+            <span class="n">m_address</span> <span class="o">=</span> <span class="n">command</span><span class="p">.</span><span class="n">address</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">default</span><span class="o">:</span>
+            <span class="n">getWarningsStream</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Unknown command &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">command</span><span class="p">.</span><span class="n">Command</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>You will also need to update the <code class="docutils literal notranslate"><span class="pre">InstructionTracker.h</span></code> header with the proper structure definitions.</p>
@@ -704,8 +703,8 @@ it so that it accepts the command:</p>
 is merely a suggestion. You can simplify it if needed. For example, if you know that your plugin has only
 one command, you could just call <code class="docutils literal notranslate"><span class="pre">s2e_invoke_plugin</span></code> with null arguments.</p>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

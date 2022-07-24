@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BaseInstructions &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="baseinstructions">
+  <div class="section" id="baseinstructions">
 <h1>BaseInstructions<a class="headerlink" href="#baseinstructions" title="Permalink to this headline"></a></h1>
 <p>S2E provides a means for guest code code to communicate with plugins by providing a special machine instruction.
 S2E extends the x86 instruction set with a custom instruction. When guest code executes this instruction, S2E
@@ -443,16 +442,16 @@ instruction invocations and filter out those of no interest.</p>
 the <code class="docutils literal notranslate"><span class="pre">BaseInstructions</span></code> plugin calls when the guest invokes the <code class="docutils literal notranslate"><span class="pre">s2e_invoke_plugin()</span></code> API. This API lets guest
 code pass arbitrary data to specific plugins. Each plugin can define its own data format.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp"># Definition in s2e.h</span>
-<span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">s2e_invoke_plugin</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">pluginName</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">dataSize</span><span class="p">);</span><span class="w"></span>
+<span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="n">s2e_invoke_plugin</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pluginName</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">dataSize</span><span class="p">);</span>
 
-<span class="p">...</span><span class="w"></span>
+<span class="p">...</span>
 
-<span class="n">s2e_invoke_plugin</span><span class="p">(</span><span class="s">&quot;MyPlugin&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">command</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">command</span><span class="p">));</span><span class="w"></span>
+<span class="n">s2e_invoke_plugin</span><span class="p">(</span><span class="s">&quot;MyPlugin&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">command</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">command</span><span class="p">));</span>
 </pre></div>
 </div>
 <p>See the <a class="reference external" href="https://github.com/S2E/s2e/blob/master/guest/common/include/s2e/s2e.h">source code</a> for more information
 about custom instructions.</p>
-</section>
+</div>
 
 
            </div>

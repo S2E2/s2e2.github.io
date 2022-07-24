@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Exponential Analysis Speedup with State Merging &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="exponential-analysis-speedup-with-state-merging">
+  <div class="section" id="exponential-analysis-speedup-with-state-merging">
 <h1>Exponential Analysis Speedup with State Merging<a class="headerlink" href="#exponential-analysis-speedup-with-state-merging" title="Permalink to this headline"></a></h1>
 <p>Symbolic execution can produce an exponential number of paths, considerably slowing down analysis. When S2E encounters
 a branch that depends on a symbolic condition and both outcomes are possible, S2E forks the current execution path in
@@ -428,19 +427,19 @@ two. This process can repeat recursively, resulting in an exponential number of 
 <p>The following piece of code demonstrates the problem. It is a simplification of the <code class="docutils literal notranslate"><span class="pre">ShiftInBits()</span></code> function of the
 Intel e100bex NIC driver from the Windows WDK. It consists of a loop that reads a value from a hardware register
 bit-by-bit.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint16_t</span><span class="w"> </span><span class="nf">ShiftInBits</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint16_t</span> <span class="nf">ShiftInBits</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">uint16_t</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">value</span><span class="w"> </span><span class="o">&lt;&lt;=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">*</span> <span class="mi">8</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">value</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">;</span>
 
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">read_register</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="n">value</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">read_register</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">value</span> <span class="o">|=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+    <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>On each iteration, <code class="docutils literal notranslate"><span class="pre">read_register()</span></code> returns a fresh symbolic value, causing a fork at the conditional statement.
@@ -448,7 +447,7 @@ Since there are 16 iterations in total, this amounts to 65,536 execution states.
 <p>If we look closely, every forked path in the function above differs only by one bit, set to zero or one depending on
 the register value. If S2E could merge both paths back together while remembering that small difference, there would
 remain only one path at the end of the function, reducing by four orders of magnitude the number of paths to explore.</p>
-<section id="using-state-merging-in-s2e">
+<div class="section" id="using-state-merging-in-s2e">
 <h2>Using State Merging in S2E<a class="headerlink" href="#using-state-merging-in-s2e" title="Permalink to this headline"></a></h2>
 <p>To use state merging in S2E, first enable the <code class="docutils literal notranslate"><span class="pre">MergingSearcher</span></code> plugin.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- File: config.lua</span>
@@ -466,41 +465,41 @@ remain only one path at the end of the function, reducing by four orders of magn
 </pre></div>
 </div>
 <p>Then, compile the following program, then run it in S2E:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;s2e/s2e.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;s2e/s2e.h&gt;</span><span class="cp"></span>
 
-<span class="kt">uint16_t</span><span class="w"> </span><span class="nf">ShiftInBits</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="kt">uint16_t</span> <span class="nf">ShiftInBits</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">uint16_t</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">value</span><span class="w"> </span><span class="o">&lt;&lt;=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">*</span> <span class="mi">8</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">value</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">;</span>
 
-<span class="w">        </span><span class="cm">/* Simulates read_register() */</span><span class="w"></span>
-<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">s2e_make_symbolic</span><span class="p">(</span><span class="o">&amp;</span><span class="n">reg</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">reg</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;reg&quot;</span><span class="p">);</span><span class="w"></span>
+        <span class="cm">/* Simulates read_register() */</span>
+        <span class="kt">uint8_t</span> <span class="n">reg</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">s2e_make_symbolic</span><span class="p">(</span><span class="o">&amp;</span><span class="n">reg</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">reg</span><span class="p">),</span> <span class="s">&quot;reg&quot;</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">s2e_disable_all_apic_interrupts</span><span class="p">();</span><span class="w"></span>
-<span class="w">        </span><span class="n">s2e_merge_group_begin</span><span class="p">();</span><span class="w"></span>
+        <span class="n">s2e_disable_all_apic_interrupts</span><span class="p">();</span>
+        <span class="n">s2e_merge_group_begin</span><span class="p">();</span>
 
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">reg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="n">value</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">reg</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">value</span> <span class="o">|=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
 
-<span class="w">        </span><span class="n">s2e_merge_group_end</span><span class="p">();</span><span class="w"></span>
-<span class="w">        </span><span class="n">s2e_enable_all_apic_interrupts</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+        <span class="n">s2e_merge_group_end</span><span class="p">();</span>
+        <span class="n">s2e_enable_all_apic_interrupts</span><span class="p">();</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+    <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ShiftInBits</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">0xabcd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">s2e_printf</span><span class="p">(</span><span class="s">&quot;found it</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">uint16_t</span> <span class="n">value</span> <span class="o">=</span> <span class="n">ShiftInBits</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="mh">0xabcd</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">s2e_printf</span><span class="p">(</span><span class="s">&quot;found it</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -508,8 +507,8 @@ remain only one path at the end of the function, reducing by four orders of magn
 <li><p>Comment out calls to <code class="docutils literal notranslate"><span class="pre">s2e_merge_group_begin()</span></code> and <code class="docutils literal notranslate"><span class="pre">s2e_merge_group_end()</span></code>. How does this affect the number of
 paths?</p></li>
 </ul>
-</section>
-<section id="state-merging-api">
+</div>
+<div class="section" id="state-merging-api">
 <h2>State Merging API<a class="headerlink" href="#state-merging-api" title="Permalink to this headline"></a></h2>
 <p>The S2E state merging API offers two calls: <code class="docutils literal notranslate"><span class="pre">s2e_merge_group_begin()</span></code> and <code class="docutils literal notranslate"><span class="pre">s2e_merge_group_end()</span></code>.</p>
 <p>The subtree that begins at <code class="docutils literal notranslate"><span class="pre">s2e_merge_group_begin()</span></code> and whose leaves end at <code class="docutils literal notranslate"><span class="pre">s2e_merge_group_end()</span></code> is merged into
@@ -523,8 +522,8 @@ or any other path outside the subtree to be merged.</p></li>
 <li><p>When path B reaches <code class="docutils literal notranslate"><span class="pre">s2e_merge_group_end()</span></code>, <code class="docutils literal notranslate"><span class="pre">MergingSearcher</span></code> merges it with A, then kills B.</p></li>
 <li><p>When path C reaches <code class="docutils literal notranslate"><span class="pre">s2e_merge_group_end()</span></code>, <code class="docutils literal notranslate"><span class="pre">MergingSearcher</span></code> merges it with A+B, then kills C.</p></li>
 </ul>
-</section>
-<section id="limitations">
+</div>
+<div class="section" id="limitations">
 <h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>It is not possible to nest pairs of <code class="docutils literal notranslate"><span class="pre">s2e_merge_group_begin()</span></code> and <code class="docutils literal notranslate"><span class="pre">s2e_merge_group_end()</span></code>.</p></li>
@@ -539,8 +538,8 @@ environment (no syscalls, etc.). Not disabling interrupts will make merging much
 the interrupt handlers and those of the OS will have to be merged as well. If the side effects affected the concrete CPU state,
 merging will fail.</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

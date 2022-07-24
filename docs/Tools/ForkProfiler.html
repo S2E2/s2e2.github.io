@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Debugging path explosion with the fork profiler &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,15 +419,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="debugging-path-explosion-with-the-fork-profiler">
+  <div class="section" id="debugging-path-explosion-with-the-fork-profiler">
 <h1>Debugging path explosion with the fork profiler<a class="headerlink" href="#debugging-path-explosion-with-the-fork-profiler" title="Permalink to this headline"></a></h1>
 <p>The fork profile gives you a summary of all the locations in the system that forked.
 This helps debug sources of path explosion.</p>
 <p>In order to obtain a fork profile, run the <cite>forkprofile</cite> subcommand as follows:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>s2e new_project /home/users/coreutils-8.26/build/bin/cat -T @@
-<span class="gp">$ </span>... launch s2e and <span class="nb">let</span> it run <span class="k">for</span> a <span class="k">while</span> ...
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> s2e new_project /home/users/coreutils-8.26/build/bin/cat -T @@
+<span class="gp">$</span> ... launch s2e and <span class="nb">let</span> it run <span class="k">for</span> a <span class="k">while</span> ...
 
-<span class="gp">$ </span>s2e forkprofile cat
+<span class="gp">$</span> s2e forkprofile cat
 <span class="go">INFO: [symbols] Looking for debug information for /home/vitaly/s2e/env/projects/cat-symb/././cat</span>
 <span class="go">INFO: [forkprofile] # The fork profile shows all the program counters where execution forked:</span>
 <span class="go">INFO: [forkprofile] # process_pid module_path:address fork_count source_file:line_number (function_name)</span>
@@ -439,7 +438,7 @@ This helps debug sources of path explosion.</p>
 </div>
 <p>The trace above shows that the <cite>cat</cite> module (which has a pid 1309) forked at three different program counters.
 The source information (if available) gives the source file, the line, and the function name where the forks occurred.</p>
-<section id="using-the-fork-profile-to-debug-path-explosion">
+<div class="section" id="using-the-fork-profile-to-debug-path-explosion">
 <h2>Using the fork profile to debug path explosion<a class="headerlink" href="#using-the-fork-profile-to-debug-path-explosion" title="Permalink to this headline"></a></h2>
 <ol class="arabic simple">
 <li><p>Spot locations that should not fork.
@@ -454,8 +453,8 @@ at the expense of generating more complex expressions.</p></li>
 Certain types of code sections are hard to model and can be instead surrounded by <cite>s2e_merge_group_begin()</cite> and
 <cite>s2e_merge_group_end()</cite> API calls, which will merge into one state the subtree in between these two calls.</p></li>
 </ol>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

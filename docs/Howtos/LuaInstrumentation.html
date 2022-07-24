@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Instrumenting guest code with Lua &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="instrumenting-guest-code-with-lua">
+  <div class="section" id="instrumenting-guest-code-with-lua">
 <h1>Instrumenting guest code with Lua<a class="headerlink" href="#instrumenting-guest-code-with-lua" title="Permalink to this headline"></a></h1>
 <p>S2E comes with several plugins that expose its monitoring and instrumentation capabilities to scripts written in the
 <a class="reference external" href="http://lua.org">Lua</a> programming language. This lets users create lightweight scripts without having to write and
@@ -430,7 +429,7 @@ build C++ plugins.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">LuaFunctionInstrumentation</span></code>: for function call instrumentation</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">LuaInstructionInstrumentation</span></code>: for instrumentation of individual instructions</p></li>
 </ul>
-<section id="instrumenting-function-calls-and-returns">
+<div class="section" id="instrumenting-function-calls-and-returns">
 <h2>Instrumenting function calls and returns<a class="headerlink" href="#instrumenting-function-calls-and-returns" title="Permalink to this headline"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">LuaFunctionInstrumentation</span></code> plugin allows instrumenting function calls and returns. It works by monitoring
 machine <code class="docutils literal notranslate"><span class="pre">call</span></code> and <code class="docutils literal notranslate"><span class="pre">ret</span></code> instructions. When execution reaches a call instruction, the plugin saves the stack pointer
@@ -522,8 +521,8 @@ altogether. You can read more about it later in this document.</p></li>
 <p>In addition, an instrumentation function may have one or more additional parameters, each containing the address of
 a guest function argument on the stack. Note that this will only work for calling conventions that use the stack
 to pass their arguments.</p>
-</section>
-<section id="instrumenting-instructions">
+</div>
+<div class="section" id="instrumenting-instructions">
 <h2>Instrumenting instructions<a class="headerlink" href="#instrumenting-instructions" title="Permalink to this headline"></a></h2>
 <p>Suppose you are at a “Capture the Flag” (CTF) competition and are given a binary that contains an encrypted flag. To get
 that flag, you need to give a correct password on the command line. The binary is obfuscated, and you cannot extract this
@@ -598,15 +597,15 @@ the S2E <a class="reference external" href="../Testsuite.html">testsuite</a>, wh
 <a class="reference external" href="https://github.com/S2E/s2e/tree/master/testsuite/basic7-instmon">example</a> of how to instrument a sample CTF
 challenge.</p>
 </div>
-</section>
-<section id="api-reference">
+</div>
+<div class="section" id="api-reference">
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline"></a></h2>
 <p>As mentioned previously, all instrumentation functions take the following two arguments:</p>
 <ol class="arabic simple">
 <li><p>A <code class="docutils literal notranslate"><span class="pre">LuaS2EExecutionState</span></code> object, containing the current execution state; and</p></li>
 <li><p>A <code class="docutils literal notranslate"><span class="pre">LuaInstrumentationState</span></code> object, containing the current state of the instrumentation.</p></li>
 </ol>
-<section id="luas2eexecutionstate">
+<div class="section" id="luas2eexecutionstate">
 <h3>LuaS2EExecutionState<a class="headerlink" href="#luas2eexecutionstate" title="Permalink to this headline"></a></h3>
 <p>An execution state object is a wrapper around the <code class="docutils literal notranslate"><span class="pre">S2EExecutionState</span></code> class. It provides the following methods:</p>
 <dl class="simple">
@@ -626,8 +625,8 @@ challenge.</p>
 <dt><strong>debug(message)</strong></dt><dd><p>Writes the given message string to the debug log.</p>
 </dd>
 </dl>
-</section>
-<section id="luas2eexecutionstatememory">
+</div>
+<div class="section" id="luas2eexecutionstatememory">
 <h3>LuaS2EExecutionStateMemory<a class="headerlink" href="#luas2eexecutionstatememory" title="Permalink to this headline"></a></h3>
 <p>This is a wrapper around the <code class="docutils literal notranslate"><span class="pre">S2EExecutionStateMemory</span></code> class.</p>
 <dl class="simple">
@@ -642,8 +641,8 @@ challenge.</p>
 <dt><strong>makeSymbolic(address, size, name)</strong></dt><dd><p>Make a region of memory symbolic.</p>
 </dd>
 </dl>
-</section>
-<section id="luas2eexecutionstateregisters">
+</div>
+<div class="section" id="luas2eexecutionstateregisters">
 <h3>LuaS2EExecutionStateRegisters<a class="headerlink" href="#luas2eexecutionstateregisters" title="Permalink to this headline"></a></h3>
 <p>This is a wrapper around the <code class="docutils literal notranslate"><span class="pre">S2EExecutionStateRegisters</span></code> class.</p>
 <dl class="simple">
@@ -658,8 +657,8 @@ challenge.</p>
 <dt><strong>write(pointer, value, size)</strong></dt><dd><p>Write the given value at the register offset by <code class="docutils literal notranslate"><span class="pre">pointer</span></code>.</p>
 </dd>
 </dl>
-</section>
-<section id="luafunctioninstrumentationstate">
+</div>
+<div class="section" id="luafunctioninstrumentationstate">
 <h3>LuaFunctionInstrumentationState<a class="headerlink" href="#luafunctioninstrumentationstate" title="Permalink to this headline"></a></h3>
 <p>An object of this type provides the following methods:</p>
 <dl class="simple">
@@ -672,8 +671,8 @@ in the configuration.</p>
 This may be useful if you modify the program counter in your instrumentation code.</p>
 </dd>
 </dl>
-</section>
-<section id="luainstructioninstrumentationstate">
+</div>
+<div class="section" id="luainstructioninstrumentationstate">
 <h3>LuaInstructionInstrumentationState<a class="headerlink" href="#luainstructioninstrumentationstate" title="Permalink to this headline"></a></h3>
 <p>An object of this type provides the following methods:</p>
 <dl class="simple">
@@ -683,16 +682,16 @@ This may be useful if you modify the program counter in your instrumentation cod
 This may be useful if you modify the program counter in your instrumentation code.</p>
 </dd>
 </dl>
-</section>
-<section id="luaexpression">
+</div>
+<div class="section" id="luaexpression">
 <h3>LuaExpression<a class="headerlink" href="#luaexpression" title="Permalink to this headline"></a></h3>
 <p>This wrapper around a <code class="docutils literal notranslate"><span class="pre">klee::Expr</span></code> object.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Symbolic expression support in Lua scripts is currently experimental and limited.</p>
 </div>
-</section>
-<section id="the-g-s2e-object">
+</div>
+<div class="section" id="the-g-s2e-object">
 <h3>The <code class="docutils literal notranslate"><span class="pre">g_s2e</span></code> object<a class="headerlink" href="#the-g-s2e-object" title="Permalink to this headline"></a></h3>
 <p>Finally, the global <code class="docutils literal notranslate"><span class="pre">g_s2e</span></code> object is available throughout <cite>s2e-config.lua</cite>. It provides the following methods:</p>
 <dl class="simple">
@@ -712,9 +711,9 @@ This may be useful if you modify the program counter in your instrumentation cod
 <p>Only a fraction of the APIs available to C++ plugins are exposed to Lua. If you find that an API is missing,
 add it by modifying the corresponding <code class="docutils literal notranslate"><span class="pre">LuaXXX.cpp</span></code> file.</p>
 </div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
            </div>

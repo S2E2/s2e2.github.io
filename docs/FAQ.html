@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Frequently Asked Questions (FAQ) &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,9 +419,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="frequently-asked-questions-faq">
+  <div class="section" id="frequently-asked-questions-faq">
 <h1>Frequently Asked Questions (FAQ)<a class="headerlink" href="#frequently-asked-questions-faq" title="Permalink to this headline"></a></h1>
-<section id="how-do-i-know-what-s2e-is-doing">
+<div class="section" id="how-do-i-know-what-s2e-is-doing">
 <h2>How do I know what S2E is doing?<a class="headerlink" href="#how-do-i-know-what-s2e-is-doing" title="Permalink to this headline"></a></h2>
 <ol class="arabic simple">
 <li><p>Enable execution tracing and use the fork profiler to identify the code locations that fork the most. In your
@@ -437,8 +436,8 @@ in the constraint solver. Use the <cite>perf top</cite> Linux utility to get a c
 <li><p><code class="docutils literal notranslate"><span class="pre">run.stats</span></code> contains many types of statistics. S2E updates this file about every second, when executing symbolic
 code. See later in this FAQ for a description of its fields.</p></li>
 </ol>
-</section>
-<section id="execution-seems-stuck-slow-what-to-do">
+</div>
+<div class="section" id="execution-seems-stuck-slow-what-to-do">
 <h2>Execution seems stuck/slow. What to do?<a class="headerlink" href="#execution-seems-stuck-slow-what-to-do" title="Permalink to this headline"></a></h2>
 <p>First, ensure that you configured S2E properly. The <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> does its best to have a minimal default configuration
 that works in most cases.</p>
@@ -477,8 +476,8 @@ symbolic value. This trades execution  consistency for execution speed. Unconstr
 that cannot occur in real executions (i.e., false positives), but as long as there are few of them, or you can detect
 them a posteriori, this is an acceptable trade-off.</p></li>
 </ul>
-</section>
-<section id="how-do-i-deal-with-path-explosion">
+</div>
+<div class="section" id="how-do-i-deal-with-path-explosion">
 <h2>How do I deal with path explosion?<a class="headerlink" href="#how-do-i-deal-with-path-explosion" title="Permalink to this headline"></a></h2>
 <p>Use S2E to <em>selectively</em> kill paths that are not interesting and prevent forking outside modules of interest. The
 following describes concrete steps that allowed us to explore programs most efficiently.</p>
@@ -513,8 +512,8 @@ plugin when execution enters some block of code (e.g., error recovery).</p></li>
 searcher plugin. S2E comes with several examples of searchers that aim to maximize code coverage as fast as
 possible.</p></li>
 </ol>
-</section>
-<section id="how-to-keep-memory-usage-low">
+</div>
+<div class="section" id="how-to-keep-memory-usage-low">
 <h2>How to keep memory usage low?<a class="headerlink" href="#how-to-keep-memory-usage-low" title="Permalink to this headline"></a></h2>
 <p>You can use several options, depending on your needs.</p>
 <ul class="simple">
@@ -522,8 +521,8 @@ possible.</p></li>
 <li><p>Explicitly kill unneeded paths. For example, if you want to achieve high code coverage and know that some path is
 unlikely to cover any new code, kill it.</p></li>
 </ul>
-</section>
-<section id="how-much-time-is-the-constraint-solver-taking-to-solve-constraints">
+</div>
+<div class="section" id="how-much-time-is-the-constraint-solver-taking-to-solve-constraints">
 <h2>How much time is the constraint solver taking to solve constraints?<a class="headerlink" href="#how-much-time-is-the-constraint-solver-taking-to-solve-constraints" title="Permalink to this headline"></a></h2>
 <p>Enable logging for constraint solving queries:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">s2e</span> <span class="o">=</span> <span class="p">{</span>
@@ -536,8 +535,8 @@ unlikely to cover any new code, kill it.</p></li>
 </div>
 <p>With this configuration S2E generates two logs: <code class="docutils literal notranslate"><span class="pre">s2e-last/queries.pc</span></code> and <code class="docutils literal notranslate"><span class="pre">s2e-last/solver-queries.qlog</span></code>. Look for
 “Elapsed time” in the logs.</p>
-</section>
-<section id="what-do-the-various-fields-in-run-stats-mean">
+</div>
+<div class="section" id="what-do-the-various-fields-in-run-stats-mean">
 <h2>What do the various fields in <code class="docutils literal notranslate"><span class="pre">run.stats</span></code> mean?<a class="headerlink" href="#what-do-the-various-fields-in-run-stats-mean" title="Permalink to this headline"></a></h2>
 <p>You can open <code class="docutils literal notranslate"><span class="pre">run.stats</span></code> in a spreadsheet as a CSV file. Most of the fields are self-explanatory. Here are the
 trickiest ones:</p>
@@ -551,8 +550,8 @@ options).</p></li>
 computed correctly yet.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ForkTime</span></code> shows how much time KLEE spent on forking states.</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

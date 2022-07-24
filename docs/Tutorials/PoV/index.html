@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Using S2E to generate PoVs for Linux, Windows, and CGC binaries &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="using-s2e-to-generate-povs-for-linux-windows-and-cgc-binaries">
+  <div class="section" id="using-s2e-to-generate-povs-for-linux-windows-and-cgc-binaries">
 <h1>Using S2E to generate PoVs for Linux, Windows, and CGC binaries<a class="headerlink" href="#using-s2e-to-generate-povs-for-linux-windows-and-cgc-binaries" title="Permalink to this headline"></a></h1>
 <p>In this tutorial, you will learn:</p>
 <ul class="simple">
@@ -439,7 +438,7 @@ of the S2E plugin architecture as well as the plugins involved in PoV generation
 </dd>
 </dl>
 </div>
-<section id="quickstart-on-windows-and-linux">
+<div class="section" id="quickstart-on-windows-and-linux">
 <h2>Quickstart on Windows and Linux<a class="headerlink" href="#quickstart-on-windows-and-linux" title="Permalink to this headline"></a></h2>
 <p>S2E comes with a <code class="docutils literal notranslate"><span class="pre">vulnerabilities</span></code> demo which demonstrates several types of vulnerabilities that S2E can detect.
 You can find the corresponding source file in
@@ -448,21 +447,21 @@ You can find the corresponding source file in
 <li><p>Build the guest tools. We will use the 32-bit Linux version here.
 You may also use the 64-bit version and/or the Windows version (in <code class="docutils literal notranslate"><span class="pre">guest-tools{32|64}-win</span></code>).</p></li>
 </ol>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> ~/s2e/env/build/s2e/guest-tools32
-<span class="gp">$ </span>make
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/s2e/env/build/s2e/guest-tools32
+<span class="gp">$</span> make
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
 <li><p>Create an analysis project</p></li>
 </ol>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> ~/s2e/env
-<span class="gp">$ </span>s2e new_project -i debian-9.2.1-i386 -n vuln-lin32-32 --tools<span class="o">=</span>pov <span class="se">\</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/s2e/env
+<span class="gp">$</span> s2e new_project -i debian-11.3-i386 -n vuln-lin32-32 --tools<span class="o">=</span>pov <span class="se">\</span>
   build/s2e/guest-tools32/common/demos/vulnerabilities @@
 </pre></div>
 </div>
 <p>Here is a breakdown of the <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">new_project</span></code> command above:</p>
 <ul class="simple">
-<li><p>It creates a new project called <code class="docutils literal notranslate"><span class="pre">vuln-lin32-32</span></code> that will run on the <code class="docutils literal notranslate"><span class="pre">debian-9.2.1-i386</span></code> image.</p></li>
+<li><p>It creates a new project called <code class="docutils literal notranslate"><span class="pre">vuln-lin32-32</span></code> that will run on the <code class="docutils literal notranslate"><span class="pre">debian-11.3-i386</span></code> image.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">--tools=pov</span></code> option is important in order to generate PoVs. If you omit it, you will just get random test
 cases, which will at best crash the binary depending on what the constraint solver generates. Vulnerability generation
 involves a number of additional plugins that may add overhead to the analysis, so they are disabled by default unless
@@ -478,13 +477,13 @@ instead. Only Linux-based images are available for download. You must build Wind
 <ol class="arabic simple" start="3">
 <li><p>Launch S2E and wait until the analysis completes (it should take less than 30 seconds).</p></li>
 </ol>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> ~/s2e/env/projects/vuln-lin32-32
-<span class="gp">$ </span>./launch-s2e.sh
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/s2e/env/projects/vuln-lin32-32
+<span class="gp">$</span> ./launch-s2e.sh
 </pre></div>
 </div>
 <p>Look at the files inside <code class="docutils literal notranslate"><span class="pre">~/s2e/env/projects/vuln-lin32-32/s2e-last</span></code>. This folder contains all the analysis results.
 You should have files that look like this:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ls ~/s2e/env/projects/vuln-lin32-32/s2e-last
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ls ~/s2e/env/projects/vuln-lin32-32/s2e-last
 <span class="go">_tmp_input-crash@0x0-pov-unknown-0</span>
 <span class="go">_tmp_input-crash@0x0-pov-unknown-3</span>
 <span class="go">_tmp_input-recipe-type1_i386_generic_reg_ebp.rcp@0x8048760-pov-type1-0</span>
@@ -498,7 +497,7 @@ host machine under GDB, as follows.</p>
 <ol class="arabic simple" start="4">
 <li><p>Confirm that the PoVs exercise the vulnerabilities</p></li>
 </ol>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gdb --args ./vulnerabilities s2e-last/_tmp_input-recipe-type1_i386_generic_shellcode_eax.rcp@0x804883e-pov-type1-3
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> gdb --args ./vulnerabilities s2e-last/_tmp_input-recipe-type1_i386_generic_shellcode_eax.rcp@0x804883e-pov-type1-3
 <span class="gp gp-VirtualEnv">(gdb)</span> <span class="go">r</span>
 </pre></div>
 </div>
@@ -531,8 +530,8 @@ host machine under GDB, as follows.</p>
 </div>
 <p>That’s it. What you have here is an input file that proves that an attacker has full control of the program counter as
 well as an additional general purpose register.</p>
-</section>
-<section id="understanding-recipes">
+</div>
+<div class="section" id="understanding-recipes">
 <h2>Understanding recipes<a class="headerlink" href="#understanding-recipes" title="Permalink to this headline"></a></h2>
 <p>So where do the magic values <code class="docutils literal notranslate"><span class="pre">0x44556677</span></code> and <code class="docutils literal notranslate"><span class="pre">0xccddeeff</span></code> come from? Short answer: from the <code class="docutils literal notranslate"><span class="pre">FilePovGenerator</span></code>
 plugin configuration. Open <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code> and look for the following section:</p>
@@ -560,10 +559,10 @@ look at recipes. If you look closer, you will notice that the test case file nam
 directory. The recipe used here has the following contents:</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">type1_i386_generic_shellcode_eax.rcp</span><a class="headerlink" href="#id1" title="Permalink to this code"></a></div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Set GP and EIP with shellcode
-<span class="gp"># </span>mov eax, <span class="nv">$gp</span>
-<span class="gp"># </span>mov ecx, <span class="nv">$pc</span>
-<span class="gp"># </span>jmp ecx
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> Set GP and EIP with shellcode
+<span class="gp">#</span> mov eax, <span class="nv">$gp</span>
+<span class="gp">#</span> mov ecx, <span class="nv">$pc</span>
+<span class="gp">#</span> jmp ecx
 <span class="go">:reg_mask=0xffffffff</span>
 <span class="go">:pc_mask=0xffffffff</span>
 <span class="go">:type=1</span>
@@ -608,8 +607,8 @@ produce the desired crash). In practice, if the guest OS uses data execution pre
 encode a ROP chain in the recipe. The <code class="docutils literal notranslate"><span class="pre">vulnerabilities</span></code> demo allocates an executable area at a fixed location in
 order to simplify the recipe.</p></li>
 </ul>
-</section>
-<section id="povs-for-darpa-decree-cgc-binaries">
+</div>
+<div class="section" id="povs-for-darpa-decree-cgc-binaries">
 <h2>PoVs for DARPA Decree/CGC binaries<a class="headerlink" href="#povs-for-darpa-decree-cgc-binaries" title="Permalink to this headline"></a></h2>
 <p>DARPA’s <a class="reference external" href="http://archive.darpa.mil/cybergrandchallenge/">Cyber Grand Challenge</a> (CGC) was the world’s first all-machine
 hacking tournament. S2E was a key component in CodeJitsu’s Cyber Reasoning System (CRS) and was used to automatically
@@ -620,8 +619,8 @@ find vulnerabilities and exploit them. This demo walks you through the process o
 to add “hook points” for S2E (e.g. to signal process creation, termination, etc.) and to allow S2E to inject symbolic
 values. The source code for the Decree OS is available at <a class="reference external" href="https://github.com/S2E/s2e-linux-kernel">https://github.com/S2E/s2e-linux-kernel</a>. A Decree
 virtual machine image can be built by running the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> ~/s2e/env
-<span class="gp">$ </span>s2e image_build cgc_debian-9.2.1-i386
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/s2e/env
+<span class="gp">$</span> s2e image_build cgc_debian-9.2.1-i386
 </pre></div>
 </div>
 <p>Next, create an analysis project for a challenge binary. Sample CBs are available <a class="reference external" href="https://github.com/CyberGrandChallenge/samples">here</a> and can be built using the instructions <a class="reference external" href="https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/walk-throughs/building-a-cb.md">here</a> . The
@@ -629,11 +628,11 @@ remainder of this tutorial will focus on the CADET_00001 program (a pre-compiled
 to all of the CBs.</p>
 <p>The following command creates a <code class="docutils literal notranslate"><span class="pre">projects/CADET_00001</span></code> directory with various scripts and configuration files needed
 by S2E, as described <a class="reference external" href="../../s2e-env.html">here</a>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>s2e new_project --image cgc_debian-9.2.1-i386 ./source/s2e/decree/samples/CADET_00001
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> s2e new_project --image cgc_debian-9.2.1-i386 ./source/s2e/decree/samples/CADET_00001
 </pre></div>
 </div>
 <p>Finally, to start S2E, run the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>s2e run CADET_00001
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> s2e run CADET_00001
 </pre></div>
 </div>
 <p>This will display a TUI-based dashboard, similar to that used by the American Fuzzy Lop (AFL) fuzzer. As S2E finds
@@ -643,8 +642,8 @@ file extensions. Once some PoV files have been generated you can press <code cla
 <p>Alternatively, you can run S2E without the TUI by using the <code class="docutils literal notranslate"><span class="pre">-n</span></code> option in <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">run</span></code>. Instead of the TUI you will
 see the standard S2E output.  Once some POVs have been generated you can stop S2E by killing the process with
 <code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code> or <code class="docutils literal notranslate"><span class="pre">killall</span> <span class="pre">-9</span> <span class="pre">qemu-system-i386</span></code>.</p>
-</section>
-<section id="understanding-cgc-style-povs">
+</div>
+<div class="section" id="understanding-cgc-style-povs">
 <h2>Understanding CGC-style PoVs<a class="headerlink" href="#understanding-cgc-style-povs" title="Permalink to this headline"></a></h2>
 <p>If you followed the tutorial on PoV generation on Linux, you will notice that the PoV format for CGC binaries is
 different. Instead of being a concrete input file, CGC binaries produce PoVs in <code class="docutils literal notranslate"><span class="pre">.xml</span></code> or <code class="docutils literal notranslate"><span class="pre">.c</span></code> format. The reason
@@ -670,8 +669,8 @@ the <code class="docutils literal notranslate"><span class="pre">/vagrant</span>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> to access the VM and copy the files from <code class="docutils literal notranslate"><span class="pre">/vagrant</span></code> into <code class="docutils literal notranslate"><span class="pre">/home/vagrant</span></code>. Then run the
 <code class="docutils literal notranslate"><span class="pre">test_pov.sh</span></code> script to check the PoV’s correctness.</p></li>
 </ol>
-</section>
-<section id="plugin-architecture-overview">
+</div>
+<div class="section" id="plugin-architecture-overview">
 <h2>Plugin architecture overview<a class="headerlink" href="#plugin-architecture-overview" title="Permalink to this headline"></a></h2>
 <p>In this section, we will give an overview of the plugins involved in generating a PoV. The diagram below summarizes
 the relationship between plugins.</p>
@@ -709,8 +708,8 @@ information. However, the execution model of S2E only allows the guest calling p
 get these IDs, <code class="docutils literal notranslate"><span class="pre">WindowsMonitor</span></code> has to use introspection. However, it gets some help from the guest agent, which
 communicates to <code class="docutils literal notranslate"><span class="pre">WindowsMonitor</span></code> the locations of key Windows data structures in memory and offsets in these
 structures.</p>
-</section>
-<section id="plugins-involved-in-pov-generation">
+</div>
+<div class="section" id="plugins-involved-in-pov-generation">
 <h2>Plugins involved in PoV generation<a class="headerlink" href="#plugins-involved-in-pov-generation" title="Permalink to this headline"></a></h2>
 <p>In the previous section, we gave an overview of the S2E plugin architecture. Here we explain in more details the
 plugins that are involved in detecting vulnerabilities and generating PoVs.</p>
@@ -767,8 +766,8 @@ seed files, the bootstrap forks a state in which the program is run without seed
 <dt><strong>CUPA Searcher</strong></dt><dd><p>This searcher implements the Class Uniform Path Analysis (CUPA) algorithm as described in <a class="reference external" href="http://www.stefanbucur.net/assets/pubs/chef.pdf">this</a> paper. It can work together with the <code class="docutils literal notranslate"><span class="pre">SeedSearcher</span></code> plugin.</p>
 </dd>
 </dl>
-</section>
-<section id="the-bootstrap-script">
+</div>
+<div class="section" id="the-bootstrap-script">
 <h2>The bootstrap script<a class="headerlink" href="#the-bootstrap-script" title="Permalink to this headline"></a></h2>
 <p>The bootstrap script is a file called <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> that the guest fetches from the host and executes. It contains
 instructions on how to execute the program under analysis. More detail can be found in the
@@ -779,8 +778,8 @@ seed files. Note that it will not affect symbolic execution - the <code class="d
 schedule this state (state 0) for execution. This state will always exist, which means that even if S2E explores all
 execution paths in the CB (which is possible for simple binaries such as CADET_00001), the analysis will not end
 because not all states have been killed. The analysis must therefore be manually stopped.</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

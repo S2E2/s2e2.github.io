@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Debugging Guest Code &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -215,8 +214,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -418,7 +417,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="debugging-guest-code">
+  <div class="section" id="debugging-guest-code">
 <h1>Debugging Guest Code<a class="headerlink" href="#debugging-guest-code" title="Permalink to this headline"></a></h1>
 <p>It is possible to attach GDB to any running instance of S2E. S2E relies on the QEMU GDB interface, which can be enabled
 with the <code class="docutils literal notranslate"><span class="pre">-s</span></code> command line option. This option creates a socket on port number 1234.</p>
@@ -428,25 +427,25 @@ with the <code class="docutils literal notranslate"><span class="pre">-s</span><
 <p>Once the guest is launched and the program is running, attach GDB to it.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">gdb /path/to/my/prog</span>
 <span class="go">target remote localhost:1234</span>
-<span class="gp"># </span>Use gdb as usual <span class="o">(</span><span class="nb">set</span> breakpoints, <span class="nb">source</span> directories, single-step, etc.<span class="o">)</span>.
+<span class="gp">#</span> Use gdb as usual <span class="o">(</span><span class="nb">set</span> breakpoints, <span class="nb">source</span> directories, single-step, etc.<span class="o">)</span>.
 </pre></div>
 </div>
-<section id="remarks">
+<div class="section" id="remarks">
 <h2>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>GDB can only manipulate the current path. Use the DFS search strategy to have a coherent debugging experience.</p></li>
 <li><p>GDB cannot inspect symbolic variables. If you attempt to display a symbolic variable, S2E will concretize it.</p></li>
 <li><p>You can also debug kernel-mode code.</p></li>
 </ul>
-</section>
-<section id="useful-tips">
+</div>
+<div class="section" id="useful-tips">
 <h2>Useful tips<a class="headerlink" href="#useful-tips" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>At any point, if you feel that symbolic execution got stuck, attach GDB to the running S2E instance to check what
 code is being executed.</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Setting up a Windows development environment &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="setting-up-a-windows-development-environment">
+  <div class="section" id="setting-up-a-windows-development-environment">
 <h1>Setting up a Windows development environment<a class="headerlink" href="#setting-up-a-windows-development-environment" title="Permalink to this headline"></a></h1>
 <p>This tutorial explains how to quickly set up a Windows development environment
 in which you can build Windows applications and device drivers. This is useful
@@ -448,7 +447,7 @@ for development (e.g., building Windows-specific components of S2E, such as the
 <li><p>You have enough disk space and free memory (you will need at least 60 GB of disk and 4 GB of RAM for the VM).</p></li>
 </ol>
 </div></blockquote>
-<section id="provisioning-a-windows-development-vm">
+<div class="section" id="provisioning-a-windows-development-vm">
 <h2>1. Provisioning a Windows development VM<a class="headerlink" href="#provisioning-a-windows-development-vm" title="Permalink to this headline"></a></h2>
 <p>First, you need to build a Windows VM. At the end of this section, you will have a Windows 10 VM with Visual Studio 2019
 Community Edition, the Windows Driver Kit, and an SSH server. Visual Studio will be installed with all C/C++ development
@@ -488,8 +487,8 @@ debug/release combinations. You should not get any errors.</p></li>
 <li><p><strong>Check remote connection.</strong> Check that you can SSH into the VM. You should get a Windows command prompt.</p></li>
 <li><p>Finally, do not forget to take a snapshot.</p></li>
 </ol>
-</section>
-<section id="building-visual-studio-projects-remotely">
+</div>
+<div class="section" id="building-visual-studio-projects-remotely">
 <h2>2. Building Visual Studio projects remotely<a class="headerlink" href="#building-visual-studio-projects-remotely" title="Permalink to this headline"></a></h2>
 <p>In this section, we explain how to build Visual Studio projects in the VM that you built in the previous section.</p>
 <p>a. Copy your public SSH key into the guest VM. This is important, as the remote build script would ask you to type the
@@ -521,8 +520,8 @@ local one. You can customize the target build directory, the host address, the u
 environment variables (see the script header for details).</p>
 <p>When this command completes, you should have all the build artifacts locally, in the
 <code class="docutils literal notranslate"><span class="pre">Windows-driver-samples/filesys/miniFilter/scanner</span></code> folder. Look for <code class="docutils literal notranslate"><span class="pre">*.exe</span></code> and <code class="docutils literal notranslate"><span class="pre">*.sys</span></code> files.</p>
-</section>
-<section id="use-case-building-and-running-a-windows-device-driver">
+</div>
+<div class="section" id="use-case-building-and-running-a-windows-device-driver">
 <h2>3. Use case: building and running a Windows device driver<a class="headerlink" href="#use-case-building-and-running-a-windows-device-driver" title="Permalink to this headline"></a></h2>
 <p>This section assumes that you successfully built the <code class="docutils literal notranslate"><span class="pre">Windows-driver-samples/filesys/miniFilter/scanner</span></code> solution.
 If no, go to the previous section.</p>
@@ -555,8 +554,8 @@ $ s2e coverage --sympath ~/Windows-driver-samples/filesys/miniFilter/scanner/ lc
 found and the HTML coverage report will not be generated. In principle, the <cite>*.lines</cite> files already contain paths to the
 source, however these paths are valid only on the build machine. The coverage command will therefore try to match these
 paths against the given search paths.</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

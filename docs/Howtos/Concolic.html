@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Analyzing large programs using concolic execution &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="analyzing-large-programs-using-concolic-execution">
+  <div class="section" id="analyzing-large-programs-using-concolic-execution">
 <h1>Analyzing large programs using concolic execution<a class="headerlink" href="#analyzing-large-programs-using-concolic-execution" title="Permalink to this headline"></a></h1>
 <p>Symbolic execution may get stuck at the start of an execution and have a hard time reaching deep paths.
 This is caused by path selection heuristics and the constraint solver. Path selection heuristics may not know
@@ -456,7 +455,7 @@ symbolic data.</p>
 augmented with concrete data. Symbolic execution merely uses the concrete inputs as a seed to guide path exploration
 along specific paths of the execution tree.</p>
 </div>
-<section id="executing-programs-in-concolic-mode">
+<div class="section" id="executing-programs-in-concolic-mode">
 <h2>Executing programs in concolic mode<a class="headerlink" href="#executing-programs-in-concolic-mode" title="Permalink to this headline"></a></h2>
 <p>Concolic execution is the default mode of operation of S2E. You do not need to do anything special other than
 specifying initial concrete data (<em>seeds</em>) when creating symbolic values.</p>
@@ -467,8 +466,8 @@ of symbolic inputs with the concrete ones during expression evaluation (e.g., at
 <p>You can also create symbolic files, symbolic program arguments, symbolic standard input, etc. All these methods
 eventually call <code class="docutils literal notranslate"><span class="pre">s2e_make_symbolic()</span></code>. You may find more information about this
 <a class="reference external" href="../Tutorials/BasicLinuxSymbex/s2e.so.html">here</a> and <a class="reference external" href="../Tutorials/BasicLinuxSymbex/SourceCode.html">here</a>.</p>
-</section>
-<section id="faq">
+</div>
+<div class="section" id="faq">
 <h2>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline"></a></h2>
 <p><strong>How is concolic execution as implemented in S2E similar to / different from symbolic execution as implemented
 in KLEE?</strong></p>
@@ -498,14 +497,14 @@ the solver compared to vanilla symbolic execution.</p>
 <p><strong>The test case generator produces inputs that do not look at all like my initial concrete seed, what is wrong?</strong></p>
 <p>Consider the following function. It makes a 4-byte buffer symbolic while using the concrete data stored there
 as seed (<code class="docutils literal notranslate"><span class="pre">abcd</span></code>).</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;b&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;c&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;d&#39;</span><span class="p">};</span><span class="w"></span>
-<span class="w">    </span><span class="n">s2e_make_symbolic</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;mydata&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;d&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;c&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;found&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;b&#39;</span><span class="p">,</span> <span class="sc">&#39;c&#39;</span><span class="p">,</span> <span class="sc">&#39;d&#39;</span><span class="p">};</span>
+    <span class="n">s2e_make_symbolic</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">),</span> <span class="s">&quot;mydata&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;d&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;c&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;found&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The first path (i.e., state 0) follows the concrete inputs and terminate without printing anything.
@@ -559,8 +558,8 @@ the feasibility of a branch condition (and computing new sets of concrete inputs
 <p><strong>I want to use the content of a file as a seed for concolic execution. How do I do it?</strong></p>
 <p>Please refer to the <a class="reference external" href="../Tutorials/BasicLinuxSymbex/s2e.so.html">s2e.so</a> tutorial, which explains all the different
 ways you can create symbolic data.</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

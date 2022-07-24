@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Analysis of Windows DLLs &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="analysis-of-windows-dlls">
+  <div class="section" id="analysis-of-windows-dlls">
 <h1><a class="toc-backref" href="#id1">Analysis of Windows DLLs</a><a class="headerlink" href="#analysis-of-windows-dlls" title="Permalink to this headline"></a></h1>
 <p>This tutorial outlines how a Windows dynamic-link library (DLL) can be analyzed in S2E. As an example we will analyze
 the <a class="reference external" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms679277">Beep</a> function in <code class="docutils literal notranslate"><span class="pre">kernel32.dll</span></code>.</p>
@@ -435,7 +434,7 @@ the <a class="reference external" href="https://msdn.microsoft.com/en-us/library
 </li>
 </ul>
 </div>
-<section id="preparing-the-test-environment">
+<div class="section" id="preparing-the-test-environment">
 <h2><a class="toc-backref" href="#id2">Preparing the test environment</a><a class="headerlink" href="#preparing-the-test-environment" title="Permalink to this headline"></a></h2>
 <p>As usual, use <a class="reference external" href="../../s2e-env.html">s2e-env</a> to create your S2E environment. Build a Windows image using the
 <code class="docutils literal notranslate"><span class="pre">image_build</span></code> command. Note that when building a Windows image the <code class="docutils literal notranslate"><span class="pre">--iso-dir</span></code> option must be provided. E.g.</p>
@@ -463,8 +462,8 @@ We can do this by modifying the <code class="docutils literal notranslate"><span
 </div>
 <p>Finally, start the analysis using the <code class="docutils literal notranslate"><span class="pre">launch-s2e.sh</span></code> script. Let S2E run for approximately 2 minutes before stopping
 it (e.g. via <code class="docutils literal notranslate"><span class="pre">killall</span> <span class="pre">-9</span> <span class="pre">qemu-system-x86_64</span></code>).</p>
-</section>
-<section id="generate-basic-block-coverage">
+</div>
+<div class="section" id="generate-basic-block-coverage">
 <h2><a class="toc-backref" href="#id3">Generate basic block coverage</a><a class="headerlink" href="#generate-basic-block-coverage" title="Permalink to this headline"></a></h2>
 <p>You can use <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> to generate basic block coverage to confirm that the <code class="docutils literal notranslate"><span class="pre">Beep</span></code> function was executed.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e coverage basic_block kernel32</span>
@@ -474,8 +473,8 @@ it (e.g. via <code class="docutils literal notranslate"><span class="pre">killal
 <code class="docutils literal notranslate"><span class="pre">install/bin/ida_highlight_basic_blocks.py</span></code> script to highlight the basic block coverage should give a similar
 result to the following:</p>
 <img alt="../../_images/ida_kernel32_beep_coverage.png" src="../../_images/ida_kernel32_beep_coverage.png" />
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

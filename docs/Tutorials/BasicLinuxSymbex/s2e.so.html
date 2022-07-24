@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Symbolic Execution of Linux Binaries &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,15 +419,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="symbolic-execution-of-linux-binaries">
+  <div class="section" id="symbolic-execution-of-linux-binaries">
 <h1>Symbolic Execution of Linux Binaries<a class="headerlink" href="#symbolic-execution-of-linux-binaries" title="Permalink to this headline"></a></h1>
 <p>In this tutorial, we will show how to symbolically execute Linux <em>binaries</em>, <em>without</em>
 modifying their source code. Before you start, make sure that you have a working S2E environment.</p>
-<section id="getting-started">
+<div class="section" id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <p>We will symbolically execute the <code class="docutils literal notranslate"><span class="pre">echo</span></code> utility. For this, create a new analysis project as follows:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span><span class="nv">$S2EENV</span> is the root of your S2E environment created with s2e init
-<span class="go">s2e new_project -i debian-9.2.1-i386 $S2EENV/images/debian-9.2.1-i386/guestfs/bin/echo abc</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> <span class="nv">$S2EENV</span> is the root of your S2E environment created with s2e init
+<span class="go">s2e new_project -i debian-11.3-i386 $S2EENV/images/debian-11.3-i386/guestfs/bin/echo abc</span>
 </pre></div>
 </div>
 <p>This command creates a new analysis project that invokes <code class="docutils literal notranslate"><span class="pre">echo</span></code> with one parameter <code class="docutils literal notranslate"><span class="pre">abc</span></code>, which would normally print
@@ -439,8 +438,8 @@ with the VM image that S2E uses.</p>
 <p>Finally, we must explicitly pass the image name using <code class="docutils literal notranslate"><span class="pre">-i</span></code>, because we <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">new_project</span></code> may decide to use
 a 64-bit image to run the binary, because it is in theory possible to run a 32-bit binary on a 64-bit guest. However,
 this could also fail because <code class="docutils literal notranslate"><span class="pre">echo</span></code> might use libraries specific to the 32-bit guest.</p>
-</section>
-<section id="using-s2e-so">
+</div>
+<div class="section" id="using-s2e-so">
 <h2>Using <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code><a class="headerlink" href="#using-s2e-so" title="Permalink to this headline"></a></h2>
 <p>In this section, we show how to make command line arguments symbolic. Open the <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> file and locate the
 following line:</p>
@@ -495,8 +494,8 @@ The next section explains how to make the content of the file symbolic.</p>
 <p>Your binary <strong>must</strong> be dynamically linked, otherwise you cannot use <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code>. In case you want to make
 arguments symbolic for a statically-linked binary, see workarounds below.</p>
 </div>
-</section>
-<section id="what-about-other-symbolic-input">
+</div>
+<div class="section" id="what-about-other-symbolic-input">
 <h2>What about other symbolic input?<a class="headerlink" href="#what-about-other-symbolic-input" title="Permalink to this headline"></a></h2>
 <p><strong>Piping symbolic data.</strong> You can also feed symbolic data to your program through <code class="docutils literal notranslate"><span class="pre">stdin</span></code>. The idea is to pipe the
 symbolic output of one program to the input of another. Symbolic output can be generated using the <code class="docutils literal notranslate"><span class="pre">s2ecmd</span></code> utility.
@@ -512,8 +511,8 @@ The command below passes four symbolic bytes to <code class="docutils literal no
 libraries before reaching the target binary.</p>
 <p><strong>Using symbolic files.</strong> If your binary takes a file name as a parameter and you want the content of that file to be
 symbolic, the simplest is to create your analysis project as follows:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>The @@ is a placeholder <span class="k">for</span> a concrete file name that contains symbolic data
-<span class="go">s2e new_project -i debian-9.2.1-i386 $S2EENV/images/debian-9.2.1-i386/guestfs/bin/cat @@</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> The @@ is a placeholder <span class="k">for</span> a concrete file name that contains symbolic data
+<span class="go">s2e new_project -i debian-11.3-i386 $S2EENV/images/debian-11.3-i386/guestfs/bin/cat @@</span>
 </pre></div>
 </div>
 <p>This generates a bootstrap file that creates a symbolic file in ramdisk (i.e., in <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> on Linux), writes
@@ -528,14 +527,14 @@ according to the aspects of the binary you want to test.</p>
 <p><strong>Using seed files.</strong> This is the preferred way of using S2E. Unconstrained files created by <code class="docutils literal notranslate"><span class="pre">&#64;&#64;</span></code> may be less
 efficient at guiding the program towards an interesting path. Instead, you can use the concrete data of a file to
 <a class="reference external" href="../../Howtos/Concolic.html">guide</a> path exploration:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e new_project -i debian-9.2.1-i386 $S2EENV/images/debian-9.2.1-i386/guestfs/bin/cat /path/to/file/on/host</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e new_project -i debian-11.3-i386 $S2EENV/images/debian-11.3-i386/guestfs/bin/cat /path/to/file/on/host</span>
 </pre></div>
 </div>
 <p>This commands scans the command line for arguments that look like paths (e.g., <code class="docutils literal notranslate"><span class="pre">/path/to/file/on/host</span></code>) and
 configures <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> to download such paths into the guest. In addition to that, it creates a <code class="docutils literal notranslate"><span class="pre">.symranges</span></code>
 file in the project directory that specifies which byte ranges of the file to make symbolic.</p>
-</section>
-<section id="configuring-s2e-for-use-with-s2e-so">
+</div>
+<div class="section" id="configuring-s2e-for-use-with-s2e-so">
 <h2>Configuring S2E for use with <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code><a class="headerlink" href="#configuring-s2e-for-use-with-s2e-so" title="Permalink to this headline"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> automatically configures all plugins required to use <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code>. Read this section if you want to know
 more about the configuration. You do not need to worry about this during normal use and can skip the rest of this
@@ -564,8 +563,8 @@ source code manually. However, writing symbolic data to the standard input or to
 On Windows, programs and shared libraries are tracked by a special guest driver, <code class="docutils literal notranslate"><span class="pre">s2e.sys</span></code>, that communicates with
 <code class="docutils literal notranslate"><span class="pre">WindowsMonitor</span></code>.</p>
 </div>
-</section>
-<section id="modifying-and-building-s2e-so">
+</div>
+<div class="section" id="modifying-and-building-s2e-so">
 <h2>Modifying and building <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code><a class="headerlink" href="#modifying-and-building-s2e-so" title="Permalink to this headline"></a></h2>
 <p>If you use <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> and stock VM images, <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> is automatically copied into the guest VM each time
 you start the analysis. You do not have to do anything special unless you want to modify it.</p>
@@ -575,8 +574,8 @@ build directory. This creates <code class="docutils literal notranslate"><span c
 <code class="docutils literal notranslate"><span class="pre">$S2E_PREFIX</span></code> is equal to <code class="docutils literal notranslate"><span class="pre">opt</span></code>).</p>
 <p>The latest build of <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> is copied in your guest VM next time you start the analysis, so all you need is to run
 the <code class="docutils literal notranslate"><span class="pre">make</span></code> command above if you modify the source code of <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code>.</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

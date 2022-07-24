@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EdgeKiller &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -216,8 +215,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -419,24 +418,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="edgekiller">
+  <div class="section" id="edgekiller">
 <h1>EdgeKiller<a class="headerlink" href="#edgekiller" title="Permalink to this headline"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">EdgeKiller</span></code> plugin looks for the execution of a sequence of program counters and kills all the paths where this
 sequence occurs. This is useful to kill polling loops.</p>
-<section id="options">
+<div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline"></a></h2>
 <p>The configuration requires one section per module to be monitored. The section name must match the module identifier
 defined in the configuration section of the <a class="reference external" href="ModuleExecutionDetector.html">ModuleExecutionDetector</a> plugin. Each
 section contains a list of named pairs of program counters that define the program edges. All program counters are
 relative to the native load base of the module. The name of each pair is not important, but must be unique.</p>
-</section>
-<section id="required-plugins">
+</div>
+<div class="section" id="required-plugins">
 <h2>Required Plugins<a class="headerlink" href="#required-plugins" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="ModuleExecutionDetector.html">ModuleExecutionDetector</a></p></li>
 </ul>
-</section>
-<section id="configuration-sample">
+</div>
+<div class="section" id="configuration-sample">
 <h2>Configuration Sample<a class="headerlink" href="#configuration-sample" title="Permalink to this headline"></a></h2>
 <p>The following example shows how to kill the polling loops in the <code class="docutils literal notranslate"><span class="pre">pcntpci5.sys</span></code> device driver. Each pair of addresses
 represents the source and the target of a polling loop back-edge.</p>
@@ -449,8 +448,8 @@ represents the source and the target of a polling loop back-edge.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

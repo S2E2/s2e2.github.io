@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Debugging S2E &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="debugging-s2e">
+  <div class="section" id="debugging-s2e">
 <h1><a class="toc-backref" href="#id1">Debugging S2E</a><a class="headerlink" href="#debugging-s2e" title="Permalink to this headline"></a></h1>
 <p>S2E is a complex aggregation of various tools totaling over 1 million LOCs. Debugging S2E may be hard. The following
 types of bugs are often hard to diagnose:</p>
@@ -446,14 +445,14 @@ simplest to most advanced.</p>
 </li>
 </ul>
 </div>
-<section id="the-obvious-checks">
+<div class="section" id="the-obvious-checks">
 <h2><a class="toc-backref" href="#id2">The obvious checks</a><a class="headerlink" href="#the-obvious-checks" title="Permalink to this headline"></a></h2>
 <p>Make sure that your code compiles without warnings. A missing return statement buried somewhere may have dramatic
 consequences. Fortunately, recent versions of clang put checks in the binary in such cases (as well as for other
 undefined behavior), so the program will crash sooner rather than later.</p>
 <p>Try to run your code with address sanitizer and/or undefined behavior sanitizer.</p>
-</section>
-<section id="record-replay">
+</div>
+<div class="section" id="record-replay">
 <h2><a class="toc-backref" href="#id3">Record-replay</a><a class="headerlink" href="#record-replay" title="Permalink to this headline"></a></h2>
 <p>If your bug is non-deterministic and happens 10s of minutes to hours in your experiment, you may want to try record
 replay. VMware Workstation 7 has this feature and will allow you to come as close to the bug as possible so that you can
@@ -461,13 +460,13 @@ look at it in a debugger. If you somehow miss the bug, no problem, you can repla
 recent versions of VMware Workstation do not have record-replay anymore and you will need a rather old setup and
 processor to use version 7.</p>
 <p>In general, we do not find this method very useful.</p>
-</section>
-<section id="valgrind">
+</div>
+<div class="section" id="valgrind">
 <h2><a class="toc-backref" href="#id4">Valgrind</a><a class="headerlink" href="#valgrind" title="Permalink to this headline"></a></h2>
 <p>Valgrind works for small-sized VMs only (typically 1-8MB of guest RAM and very little code). It is mostly useful when
 debugging the internals of the execution engine, which does not require a lot of environment to run.</p>
-</section>
-<section id="debugging-with-gdb">
+</div>
+<div class="section" id="debugging-with-gdb">
 <h2><a class="toc-backref" href="#id5">Debugging with gdb</a><a class="headerlink" href="#debugging-with-gdb" title="Permalink to this headline"></a></h2>
 <p>S2E should be compiled with both symbol and debug information in order to use it with gdb:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd $S2EDIR/build-s2e</span>
@@ -495,12 +494,12 @@ handle SIGUSR2 noprint
 <span class="go">    -drive file=/path/to/image.raw.s2e,cache=writeback,format=s2e -other -arbitary -flags</span>
 </pre></div>
 </div>
-</section>
-<section id="s2e-kernel-debugging">
+</div>
+<div class="section" id="s2e-kernel-debugging">
 <h2><a class="toc-backref" href="#id6">S2E kernel debugging</a><a class="headerlink" href="#s2e-kernel-debugging" title="Permalink to this headline"></a></h2>
 <p>Sometimes you may need to debug the modified Linux kernel. To do this please refer to the following <a class="reference external" href="http://wiki.osdev.org/Kernel_Debugging#Use_GDB_with_QEMU">page</a>.</p>
-</section>
-<section id="s2e-debug-functions">
+</div>
+<div class="section" id="s2e-debug-functions">
 <h2><a class="toc-backref" href="#id7">S2E debug functions</a><a class="headerlink" href="#s2e-debug-functions" title="Permalink to this headline"></a></h2>
 <p>In order to simplify debugging a number of functions for gdb are <a class="reference external" href="https://github.com/S2E/s2e/blob/master/libs2ecore/src/S2E.cpp">available</a>:</p>
 <dl class="simple">
@@ -519,8 +518,8 @@ handle SIGUSR2 noprint
 </div>
 <p>Where <code class="docutils literal notranslate"><span class="pre">&amp;param</span></code> is the address of the expression. The output will be printed to <code class="docutils literal notranslate"><span class="pre">debug.txt</span></code>.
 Sometimes, you may need to issue the commands twice, in case the log file is not flushed.</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

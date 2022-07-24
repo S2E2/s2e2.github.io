@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Symbolic Execution Extensions for KVM &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Plugins/BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="symbolic-execution-extensions-for-kvm">
+  <div class="section" id="symbolic-execution-extensions-for-kvm">
 <h1><a class="toc-backref" href="#id1">Symbolic Execution Extensions for KVM</a><a class="headerlink" href="#symbolic-execution-extensions-for-kvm" title="Permalink to this headline"></a></h1>
 <p>This document presents extensions to the Linux KVM virtualization interface that enable building multi-path analysis
 tools, such as symbolic execution engines. In a nutshell, we built <code class="docutils literal notranslate"><span class="pre">libs2e.so</span></code>, a shared library that implements the
@@ -464,7 +463,7 @@ and (4) provide a reference of the new KVM extensions so that you can integrate 
 </li>
 </ul>
 </div>
-<section id="kernel-based-virtual-machine-kvm">
+<div class="section" id="kernel-based-virtual-machine-kvm">
 <h2><a class="toc-backref" href="#id2">Kernel-based Virtual Machine (KVM)</a><a class="headerlink" href="#kernel-based-virtual-machine-kvm" title="Permalink to this headline"></a></h2>
 <p>The Linux kernel exposes the KVM interface through the <code class="docutils literal notranslate"><span class="pre">/dev/kvm</span></code> file. A program (that we call a KVM client) that
 wants to create a VM opens that file and sends commands to it using the <code class="docutils literal notranslate"><span class="pre">ioctl</span></code> interface. The most important commands
@@ -512,8 +511,8 @@ tree</a>. You can also browse QEMU’s <a class="reference external" href="https
 code</a> to understand which KVM features it uses.
 Finally, there is a great article <a class="reference external" href="https://lwn.net/Articles/658511/">here</a> that explains in detail how to write
 your own KVM client from scratch.</p>
-</section>
-<section id="emulating-the-kvm-interface">
+</div>
+<div class="section" id="emulating-the-kvm-interface">
 <h2><a class="toc-backref" href="#id3">Emulating the KVM interface</a><a class="headerlink" href="#emulating-the-kvm-interface" title="Permalink to this headline"></a></h2>
 <p>KVM is great for running code at native speeds, but what if we actually want to do some advanced analysis on the guest
 code? What if we want to instrument it? One common method for doing that is to use dynamic binary translation.
@@ -527,7 +526,7 @@ client can live on its own and upgrading it becomes straightforward. For example
 back in 2011 was tightly coupled to QEMU and was de facto stuck with the QEMU version of that time (v1.0). The current
 version of S2E however emulates the KVM interface and is not tied to any particular client. In fact, upgrading
 from QEMU 1.0 to QEMU 3.0 was fairly straightforward, despite over six years separating these two versions.</p>
-<section id="using-system-call-hooks-for-emulation">
+<div class="section" id="using-system-call-hooks-for-emulation">
 <h3><a class="toc-backref" href="#id4">Using system call hooks for emulation</a><a class="headerlink" href="#using-system-call-hooks-for-emulation" title="Permalink to this headline"></a></h3>
 <p>There are different ways in which one can implement a KVM-compatible CPU emulator. We chose to take the DBT implemented
 by QEMU and refactor it into a standalone user-space library. The advantage of this compared to building our own
@@ -542,8 +541,8 @@ provided a kernel-mode version of this library, but this would have caused needl
 to kernel mode.</p>
 <p>We refer to the real KVM driver that ships with the Linux kernel as <em>native KVM</em> and to our DBT-based emulation of KVM
 as <em>emulated KVM</em>, implemented by the <em>KVM emulation engine</em>.</p>
-</section>
-<section id="differences-between-actual-kvm-and-kvm-emulation">
+</div>
+<div class="section" id="differences-between-actual-kvm-and-kvm-emulation">
 <h3><a class="toc-backref" href="#id5">Differences between actual KVM and KVM emulation</a><a class="headerlink" href="#differences-between-actual-kvm-and-kvm-emulation" title="Permalink to this headline"></a></h3>
 <p>Implementing a KVM-compatible interface poses several challenges. In theory, there should be no difference between the
 native KVM implementation and a DBT-based one, except for speed (and of course different CPU features). A proper
@@ -581,8 +580,8 @@ accessed the <a class="reference external" href="https://github.com/qemu/qemu/bl
 (like in emulated KVM), patching will fail. We extended the KVM interface with the <code class="docutils literal notranslate"><span class="pre">KVM_CAP_DBT</span></code> flag to disable the
 VAPIC when emulated KVM is present. Disabling it does not cause noticeable slowdowns because there are no kernel-user
 mode switches involved anyway.</p>
-</section>
-<section id="summary">
+</div>
+<div class="section" id="summary">
 <h3><a class="toc-backref" href="#id6">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline"></a></h3>
 <p>To summarize, we implemented a shared library that hooks KVM calls in order to emulate the KVM interface. The library
 uses DBT-based CPU emulation. In order to accommodate for shortcomings of the DBT-based method, we added two extensions
@@ -590,9 +589,9 @@ to KVM: <code class="docutils literal notranslate"><span class="pre">KVM_CAP_DBT
 a DBT-based implementation so that it can adjust its behavior accordingly. The second allows faster interrupt injection.
 We do not believe that these two extensions are fundamental, they could probably be eliminated with a better engineering
 of the CPU emulator.</p>
-</section>
-</section>
-<section id="adding-symbolic-execution-capabilities-to-kvm">
+</div>
+</div>
+<div class="section" id="adding-symbolic-execution-capabilities-to-kvm">
 <h2><a class="toc-backref" href="#id7">Adding symbolic execution capabilities to KVM</a><a class="headerlink" href="#adding-symbolic-execution-capabilities-to-kvm" title="Permalink to this headline"></a></h2>
 <p>In the previous section, we have seen how to build a KVM emulation engine out of a DBT that only supports one execution
 path and no symbolic data. In this section, we will show how to extend that engine as well as the KVM interface in order
@@ -615,7 +614,7 @@ many snapshots as they want. These snapshots include CPU, memory, as well as dev
 the ability to quickly create lightweight whole-system snapshots and be able to switch between them at any time. On top
 of that, a symbolic execution engine adds the ability to store symbolic data in the snapshots and perform computations
 on that symbolic data.</p>
-<section id="multi-path-execution">
+<div class="section" id="multi-path-execution">
 <h3><a class="toc-backref" href="#id8">Multi-path execution</a><a class="headerlink" href="#multi-path-execution" title="Permalink to this headline"></a></h3>
 <p>The hypervisor needs to be aware of multi-path execution. A vanilla hypervisor normally runs a single path at a time
 and all guest memory accesses go to a fixed area of host virtual memory, all disk accesses go to the same file, etc.
@@ -655,8 +654,8 @@ implement lightweight system snapshots by tweaking the page tables of the host (
 approach, which would bring many more benefits besides simplified APIs (e.g., much faster state snapshotting and
 state switching).</p>
 </div>
-</section>
-<section id="handling-symbolic-data">
+</div>
+<div class="section" id="handling-symbolic-data">
 <h3><a class="toc-backref" href="#id9">Handling symbolic data</a><a class="headerlink" href="#handling-symbolic-data" title="Permalink to this headline"></a></h3>
 <p>To keep things simple, we decided that symbolic data cannot leak into the KVM client and therefore the KVM API does not
 need support for symbolic data exchange. We observed that symbolic data does not usually propagate through this
@@ -685,9 +684,9 @@ output to <code class="docutils literal notranslate"><span class="pre">/dev/null
 when symbolic data is written to the console or the virtual disk). Of course, one may want to symbolically execute
 virtual devices (e.g., when testing device drivers). The solution for this is to write a symbolic device model, which we
 leave out for another tutorial.</p>
-</section>
-</section>
-<section id="reference">
+</div>
+</div>
+<div class="section" id="reference">
 <h2><a class="toc-backref" href="#id10">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline"></a></h2>
 <p>This section explains in detail the new KVM extensions that a KVM client should support in order to be compatible
 with the KVM emulation engine. Each command is described as follows:</p>
@@ -707,7 +706,7 @@ execution, some are required in all cases.</p></li>
 handlers. If you are lost in the 90 KLOC that comprise <code class="docutils literal notranslate"><span class="pre">libs2e.so</span></code>, just start from this file and work your
 way up to the other components. This should help you get started hacking!</p>
 </div>
-<section id="dynamic-binary-translation">
+<div class="section" id="dynamic-binary-translation">
 <h3><a class="toc-backref" href="#id11">Dynamic binary translation</a><a class="headerlink" href="#dynamic-binary-translation" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
@@ -729,8 +728,8 @@ way up to the other components. This should help you get started hacking!</p>
 <p>This capability indicates to the client that the underlying KVM implementation uses dynamic binary translation instead
 of actual hardware virtualization. Until the KVM emulation engine perfectly mimics the native KVM interface, this
 capability allows the client to adjust its behavior to support the KVM emulation engine.</p>
-</section>
-<section id="registering-memory-regions">
+</div>
+<div class="section" id="registering-memory-regions">
 <h3><a class="toc-backref" href="#id12">Registering memory regions</a><a class="headerlink" href="#registering-memory-regions" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
@@ -753,14 +752,14 @@ capability allows the client to adjust its behavior to support the KVM emulation
 </tr>
 </tbody>
 </table>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">kvm_fixed_region</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">__u64</span><span class="w"> </span><span class="n">host_address</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">__u64</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">kvm_fixed_region</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+    <span class="n">__u64</span> <span class="n">host_address</span><span class="p">;</span>
+    <span class="n">__u64</span> <span class="n">size</span><span class="p">;</span>
 
-<span class="w">    </span><span class="cp">#define KVM_MEM_SHARED_CONCRETE 1</span>
-<span class="w">    </span><span class="n">__u32</span><span class="w"> </span><span class="n">flags</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+    <span class="cp">#define KVM_MEM_SHARED_CONCRETE 1</span>
+    <span class="n">__u32</span> <span class="n">flags</span><span class="p">;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>The KVM client must call this API after it allocates guest physical memory (either RAM or ROM) in order to register them
@@ -775,8 +774,8 @@ the region is helpful to catch any stray accesses and help with debugging.</p>
 This is useful for video memory, which is typically write-only and whose state does not matter for correct guest
 execution (i.e., different execution paths clobbering each other’s frame buffers has usually no bad effect on
 execution correctness as long as guest code does not read that data back).</p>
-</section>
-<section id="accessing-guest-memory">
+</div>
+<div class="section" id="accessing-guest-memory">
 <h3><a class="toc-backref" href="#id13">Accessing guest memory</a><a class="headerlink" href="#accessing-guest-memory" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
@@ -795,21 +794,21 @@ execution correctness as long as guest code does not read that data back).</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">kvm_mem_rw</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="cm">/* source and dest are always host pointers */</span><span class="w"></span>
-<span class="w">    </span><span class="n">__u64</span><span class="w"> </span><span class="n">source</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">__u64</span><span class="w"> </span><span class="n">dest</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">__u64</span><span class="w"> </span><span class="n">is_write</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">__u64</span><span class="w"> </span><span class="n">length</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">kvm_mem_rw</span> <span class="p">{</span>
+    <span class="cm">/* source and dest are always host pointers */</span>
+    <span class="n">__u64</span> <span class="n">source</span><span class="p">;</span>
+    <span class="n">__u64</span> <span class="n">dest</span><span class="p">;</span>
+    <span class="n">__u64</span> <span class="n">is_write</span><span class="p">;</span>
+    <span class="n">__u64</span> <span class="n">length</span><span class="p">;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>This capability signals to the KVM client that the KVM emulation engine requires the KVM client to perform all accesses
 to physical memory through the <code class="docutils literal notranslate"><span class="pre">KVM_CAP_MEM_RW</span> <span class="pre">API</span></code>. For single-path emulators, this is required to properly flush
 CPU’s code cache in case DMA touches memory that contains code. For multi-path emulators, this also ensures that data is
 read/written from/to the correct execution state.</p>
-</section>
-<section id="interrupting-execution">
+</div>
+<div class="section" id="interrupting-execution">
 <h3><a class="toc-backref" href="#id14">Interrupting execution</a><a class="headerlink" href="#interrupting-execution" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
@@ -831,8 +830,8 @@ read/written from/to the correct execution state.</p>
 <p>This capability signals to the KVM client that the KVM emulation engine cannot return from KVM_RUN quickly enough
 (e.g., when there are signals present). A KVM client must call <code class="docutils literal notranslate"><span class="pre">KVM_FORCE_EXIT</span></code> when it would otherwise want
 KVM_RUN to exit and when <code class="docutils literal notranslate"><span class="pre">KVM_CAP_FORCE_EXIT</span></code> is present.</p>
-</section>
-<section id="virtual-disk-i-o">
+</div>
+<div class="section" id="virtual-disk-i-o">
 <h3><a class="toc-backref" href="#id15">Virtual disk I/O</a><a class="headerlink" href="#virtual-disk-i-o" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
@@ -855,15 +854,15 @@ KVM_RUN to exit and when <code class="docutils literal notranslate"><span class=
 </tr>
 </tbody>
 </table>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">kvm_disk_rw</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="cm">/* Address of the buffer in host memory */</span><span class="w"></span>
-<span class="w">    </span><span class="n">__u64</span><span class="w"> </span><span class="n">host_address</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="cm">/* 512-byte sectors */</span><span class="w"></span>
-<span class="w">    </span><span class="n">__u64</span><span class="w"> </span><span class="n">sector</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="cm">/* input: sectors to read/write, output: sectors read/written */</span><span class="w"></span>
-<span class="w">    </span><span class="n">__u32</span><span class="w"> </span><span class="n">count</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">__u8</span><span class="w"> </span><span class="n">is_write</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">kvm_disk_rw</span> <span class="p">{</span>
+    <span class="cm">/* Address of the buffer in host memory */</span>
+    <span class="n">__u64</span> <span class="n">host_address</span><span class="p">;</span>
+    <span class="cm">/* 512-byte sectors */</span>
+    <span class="n">__u64</span> <span class="n">sector</span><span class="p">;</span>
+    <span class="cm">/* input: sectors to read/write, output: sectors read/written */</span>
+    <span class="n">__u32</span> <span class="n">count</span><span class="p">;</span>
+    <span class="n">__u8</span> <span class="n">is_write</span><span class="p">;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>The KVM client must invoke this command when it otherwise would write disk data to a file. The KVM emulation engine
@@ -874,8 +873,8 @@ disk data.</p>
 <p>In practice, KVM clients should implement copy-on-write mechanisms. In case of reads, the client must call first
 <code class="docutils literal notranslate"><span class="pre">KVM_DISK_RW</span></code> to get any dirty sectors, and if there are none, read from the underlying image file. In case of writes,
 the client should directly call <code class="docutils literal notranslate"><span class="pre">KVM_DISK_RW</span></code> with the modified sector data.</p>
-</section>
-<section id="saving-restoring-device-snapshots">
+</div>
+<div class="section" id="saving-restoring-device-snapshots">
 <h3><a class="toc-backref" href="#id16">Saving/restoring device snapshots</a><a class="headerlink" href="#saving-restoring-device-snapshots" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
@@ -898,15 +897,15 @@ the client should directly call <code class="docutils literal notranslate"><span
 </tr>
 </tbody>
 </table>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">kvm_dev_snapshot</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">__u64</span><span class="w"> </span><span class="n">buffer</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="cm">/* If is_write == 0, indicates expected size in case of error */</span><span class="w"></span>
-<span class="w">    </span><span class="n">__u32</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">kvm_dev_snapshot</span> <span class="p">{</span>
+    <span class="n">__u64</span> <span class="n">buffer</span><span class="p">;</span>
+    <span class="cm">/* If is_write == 0, indicates expected size in case of error */</span>
+    <span class="n">__u32</span> <span class="n">size</span><span class="p">;</span>
 
-<span class="w">    </span><span class="cm">/* Only when is_write == 0, indicates the position from which reading the state */</span><span class="w"></span>
-<span class="w">    </span><span class="n">__u32</span><span class="w"> </span><span class="n">pos</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">__u8</span><span class="w"> </span><span class="n">is_write</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+    <span class="cm">/* Only when is_write == 0, indicates the position from which reading the state */</span>
+    <span class="n">__u32</span> <span class="n">pos</span><span class="p">;</span>
+    <span class="n">__u8</span> <span class="n">is_write</span><span class="p">;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>This command should only be called when KVM_RUN returns the <code class="docutils literal notranslate"><span class="pre">KVM_EXIT_SAVE_DEV_STATE</span></code> or
@@ -918,8 +917,8 @@ The call returns the number of bytes written, which should be equal to <code cla
 saved. <code class="docutils literal notranslate"><span class="pre">pos</span></code> and <code class="docutils literal notranslate"><span class="pre">size</span></code> must be set to read the desired chunk of data. The KVM client must call <code class="docutils literal notranslate"><span class="pre">KVM_DEV_SNAPSHOT</span></code>
 multiple times. The call returns the number of bytes effectively read, which may be smaller than <code class="docutils literal notranslate"><span class="pre">size</span></code> in case
 the specified range exceeds the amount of data in the snapshot.</p>
-</section>
-<section id="setting-the-clock-scale-pointer">
+</div>
+<div class="section" id="setting-the-clock-scale-pointer">
 <h3><a class="toc-backref" href="#id17">Setting the clock scale pointer</a><a class="headerlink" href="#setting-the-clock-scale-pointer" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
@@ -954,8 +953,8 @@ would have advanced by two seconds.</p>
 in the symbolic execution engine. This may be several orders of magnitude slower than real-time (100-1000x clock
 scale factor). Failing to set the factor accordingly would cause the client to inject timer interrupts too
 frequently, preventing any progress of the guest.</p>
-</section>
-<section id="kvm-run-exit-codes">
+</div>
+<div class="section" id="kvm-run-exit-codes">
 <h3><a class="toc-backref" href="#id18">KVM_RUN exit codes</a><a class="headerlink" href="#kvm-run-exit-codes" title="Permalink to this headline"></a></h3>
 <p>When the KVM_RUN command exits, it indicates to the KVM client the reason of the exit in the form of an exit code. In
 addition to the standard codes, the KVM emulation engine adds the following exit codes. They should be implemented by
@@ -992,9 +991,9 @@ client must ensure that before calling KVM_RUN again, the new process instance i
 parent one and can run on its own. In particular, the client must close and re-open any file descriptors that
 <code class="docutils literal notranslate"><span class="pre">fork()</span></code> would otherwise share with the parent.</p>
 </div></blockquote>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
            </div>

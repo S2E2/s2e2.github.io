@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LinuxMonitor &mdash; S2E 2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -217,8 +216,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../BaseInstructions.html">Communicating between the guest and S2E plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../MovingFiles.html">Copying files between the host and the guest</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eget"><code class="docutils literal notranslate"><span class="pre">s2eget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2eput"><code class="docutils literal notranslate"><span class="pre">s2eput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2ecmd-get"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#s2ecmd-put"><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../MovingFiles.html#setting-up-the-hostfiles-plugin">Setting up the HostFiles Plugin</a></li>
 </ul>
 </li>
@@ -420,13 +419,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="linuxmonitor">
+  <div class="section" id="linuxmonitor">
 <h1>LinuxMonitor<a class="headerlink" href="#linuxmonitor" title="Permalink to this headline"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">LinuxMonitor</span></code> plugin intercepts process creation/termination, segmentation faults, module load/unload and traps
 in S2E. This is achieved by using a specially-modified version of the <a class="reference external" href="https://github.com/S2E/s2e-linux-kernel">Linux kernel</a> and a dynamically-loaded kernel module. Upon particular events occurring
 (e.g. process creation), the kernel will execute a custom instruction that is interpreted and handled by the
 <code class="docutils literal notranslate"><span class="pre">LinuxMonitor</span></code> plugin. <code class="docutils literal notranslate"><span class="pre">LinuxMonitor</span></code> exports these events for other plugins to intercept and process as required.</p>
-<section id="options">
+<div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline"></a></h2>
 <dl class="simple">
 <dt>terminateOnSegfault=[true|false]</dt><dd><p>Set to <code class="docutils literal notranslate"><span class="pre">true</span></code> to terminate the currently-executing state when a segmentation fault occurs.</p>
@@ -436,12 +435,12 @@ etc.). If you are using a debugger inside the guest VM then you should set this 
 also intercept breakpoints.</p>
 </dd>
 </dl>
-</section>
-<section id="required-plugins">
+</div>
+<div class="section" id="required-plugins">
 <h2>Required Plugins<a class="headerlink" href="#required-plugins" title="Permalink to this headline"></a></h2>
 <p>None</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>
