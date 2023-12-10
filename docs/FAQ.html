@@ -119,8 +119,9 @@
 <li class="toctree-l2"><a class="reference internal" href="Tutorials/PoV/index.html#the-bootstrap-script">The bootstrap script</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/kaitai-s2e">Combining Kaitai Struct and S2E for analyzing parsers [external]</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/malware-s2e">Analyzing trigger-based malware with S2E [external]</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/posts/kaitai-s2e">Combining Kaitai Struct and S2E for analyzing parsers [external]</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/posts/malware-s2e">Analyzing trigger-based malware with S2E [external]</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/posts/google-ctf-2016/">Solving CTF challenges with S2E [external]</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorials/SystemTap/index.html">Using SystemTap with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Tutorials/SystemTap/index.html#building-and-running-systemtap-in-s2e">Building and running SystemTap in S2E</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Tutorials/SystemTap/index.html#creating-a-simple-systemtap-script-for-symbolic-execution">Creating a simple SystemTap script for symbolic execution</a></li>
@@ -290,7 +291,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-deal-with-path-explosion">How do I deal with path explosion?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-keep-memory-usage-low">How to keep memory usage low?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-much-time-is-the-constraint-solver-taking-to-solve-constraints">How much time is the constraint solver taking to solve constraints?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#what-do-the-various-fields-in-run-stats-mean">What do the various fields in <code class="docutils literal notranslate"><span class="pre">run.stats</span></code> mean?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-do-the-various-fields-in-stats-csv-mean">What do the various fields in <code class="docutils literal notranslate"><span class="pre">stats.csv</span></code> mean?</a></li>
 </ul>
 </li>
 </ul>
@@ -378,7 +379,13 @@
 <li class="toctree-l2"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html#testcasegenerator">TestCaseGenerator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html#memorytracer">MemoryTracer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html#translationblocktracer">TranslationBlockTracer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html#instructiontracer">InstructionTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html#instructioncounter">InstructionCounter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html#filtering-plugins">Filtering Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html#processexecutiondetector">ProcessExecutionDetector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html#threadexecutiondetector">ThreadExecutionDetector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Plugins/Tracers/ExecutionTracer.html#moduleexecutiondetector">ModuleExecutionDetector</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Plugins/FunctionMonitor.html">FunctionMonitor</a></li>
@@ -433,7 +440,7 @@ in the <a class="reference external" href="Howtos/Coverage/index.html">Coverage<
 <li><p>Look at <code class="docutils literal notranslate"><span class="pre">s2e-last/debug.txt</span></code> and other files. These files list all the major events occurring during symbolic
 execution. If there are no messages in the logs and the CPU usage is 100%, it may be that execution is stuck
 in the constraint solver. Use the <cite>perf top</cite> Linux utility to get a call stack to identify which part of S2E is busy.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">run.stats</span></code> contains many types of statistics. S2E updates this file about every second, when executing symbolic
+<li><p><code class="docutils literal notranslate"><span class="pre">stats.csv</span></code> contains many types of statistics. S2E updates this file about every second, when executing symbolic
 code. See later in this FAQ for a description of its fields.</p></li>
 </ol>
 </div>
@@ -536,9 +543,9 @@ unlikely to cover any new code, kill it.</p></li>
 <p>With this configuration S2E generates two logs: <code class="docutils literal notranslate"><span class="pre">s2e-last/queries.pc</span></code> and <code class="docutils literal notranslate"><span class="pre">s2e-last/solver-queries.qlog</span></code>. Look for
 “Elapsed time” in the logs.</p>
 </div>
-<div class="section" id="what-do-the-various-fields-in-run-stats-mean">
-<h2>What do the various fields in <code class="docutils literal notranslate"><span class="pre">run.stats</span></code> mean?<a class="headerlink" href="#what-do-the-various-fields-in-run-stats-mean" title="Permalink to this headline"></a></h2>
-<p>You can open <code class="docutils literal notranslate"><span class="pre">run.stats</span></code> in a spreadsheet as a CSV file. Most of the fields are self-explanatory. Here are the
+<div class="section" id="what-do-the-various-fields-in-stats-csv-mean">
+<h2>What do the various fields in <code class="docutils literal notranslate"><span class="pre">stats.csv</span></code> mean?<a class="headerlink" href="#what-do-the-various-fields-in-stats-csv-mean" title="Permalink to this headline"></a></h2>
+<p>You can open <code class="docutils literal notranslate"><span class="pre">stats.csv</span></code> in a spreadsheet as a CSV file. Most of the fields are self-explanatory. Here are the
 trickiest ones:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">QueryTime</span></code> shows how much time KLEE spent in the solver.</p></li>
@@ -546,8 +553,6 @@ trickiest ones:</p>
 is enabled by the <code class="docutils literal notranslate"><span class="pre">--use-cex-cache</span></code> KLEE option). <code class="docutils literal notranslate"><span class="pre">SolverTime</span></code> shows how much time KLEE spent in total while
 solving queries (this includes all the solver optimizations that could be enabled by various solver-related KLEE
 options).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ResolveTime</span></code> represents time that KLEE spent resolving symbolic memory addresses, however in S2E this is not
-computed correctly yet.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ForkTime</span></code> shows how much time KLEE spent on forking states.</p></li>
 </ul>
 </div>

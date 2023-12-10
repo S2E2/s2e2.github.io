@@ -119,8 +119,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../Tutorials/PoV/index.html#the-bootstrap-script">The bootstrap script</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/kaitai-s2e">Combining Kaitai Struct and S2E for analyzing parsers [external]</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/post/malware-s2e">Analyzing trigger-based malware with S2E [external]</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/posts/kaitai-s2e">Combining Kaitai Struct and S2E for analyzing parsers [external]</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/posts/malware-s2e">Analyzing trigger-based malware with S2E [external]</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://adrianherrera.github.io/posts/google-ctf-2016/">Solving CTF challenges with S2E [external]</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Tutorials/SystemTap/index.html">Using SystemTap with S2E</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../Tutorials/SystemTap/index.html#building-and-running-systemtap-in-s2e">Building and running SystemTap in S2E</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Tutorials/SystemTap/index.html#creating-a-simple-systemtap-script-for-symbolic-execution">Creating a simple SystemTap script for symbolic execution</a></li>
@@ -290,7 +291,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-do-i-deal-with-path-explosion">How do I deal with path explosion?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-to-keep-memory-usage-low">How to keep memory usage low?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#how-much-time-is-the-constraint-solver-taking-to-solve-constraints">How much time is the constraint solver taking to solve constraints?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#what-do-the-various-fields-in-run-stats-mean">What do the various fields in <code class="docutils literal notranslate"><span class="pre">run.stats</span></code> mean?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FAQ.html#what-do-the-various-fields-in-stats-csv-mean">What do the various fields in <code class="docutils literal notranslate"><span class="pre">stats.csv</span></code> mean?</a></li>
 </ul>
 </li>
 </ul>
@@ -378,7 +379,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#testcasegenerator">TestCaseGenerator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#memorytracer">MemoryTracer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#translationblocktracer">TranslationBlockTracer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#instructiontracer">InstructionTracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instructioncounter">InstructionCounter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filtering-plugins">Filtering Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#processexecutiondetector">ProcessExecutionDetector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#threadexecutiondetector">ThreadExecutionDetector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#moduleexecutiondetector">ModuleExecutionDetector</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../FunctionMonitor.html">FunctionMonitor</a></li>
@@ -551,10 +558,9 @@ configuration in <code class="docutils literal notranslate"><span class="pre">s2
     <span class="n">tracePageFaults</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
     <span class="n">traceTlbMisses</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
 
-    <span class="c1">-- This list specifies the modules to trace.</span>
-    <span class="c1">-- If this list is empty, MemoryTracer will trace all processes specified in ProcessExecutionDetector.</span>
-    <span class="c1">-- Modules specified here must run in the context of the process(es) defined in ProcessExecutionDetector.</span>
-    <span class="n">moduleNames</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;test&quot;</span> <span class="p">}</span>
+    <span class="c1">-- The filterPlugin parameter specifies which plugin to use to restrict memory tracing.</span>
+    <span class="c1">-- If the parameter is missing, the memory tracer will trace all accesses in the system.</span>
+    <span class="n">filterPlugin</span> <span class="o">=</span> <span class="s2">&quot;ThreadExecutionDetector&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -624,7 +630,7 @@ per-state location.</p></li>
 <h2>TranslationBlockTracer<a class="headerlink" href="#translationblocktracer" title="Permalink to this headline"></a></h2>
 <p>This plugin records the state of the CPU registers before and/or after a translation block is executed.
 A translation block is a sequence of guest instructions that ends in a control flow change.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;MemoryTracer&quot;</span><span class="p">)</span>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;TranslationBlockTracer&quot;</span><span class="p">)</span>
 
 <span class="n">pluginsConfig</span><span class="p">.</span><span class="n">TranslationBlockTracer</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1">-- In general, the CPU state at the beginning of a translation block is equal</span>
@@ -633,7 +639,11 @@ A translation block is a sequence of guest instructions that ends in a control f
     <span class="c1">-- may not be recorded.</span>
     <span class="n">traceTbStart</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
     <span class="n">traceTbEnd</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="n">moduleNames</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;test&quot;</span><span class="p">}</span>
+
+    <span class="c1">-- The filterPlugin parameter specifies which plugin to use to restrict translation block tracing.</span>
+    <span class="c1">-- If the parameter is missing, the translation block tracer will trace all translation</span>
+    <span class="c1">-- blocks in the system.</span>
+    <span class="n">filterPlugin</span> <span class="o">=</span> <span class="s2">&quot;ThreadExecutionDetector&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -694,16 +704,15 @@ the recording. Note that symbolic data is not recorded by the plugin.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">last_pc</span></code>: the program counter of the last instruction in the translation block.</p></li>
 </ul>
 </div>
-<div class="section" id="instructiontracer">
-<h2>InstructionTracer<a class="headerlink" href="#instructiontracer" title="Permalink to this headline"></a></h2>
+<div class="section" id="instructioncounter">
+<h2>InstructionCounter<a class="headerlink" href="#instructioncounter" title="Permalink to this headline"></a></h2>
 <p>This plugin counts how many instructions have been executed in the configured processes or modules and writes
 the count to the execution trace. The plugin keeps a per-path count and writes it when the path terminates.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;InstructionCounter&quot;</span><span class="p">)</span>
 <span class="n">pluginsConfig</span><span class="p">.</span><span class="n">InstructionCounter</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1">-- This list specifies the modules to trace.</span>
-    <span class="c1">-- If this list is empty, MemoryTracer will trace all processes specified in ProcessExecutionDetector.</span>
-    <span class="c1">-- Modules specified here must run in the context of the process(es) defined in ProcessExecutionDetector.</span>
-    <span class="n">moduleNames</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;test&quot;</span><span class="p">}</span>
+    <span class="c1">-- The filterPlugin parameter specifies which plugin to use to restrict instruction counting.</span>
+    <span class="c1">-- If the parameter is missing, the instruction counter will count all instructions in the system.</span>
+    <span class="n">filterPlugin</span> <span class="o">=</span> <span class="s2">&quot;ThreadExecutionDetector&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -718,6 +727,55 @@ the count to the execution trace. The plugin keeps a per-path count and writes i
     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;TRACE_ICOUNT&quot;</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="filtering-plugins">
+<h2>Filtering Plugins<a class="headerlink" href="#filtering-plugins" title="Permalink to this headline"></a></h2>
+<p>Execution tracers record by default every event in the system. This may be very expensive and result
+in enormous trace files that are hard to work with.</p>
+<p>Execution tracers allow specifying a filtering plugin to restrict the trace to code of interest.
+A filtering plugin may, e.g., limit the trace to a single process, thread, or even a small code section.</p>
+<p>The following section describes available filtering plugins.</p>
+<div class="section" id="processexecutiondetector">
+<h3>ProcessExecutionDetector<a class="headerlink" href="#processexecutiondetector" title="Permalink to this headline"></a></h3>
+<p>This plugin filters tracing to a process of interest. The process can be either specified by name
+inside the lua configuration file or set at run time by guest code using an API from
+<code class="docutils literal notranslate"><span class="pre">process_execution_detector.h</span></code>.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;ProcessExecutionDetector&quot;</span><span class="p">)</span>
+<span class="n">pluginsConfig</span><span class="p">.</span><span class="n">ProcessExecutionDetector</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">moduleNames</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;myprogram.exe&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">trackKernel</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="threadexecutiondetector">
+<h3>ThreadExecutionDetector<a class="headerlink" href="#threadexecutiondetector" title="Permalink to this headline"></a></h3>
+<p>This plugins filters tracing to one or more thread of interest. The plugin is configured from the guest
+using APIs in <code class="docutils literal notranslate"><span class="pre">thread_execution_detector.h</span></code>. The plugin supports filtering of kernel code as well.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;ThreadExecutionDetector&quot;</span><span class="p">)</span>
+<span class="n">pluginsConfig</span><span class="p">.</span><span class="n">ThreadExecutionDetector</span> <span class="o">=</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="moduleexecutiondetector">
+<h3>ModuleExecutionDetector<a class="headerlink" href="#moduleexecutiondetector" title="Permalink to this headline"></a></h3>
+<p>This plugin filters tracing to specific binary names. It can be configured in the lua file.
+This plugin does not take into account threads or processes. For example, when using this filter
+to trace memory accesses in a shared library, accesses will be traced in every process where that
+library is loaded.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;ModuleExecutionDetector&quot;</span><span class="p">)</span>
+<span class="n">pluginsConfig</span><span class="p">.</span><span class="n">ModuleExecutionDetector</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">mod_0</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">moduleName</span> <span class="o">=</span> <span class="s2">&quot;myprogram.exe&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
