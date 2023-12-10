@@ -7,6 +7,13 @@ title: Releases
 
 You can find the latest stable version of S2E on master. We compile here from time to time a list of important updates.
 
+### 2023-12-10
+ * Upgraded TCG to 7.2.0.
+ * Use pre-compiled LLVM/Clang to reduce build time.
+ * Cleaned up KLEE APIs to access guest memory.
+ * Various fixes and improvements in execution tracer plugins.
+ * Removed Revgen.
+
 ### 2022-07-24
  * Added support for Ubuntu 22.04 and Debian 11.3 guest images.
  * Removed support for Debian 9 images.
