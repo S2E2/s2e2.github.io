@@ -10,6 +10,20 @@ S²E is used by many scientific projects across the world. This page lists some 
 We'll be happy to list yours as well, just drop us a line!
 
 
+-   **<a href="https://www.usenix.org/conference/usenixsecurity23/presentation/yao-mingxuan">Hiding in Plain Sight: An
+    Empirical Study of Web Application Abuse in Malware</a>** at <a href="https://cyfi.ece.gatech.edu/">Georgia
+    Institute of Technology CyFI Lab</a> and United States Military Academy (<a
+    href="https://mingxuan.ece.gatech.edu/">Mingxuan Yao</a>, et al).
+
+    Web applications provide a wide array of utilities that are abused by malware as a replacement for traditional
+    attacker-controlled servers. Thwarting these Web App-Engaged (WAE) malware requires rapid collaboration between
+    incident responders and web app providers. We developed Marsea, an automated malware analysis pipeline that uses S2E
+    to study WAE malware and enables rapid remediation. Given 10K malware samples, Marsea revealed 893 WAE malware in 97
+    families abusing 29 web apps. This research uncovered a 226% increase in the number of WAE malware since 2020. To
+    date, we have used Marsea to collaborate with the web app providers to take down 80% of the malicious web app
+    content.
+
+
 -   **<a href="https://www.usenix.org/system/files/osdi20-hu.pdf">Automated Reasoning and Detection of Specious
     Configuration in Large Systems with Symbolic Execution</a>** at Johns Hopkins University
     (Yigong Hu, Gongqi Huang, and Peng Huang).
