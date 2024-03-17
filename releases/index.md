@@ -7,6 +7,10 @@ title: Releases
 
 You can find the latest stable version of S2E on master. We compile here from time to time a list of important updates.
 
+### 2024-03-17
+ * Upgraded TCG to 8.1.2.
+ * Added Debian 12.5 support (host + guest images).
+
 ### 2023-12-10
  * Upgraded TCG to 7.2.0.
  * Use pre-compiled LLVM/Clang to reduce build time.
