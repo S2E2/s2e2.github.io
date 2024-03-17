@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Execution Tracers &mdash; S2E 2.0 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=60dbed4a"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -26,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> S2E
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            S2E
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -415,8 +423,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Execution Tracers</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Execution Tracers</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Plugins/Tracers/ExecutionTracer.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -426,8 +434,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="execution-tracers">
-<h1>Execution Tracers<a class="headerlink" href="#execution-tracers" title="Permalink to this headline"></a></h1>
+  <section id="execution-tracers">
+<h1>Execution Tracers<a class="headerlink" href="#execution-tracers" title="Link to this heading"></a></h1>
 <p>S2E provides plugins to record execution traces. The main plugin is <code class="docutils literal notranslate"><span class="pre">ExecutionTracer</span></code>. All other tracing plugins, such
 as <code class="docutils literal notranslate"><span class="pre">MemoryTracer</span></code> or <code class="docutils literal notranslate"><span class="pre">TranslationBlockTracer</span></code>, use <code class="docutils literal notranslate"><span class="pre">ExecutionTracer</span></code> in order to append various trace entries to
 the trace file (e.g., a memory access or a translation block execution). <code class="docutils literal notranslate"><span class="pre">ExecutionTracer</span></code> gathers trace data from the
@@ -437,21 +445,21 @@ various plugins and outputs them to an <code class="docutils literal notranslate
 <p>This document is a reference. For a more hands-on explanation of how to generate traces, please
 read this <a class="reference external" href="../../Howtos/ExecutionTracers.html">tutorial</a> first.</p>
 </div>
-<div class="section" id="executiontracer">
-<h2>ExecutionTracer<a class="headerlink" href="#executiontracer" title="Permalink to this headline"></a></h2>
+<section id="executiontracer">
+<h2>ExecutionTracer<a class="headerlink" href="#executiontracer" title="Link to this heading"></a></h2>
 <p>An execution trace is a sequence of <code class="docutils literal notranslate"><span class="pre">(magic,</span> <span class="pre">header_size,</span> <span class="pre">header,</span> <span class="pre">item_size,</span> <span class="pre">item)</span></code> entries.
 The magic number identifies the start of a trace entry. It is followed by the size of the header, the header, the
 item size, then finally the actual item.</p>
 <p>The header is defined by the <code class="docutils literal notranslate"><span class="pre">PbTraceItemHeader</span></code> protobuf type. For more details, see the
 <a class="reference external" href="https://github.com/S2E/s2e/blob/master/libs2eplugins/src/s2e/Plugins/ExecutionTracers/TraceEntries.proto">TraceEntries.proto</a>
 file.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="n">PbTraceItemHeader</span> <span class="p">{</span>
-    <span class="n">required</span> <span class="n">uint32</span> <span class="n">state_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="n">required</span> <span class="n">uint64</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="n">required</span> <span class="n">uint64</span> <span class="n">address_space</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-    <span class="n">required</span> <span class="n">uint64</span> <span class="n">pid</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-    <span class="n">required</span> <span class="n">uint64</span> <span class="n">pc</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-    <span class="n">required</span> <span class="n">PbTraceItemHeaderType</span> <span class="n">type</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">message</span><span class="w"> </span><span class="n">PbTraceItemHeader</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">required</span><span class="w"> </span><span class="n">uint32</span><span class="w"> </span><span class="n">state_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">required</span><span class="w"> </span><span class="n">uint64</span><span class="w"> </span><span class="n">timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="n">required</span><span class="w"> </span><span class="n">uint64</span><span class="w"> </span><span class="n">address_space</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">    </span><span class="n">required</span><span class="w"> </span><span class="n">uint64</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">    </span><span class="n">required</span><span class="w"> </span><span class="n">uint64</span><span class="w"> </span><span class="n">pc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">    </span><span class="n">required</span><span class="w"> </span><span class="n">PbTraceItemHeaderType</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -465,51 +473,51 @@ terminated). In order to do this, the execution tracer plugin monitors forks and
 the trace (see <code class="docutils literal notranslate"><span class="pre">PbTraceItemFork</span></code>). Any subsequent trace item has the corresponding state id in its header. If two
 items in the trace have the same state identifier, the item that happened earlier in the path is the one that comes
 first in the trace.</p>
-</div>
-<div class="section" id="moduletracer">
-<h2>ModuleTracer<a class="headerlink" href="#moduletracer" title="Permalink to this headline"></a></h2>
+</section>
+<section id="moduletracer">
+<h2>ModuleTracer<a class="headerlink" href="#moduletracer" title="Link to this heading"></a></h2>
 <p>This plugin traces process and module events. The following snippet is an example of a module load event. This indicates
 that the OS loaded the shared library <code class="docutils literal notranslate"><span class="pre">/lib64/ld-linux-x86-64.so.2</span></code> into a process whose program identifier is 1245.
 The event also records the location of each loaded section of the binary. The <code class="docutils literal notranslate"><span class="pre">runtime_load_base</span></code> of a section
 is its start address in virtual memory as decided by the OS. The <code class="docutils literal notranslate"><span class="pre">native_load_base</span></code> is the address of the section
 as specified by the linker. The two are often different because of ASLR or relocations.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;address_space&quot;</span><span class="p">:</span> <span class="mi">255299584</span><span class="p">,</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;ld-linux-x86-64.so.2&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/lib64/ld-linux-x86-64.so.2&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">18446744071580784396</span><span class="p">,</span>
-    <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="mi">1245</span><span class="p">,</span>
-    <span class="nt">&quot;sections&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;native_load_base&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="nt">&quot;readable&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-            <span class="nt">&quot;runtime_load_base&quot;</span><span class="p">:</span> <span class="mi">140472821178368</span><span class="p">,</span>
-            <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">142304</span><span class="p">,</span>
-            <span class="nt">&quot;writable&quot;</span><span class="p">:</span> <span class="kc">false</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;native_load_base&quot;</span><span class="p">:</span> <span class="mi">2243520</span><span class="p">,</span>
-            <span class="nt">&quot;readable&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-            <span class="nt">&quot;runtime_load_base&quot;</span><span class="p">:</span> <span class="mi">140472823421888</span><span class="p">,</span>
-            <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">5120</span><span class="p">,</span>
-            <span class="nt">&quot;writable&quot;</span><span class="p">:</span> <span class="kc">true</span>
-        <span class="p">}</span>
-    <span class="p">],</span>
-    <span class="nt">&quot;state_id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">630430186029900</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;TRACE_MOD_LOAD&quot;</span>
+<span class="w">    </span><span class="nt">&quot;address_space&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">255299584</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ld-linux-x86-64.so.2&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/lib64/ld-linux-x86-64.so.2&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">18446744071580784396</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pid&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1245</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;sections&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;executable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;native_load_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;readable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;runtime_load_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">140472821178368</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">142304</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;writable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;executable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;native_load_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2243520</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;readable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;runtime_load_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">140472823421888</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5120</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;writable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;state_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">630430186029900</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TRACE_MOD_LOAD&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ModuleTracer</span></code> is a fundamental plugin, as it helps resolve the raw program counters in the trace to actual
 binary names. <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> uses this extensively to get file and line numbers when binaries have debug information.</p>
-</div>
-<div class="section" id="testcasegenerator">
-<h2>TestCaseGenerator<a class="headerlink" href="#testcasegenerator" title="Permalink to this headline"></a></h2>
+</section>
+<section id="testcasegenerator">
+<h2>TestCaseGenerator<a class="headerlink" href="#testcasegenerator" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">TestCaseGenerator</span></code> has several functions:</p>
 <ul class="simple">
 <li><p>Write test cases to <code class="docutils literal notranslate"><span class="pre">debug.txt</span></code></p></li>
@@ -518,18 +526,18 @@ binary names. <code class="docutils literal notranslate"><span class="pre">s2e-e
 </ul>
 <p>In this document, we will examine the latter. A test case entry has the following format:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;address_space&quot;</span><span class="p">:</span> <span class="mi">225800192</span><span class="p">,</span>
-    <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;v0___symfile____tmp_input___0_1_symfile___0&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;AQEBAQEBAQEBAQEBAQE....&quot;</span>
-        <span class="p">}</span>
-    <span class="p">],</span>
-    <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">134518939</span><span class="p">,</span>
-    <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="mi">1295</span><span class="p">,</span>
-    <span class="nt">&quot;state_id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">630185690261719</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;TRACE_TESTCASE&quot;</span>
+<span class="w">    </span><span class="nt">&quot;address_space&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">225800192</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v0___symfile____tmp_input___0_1_symfile___0&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AQEBAQEBAQEBAQEBAQE....&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">134518939</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pid&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1295</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;state_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">630185690261719</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TRACE_TESTCASE&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -545,9 +553,9 @@ number is incremented by one. So the 10th variable of a state will have an id of
 influenced by the sequence of state switches.</p>
 <p>These two identifiers ensure that each variable is globally unique and can be easily ordered when generating a test
 case.</p>
-</div>
-<div class="section" id="memorytracer">
-<h2>MemoryTracer<a class="headerlink" href="#memorytracer" title="Permalink to this headline"></a></h2>
+</section>
+<section id="memorytracer">
+<h2>MemoryTracer<a class="headerlink" href="#memorytracer" title="Link to this heading"></a></h2>
 <p>This plugin traces memory accesses, page faults, and TLB misses in the specified processes. It requires the following
 configuration in <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code>:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;MemoryTracer&quot;</span><span class="p">)</span>
@@ -571,18 +579,18 @@ to the modules of interest.</p>
 </div>
 <p>Here is an example of a memory access:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="mi">140720832808700</span><span class="p">,</span>
-    <span class="nt">&quot;address_space&quot;</span><span class="p">:</span> <span class="mi">255279104</span><span class="p">,</span>
-    <span class="nt">&quot;concrete_buffer&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&quot;flags&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&quot;host_address&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">94739530127322</span><span class="p">,</span>
-    <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="mi">1251</span><span class="p">,</span>
-    <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="nt">&quot;state_id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">630430187009925</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;TRACE_MEMORY&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mi">3735928559</span>
+<span class="w">    </span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">140720832808700</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;address_space&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">255279104</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;concrete_buffer&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;flags&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;host_address&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">94739530127322</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pid&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1251</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;state_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">630430187009925</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TRACE_MEMORY&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3735928559</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -614,20 +622,20 @@ per-state location.</p></li>
 </ul>
 <p>A TLB miss looks as follows. It only stores the address and whether the access was a read or a write.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="mi">140720832808704</span><span class="p">,</span>
-    <span class="nt">&quot;address_space&quot;</span><span class="p">:</span> <span class="mi">255279104</span><span class="p">,</span>
-    <span class="nt">&quot;is_write&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">94739530127511</span><span class="p">,</span>
-    <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="mi">1251</span><span class="p">,</span>
-    <span class="nt">&quot;state_id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">630430187323794</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;TRACE_TLBMISS&quot;</span>
+<span class="w">    </span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">140720832808704</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;address_space&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">255279104</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;is_write&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">94739530127511</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pid&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1251</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;state_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">630430187323794</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TRACE_TLBMISS&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="translationblocktracer">
-<h2>TranslationBlockTracer<a class="headerlink" href="#translationblocktracer" title="Permalink to this headline"></a></h2>
+</section>
+<section id="translationblocktracer">
+<h2>TranslationBlockTracer<a class="headerlink" href="#translationblocktracer" title="Link to this heading"></a></h2>
 <p>This plugin records the state of the CPU registers before and/or after a translation block is executed.
 A translation block is a sequence of guest instructions that ends in a control flow change.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;TranslationBlockTracer&quot;</span><span class="p">)</span>
@@ -649,39 +657,39 @@ A translation block is a sequence of guest instructions that ends in a control f
 </div>
 <p>Here is an example of a trace entry for translation blocks for 64-bit x86 code:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;address_space&quot;</span><span class="p">:</span> <span class="mi">255324160</span><span class="p">,</span>
-    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;first_pc&quot;</span><span class="p">:</span> <span class="mi">93907771242192</span><span class="p">,</span>
-        <span class="nt">&quot;last_pc&quot;</span><span class="p">:</span> <span class="mi">93907771242228</span><span class="p">,</span>
-        <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
-        <span class="nt">&quot;tb_type&quot;</span><span class="p">:</span> <span class="s2">&quot;TB_CALL_IND&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">93907771242192</span><span class="p">,</span>
-    <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="mi">1253</span><span class="p">,</span>
-    <span class="nt">&quot;regs&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="mi">28</span><span class="p">,</span>
-            <span class="mi">140723069759552</span><span class="p">,</span>
-            <span class="mi">139806606502816</span><span class="p">,</span>
-            <span class="mi">0</span><span class="p">,</span>
-            <span class="mi">140723069759520</span><span class="p">,</span>
-            <span class="mi">0</span><span class="p">,</span>
-            <span class="mi">2</span><span class="p">,</span>
-            <span class="mi">139806608687472</span><span class="p">,</span>
-            <span class="mi">139806608688896</span><span class="p">,</span>
-            <span class="mi">0</span><span class="p">,</span>
-            <span class="mi">8</span><span class="p">,</span>
-            <span class="mi">140723070026140</span><span class="p">,</span>
-            <span class="mi">93907771242192</span><span class="p">,</span>
-            <span class="mi">140723069759520</span><span class="p">,</span>
-            <span class="mi">0</span><span class="p">,</span>
-            <span class="mi">0</span>
-        <span class="p">],</span>
-        <span class="nt">&quot;symb_mask&quot;</span><span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;state_id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">631227908208916</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;TRACE_TB_START&quot;</span>
+<span class="w">    </span><span class="nt">&quot;address_space&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">255324160</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;first_pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">93907771242192</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;last_pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">93907771242228</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;tb_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TB_CALL_IND&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">93907771242192</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pid&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1253</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;regs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="mi">28</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">140723069759552</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">139806606502816</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">140723069759520</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">139806608687472</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">139806608688896</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">140723070026140</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">93907771242192</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">140723069759520</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="mi">0</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;symb_mask&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;state_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">631227908208916</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TRACE_TB_START&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -703,9 +711,9 @@ the recording. Note that symbolic data is not recorded by the plugin.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">first_pc</span></code>: the program counter of the first instruction in the translation block.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">last_pc</span></code>: the program counter of the last instruction in the translation block.</p></li>
 </ul>
-</div>
-<div class="section" id="instructioncounter">
-<h2>InstructionCounter<a class="headerlink" href="#instructioncounter" title="Permalink to this headline"></a></h2>
+</section>
+<section id="instructioncounter">
+<h2>InstructionCounter<a class="headerlink" href="#instructioncounter" title="Link to this heading"></a></h2>
 <p>This plugin counts how many instructions have been executed in the configured processes or modules and writes
 the count to the execution trace. The plugin keeps a per-path count and writes it when the path terminates.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;InstructionCounter&quot;</span><span class="p">)</span>
@@ -718,26 +726,26 @@ the count to the execution trace. The plugin keeps a per-path count and writes i
 </div>
 <p>Here is a sample trace entry:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;address_space&quot;</span><span class="p">:</span> <span class="mi">232222720</span><span class="p">,</span>
-    <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">191951636</span><span class="p">,</span>
-    <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">134518939</span><span class="p">,</span>
-    <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="mi">1255</span><span class="p">,</span>
-    <span class="nt">&quot;state_id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">631227908821908</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;TRACE_ICOUNT&quot;</span>
+<span class="w">    </span><span class="nt">&quot;address_space&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">232222720</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">191951636</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">134518939</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pid&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1255</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;state_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">631227908821908</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TRACE_ICOUNT&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="filtering-plugins">
-<h2>Filtering Plugins<a class="headerlink" href="#filtering-plugins" title="Permalink to this headline"></a></h2>
+</section>
+<section id="filtering-plugins">
+<h2>Filtering Plugins<a class="headerlink" href="#filtering-plugins" title="Link to this heading"></a></h2>
 <p>Execution tracers record by default every event in the system. This may be very expensive and result
 in enormous trace files that are hard to work with.</p>
 <p>Execution tracers allow specifying a filtering plugin to restrict the trace to code of interest.
 A filtering plugin may, e.g., limit the trace to a single process, thread, or even a small code section.</p>
 <p>The following section describes available filtering plugins.</p>
-<div class="section" id="processexecutiondetector">
-<h3>ProcessExecutionDetector<a class="headerlink" href="#processexecutiondetector" title="Permalink to this headline"></a></h3>
+<section id="processexecutiondetector">
+<h3>ProcessExecutionDetector<a class="headerlink" href="#processexecutiondetector" title="Link to this heading"></a></h3>
 <p>This plugin filters tracing to a process of interest. The process can be either specified by name
 inside the lua configuration file or set at run time by guest code using an API from
 <code class="docutils literal notranslate"><span class="pre">process_execution_detector.h</span></code>.</p>
@@ -750,9 +758,9 @@ inside the lua configuration file or set at run time by guest code using an API 
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="threadexecutiondetector">
-<h3>ThreadExecutionDetector<a class="headerlink" href="#threadexecutiondetector" title="Permalink to this headline"></a></h3>
+</section>
+<section id="threadexecutiondetector">
+<h3>ThreadExecutionDetector<a class="headerlink" href="#threadexecutiondetector" title="Link to this heading"></a></h3>
 <p>This plugins filters tracing to one or more thread of interest. The plugin is configured from the guest
 using APIs in <code class="docutils literal notranslate"><span class="pre">thread_execution_detector.h</span></code>. The plugin supports filtering of kernel code as well.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;ThreadExecutionDetector&quot;</span><span class="p">)</span>
@@ -761,9 +769,9 @@ using APIs in <code class="docutils literal notranslate"><span class="pre">threa
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="moduleexecutiondetector">
-<h3>ModuleExecutionDetector<a class="headerlink" href="#moduleexecutiondetector" title="Permalink to this headline"></a></h3>
+</section>
+<section id="moduleexecutiondetector">
+<h3>ModuleExecutionDetector<a class="headerlink" href="#moduleexecutiondetector" title="Link to this heading"></a></h3>
 <p>This plugin filters tracing to specific binary names. It can be configured in the lua file.
 This plugin does not take into account threads or processes. For example, when using this filter
 to trace memory accesses in a shared library, accesses will be traced in every process where that
@@ -776,9 +784,9 @@ library is loaded.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
@@ -816,7 +824,7 @@ library is loaded.</p>
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-75283635-2', 'auto');
+      ga('create', 'UA-XXXX-X', 'auto');
       ga('send', 'pageview');
 </script>
 

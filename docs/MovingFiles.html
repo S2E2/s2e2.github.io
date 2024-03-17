@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Copying files between the host and the guest &mdash; S2E 2.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=60dbed4a"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -26,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> S2E
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            S2E
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -415,8 +423,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Copying files between the host and the guest</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Copying files between the host and the guest</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/MovingFiles.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -426,13 +434,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="copying-files-between-the-host-and-the-guest">
-<h1>Copying files between the host and the guest<a class="headerlink" href="#copying-files-between-the-host-and-the-guest" title="Permalink to this headline"></a></h1>
+  <section id="copying-files-between-the-host-and-the-guest">
+<h1>Copying files between the host and the guest<a class="headerlink" href="#copying-files-between-the-host-and-the-guest" title="Link to this heading"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code> and <code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code> commands allow transfering files between the guest virtual machine and the host during
 symbolic execution even when there is no network available. If you use <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> and stock VM images, these two
 utilities are already included in the guest VM.</p>
-<div class="section" id="s2ecmd-get">
-<h2><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code><a class="headerlink" href="#s2ecmd-get" title="Permalink to this headline"></a></h2>
+<section id="s2ecmd-get">
+<h2><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code><a class="headerlink" href="#s2ecmd-get" title="Link to this heading"></a></h2>
 <p>In order to copy a file from the host to the guest VM, add the following command to the desired location in
 your <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./s2ecmd get &lt;filename&gt;</span>
@@ -450,9 +458,9 @@ must be specified relative to the <code class="docutils literal notranslate"><sp
 This script already contains several invocations of <code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code>, which copy the binary to analyze from the host to
 the guest VM, together with several other support files.</p>
 </div>
-</div>
-<div class="section" id="s2ecmd-put">
-<h2><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code><a class="headerlink" href="#s2ecmd-put" title="Permalink to this headline"></a></h2>
+</section>
+<section id="s2ecmd-put">
+<h2><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code><a class="headerlink" href="#s2ecmd-put" title="Link to this heading"></a></h2>
 <p>To copy a file <code class="docutils literal notranslate"><span class="pre">fileName</span></code> from the guest to the host, run the following command:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./s2ecmd put fileName</span>
 </pre></div>
@@ -463,9 +471,9 @@ program that you are analyzing generates a core dump and you want to inspect it 
 <p class="admonition-title">Note</p>
 <p>The upload will fail if a file with the same name already exists in the outfiles directory.</p>
 </div>
-</div>
-<div class="section" id="setting-up-the-hostfiles-plugin">
-<h2>Setting up the HostFiles Plugin<a class="headerlink" href="#setting-up-the-hostfiles-plugin" title="Permalink to this headline"></a></h2>
+</section>
+<section id="setting-up-the-hostfiles-plugin">
+<h2>Setting up the HostFiles Plugin<a class="headerlink" href="#setting-up-the-hostfiles-plugin" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">get</span></code> and <code class="docutils literal notranslate"><span class="pre">s2ecmd</span> <span class="pre">put</span></code> require configuring the <code class="docutils literal notranslate"><span class="pre">HostFiles</span></code> plugin in the S2E configuration file
 (<code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code>). The configuration looks as follows:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">plugins</span> <span class="o">=</span> <span class="p">{</span>
@@ -495,8 +503,8 @@ to access files that are stored outside of your project folder. Do not change th
 with the guest. The paths can be either absolute, relative, or empty. If an empty directory is specified the S2E output
 directory will be exported.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">pluginsConfig.HostFiles.allowWrite</span></code> must be set to <code class="docutils literal notranslate"><span class="pre">true</span></code> for allowing writes to the base directories.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -534,7 +542,7 @@ directory will be exported.</p>
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-75283635-2', 'auto');
+      ga('create', 'UA-XXXX-X', 'auto');
       ga('send', 'pageview');
 </script>
 

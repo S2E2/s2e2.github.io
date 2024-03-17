@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Instrumenting Program Source Code for S2E &mdash; S2E 2.0 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=60dbed4a"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -26,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> S2E
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            S2E
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -415,8 +423,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Instrumenting Program Source Code for S2E</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Instrumenting Program Source Code for S2E</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Tutorials/BasicLinuxSymbex/SourceCode.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -426,8 +434,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="instrumenting-program-source-code-for-s2e">
-<h1><a class="toc-backref" href="#id1">Instrumenting Program Source Code for S2E</a><a class="headerlink" href="#instrumenting-program-source-code-for-s2e" title="Permalink to this headline"></a></h1>
+  <section id="instrumenting-program-source-code-for-s2e">
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Instrumenting Program Source Code for S2E</a><a class="headerlink" href="#instrumenting-program-source-code-for-s2e" title="Link to this heading"></a></h1>
 <p><a class="reference external" href="../../s2e-env.html">s2e-env</a> and <a class="reference external" href="s2e.so.html">s2e.so</a> automate most of the tedious tasks of setting up virtual
 machines, S2E configuration files, launch scripts, etc. This tutorial assumes that you have already built S2E and
 prepared a VM image as described on the <a class="reference external" href="../../BuildingS2E.html">Building the S2E Platform</a> page, that you are
@@ -436,7 +444,7 @@ familiar with <a class="reference external" href="../../s2e-env.html">s2e-env</a
 <a class="reference external" href="s2e.so.html">s2e.so</a>, in particular how they actually make input symbolic, and how you can do the same for arbitrary
 programs. This may be useful on targets and platforms that are not supported yet by S2E’s project creation scripts. We
 advise you to study how these tools work and adapt them to your own needs. Don’t hesitate to look at their source code.</p>
-<div class="contents topic" id="contents">
+<nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#instrumenting-program-source-code-for-s2e" id="id1">Instrumenting Program Source Code for S2E</a></p>
@@ -449,80 +457,80 @@ advise you to study how these tools work and adapt them to your own needs. Don�
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="introduction">
-<h2><a class="toc-backref" href="#id2">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
 <p>We want to cover all of the code of the following program by exploring all the possible paths through it.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Enter two characters: &quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Enter two characters: &quot;</span><span class="p">);</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">fgets</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">str</span><span class="p">),</span> <span class="n">stdin</span><span class="p">))</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">fgets</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">str</span><span class="p">),</span><span class="w"> </span><span class="n">stdin</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span> <span class="o">||</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Not enough characters</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;a&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;z&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is lowercase</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is not lowercase</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Not enough characters</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="sc">&#39;z&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is lowercase</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is not lowercase</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;0&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;9&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is a digit</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is not a digit</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="sc">&#39;0&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="sc">&#39;9&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is a digit</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is not a digit</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First and second chars are the same</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First and second chars are not the same</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;First and second chars are the same</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;First and second chars are not the same</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="compiling-and-running">
-<h2><a class="toc-backref" href="#id3">Compiling and running</a><a class="headerlink" href="#compiling-and-running" title="Permalink to this headline"></a></h2>
+</section>
+<section id="compiling-and-running">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Compiling and running</a><a class="headerlink" href="#compiling-and-running" title="Link to this heading"></a></h2>
 <p>First, compile and run the program as usual, to make sure that it works.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gcc -m32 -O3 tutorial1.c -o tutorial1
-$ ./tutorial1
-Enter two characters: ab
-First char is lowercase
-First char is not a digit
-First and second chars are not the same
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>gcc<span class="w"> </span>-m32<span class="w"> </span>-O3<span class="w"> </span>tutorial1.c<span class="w"> </span>-o<span class="w"> </span>tutorial1
+$<span class="w"> </span>./tutorial1
+Enter<span class="w"> </span>two<span class="w"> </span>characters:<span class="w"> </span>ab
+First<span class="w"> </span>char<span class="w"> </span>is<span class="w"> </span>lowercase
+First<span class="w"> </span>char<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>a<span class="w"> </span>digit
+First<span class="w"> </span>and<span class="w"> </span>second<span class="w"> </span>chars<span class="w"> </span>are<span class="w"> </span>not<span class="w"> </span>the<span class="w"> </span>same
 </pre></div>
 </div>
 <p>Then, create a new project using <a class="reference external" href="../../s2e-env.html">s2e-env</a> . Once it is created, run it, and check that it runs
 properly in the guest. You will need to run S2E with graphics output enabled so that you can type the input.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>s2e new_project /path/to/tutorial1
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>s2e<span class="w"> </span>new_project<span class="w"> </span>/path/to/tutorial1
 </pre></div>
 </div>
-</div>
-<div class="section" id="preparing-the-program-for-symbolic-execution">
-<h2><a class="toc-backref" href="#id4">Preparing the program for symbolic execution</a><a class="headerlink" href="#preparing-the-program-for-symbolic-execution" title="Permalink to this headline"></a></h2>
+</section>
+<section id="preparing-the-program-for-symbolic-execution">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Preparing the program for symbolic execution</a><a class="headerlink" href="#preparing-the-program-for-symbolic-execution" title="Link to this heading"></a></h2>
 <p>In order to execute the program symbolically, it is necessary to specify what values should become symbolic. There are
 many ways to do it in S2E, but the simplest one is to use the S2E opcodes library. This library provides a way for guest
 code to communicate with the S2E system.</p>
 <p>In order to explore all possible paths through the program that correspond to all possible inputs, we want to make these
 inputs symbolic. To accomplish this, we replace the call to <code class="docutils literal notranslate"><span class="pre">fgets()</span></code> by a call to <code class="docutils literal notranslate"><span class="pre">s2e_make_symbolic()</span></code>:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
-<span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="kt">char</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 <span class="c1">// printf(&quot;Enter two characters: &quot;);</span>
 <span class="c1">// if(!fgets(str, sizeof(str), stdin))</span>
 <span class="c1">//   return 1;</span>
-<span class="n">s2e_make_symbolic</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;str&quot;</span><span class="p">);</span>
-<span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">s2e_make_symbolic</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;str&quot;</span><span class="p">);</span>
+<span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">...</span>
 </pre></div>
 </div>
@@ -531,47 +539,47 @@ path. This can be useful to reproduce a bug in a debugger, independently of S2E.
 function. This function gives a concrete example of symbolic values that satisfy the current path constraints (i.e., all
 branch conditions along the execution path).</p>
 <p>After these changes, the example program looks as follows:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;s2e/s2e.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;s2e/s2e.h&gt;</span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
 
-    <span class="c1">// printf(&quot;Enter two characters: &quot;);</span>
-    <span class="c1">// if (!fgets(str, sizeof(str), stdin)) {</span>
-    <span class="c1">//     return 1;</span>
-    <span class="c1">// }</span>
+<span class="w">    </span><span class="c1">// printf(&quot;Enter two characters: &quot;);</span>
+<span class="w">    </span><span class="c1">// if (!fgets(str, sizeof(str), stdin)) {</span>
+<span class="w">    </span><span class="c1">//     return 1;</span>
+<span class="w">    </span><span class="c1">// }</span>
 
-    <span class="n">s2e_make_symbolic</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;str&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">s2e_make_symbolic</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;str&quot;</span><span class="p">);</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span> <span class="o">||</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Not enough characters</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;a&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;z&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is lowercase</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is not lowercase</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Not enough characters</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="sc">&#39;z&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is lowercase</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is not lowercase</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;0&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;9&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is a digit</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is not a digit</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="sc">&#39;0&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="sc">&#39;9&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is a digit</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;First char is not a digit</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First and second chars are the same</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;First and second chars are not the same</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;First and second chars are the same</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;First and second chars are not the same</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="n">s2e_get_example</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;&#39;%c%c&#39; %02x %02x</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-           <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">s2e_get_example</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;&#39;%c%c&#39; %02x %02x</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+<span class="w">           </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -581,16 +589,16 @@ branch conditions along the execution path).</p>
 plugin, which is enabled by default, and outputs test cases in <code class="docutils literal notranslate"><span class="pre">s2e-last/debug.txt</span></code>.</p>
 </div>
 <p>Compile the program and try to run it on your host:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gcc -I<span class="nv">$S2ESRC</span>/guest/common/include -O3 tutorial1.c -o tutorial1
-$ ./tutorial1
-Illegal instruction
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>gcc<span class="w"> </span>-I<span class="nv">$S2ESRC</span>/guest/common/include<span class="w"> </span>-O3<span class="w"> </span>tutorial1.c<span class="w"> </span>-o<span class="w"> </span>tutorial1
+$<span class="w"> </span>./tutorial1
+Illegal<span class="w"> </span>instruction
 </pre></div>
 </div>
 <p>You see the <code class="docutils literal notranslate"><span class="pre">Illegal</span> <span class="pre">instruction</span></code> message because all <code class="docutils literal notranslate"><span class="pre">s2e_*</span></code> functions use
 special CPU opcodes that are only recognized by S2E.</p>
-</div>
-<div class="section" id="running-the-program-in-s2e">
-<h2><a class="toc-backref" href="#id5">Running the program in S2E</a><a class="headerlink" href="#running-the-program-in-s2e" title="Permalink to this headline"></a></h2>
+</section>
+<section id="running-the-program-in-s2e">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Running the program in S2E</a><a class="headerlink" href="#running-the-program-in-s2e" title="Link to this heading"></a></h2>
 <p>Now rerun the program above in S2E, using the launch scripts generated by <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>. You should see several states
 forked, one for each possible program input. Each state is a completely independent snapshot of the whole system. You
 can even interact with each state independently, for example by launching different programs. Try to launch
@@ -598,9 +606,9 @@ can even interact with each state independently, for example by launching differ
 <p>In the host terminal (i.e., the S2E standard output), you see various information about state execution, forking and
 switching. This output is also saved into the <code class="docutils literal notranslate"><span class="pre">s2e-last/debug.txt</span></code> log file. As an exercise, try to follow the
 execution history of a state through the log file.</p>
-</div>
-<div class="section" id="terminating-execution-paths">
-<h2><a class="toc-backref" href="#id6">Terminating execution paths</a><a class="headerlink" href="#terminating-execution-paths" title="Permalink to this headline"></a></h2>
+</section>
+<section id="terminating-execution-paths">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Terminating execution paths</a><a class="headerlink" href="#terminating-execution-paths" title="Link to this heading"></a></h2>
 <p>By default, S2E runs paths forever and needs a special order in order to terminate an execution path. The <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>
 tool wraps programs in a script that will take care of terminating paths when the program returns or when it crashes.
 Sometimes, you may want to terminate the execution path yourself, directly from your program. This is particularly
@@ -609,27 +617,27 @@ useful if you run S2E on a system that is not yet supported by <code class="docu
 immediately stops the execution of the current path and exits S2E if there are no more paths to explore. Add a call to
 this function just before the program returns control to the OS. Before that, you may want to print example values in
 the S2E log using <code class="docutils literal notranslate"><span class="pre">s2e_printf()</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
 
-  <span class="p">...</span>
+<span class="w">  </span><span class="p">...</span>
 
-  <span class="n">s2e_get_example</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-  <span class="n">s2e_printf</span><span class="p">(</span><span class="s">&quot;&#39;%c%c&#39; %02x %02x</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-  <span class="n">s2e_kill_state</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&quot;program terminated&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">s2e_get_example</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">  </span><span class="n">s2e_printf</span><span class="p">(</span><span class="s">&quot;&#39;%c%c&#39; %02x %02x</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">s2e_kill_state</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;program terminated&quot;</span><span class="p">);</span>
 
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>When you rerun the program, you will see that the logs contain the message <code class="docutils literal notranslate"><span class="pre">program</span> <span class="pre">terminated</span></code>.</p>
 <p>You can also terminate the execution from a script, using the <code class="docutils literal notranslate"><span class="pre">s2ecmd</span></code> tool.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>guest$ ./tutorial<span class="p">;</span> ./s2ecmd <span class="nb">kill</span> <span class="m">0</span> <span class="s2">&quot;done&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>guest$<span class="w"> </span>./tutorial<span class="p">;</span><span class="w"> </span>./s2ecmd<span class="w"> </span><span class="nb">kill</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="s2">&quot;done&quot;</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -667,7 +675,7 @@ the S2E log using <code class="docutils literal notranslate"><span class="pre">s
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-75283635-2', 'auto');
+      ga('create', 'UA-XXXX-X', 'auto');
       ga('send', 'pageview');
 </script>
 

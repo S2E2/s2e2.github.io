@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Control Flow Integrity Checking with S2E &mdash; S2E 2.0 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=60dbed4a"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -26,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> S2E
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            S2E
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -415,8 +423,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Control Flow Integrity Checking with S2E</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Control Flow Integrity Checking with S2E</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Tutorials/CFI/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -426,8 +434,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="control-flow-integrity-checking-with-s2e">
-<h1>Control Flow Integrity Checking with S2E<a class="headerlink" href="#control-flow-integrity-checking-with-s2e" title="Permalink to this headline"></a></h1>
+  <section id="control-flow-integrity-checking-with-s2e">
+<h1>Control Flow Integrity Checking with S2E<a class="headerlink" href="#control-flow-integrity-checking-with-s2e" title="Link to this heading"></a></h1>
 <p>Control flow integrity (CFI) violations occur when an attacker forces a program to execute unintended code. This often
 happens as a result of a memory error, leading to an overwrite of code pointers with attacker-controlled data. There are
 many classes of vulnerabilities that can lead to such overwrites. For example, a stack buffer overflow could allow an
@@ -440,25 +448,25 @@ This <a class="reference external" href="https://www.nebelwelt.net/publications/
 <li><p>How to use the information about CFI violations that S2E provides in order to simplify malware analysis with WinDbg.</p></li>
 <li><p>The design and implementation of the CFI checker plugin as well as some of its limitations.</p></li>
 </ul>
-<div class="section" id="setting-up-microsoft-office">
-<h2>Setting up Microsoft Office<a class="headerlink" href="#setting-up-microsoft-office" title="Permalink to this headline"></a></h2>
+<section id="setting-up-microsoft-office">
+<h2>Setting up Microsoft Office<a class="headerlink" href="#setting-up-microsoft-office" title="Link to this heading"></a></h2>
 <p>This tutorial assumes that you are familiar with S2E basics and that you have a working S2E environment.</p>
 <p>Before starting, you must create a Windows 7 image with Microsoft Office 2013 installed. Don’t worry, this is fully
 automated. All you need is to provide an ISO file with Windows 7 and another ISO with Office. Once you have the images,
 run the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>venv<span class="o">)</span> s2e@ubuntu:~/s2e/env$ s2e image_build -g --iso-dir /path/to/iso/directory windows-7sp1pro-i386/office2013
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>s2e@ubuntu:~/s2e/env$<span class="w"> </span>s2e<span class="w"> </span>image_build<span class="w"> </span>-g<span class="w"> </span>--iso-dir<span class="w"> </span>/path/to/iso/directory<span class="w"> </span>windows-7sp1pro-i386/office2013
 </pre></div>
 </div>
 <p>If there are any errors, please refer to this <a class="reference external" href="../MSOffice/index.html">tutorial</a>, which goes in much more
 details on how to set up a Microsoft Office VM.</p>
-</div>
-<div class="section" id="running-the-cfi-checker">
-<h2>Running the CFI checker<a class="headerlink" href="#running-the-cfi-checker" title="Permalink to this headline"></a></h2>
+</section>
+<section id="running-the-cfi-checker">
+<h2>Running the CFI checker<a class="headerlink" href="#running-the-cfi-checker" title="Link to this heading"></a></h2>
 <p>After building a VM image, create a new analysis project with the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>venv<span class="o">)</span> s2e@ubuntu:~/s2e/env$ s2e new_project -n cfi --tools<span class="o">=</span>cfi --single-path <span class="se">\</span>
-    -i windows-7sp1pro-i386/office2013 <span class="se">\</span>
-    <span class="s2">&quot;./images/windows-7sp1pro-i386/office2013/guestfs/program files/microsoft office/office15/winword.exe&quot;</span> <span class="se">\</span>
-    ./source/s2e/testsuite/cfi-winword1-malicious/CVE-2015-1770-poc-calc.rtf
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>s2e@ubuntu:~/s2e/env$<span class="w"> </span>s2e<span class="w"> </span>new_project<span class="w"> </span>-n<span class="w"> </span>cfi<span class="w"> </span>--tools<span class="o">=</span>cfi<span class="w"> </span>--single-path<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>windows-7sp1pro-i386/office2013<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s2">&quot;./images/windows-7sp1pro-i386/office2013/guestfs/program files/microsoft office/office15/winword.exe&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>./source/s2e/testsuite/cfi-winword1-malicious/CVE-2015-1770-poc-calc.rtf
 </pre></div>
 </div>
 <p>Here is a brief explanation of each parameter:</p>
@@ -477,9 +485,9 @@ detects that the program refers to a binary that is located in the guest image a
 host file. It then automatically translates these two paths into something that the Windows guest can handle.</p></li>
 </ul>
 <p>Now that the project is created, run it as follows:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env$</span> <span class="nb">cd</span> projects/cfi
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env$ </span><span class="nb">cd</span><span class="w"> </span>projects/cfi
 
-<span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/.../cfi$</span> <span class="nv">GUI</span><span class="o">=</span><span class="m">1</span> ./launch-s2e.sh
+<span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/.../cfi$ </span><span class="nv">GUI</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>./launch-s2e.sh
 </pre></div>
 </div>
 <p>You will see a QEMU window popping up, then Word will load, and after 5-10 minutes, you should see that Word opens the
@@ -487,49 +495,49 @@ calculator:</p>
 <img alt="../../_images/word.png" src="../../_images/word.png" />
 <p>At this point, you can terminate S2E by closing the QEMU window. Behind the scenes, S2E recorded an execution trace
 that contains information about control flow integrity violations. We will analyze this next.</p>
-</div>
-<div class="section" id="analyzing-a-malicious-document">
-<h2>Analyzing a malicious document<a class="headerlink" href="#analyzing-a-malicious-document" title="Permalink to this headline"></a></h2>
+</section>
+<section id="analyzing-a-malicious-document">
+<h2>Analyzing a malicious document<a class="headerlink" href="#analyzing-a-malicious-document" title="Link to this heading"></a></h2>
 <p>In this part of the tutorial, we will learn how to extract the location of CFI violations that the CFI checker plugin
 detected, then we will show how to use this information to analyze the malicious document in a debugger.</p>
-<div class="section" id="locating-cfi-violations">
-<h3>Locating CFI violations<a class="headerlink" href="#locating-cfi-violations" title="Permalink to this headline"></a></h3>
+<section id="locating-cfi-violations">
+<h3>Locating CFI violations<a class="headerlink" href="#locating-cfi-violations" title="Link to this heading"></a></h3>
 <p>One important step in analyzing a malicious document is to find out the code address of the program where execution is
 subverted to an attacker-controlled program counter.</p>
 <p>The CFI checker records in an execution trace all the addresses that transfer execution to unwanted locations. In order
 to view these code locations, run the following commands:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dump the execution trace in JSON format of the latest run of the cfi project</span>
-<span class="o">(</span>venv<span class="o">)</span> s2e@ubuntu:~/s2e/env$ s2e execution_trace cfi
+<span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>s2e@ubuntu:~/s2e/env$<span class="w"> </span>s2e<span class="w"> </span>execution_trace<span class="w"> </span>cfi
 
 <span class="c1"># View the execution trace</span>
-<span class="o">(</span>venv<span class="o">)</span> s2e@ubuntu:~/s2e/env$ jq . projects/cfi/s2e-last/execution_trace.json <span class="p">|</span> less
+<span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>s2e@ubuntu:~/s2e/env$<span class="w"> </span>jq<span class="w"> </span>.<span class="w"> </span>projects/cfi/s2e-last/execution_trace.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>less
 </pre></div>
 </div>
 <p>You will see various events recorded during execution, most of which is information about what processes and modules
 are loaded or unloaded. We are interested in trace items of the types <code class="docutils literal notranslate"><span class="pre">CALL_VIOLATION</span></code> or
 <code class="docutils literal notranslate"><span class="pre">RETURN_VIOLATION</span></code>. Look for the <code class="docutils literal notranslate"><span class="pre">VIOLATION</span></code> string. The first item you should find is a call violation:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>  <span class="p">{</span>
-    <span class="nt">&quot;state_id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">599746780101</span><span class="p">,</span>
-    <span class="nt">&quot;address_space&quot;</span><span class="p">:</span> <span class="mi">1424875520</span><span class="p">,</span>
-    <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="mi">1936</span><span class="p">,</span>
-    <span class="nt">&quot;tid&quot;</span><span class="p">:</span> <span class="mi">1224</span><span class="p">,</span>
-    <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">2084007875</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CALL_VIOLATION&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">2083791474</span><span class="p">,</span>
-      <span class="nt">&quot;module_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Program Files/Microsoft Office/Office15/ADDINS/MSVCR71.DLL&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;module_pc&quot;</span><span class="p">:</span> <span class="mi">2083791474</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;destination&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">2084007875</span><span class="p">,</span>
-      <span class="nt">&quot;module_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Program Files/Microsoft Office/Office15/ADDINS/MSVCR71.DLL&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;module_pc&quot;</span><span class="p">:</span> <span class="mi">2084007875</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;module&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;/Program Files/Microsoft Office/Office15/ADDINS/MSVCR71.DLL&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;pc&quot;</span><span class="p">:</span> <span class="mi">2084007875</span>
-    <span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;state_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">599746780101</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;address_space&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1424875520</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pid&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1936</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tid&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1224</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2084007875</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CALL_VIOLATION&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2083791474</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;module_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Program Files/Microsoft Office/Office15/ADDINS/MSVCR71.DLL&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;module_pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2083791474</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;destination&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2084007875</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;module_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Program Files/Microsoft Office/Office15/ADDINS/MSVCR71.DLL&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;module_pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2084007875</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Program Files/Microsoft Office/Office15/ADDINS/MSVCR71.DLL&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2084007875</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -558,31 +566,31 @@ In this case, the destination is <code class="docutils literal notranslate"><spa
 <p>We now have all the information we need to analyze the exploit further. In the next section, we will run Word in a
 debugger, where we set a breakpoint at address <code class="docutils literal notranslate"><span class="pre">0x7C342272</span></code>, then single-step the execution in order to understand how
 the exploit works.</p>
-</div>
-<div class="section" id="setting-up-windbg-for-analysis">
-<h3>Setting up WinDbg for analysis<a class="headerlink" href="#setting-up-windbg-for-analysis" title="Permalink to this headline"></a></h3>
+</section>
+<section id="setting-up-windbg-for-analysis">
+<h3>Setting up WinDbg for analysis<a class="headerlink" href="#setting-up-windbg-for-analysis" title="Link to this heading"></a></h3>
 <p>To ensure reproducibility, we will set up a VM that contains the exact copy of the software used during CFI analysis in
 S2E. In order to do this, perform the following steps:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>   <span class="c1"># Go to the directory that contains the VM image that we used during analysis.</span>
-   <span class="c1"># It is important to use the same image as during CFI checking, otherwise there</span>
-   <span class="c1"># is no guarantee that the exploit will work. The exploit is sensitive to the</span>
-   <span class="c1"># environment and may just crash Word if the vulnerable binaries change.</span>
-   $ <span class="nb">cd</span> ~/s2e/env/images/windows-7sp1pro-i386/office2013
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># Go to the directory that contains the VM image that we used during analysis.</span>
+<span class="w">   </span><span class="c1"># It is important to use the same image as during CFI checking, otherwise there</span>
+<span class="w">   </span><span class="c1"># is no guarantee that the exploit will work. The exploit is sensitive to the</span>
+<span class="w">   </span><span class="c1"># environment and may just crash Word if the vulnerable binaries change.</span>
+<span class="w">   </span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/s2e/env/images/windows-7sp1pro-i386/office2013
 
-   <span class="c1"># Copy the S2E image into a new one that you can then freely modify and run in</span>
-   <span class="c1"># vanilla QEMU. It is highly recommended to do this on a copy-on-write file system</span>
-   <span class="c1"># to minimize disk space usage. Do NOT modify the original S2E image, you will</span>
-   <span class="c1"># not be able to use it in S2E anymore and will have to rebuild it from scratch.</span>
-   $ cp --reflink<span class="o">=</span>always image.raw.s2e image.raw
+<span class="w">   </span><span class="c1"># Copy the S2E image into a new one that you can then freely modify and run in</span>
+<span class="w">   </span><span class="c1"># vanilla QEMU. It is highly recommended to do this on a copy-on-write file system</span>
+<span class="w">   </span><span class="c1"># to minimize disk space usage. Do NOT modify the original S2E image, you will</span>
+<span class="w">   </span><span class="c1"># not be able to use it in S2E anymore and will have to rebuild it from scratch.</span>
+<span class="w">   </span>$<span class="w"> </span>cp<span class="w"> </span>--reflink<span class="o">=</span>always<span class="w"> </span>image.raw.s2e<span class="w"> </span>image.raw
 
-   <span class="c1"># Copy the malicious document sample into the guest VM</span>
-   $ virt-copy-in -a image.raw <span class="se">\</span>
-~/s2e/env/source/s2e/testsuite/cfi-winword1-malicious/CVE-2015-1770-poc-calc.rtf /
+<span class="w">   </span><span class="c1"># Copy the malicious document sample into the guest VM</span>
+<span class="w">   </span>$<span class="w"> </span>virt-copy-in<span class="w"> </span>-a<span class="w"> </span>image.raw<span class="w"> </span><span class="se">\</span>
+~/s2e/env/source/s2e/testsuite/cfi-winword1-malicious/CVE-2015-1770-poc-calc.rtf<span class="w"> </span>/
 
-   <span class="c1"># Use your system&#39;s QEMU to run the VM. You do not need S2E anymore at this point,</span>
-   <span class="c1"># so any hypervisor should work. Make sure to disable networking. The sample exploit</span>
-   <span class="c1"># should not be weaponized, but you never know.</span>
-   $ qemu-system-i386 --enable-kvm -m 4G image.raw -net none
+<span class="w">   </span><span class="c1"># Use your system&#39;s QEMU to run the VM. You do not need S2E anymore at this point,</span>
+<span class="w">   </span><span class="c1"># so any hypervisor should work. Make sure to disable networking. The sample exploit</span>
+<span class="w">   </span><span class="c1"># should not be weaponized, but you never know.</span>
+<span class="w">   </span>$<span class="w"> </span>qemu-system-i386<span class="w"> </span>--enable-kvm<span class="w"> </span>-m<span class="w"> </span>4G<span class="w"> </span>image.raw<span class="w"> </span>-net<span class="w"> </span>none
 </pre></div>
 </div>
 <p>Wait for the guest to boot, then perform the following steps:</p>
@@ -602,9 +610,9 @@ triggered, make sure you did not wait too long in step 3.</p></li>
 the exploit is doing.</p></li>
 </ol>
 <img alt="../../_images/windbg.png" src="../../_images/windbg.png" />
-</div>
-<div class="section" id="tracing-the-exploit">
-<h3>Tracing the exploit<a class="headerlink" href="#tracing-the-exploit" title="Permalink to this headline"></a></h3>
+</section>
+<section id="tracing-the-exploit">
+<h3>Tracing the exploit<a class="headerlink" href="#tracing-the-exploit" title="Link to this heading"></a></h3>
 <p>This part of the tutorial focuses on understanding what the exploit does after it successfully subverts the control
 flow of the application. We will not go into the details of the vulnerability that made this subversion
 possible in the first place. In other words, we will not look at what happened <em>before</em> the CFI violation, but at what
@@ -631,10 +639,10 @@ Once this is done, the chain passes control to the first stage of the payload. T
 second stage, which will then load the third stage, in this case the embedded calculator binary.</p>
 <p>In summary, we have seen how to use S2E to quickly determine the start of the ROP chain and how to use this
 to make it easier to analyze the exploit in WinDbg.</p>
-</div>
-</div>
-<div class="section" id="design-and-implementation">
-<h2>Design and implementation<a class="headerlink" href="#design-and-implementation" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+<section id="design-and-implementation">
+<h2>Design and implementation<a class="headerlink" href="#design-and-implementation" title="Link to this heading"></a></h2>
 <p>The CFI checker plugin (<code class="docutils literal notranslate"><span class="pre">CFIChecker.cpp</span></code>) verifies the target of both return and indirect call instructions. It checks
 that the target of a return instruction matches the return address saved by the corresponding call instruction using a
 shadow stack. For indirect calls, it verifies that the target is a valid function entry point and not, e.g., the middle
@@ -645,9 +653,9 @@ plugin. It uses the <code class="docutils literal notranslate"><span class="pre"
 <code class="docutils literal notranslate"><span class="pre">AddressTracker</span></code> plugin to track valid call targets. Finally, <code class="docutils literal notranslate"><span class="pre">ExecutionTracer</span></code> and <code class="docutils literal notranslate"><span class="pre">UserSpaceTracer</span></code> plugins
 enable the recording of execution traces for offline analysis using the <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">execution_trace</span></code> tool that we saw earlier
 in this tutorial.</p>
-</div>
-<div class="section" id="limitations">
-<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline"></a></h2>
+</section>
+<section id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Link to this heading"></a></h2>
 <p>Implementing a robust CFI checker that works on large closed-source applications such as Microsoft Office comes with a
 number of challenges. In theory, all the CFI checker needs to do is record return addresses on a separate shadow stack,
 then match the return address taken from the program stack with the one on the shadow stack. In practice, there are
@@ -669,9 +677,9 @@ targets is overapproximated. A malicious payload could invoke a function, but no
 at the particular call site. Solving this requires further program analysis in order to be accurate.</p>
 <p>Finally, the CFI checker plugin does not support indirect jumps. An exploit that uses jump-oriented programming instead
 of return-oriented programming will go undetected.</p>
-</div>
-<div class="section" id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline"></a></h2>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
 <p>In this tutorial, we learnt how to use S2E to detect control flow integrity violation in Microsoft Office. Here are
 a few pointers for what to explore next:</p>
 <ul class="simple">
@@ -681,8 +689,8 @@ easily bypassable virus signatures and other heuristics.</p></li>
 <li><p>Improve the <code class="docutils literal notranslate"><span class="pre">CFIChecker</span></code> plugin to support Linux applications, kernel code, better 64-bit support, proper
 handling of user-space C++ exceptions, fewer FPs and FNs, more big applications (Adobe Reader…).</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -720,7 +728,7 @@ handling of user-space C++ exceptions, fewer FPs and FNs, more big applications 
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-75283635-2', 'auto');
+      ga('create', 'UA-XXXX-X', 'auto');
       ga('send', 'pageview');
 </script>
 

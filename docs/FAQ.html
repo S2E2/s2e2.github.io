@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Frequently Asked Questions (FAQ) &mdash; S2E 2.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=60dbed4a"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -26,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> S2E
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            S2E
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -415,8 +423,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Frequently Asked Questions (FAQ)</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Frequently Asked Questions (FAQ)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/FAQ.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -426,10 +434,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="frequently-asked-questions-faq">
-<h1>Frequently Asked Questions (FAQ)<a class="headerlink" href="#frequently-asked-questions-faq" title="Permalink to this headline"></a></h1>
-<div class="section" id="how-do-i-know-what-s2e-is-doing">
-<h2>How do I know what S2E is doing?<a class="headerlink" href="#how-do-i-know-what-s2e-is-doing" title="Permalink to this headline"></a></h2>
+  <section id="frequently-asked-questions-faq">
+<h1>Frequently Asked Questions (FAQ)<a class="headerlink" href="#frequently-asked-questions-faq" title="Link to this heading"></a></h1>
+<section id="how-do-i-know-what-s2e-is-doing">
+<h2>How do I know what S2E is doing?<a class="headerlink" href="#how-do-i-know-what-s2e-is-doing" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>Enable execution tracing and use the fork profiler to identify the code locations that fork the most. In your
 configuration file, enable the <code class="docutils literal notranslate"><span class="pre">ExecutionTracer</span></code>, <code class="docutils literal notranslate"><span class="pre">ModuleTracer</span></code> and the <code class="docutils literal notranslate"><span class="pre">ModuleExecutionDetector</span></code> plugins.
@@ -443,9 +451,9 @@ in the constraint solver. Use the <cite>perf top</cite> Linux utility to get a c
 <li><p><code class="docutils literal notranslate"><span class="pre">stats.csv</span></code> contains many types of statistics. S2E updates this file about every second, when executing symbolic
 code. See later in this FAQ for a description of its fields.</p></li>
 </ol>
-</div>
-<div class="section" id="execution-seems-stuck-slow-what-to-do">
-<h2>Execution seems stuck/slow. What to do?<a class="headerlink" href="#execution-seems-stuck-slow-what-to-do" title="Permalink to this headline"></a></h2>
+</section>
+<section id="execution-seems-stuck-slow-what-to-do">
+<h2>Execution seems stuck/slow. What to do?<a class="headerlink" href="#execution-seems-stuck-slow-what-to-do" title="Link to this heading"></a></h2>
 <p>First, ensure that you configured S2E properly. The <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> does its best to have a minimal default configuration
 that works in most cases.</p>
 <ul class="simple">
@@ -469,8 +477,6 @@ enabled and all unnecessary background daemons should be disabled. Refer to the 
 the most. Usually, functions such as <code class="docutils literal notranslate"><span class="pre">printf</span></code> can be stubbed out, and others like <code class="docutils literal notranslate"><span class="pre">strlen</span></code> can be modeled
 to decrease drastically the number of forks. <a class="reference external" href="Tutorials/BasicLinuxSymbex/s2e.so.html">s2e.so</a> comes with models for
 several such functions. You can also give <a class="reference external" href="StateMerging.html">state merging</a> a try.</p></li>
-<li><p>Understanding what to select can be made considerably easier if you <a class="reference external" href="Howtos/Debugging.html">attach a debugger</a> to
-the S2E instance.</p></li>
 <li><p>If you use a depth-first search and execution hits a polling loop, rapid forking may occur and execution may never
 exit the loop. Moreover, depending on the accumulated constraints, each iteration may be slower and slower. Make sure
 you use concolic execution, depth first search, and a test input to make sure at least the first path terminates.
@@ -483,9 +489,9 @@ symbolic value. This trades execution  consistency for execution speed. Unconstr
 that cannot occur in real executions (i.e., false positives), but as long as there are few of them, or you can detect
 them a posteriori, this is an acceptable trade-off.</p></li>
 </ul>
-</div>
-<div class="section" id="how-do-i-deal-with-path-explosion">
-<h2>How do I deal with path explosion?<a class="headerlink" href="#how-do-i-deal-with-path-explosion" title="Permalink to this headline"></a></h2>
+</section>
+<section id="how-do-i-deal-with-path-explosion">
+<h2>How do I deal with path explosion?<a class="headerlink" href="#how-do-i-deal-with-path-explosion" title="Link to this heading"></a></h2>
 <p>Use S2E to <em>selectively</em> kill paths that are not interesting and prevent forking outside modules of interest. The
 following describes concrete steps that allowed us to explore programs most efficiently.</p>
 <ol class="arabic simple">
@@ -519,18 +525,18 @@ plugin when execution enters some block of code (e.g., error recovery).</p></li>
 searcher plugin. S2E comes with several examples of searchers that aim to maximize code coverage as fast as
 possible.</p></li>
 </ol>
-</div>
-<div class="section" id="how-to-keep-memory-usage-low">
-<h2>How to keep memory usage low?<a class="headerlink" href="#how-to-keep-memory-usage-low" title="Permalink to this headline"></a></h2>
+</section>
+<section id="how-to-keep-memory-usage-low">
+<h2>How to keep memory usage low?<a class="headerlink" href="#how-to-keep-memory-usage-low" title="Link to this heading"></a></h2>
 <p>You can use several options, depending on your needs.</p>
 <ul class="simple">
 <li><p>Disable forking when a memory limit is reached using the <code class="docutils literal notranslate"><span class="pre">ResourceMonitor</span></code> plugin.</p></li>
 <li><p>Explicitly kill unneeded paths. For example, if you want to achieve high code coverage and know that some path is
 unlikely to cover any new code, kill it.</p></li>
 </ul>
-</div>
-<div class="section" id="how-much-time-is-the-constraint-solver-taking-to-solve-constraints">
-<h2>How much time is the constraint solver taking to solve constraints?<a class="headerlink" href="#how-much-time-is-the-constraint-solver-taking-to-solve-constraints" title="Permalink to this headline"></a></h2>
+</section>
+<section id="how-much-time-is-the-constraint-solver-taking-to-solve-constraints">
+<h2>How much time is the constraint solver taking to solve constraints?<a class="headerlink" href="#how-much-time-is-the-constraint-solver-taking-to-solve-constraints" title="Link to this heading"></a></h2>
 <p>Enable logging for constraint solving queries:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">s2e</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">kleeArgs</span> <span class="o">=</span> <span class="p">{</span>
@@ -542,9 +548,9 @@ unlikely to cover any new code, kill it.</p></li>
 </div>
 <p>With this configuration S2E generates two logs: <code class="docutils literal notranslate"><span class="pre">s2e-last/queries.pc</span></code> and <code class="docutils literal notranslate"><span class="pre">s2e-last/solver-queries.qlog</span></code>. Look for
 “Elapsed time” in the logs.</p>
-</div>
-<div class="section" id="what-do-the-various-fields-in-stats-csv-mean">
-<h2>What do the various fields in <code class="docutils literal notranslate"><span class="pre">stats.csv</span></code> mean?<a class="headerlink" href="#what-do-the-various-fields-in-stats-csv-mean" title="Permalink to this headline"></a></h2>
+</section>
+<section id="what-do-the-various-fields-in-stats-csv-mean">
+<h2>What do the various fields in <code class="docutils literal notranslate"><span class="pre">stats.csv</span></code> mean?<a class="headerlink" href="#what-do-the-various-fields-in-stats-csv-mean" title="Link to this heading"></a></h2>
 <p>You can open <code class="docutils literal notranslate"><span class="pre">stats.csv</span></code> in a spreadsheet as a CSV file. Most of the fields are self-explanatory. Here are the
 trickiest ones:</p>
 <ul class="simple">
@@ -555,8 +561,8 @@ solving queries (this includes all the solver optimizations that could be enable
 options).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ForkTime</span></code> shows how much time KLEE spent on forking states.</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -594,7 +600,7 @@ options).</p></li>
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-75283635-2', 'auto');
+      ga('create', 'UA-XXXX-X', 'auto');
       ga('send', 'pageview');
 </script>
 

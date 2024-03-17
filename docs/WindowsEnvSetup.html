@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Setting up a Windows development environment &mdash; S2E 2.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=60dbed4a"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -26,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> S2E
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            S2E
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -415,8 +423,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Setting up a Windows development environment</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Setting up a Windows development environment</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/WindowsEnvSetup.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -426,8 +434,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="setting-up-a-windows-development-environment">
-<h1>Setting up a Windows development environment<a class="headerlink" href="#setting-up-a-windows-development-environment" title="Permalink to this headline"></a></h1>
+  <section id="setting-up-a-windows-development-environment">
+<h1>Setting up a Windows development environment<a class="headerlink" href="#setting-up-a-windows-development-environment" title="Link to this heading"></a></h1>
 <p>This tutorial explains how to quickly set up a Windows development environment
 in which you can build Windows applications and device drivers. This is useful
 when you want to develop the S2E <a class="reference external" href="https://github.com/S2E/s2e/tree/master/guest/windows">guest tools</a>
@@ -454,8 +462,8 @@ for development (e.g., building Windows-specific components of S2E, such as the
 <li><p>You have enough disk space and free memory (you will need at least 60 GB of disk and 4 GB of RAM for the VM).</p></li>
 </ol>
 </div></blockquote>
-<div class="section" id="provisioning-a-windows-development-vm">
-<h2>1. Provisioning a Windows development VM<a class="headerlink" href="#provisioning-a-windows-development-vm" title="Permalink to this headline"></a></h2>
+<section id="provisioning-a-windows-development-vm">
+<h2>1. Provisioning a Windows development VM<a class="headerlink" href="#provisioning-a-windows-development-vm" title="Link to this heading"></a></h2>
 <p>First, you need to build a Windows VM. At the end of this section, you will have a Windows 10 VM with Visual Studio 2019
 Community Edition, the Windows Driver Kit, and an SSH server. Visual Studio will be installed with all C/C++ development
 options (support for XP, 7, 8.1, 10). You will be able to SSH into this VM, rsync files, and do remote builds.</p>
@@ -494,31 +502,31 @@ debug/release combinations. You should not get any errors.</p></li>
 <li><p><strong>Check remote connection.</strong> Check that you can SSH into the VM. You should get a Windows command prompt.</p></li>
 <li><p>Finally, do not forget to take a snapshot.</p></li>
 </ol>
-</div>
-<div class="section" id="building-visual-studio-projects-remotely">
-<h2>2. Building Visual Studio projects remotely<a class="headerlink" href="#building-visual-studio-projects-remotely" title="Permalink to this headline"></a></h2>
+</section>
+<section id="building-visual-studio-projects-remotely">
+<h2>2. Building Visual Studio projects remotely<a class="headerlink" href="#building-visual-studio-projects-remotely" title="Link to this heading"></a></h2>
 <p>In this section, we explain how to build Visual Studio projects in the VM that you built in the previous section.</p>
 <p>a. Copy your public SSH key into the guest VM. This is important, as the remote build script would ask you to type the
 VM password several times, which is not convenient.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/s2e/env/source/s2e/scripts/windows
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/s2e/env/source/s2e/scripts/windows
 
 <span class="c1"># This script resembles the normal ssh-copy-id but is designed to work for Windows remote machines.</span>
 <span class="c1"># Adapt the user name and address accordingly.</span>
-$ ./ssh-copy-id-win.sh s2e@192.168.122.12
+$<span class="w"> </span>./ssh-copy-id-win.sh<span class="w"> </span>s2e@192.168.122.12
 </pre></div>
 </div>
 <ol class="loweralpha simple" start="2">
 <li><p>Checkout some Visual Studio projects to your Linux host. For example, like this:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span>
-$ git clone https://github.com/Microsoft/Windows-driver-samples.git
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span>
+$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Microsoft/Windows-driver-samples.git
 </pre></div>
 </div>
 <ol class="loweralpha simple" start="3">
 <li><p>Choose some project to build remotely, e.g., <code class="docutils literal notranslate"><span class="pre">filesys/miniFilter/scanner</span></code>:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nv">REMOTE_HOST</span><span class="o">=</span><span class="m">192</span>.126.122.12 <span class="nv">REMOTE_FOLDER</span><span class="o">=</span>myfolder ~/s2e/env/source/s2e/scripts/windows/remote-msbuild.sh <span class="se">\</span>
-   Windows-driver-samples/filesys/miniFilter/scanner
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nv">REMOTE_HOST</span><span class="o">=</span><span class="m">192</span>.126.122.12<span class="w"> </span><span class="nv">REMOTE_FOLDER</span><span class="o">=</span>myfolder<span class="w"> </span>~/s2e/env/source/s2e/scripts/windows/remote-msbuild.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>Windows-driver-samples/filesys/miniFilter/scanner
 </pre></div>
 </div>
 <p>This command copies the contents of <code class="docutils literal notranslate"><span class="pre">Windows-driver-samples/filesys/miniFilter/scanner</span></code> to <code class="docutils literal notranslate"><span class="pre">c:\users\s2e\myfolder</span></code>
@@ -527,42 +535,42 @@ local one. You can customize the target build directory, the host address, the u
 environment variables (see the script header for details).</p>
 <p>When this command completes, you should have all the build artifacts locally, in the
 <code class="docutils literal notranslate"><span class="pre">Windows-driver-samples/filesys/miniFilter/scanner</span></code> folder. Look for <code class="docutils literal notranslate"><span class="pre">*.exe</span></code> and <code class="docutils literal notranslate"><span class="pre">*.sys</span></code> files.</p>
-</div>
-<div class="section" id="use-case-building-and-running-a-windows-device-driver">
-<h2>3. Use case: building and running a Windows device driver<a class="headerlink" href="#use-case-building-and-running-a-windows-device-driver" title="Permalink to this headline"></a></h2>
+</section>
+<section id="use-case-building-and-running-a-windows-device-driver">
+<h2>3. Use case: building and running a Windows device driver<a class="headerlink" href="#use-case-building-and-running-a-windows-device-driver" title="Link to this heading"></a></h2>
 <p>This section assumes that you successfully built the <code class="docutils literal notranslate"><span class="pre">Windows-driver-samples/filesys/miniFilter/scanner</span></code> solution.
 If no, go to the previous section.</p>
 <p>First, we need to create a few symbolic links to the the project binaries, as follows. This is needed because
 <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> looks for the driver’s binaries in the same directory as the driver’s <code class="docutils literal notranslate"><span class="pre">inf</span></code> file.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> Windows-driver-samples/filesys/miniFilter/scanner
-$ ln -s filter/x64/Debug/scanner.sys
-$ ln -s filter/x64/Debug/scanner.sys.lines
-$ ln -s user/x64/Debug/scanuser.exe
-$ ln -s user/x64/Debug/scanuser.exe.lines
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>Windows-driver-samples/filesys/miniFilter/scanner
+$<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>filter/x64/Debug/scanner.sys
+$<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>filter/x64/Debug/scanner.sys.lines
+$<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>user/x64/Debug/scanuser.exe
+$<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>user/x64/Debug/scanuser.exe.lines
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">*.lines</span></code> files above contain debug information in JSON format. The S2E coverage tool expects them to have the
 same name as the binary with <code class="docutils literal notranslate"><span class="pre">.lines</span></code> appended.</p>
 <p>Then create the project, run it, and get code coverage. For more details, please refer to the Windows driver testing
 <a class="reference external" href="Tutorials/WindowsDrivers/FaultInjection.html">tutorial</a>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/s2e/env
-$ s2e new_project ~/Windows-driver-samples/filesys/miniFilter/scanner/scanner.inf
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/s2e/env
+$<span class="w"> </span>s2e<span class="w"> </span>new_project<span class="w"> </span>~/Windows-driver-samples/filesys/miniFilter/scanner/scanner.inf
 
 <span class="c1"># ... edit projects/scanner/bootstrap.sh to start the driver ...</span>
-$ <span class="nb">cd</span> projects/scanner
-$ ./launch-s2e.sh
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>projects/scanner
+$<span class="w"> </span>./launch-s2e.sh
 <span class="c1"># ... wait for the analysis to complete ...</span>
 
-$ <span class="nb">cd</span> ~/s2e/env
-$ s2e coverage --sympath ~/Windows-driver-samples/filesys/miniFilter/scanner/ lcov --html scanner
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/s2e/env
+$<span class="w"> </span>s2e<span class="w"> </span>coverage<span class="w"> </span>--sympath<span class="w"> </span>~/Windows-driver-samples/filesys/miniFilter/scanner/<span class="w"> </span>lcov<span class="w"> </span>--html<span class="w"> </span>scanner
 </pre></div>
 </div>
 <p>It is important to add the symbol search path to the coverage command, otherwise the driver’s source will not be
 found and the HTML coverage report will not be generated. In principle, the <cite>*.lines</cite> files already contain paths to the
 source, however these paths are valid only on the build machine. The coverage command will therefore try to match these
 paths against the given search paths.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -600,7 +608,7 @@ paths against the given search paths.</p>
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-75283635-2', 'auto');
+      ga('create', 'UA-XXXX-X', 'auto');
       ga('send', 'pageview');
 </script>
 

@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profiling S2E &mdash; S2E 2.0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=60dbed4a"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -26,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> S2E
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            S2E
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -415,8 +423,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Profiling S2E</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Profiling S2E</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/Profiling/ProfilingS2E.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -426,11 +434,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="profiling-s2e">
-<h1>Profiling S2E<a class="headerlink" href="#profiling-s2e" title="Permalink to this headline"></a></h1>
+  <section id="profiling-s2e">
+<h1>Profiling S2E<a class="headerlink" href="#profiling-s2e" title="Link to this heading"></a></h1>
 <p>This page explains how to profile memory and CPU performance.</p>
-<div class="section" id="profiling-memory-usage">
-<h2>Profiling memory usage<a class="headerlink" href="#profiling-memory-usage" title="Permalink to this headline"></a></h2>
+<section id="profiling-memory-usage">
+<h2>Profiling memory usage<a class="headerlink" href="#profiling-memory-usage" title="Link to this heading"></a></h2>
 <p>We are going to use <a class="reference external" href="https://github.com/KDE/heaptrack">heaptrack</a>. Its main advantage over competing profilers
 is that it is possible to inject it in a running S2E process. Others require using <code class="docutils literal notranslate"><span class="pre">LD_PRELOAD</span></code>, which interferes
 with <code class="docutils literal notranslate"><span class="pre">libs2e.so</span></code> and causes crashes. The disadvantage is that you cannot inject it before S2E starts.</p>
@@ -439,13 +447,13 @@ with <code class="docutils literal notranslate"><span class="pre">libs2e.so</spa
 <li><p>Start S2E</p></li>
 <li><p>Inject <code class="docutils literal notranslate"><span class="pre">heaptrack</span></code> into the running S2E instance:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ps aux <span class="p">|</span> grep qemu
-ubuntu    <span class="m">31044</span> <span class="m">96</span>.7  <span class="m">4</span>.7 <span class="m">3487216</span> <span class="m">1191460</span> pts/8 Sl   <span class="m">13</span>:54   <span class="m">0</span>:03 /home/ubuntu/s2e/env/install/bin/qemu-system-i386 -drive <span class="nv">file</span><span class="o">=</span>/home/ubuntu/s2e/env/images/debian-11.3-i386/image.raw.s2e,format<span class="o">=</span>s2e,cache<span class="o">=</span>writeback -k en-us -nographic -monitor null -m 256M -enable-kvm -serial file:serial.txt -net none -net nic,model<span class="o">=</span>e1000 -loadvm ready
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>qemu
+ubuntu<span class="w">    </span><span class="m">31044</span><span class="w"> </span><span class="m">96</span>.7<span class="w">  </span><span class="m">4</span>.7<span class="w"> </span><span class="m">3487216</span><span class="w"> </span><span class="m">1191460</span><span class="w"> </span>pts/8<span class="w"> </span>Sl<span class="w">   </span><span class="m">13</span>:54<span class="w">   </span><span class="m">0</span>:03<span class="w"> </span>/home/ubuntu/s2e/env/install/bin/qemu-system-i386<span class="w"> </span>-drive<span class="w"> </span><span class="nv">file</span><span class="o">=</span>/home/ubuntu/s2e/env/images/debian-12.5-i386/image.raw.s2e,format<span class="o">=</span>s2e,cache<span class="o">=</span>writeback<span class="w"> </span>-k<span class="w"> </span>en-us<span class="w"> </span>-nographic<span class="w"> </span>-monitor<span class="w"> </span>null<span class="w"> </span>-m<span class="w"> </span>256M<span class="w"> </span>-enable-kvm<span class="w"> </span>-serial<span class="w"> </span>file:serial.txt<span class="w"> </span>-net<span class="w"> </span>none<span class="w"> </span>-net<span class="w"> </span>nic,model<span class="o">=</span>e1000<span class="w"> </span>-loadvm<span class="w"> </span>ready
 
-$ heaptrack -p <span class="m">31044</span>
-heaptrack output will be written to <span class="s2">&quot;/home/ubuntu/heaptrack/build/heaptrack.qemu-system-i38.31044.gz&quot;</span>
-injecting heaptrack into application via GDB, this might take some time...
-injection finished
+$<span class="w"> </span>heaptrack<span class="w"> </span>-p<span class="w"> </span><span class="m">31044</span>
+heaptrack<span class="w"> </span>output<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>written<span class="w"> </span>to<span class="w"> </span><span class="s2">&quot;/home/ubuntu/heaptrack/build/heaptrack.qemu-system-i38.31044.gz&quot;</span>
+injecting<span class="w"> </span>heaptrack<span class="w"> </span>into<span class="w"> </span>application<span class="w"> </span>via<span class="w"> </span>GDB,<span class="w"> </span>this<span class="w"> </span>might<span class="w"> </span>take<span class="w"> </span>some<span class="w"> </span>time...
+injection<span class="w"> </span>finished
 ...
 </pre></div>
 </div>
@@ -453,38 +461,38 @@ injection finished
 </li>
 <li><p>Wait for S2E to terminate or kill it manually. You will see the following output:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>heaptrack stats:
-        allocations:            <span class="m">6836389</span>
-        leaked allocations:     <span class="m">46722</span>
-        temporary allocations:  <span class="m">1249045</span>
-removing heaptrack injection via GDB, this might take some time...
-ptrace: No such process.
-No symbol table is loaded.  Use the <span class="s2">&quot;file&quot;</span> command.
-The program is not being run.
-Heaptrack finished! Now run the following to investigate the data:
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>heaptrack<span class="w"> </span>stats:
+<span class="w">        </span>allocations:<span class="w">            </span><span class="m">6836389</span>
+<span class="w">        </span>leaked<span class="w"> </span>allocations:<span class="w">     </span><span class="m">46722</span>
+<span class="w">        </span>temporary<span class="w"> </span>allocations:<span class="w">  </span><span class="m">1249045</span>
+removing<span class="w"> </span>heaptrack<span class="w"> </span>injection<span class="w"> </span>via<span class="w"> </span>GDB,<span class="w"> </span>this<span class="w"> </span>might<span class="w"> </span>take<span class="w"> </span>some<span class="w"> </span>time...
+ptrace:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>process.
+No<span class="w"> </span>symbol<span class="w"> </span>table<span class="w"> </span>is<span class="w"> </span>loaded.<span class="w">  </span>Use<span class="w"> </span>the<span class="w"> </span><span class="s2">&quot;file&quot;</span><span class="w"> </span>command.
+The<span class="w"> </span>program<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>being<span class="w"> </span>run.
+Heaptrack<span class="w"> </span>finished!<span class="w"> </span>Now<span class="w"> </span>run<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span>to<span class="w"> </span>investigate<span class="w"> </span>the<span class="w"> </span>data:
 
-  heaptrack --analyze <span class="s2">&quot;/home/ubuntu/heaptrack/build/heaptrack.qemu-system-i38.31044.gz&quot;</span>
+<span class="w">  </span>heaptrack<span class="w"> </span>--analyze<span class="w"> </span><span class="s2">&quot;/home/ubuntu/heaptrack/build/heaptrack.qemu-system-i38.31044.gz&quot;</span>
 </pre></div>
 </div>
 </div></blockquote>
 </li>
 <li><p>Open the resulting file in the <code class="docutils literal notranslate"><span class="pre">heaptrack</span></code> GUI</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ heaptrack_gui <span class="s2">&quot;/home/ubuntu/heaptrack/build/heaptrack.qemu-system-i38.31044.gz&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>heaptrack_gui<span class="w"> </span><span class="s2">&quot;/home/ubuntu/heaptrack/build/heaptrack.qemu-system-i38.31044.gz&quot;</span>
 </pre></div>
 </div>
 </li>
 </ol>
 <img alt="../_images/heaptrack.png" src="../_images/heaptrack.png" />
-</div>
-<div class="section" id="profiling-cpu-performance">
-<h2>Profiling CPU performance<a class="headerlink" href="#profiling-cpu-performance" title="Permalink to this headline"></a></h2>
+</section>
+<section id="profiling-cpu-performance">
+<h2>Profiling CPU performance<a class="headerlink" href="#profiling-cpu-performance" title="Link to this heading"></a></h2>
 <p>We are going to use <a class="reference external" href="https://github.com/KDAB/hotspot">hotspot</a>. It is a convenient GUI wrapper around the Linux
 <cite>perf</cite> tool.</p>
 <ol class="arabic">
 <li><p>Build <code class="docutils literal notranslate"><span class="pre">hotspot</span></code> from source</p></li>
 <li><p>Start <code class="docutils literal notranslate"><span class="pre">hotspot</span></code></p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ hotspot
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>hotspot
 </pre></div>
 </div>
 </div></blockquote>
@@ -506,8 +514,8 @@ Heaptrack finished! Now run the following to investigate the data:
 <li><p>Stop recording and view results</p></li>
 </ol>
 <img alt="../_images/hotspot2.png" src="../_images/hotspot2.png" />
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -545,7 +553,7 @@ Heaptrack finished! Now run the following to investigate the data:
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-75283635-2', 'auto');
+      ga('create', 'UA-XXXX-X', 'auto');
       ga('send', 'pageview');
 </script>
 

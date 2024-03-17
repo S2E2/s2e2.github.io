@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>S2E Testsuite &mdash; S2E 2.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=60dbed4a"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -26,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> S2E
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            S2E
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -415,8 +423,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>S2E Testsuite</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">S2E Testsuite</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Testsuite.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -426,17 +434,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="s2e-testsuite">
-<h1>S2E Testsuite<a class="headerlink" href="#s2e-testsuite" title="Permalink to this headline"></a></h1>
+  <section id="s2e-testsuite">
+<h1>S2E Testsuite<a class="headerlink" href="#s2e-testsuite" title="Link to this heading"></a></h1>
 <p>In this document, you will learn how to build and run the S2E testsuite. The testsuite is a collection of programs that
 help test various aspects of the S2E engine. It also serves as a reference for various S2E tutorials. A test is
 comprised of one or more program binaries, a script that sets up an S2E analysis project, runs it, and then checks that
 the results are correct.</p>
-<div class="section" id="building-the-testsuite">
-<h2>Building the testsuite<a class="headerlink" href="#building-the-testsuite" title="Permalink to this headline"></a></h2>
+<section id="building-the-testsuite">
+<h2>Building the testsuite<a class="headerlink" href="#building-the-testsuite" title="Link to this heading"></a></h2>
 <p>Before proceeding, set up your S2E environment using <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>. Once it is up and running (i.e., you can create
 analysis projects and run them), you are ready to build and run the testsuite:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>s2e testsuite generate
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>s2e<span class="w"> </span>testsuite<span class="w"> </span>generate
 </pre></div>
 </div>
 <p>This creates test projects named <code class="docutils literal notranslate"><span class="pre">testsuite_*</span></code> in the <code class="docutils literal notranslate"><span class="pre">projects</span></code> folder. One test may have several different
@@ -447,7 +455,7 @@ projects.</p>
 command generates test projects only for those tests. This may be useful to make it faster when you want to generate and
 run only one or two tests, e.g., when you write your own test and want to debug it.</p>
 <p>You can view the list of available tests with the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>s2e testsuite list
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>s2e<span class="w"> </span>testsuite<span class="w"> </span>list
 </pre></div>
 </div>
 <div class="admonition note">
@@ -455,7 +463,7 @@ run only one or two tests, e.g., when you write your own test and want to debug 
 <p>Some tests require a Windows build server. This server must be set up as described <a class="reference external" href="WindowsEnvSetup.html">here</a> and
 enabled in the <code class="docutils literal notranslate"><span class="pre">s2e.yaml</span></code> file located at the root of your S2E environment. If you do not want to build the
 server, you may skip the tests that require it as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>s2e testsuite generate --no-windows-build
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>s2e<span class="w"> </span>testsuite<span class="w"> </span>generate<span class="w"> </span>--no-windows-build
 </pre></div>
 </div>
 </div>
@@ -464,13 +472,13 @@ server, you may skip the tests that require it as follows:</p>
 <p>Testsuite generation recreates test projects from scratch and overwrites previously generated tests. Avoid
 modifying generated tests directly and modify the testsuite source instead (see later for details).</p>
 </div>
-</div>
-<div class="section" id="running-the-testsuite">
-<h2>Running the testsuite<a class="headerlink" href="#running-the-testsuite" title="Permalink to this headline"></a></h2>
+</section>
+<section id="running-the-testsuite">
+<h2>Running the testsuite<a class="headerlink" href="#running-the-testsuite" title="Link to this heading"></a></h2>
 <p>There are two ways to run the testsuite: using <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">testsuite</span> <span class="pre">run</span></code> or invoking the <code class="docutils literal notranslate"><span class="pre">run-tests</span></code> script.</p>
 <ol class="arabic">
 <li><p>Using the <code class="docutils literal notranslate"><span class="pre">s2e</span></code> command.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>s2e testsuite run
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>s2e<span class="w"> </span>testsuite<span class="w"> </span>run
 </pre></div>
 </div>
 <p>This command automatically starts the optimal number of parallel tests depending on how many
@@ -486,7 +494,7 @@ The script returns a non-zero status code if the test fails. Additionally,
 the script writes the <code class="docutils literal notranslate"><span class="pre">status</span></code> file in the <code class="docutils literal notranslate"><span class="pre">s2e-last</span></code> folder containing either
 <code class="docutils literal notranslate"><span class="pre">SUCCESS</span></code> or <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code>.</p>
 <p>You can use GNU parallel to run multiple tests at once:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">S2EDIR</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span> parallel -j5  ::: projects/testsuite_*/run-tests
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">S2EDIR</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="w"> </span>parallel<span class="w"> </span>-j5<span class="w">  </span>:::<span class="w"> </span>projects/testsuite_*/run-tests
 </pre></div>
 </div>
 </li>
@@ -498,9 +506,9 @@ For example, you can run the project with <code class="docutils literal notransl
 run S2E and will not check the output. Make sure to use <code class="docutils literal notranslate"><span class="pre">run-tests</span></code> or <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">testsuite</span> <span class="pre">run</span></code>
 instead.</p>
 </div>
-</div>
-<div class="section" id="adding-your-own-tests">
-<h2>Adding your own tests<a class="headerlink" href="#adding-your-own-tests" title="Permalink to this headline"></a></h2>
+</section>
+<section id="adding-your-own-tests">
+<h2>Adding your own tests<a class="headerlink" href="#adding-your-own-tests" title="Link to this heading"></a></h2>
 <p>The testsuite is located in the <a class="reference external" href="https://github.com/S2E/s2e/tree/master/testsuite">testsuite</a> repository.
 In order to add a test, follow these steps:</p>
 <ol class="arabic">
@@ -512,9 +520,9 @@ This is a Jinja template that <code class="docutils literal notranslate"><span c
 in the project’s directory. This file would typically start with the following lines:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
-<span class="o">{</span>% include <span class="s1">&#39;common-run.sh.tpl&#39;</span> %<span class="o">}</span>
+<span class="o">{</span>%<span class="w"> </span>include<span class="w"> </span><span class="s1">&#39;common-run.sh.tpl&#39;</span><span class="w"> </span>%<span class="o">}</span>
 
-s2e run -n <span class="o">{{</span> project_name <span class="o">}}</span>
+s2e<span class="w"> </span>run<span class="w"> </span>-n<span class="w"> </span><span class="o">{{</span><span class="w"> </span>project_name<span class="w"> </span><span class="o">}}</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">common-run.sh.tpl</span></code> contains various helper functions and variables that the <code class="docutils literal notranslate"><span class="pre">run-tests</span></code> can use
@@ -527,9 +535,9 @@ to check the test results.</p>
 Just make sure that it checks for <code class="docutils literal notranslate"><span class="pre">S2EDIR</span></code>, sets the proper exit code on failure and creates
 the <code class="docutils literal notranslate"><span class="pre">status</span></code> file as appropriate.</p>
 </div>
-</div>
-<div class="section" id="test-configuration-reference">
-<h2>Test configuration reference<a class="headerlink" href="#test-configuration-reference" title="Permalink to this headline"></a></h2>
+</section>
+<section id="test-configuration-reference">
+<h2>Test configuration reference<a class="headerlink" href="#test-configuration-reference" title="Link to this heading"></a></h2>
 <p>This section describes the contents of the <code class="docutils literal notranslate"><span class="pre">config.yml</span></code> file.</p>
 <ul>
 <li><p><strong>description</strong>: a string describing the purpose of the test. It is displayed by <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">testsuite</span> <span class="pre">list</span></code></p></li>
@@ -555,8 +563,8 @@ generator creates a project for every usable image, unless it is blacklisted.</p
 <li><p><strong>blacklisted-images</strong>: list of images for which to not create tests.
 This is useful in case a binary is incompatible with a specific OS version.</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -594,7 +602,7 @@ This is useful in case a binary is incompatible with a specific OS version.</p><
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-75283635-2', 'auto');
+      ga('create', 'UA-XXXX-X', 'auto');
       ga('send', 'pageview');
 </script>
 

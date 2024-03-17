@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Using SystemTap with S2E &mdash; S2E 2.0 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=60dbed4a"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -26,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> S2E
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            S2E
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -415,8 +423,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Using SystemTap with S2E</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Using SystemTap with S2E</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Tutorials/SystemTap/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -426,8 +434,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="using-systemtap-with-s2e">
-<h1>Using SystemTap with S2E<a class="headerlink" href="#using-systemtap-with-s2e" title="Permalink to this headline"></a></h1>
+  <section id="using-systemtap-with-s2e">
+<h1>Using SystemTap with S2E<a class="headerlink" href="#using-systemtap-with-s2e" title="Link to this heading"></a></h1>
 <p>SystemTap is a powerful tracing framework on Linux. It can intercept any function calls or instructions in the kernel
 and invoke custom scripts. Such scripts have full access to the system state, can leverage debugging information, etc.</p>
 <p>SystemTap provides S2E users a flexible way of controlling symbolic execution. Users write a SystemTap script with
@@ -444,8 +452,8 @@ that can be achieved.</p>
 <li><p>How to use SystemTap</p></li>
 </ol>
 </div>
-<div class="section" id="building-and-running-systemtap-in-s2e">
-<h2>Building and running SystemTap in S2E<a class="headerlink" href="#building-and-running-systemtap-in-s2e" title="Permalink to this headline"></a></h2>
+<section id="building-and-running-systemtap-in-s2e">
+<h2>Building and running SystemTap in S2E<a class="headerlink" href="#building-and-running-systemtap-in-s2e" title="Link to this heading"></a></h2>
 <p>Using SystemTap in S2E is very simple, the workflow looks like this:</p>
 <ol class="arabic simple">
 <li><p>Build the SystemTap probe on your host machine. This will produce a <code class="docutils literal notranslate"><span class="pre">.ko</span></code> file.
@@ -459,20 +467,20 @@ If you want to customize the installed version, have a look at the image install
 <p>You must build the Linux images from scratch in order to have the required Docker containers and kernel <code class="docutils literal notranslate"><span class="pre">*.deb</span></code>
 packages. If you downloaded pre-built images, delete them and rebuild them from scratch. This process will create
 two Docker images on your host: <code class="docutils literal notranslate"><span class="pre">linux-build-i386</span></code> and <code class="docutils literal notranslate"><span class="pre">linux-build-x86_64</span></code>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> Create a new analysis project on your host. This tutorial assumes a <span class="m">32</span>-bit project. Adapt the <span class="nb">command</span> lines
-<span class="gp">#</span> accordingly <span class="k">if</span> you need <span class="m">64</span>-bit. The --no-target option instructs s2e to create a generic project structure
-<span class="gp">#</span> that does not target any particular binary. You will <span class="k">then</span> later customize the project manually in order to
-<span class="gp">#</span> fetch the .ko file generated by SystemTap.
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Create<span class="w"> </span>a<span class="w"> </span>new<span class="w"> </span>analysis<span class="w"> </span>project<span class="w"> </span>on<span class="w"> </span>your<span class="w"> </span>host.<span class="w"> </span>This<span class="w"> </span>tutorial<span class="w"> </span>assumes<span class="w"> </span>a<span class="w"> </span><span class="m">32</span>-bit<span class="w"> </span>project.<span class="w"> </span>Adapt<span class="w"> </span>the<span class="w"> </span><span class="nb">command</span><span class="w"> </span>lines
+<span class="gp"># </span>accordingly<span class="w"> </span><span class="k">if</span><span class="w"> </span>you<span class="w"> </span>need<span class="w"> </span><span class="m">64</span>-bit.<span class="w"> </span>The<span class="w"> </span>--no-target<span class="w"> </span>option<span class="w"> </span>instructs<span class="w"> </span>s2e<span class="w"> </span>to<span class="w"> </span>create<span class="w"> </span>a<span class="w"> </span>generic<span class="w"> </span>project<span class="w"> </span>structure
+<span class="gp"># </span>that<span class="w"> </span>does<span class="w"> </span>not<span class="w"> </span>target<span class="w"> </span>any<span class="w"> </span>particular<span class="w"> </span>binary.<span class="w"> </span>You<span class="w"> </span>will<span class="w"> </span><span class="k">then</span><span class="w"> </span>later<span class="w"> </span>customize<span class="w"> </span>the<span class="w"> </span>project<span class="w"> </span>manually<span class="w"> </span><span class="k">in</span><span class="w"> </span>order<span class="w"> </span>to
+<span class="gp"># </span>fetch<span class="w"> </span>the<span class="w"> </span>.ko<span class="w"> </span>file<span class="w"> </span>generated<span class="w"> </span>by<span class="w"> </span>SystemTap.
 <span class="go">host   $ cd /home/user/s2e/env</span>
-<span class="go">host   $ s2e new_project -n systemtap -i debian-11.3-i386 --no-target --type linux</span>
+<span class="go">host   $ s2e new_project -n systemtap -i debian-12.5-i386 --no-target --type linux</span>
 
-<span class="gp">#</span> Start the docker container in order to build the hello world SystemTap probe
+<span class="gp"># </span>Start<span class="w"> </span>the<span class="w"> </span>docker<span class="w"> </span>container<span class="w"> </span><span class="k">in</span><span class="w"> </span>order<span class="w"> </span>to<span class="w"> </span>build<span class="w"> </span>the<span class="w"> </span>hello<span class="w"> </span>world<span class="w"> </span>SystemTap<span class="w"> </span>probe
 <span class="go">host   $ docker run --rm -ti -v $HOME:$HOME linux-build-i386</span>
 
-<span class="gp">#</span> Install the kernel packages in the running container
+<span class="gp"># </span>Install<span class="w"> </span>the<span class="w"> </span>kernel<span class="w"> </span>packages<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>running<span class="w"> </span>container
 <span class="go">docker # dpkg -i /home/user/s2e/env/images/.tmp-output/linux-4.9.3-i386/*.deb</span>
 
-<span class="gp">#</span> Compile the demo probe
+<span class="gp"># </span>Compile<span class="w"> </span>the<span class="w"> </span>demo<span class="w"> </span>probe
 <span class="go">docker # cd /home/user/s2e/env/projects/systemtap</span>
 <span class="go">docker # stap -a i386 -r 4.9.3-s2e  -e &#39;probe vfs.read { log(&quot;hello world&quot;) exit() }&#39; -m simple</span>
 </pre></div>
@@ -484,13 +492,13 @@ of using a Docker image on the host. However, doing so is significantly slower (
 </div>
 <p>At this point, you must have the <code class="docutils literal notranslate"><span class="pre">/home/user/s2e/env/projects/systemtap/simple.ko</span></code> file. Now it is time to update
 <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="si">${</span><span class="nv">S2ECMD</span><span class="si">}</span> get simple.ko
-sudo staprun simple.ko
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="si">${</span><span class="nv">S2ECMD</span><span class="si">}</span><span class="w"> </span>get<span class="w"> </span>simple.ko
+sudo<span class="w"> </span>staprun<span class="w"> </span>simple.ko
 </pre></div>
 </div>
 <p>Then, run the analysis:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>host $ <span class="nb">cd</span> /home/user/s2e/env/projects/systemtap
-host $ ./launch-s2e.sh
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>host<span class="w"> </span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/home/user/s2e/env/projects/systemtap
+host<span class="w"> </span>$<span class="w"> </span>./launch-s2e.sh
 </pre></div>
 </div>
 <p>The analysis should finish in a few seconds and <code class="docutils literal notranslate"><span class="pre">serial.txt</span></code> should contain the following output:</p>
@@ -501,9 +509,9 @@ Waiting for S2E mode...
 hello world
 </pre></div>
 </div>
-</div>
-<div class="section" id="creating-a-simple-systemtap-script-for-symbolic-execution">
-<h2>Creating a simple SystemTap script for symbolic execution<a class="headerlink" href="#creating-a-simple-systemtap-script-for-symbolic-execution" title="Permalink to this headline"></a></h2>
+</section>
+<section id="creating-a-simple-systemtap-script-for-symbolic-execution">
+<h2>Creating a simple SystemTap script for symbolic execution<a class="headerlink" href="#creating-a-simple-systemtap-script-for-symbolic-execution" title="Link to this heading"></a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The following content is under construction. It may or may not work on your setup.</p>
@@ -593,16 +601,16 @@ probe module(&quot;pcnet32&quot;).function(&quot;pcnet32_start_xmit&quot;) {
 </div>
 <p>This will result in a module called <code class="docutils literal notranslate"><span class="pre">pcnet_probe.ko</span></code> that we will upload to the VM as explained earlier in this
 tutorial.</p>
-</div>
-<div class="section" id="running-the-script-in-s2e">
-<h2>Running the script in S2E<a class="headerlink" href="#running-the-script-in-s2e" title="Permalink to this headline"></a></h2>
+</section>
+<section id="running-the-script-in-s2e">
+<h2>Running the script in S2E<a class="headerlink" href="#running-the-script-in-s2e" title="Link to this heading"></a></h2>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">staprun pcnet_probe.ko &amp;</span>
 </pre></div>
 </div>
 <p>This will load the probe into the kernel. Symbolic execution will start when the network card receives the first
 packet. To send a packet, use <code class="docutils literal notranslate"><span class="pre">netcat</span></code> (in the guest) to send a UDP packet:</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -640,7 +648,7 @@ packet. To send a packet, use <code class="docutils literal notranslate"><span c
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-75283635-2', 'auto');
+      ga('create', 'UA-XXXX-X', 'auto');
       ga('send', 'pageview');
 </script>
 

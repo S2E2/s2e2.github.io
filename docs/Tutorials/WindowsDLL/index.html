@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Analysis of Windows DLLs &mdash; S2E 2.0 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=60dbed4a"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -26,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> S2E
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            S2E
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -415,8 +423,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Analysis of Windows DLLs</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Analysis of Windows DLLs</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Tutorials/WindowsDLL/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -426,11 +434,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="analysis-of-windows-dlls">
-<h1><a class="toc-backref" href="#id1">Analysis of Windows DLLs</a><a class="headerlink" href="#analysis-of-windows-dlls" title="Permalink to this headline"></a></h1>
+  <section id="analysis-of-windows-dlls">
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Analysis of Windows DLLs</a><a class="headerlink" href="#analysis-of-windows-dlls" title="Link to this heading"></a></h1>
 <p>This tutorial outlines how a Windows dynamic-link library (DLL) can be analyzed in S2E. As an example we will analyze
 the <a class="reference external" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms679277">Beep</a> function in <code class="docutils literal notranslate"><span class="pre">kernel32.dll</span></code>.</p>
-<div class="contents topic" id="contents">
+<nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#analysis-of-windows-dlls" id="id1">Analysis of Windows DLLs</a></p>
@@ -440,9 +448,9 @@ the <a class="reference external" href="https://msdn.microsoft.com/en-us/library
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="preparing-the-test-environment">
-<h2><a class="toc-backref" href="#id2">Preparing the test environment</a><a class="headerlink" href="#preparing-the-test-environment" title="Permalink to this headline"></a></h2>
+</nav>
+<section id="preparing-the-test-environment">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Preparing the test environment</a><a class="headerlink" href="#preparing-the-test-environment" title="Link to this heading"></a></h2>
 <p>As usual, use <a class="reference external" href="../../s2e-env.html">s2e-env</a> to create your S2E environment. Build a Windows image using the
 <code class="docutils literal notranslate"><span class="pre">image_build</span></code> command. Note that when building a Windows image the <code class="docutils literal notranslate"><span class="pre">--iso-dir</span></code> option must be provided. E.g.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e image_build --iso-dir /path/to/windows/iso/dir windows-7sp1ent-x86_64</span>
@@ -469,9 +477,9 @@ We can do this by modifying the <code class="docutils literal notranslate"><span
 </div>
 <p>Finally, start the analysis using the <code class="docutils literal notranslate"><span class="pre">launch-s2e.sh</span></code> script. Let S2E run for approximately 2 minutes before stopping
 it (e.g. via <code class="docutils literal notranslate"><span class="pre">killall</span> <span class="pre">-9</span> <span class="pre">qemu-system-x86_64</span></code>).</p>
-</div>
-<div class="section" id="generate-basic-block-coverage">
-<h2><a class="toc-backref" href="#id3">Generate basic block coverage</a><a class="headerlink" href="#generate-basic-block-coverage" title="Permalink to this headline"></a></h2>
+</section>
+<section id="generate-basic-block-coverage">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Generate basic block coverage</a><a class="headerlink" href="#generate-basic-block-coverage" title="Link to this heading"></a></h2>
 <p>You can use <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code> to generate basic block coverage to confirm that the <code class="docutils literal notranslate"><span class="pre">Beep</span></code> function was executed.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">s2e coverage basic_block kernel32</span>
 </pre></div>
@@ -480,8 +488,8 @@ it (e.g. via <code class="docutils literal notranslate"><span class="pre">killal
 <code class="docutils literal notranslate"><span class="pre">install/bin/ida_highlight_basic_blocks.py</span></code> script to highlight the basic block coverage should give a similar
 result to the following:</p>
 <img alt="../../_images/ida_kernel32_beep_coverage.png" src="../../_images/ida_kernel32_beep_coverage.png" />
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -519,7 +527,7 @@ result to the following:</p>
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-75283635-2', 'auto');
+      ga('create', 'UA-XXXX-X', 'auto');
       ga('send', 'pageview');
 </script>
 

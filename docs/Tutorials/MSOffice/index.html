@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Analyzing Microsoft Office Documents &mdash; S2E 2.0 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=60dbed4a"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -26,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> S2E
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            S2E
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -415,8 +423,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Analyzing Microsoft Office Documents</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Analyzing Microsoft Office Documents</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Tutorials/MSOffice/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -426,17 +434,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="analyzing-microsoft-office-documents">
-<h1>Analyzing Microsoft Office Documents<a class="headerlink" href="#analyzing-microsoft-office-documents" title="Permalink to this headline"></a></h1>
+  <section id="analyzing-microsoft-office-documents">
+<h1>Analyzing Microsoft Office Documents<a class="headerlink" href="#analyzing-microsoft-office-documents" title="Link to this heading"></a></h1>
 <p>In this tutorial, we will show how to symbolically execute a VBA macro embedded in an Office document.</p>
 <p>We assume that you already have a working S2E environment. If not, please follow the
 <a class="reference external" href="../../s2e-env.html">setup instructions</a> first.</p>
-<div class="section" id="building-a-microsoft-office-image">
-<h2>Building a Microsoft Office image<a class="headerlink" href="#building-a-microsoft-office-image" title="Permalink to this headline"></a></h2>
+<section id="building-a-microsoft-office-image">
+<h2>Building a Microsoft Office image<a class="headerlink" href="#building-a-microsoft-office-image" title="Link to this heading"></a></h2>
 <p>In order to analyze anything in S2E, you first need to build a guest VM image that contains the required software, in
 this case Windows and Microsoft Office. S2E supports various combinations of Windows and Office versions (Windows XP, 7,
 10 with Office 2010, 2013, 2016, and 2019). Run the following command to get a list of supported combinations:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env$</span> s2e image_build
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env$ </span>s2e<span class="w"> </span>image_build
 <span class="go">Available image groups:</span>
 <span class="go"> * linux      - Build linux images</span>
 <span class="go"> * windows    - Build windows images</span>
@@ -449,8 +457,8 @@ this case Windows and Microsoft Office. S2E supports various combinations of Win
 
 <span class="go">Available images:</span>
 <span class="go"> * cgc_debian-9.2.1-i386               - Debian i386 image with CGC kernel and user-space packages</span>
-<span class="go"> * debian-11.3-i386                    - Debian i386 image</span>
-<span class="go"> * debian-11.3-x86_64                  - Debian x86_64 image</span>
+<span class="go"> * debian-12.5-i386                    - Debian i386 image</span>
+<span class="go"> * debian-12.5-x86_64                  - Debian x86_64 image</span>
 <span class="go"> * windows-10pro1909-x86_64            - Windows 10 Pro 1909 x86_64</span>
 <span class="go"> * windows-10pro1909-x86_64/office2010 - Microsoft Office 2010 32-bit</span>
 <span class="go"> * windows-10pro1909-x86_64/office2013 - Microsoft Office 2013 32-bit</span>
@@ -479,7 +487,7 @@ get them from MSDN. Look for these two files and download them:</p>
 Installation scripts will select the 32-bit version of Office.</p></li>
 </ol>
 <p>Once you have the required ISOs, run the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env$</span> s2e image_build -g --iso-dir /path/to/iso/directory windows-7sp1pro-i386/office2016
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env$ </span>s2e<span class="w"> </span>image_build<span class="w"> </span>-g<span class="w"> </span>--iso-dir<span class="w"> </span>/path/to/iso/directory<span class="w"> </span>windows-7sp1pro-i386/office2016
 </pre></div>
 </div>
 <p>This will take 30-60 minutes and use about 50GB of disk space. The <code class="docutils literal notranslate"><span class="pre">-g</span></code> flag enables graphics output so that you can
@@ -501,9 +509,9 @@ of disk space used by guest images. The build script will explain how to set one
 in case you used the wrong one.</p></li>
 </ul>
 </div>
-</div>
-<div class="section" id="creating-a-test-document">
-<h2>2. Creating a test document<a class="headerlink" href="#creating-a-test-document" title="Permalink to this headline"></a></h2>
+</section>
+<section id="creating-a-test-document">
+<h2>2. Creating a test document<a class="headerlink" href="#creating-a-test-document" title="Link to this heading"></a></h2>
 <p>In this step, we will create a Microsoft Word document containing a macro that runs automatically when the document is
 opened. You will need another Windows / Office installation to do that. You have two options:</p>
 <ol class="loweralpha simple">
@@ -525,21 +533,21 @@ so that they open macros automatically without prompting the user, which is more
 </ol>
 <img alt="../../_images/word1.png" src="../../_images/word1.png" />
 <p>Then, in the script editor, type the following code:</p>
-<div class="highlight-vbscript notranslate"><div class="highlight"><pre><span></span><span class="k">Public</span><span class="w"> </span><span class="n">Declare</span><span class="w"> </span><span class="n">PtrSafe</span><span class="w"> </span><span class="kd">Sub</span><span class="w"> </span><span class="nf">S2EKillState</span><span class="w"> </span><span class="n">_</span><span class="w"></span>
-<span class="w">  </span><span class="n">Lib</span><span class="w"> </span><span class="s2">&quot;libs2e32.dll&quot;</span><span class="w"> </span><span class="p">(</span><span class="k">ByVal</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="n">Long</span><span class="p">,</span><span class="w"> </span><span class="k">ByVal</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="nb">String</span><span class="p">)</span><span class="w"></span>
-<span class="k">Public</span><span class="w"> </span><span class="n">Declare</span><span class="w"> </span><span class="n">PtrSafe</span><span class="w"> </span><span class="kd">Function</span><span class="w"> </span><span class="nf">S2ESymbolicInt</span><span class="w"> </span><span class="n">_</span><span class="w"></span>
-<span class="w">  </span><span class="n">Lib</span><span class="w"> </span><span class="s2">&quot;libs2e32.dll&quot;</span><span class="w"> </span><span class="p">(</span><span class="k">ByVal</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="k">ByVal</span><span class="w"> </span><span class="n">initialValue</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="n">Long</span><span class="p">)</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="n">Long</span><span class="w"></span>
+<div class="highlight-vbscript notranslate"><div class="highlight"><pre><span></span><span class="k">Public</span><span class="w"> </span><span class="n">Declare</span><span class="w"> </span><span class="n">PtrSafe</span><span class="w"> </span><span class="kd">Sub</span><span class="w"> </span><span class="nf">S2EKillState</span><span class="w"> </span><span class="n">_</span>
+<span class="w">  </span><span class="n">Lib</span><span class="w"> </span><span class="s2">&quot;libs2e32.dll&quot;</span><span class="w"> </span><span class="p">(</span><span class="k">ByVal</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="n">Long</span><span class="p">,</span><span class="w"> </span><span class="k">ByVal</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="nb">String</span><span class="p">)</span>
+<span class="k">Public</span><span class="w"> </span><span class="n">Declare</span><span class="w"> </span><span class="n">PtrSafe</span><span class="w"> </span><span class="kd">Function</span><span class="w"> </span><span class="nf">S2ESymbolicInt</span><span class="w"> </span><span class="n">_</span>
+<span class="w">  </span><span class="n">Lib</span><span class="w"> </span><span class="s2">&quot;libs2e32.dll&quot;</span><span class="w"> </span><span class="p">(</span><span class="k">ByVal</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="k">ByVal</span><span class="w"> </span><span class="n">initialValue</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="n">Long</span><span class="p">)</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="n">Long</span>
 
-<span class="kd">Sub</span><span class="w"> </span><span class="nf">AutoOpen</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="kd">Dim</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="n">Long</span><span class="w"></span>
-<span class="w">    </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S2ESymbolicInt</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">123</span><span class="p">)</span><span class="w"></span>
+<span class="kd">Sub</span><span class="w"> </span><span class="nf">AutoOpen</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">Dim</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="n">Long</span>
+<span class="w">    </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S2ESymbolicInt</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">123</span><span class="p">)</span>
 
-<span class="w">    </span><span class="k">If</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1234</span><span class="w"> </span><span class="k">Then</span><span class="w"></span>
-<span class="w">        </span><span class="n">S2EKillState</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;path 1&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">Else</span><span class="w"></span>
-<span class="w">        </span><span class="n">S2EKillState</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;path 2&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">End</span><span class="w"> </span><span class="k">If</span><span class="w"></span>
-<span class="k">End</span><span class="w"> </span><span class="k">Sub</span><span class="w"></span>
+<span class="w">    </span><span class="k">If</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1234</span><span class="w"> </span><span class="k">Then</span>
+<span class="w">        </span><span class="n">S2EKillState</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;path 1&quot;</span>
+<span class="w">    </span><span class="k">Else</span>
+<span class="w">        </span><span class="n">S2EKillState</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;path 2&quot;</span>
+<span class="w">    </span><span class="k">End</span><span class="w"> </span><span class="k">If</span>
+<span class="k">End</span><span class="w"> </span><span class="k">Sub</span>
 </pre></div>
 </div>
 <img alt="../../_images/word2.png" src="../../_images/word2.png" />
@@ -555,13 +563,13 @@ terminate unless it is closed by the user (or a script). To make things simpler 
 the paths directly from the VBA script. Alternatively, you could modify the VBA script to exit Word, in which case the
 path would be terminated by the script that launched Word (i.e., <code class="docutils literal notranslate"><span class="pre">bootstrap.bat</span></code> that you will find in the project
 directory).</p>
-</div>
-<div class="section" id="creating-an-analysis-project">
-<h2>3. Creating an analysis project<a class="headerlink" href="#creating-an-analysis-project" title="Permalink to this headline"></a></h2>
+</section>
+<section id="creating-an-analysis-project">
+<h2>3. Creating an analysis project<a class="headerlink" href="#creating-an-analysis-project" title="Link to this heading"></a></h2>
 <p>Before we can run the document in S2E, we need to create a new analysis project. A project contains all the required
 S2E configuration to run the desired application. Run the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env$</span> s2e new_project -n winword -i windows-7sp1pro-i386/office2016 <span class="se">\</span>
-   ./images/windows-7sp1pro-i386/office2016/guestfs/program<span class="se">\ </span>files/microsoft<span class="se">\ </span>office/root/office16/winword.exe /path/to/test.docm
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env$ </span>s2e<span class="w"> </span>new_project<span class="w"> </span>-n<span class="w"> </span>winword<span class="w"> </span>-i<span class="w"> </span>windows-7sp1pro-i386/office2016<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>./images/windows-7sp1pro-i386/office2016/guestfs/program<span class="se">\ </span>files/microsoft<span class="se">\ </span>office/root/office16/winword.exe<span class="w"> </span>/path/to/test.docm
 </pre></div>
 </div>
 <p>This command creates a project called <code class="docutils literal notranslate"><span class="pre">winword</span></code> based on the <code class="docutils literal notranslate"><span class="pre">windows-7sp1pro-i386/office2016</span></code> guest image.
@@ -579,7 +587,7 @@ adapts the invocation accordingly. In this particular case, the guest will run t
 <code class="docutils literal notranslate"><span class="pre">c:\program</span> <span class="pre">files\microsoft</span> <span class="pre">office\root\office16\winword.exe</span> <span class="pre">x:\test.docm</span></code>.</p></li>
 </ul>
 <p>Let us have a quick look at the files created for the project:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env/projects/winword$</span> ls -la
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env/projects/winword$ </span>ls<span class="w"> </span>-la
 <span class="go">total 68</span>
 <span class="go">drwxrwxr-x  2 s2e s2e   239 Jun  9 00:24 .</span>
 <span class="go">drwxrwxr-x 52 s2e s2e 12288 Jun  8 23:26 ..</span>
@@ -610,11 +618,11 @@ You do not need to modify it for this tutorial.</p></li>
 <li><p>There are some more files and symbolic links that are not important for this tutorial. You can find more details
 about them <a class="reference external" href="../../s2e-env.html">here</a>.</p></li>
 </ul>
-</div>
-<div class="section" id="running-the-project">
-<h2>4. Running the project<a class="headerlink" href="#running-the-project" title="Permalink to this headline"></a></h2>
+</section>
+<section id="running-the-project">
+<h2>4. Running the project<a class="headerlink" href="#running-the-project" title="Link to this heading"></a></h2>
 <p>Run S2E as follows:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env/projects/winword$</span> ./launch-s2e.sh
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env/projects/winword$ </span>./launch-s2e.sh
 </pre></div>
 </div>
 <p>The command should terminate after a minute or two. You will see many messages on the screen. These are mostly debug
@@ -644,9 +652,9 @@ then see something like in the screenshot below:</p>
 </pre></div>
 </div>
 <p>As expected, the VBA macro forked two paths, one in which the value is equal to 1234.</p>
-</div>
-<div class="section" id="exercises">
-<h2>5. Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
+</section>
+<section id="exercises">
+<h2>5. Exercises<a class="headerlink" href="#exercises" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>Remove the call to <code class="docutils literal notranslate"><span class="pre">S2EKillState</span></code> from the macro and rerun the analysis. What do you observe? Does S2E terminate?
 Why, why not?</p></li>
@@ -657,9 +665,9 @@ The source for <code class="docutils literal notranslate"><span class="pre">libs
 <li><p>Modify <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code> to record code <a class="reference external" href="../../Howtos/Coverage/index.html">coverage</a> for various DLLs, e.g.,
 for <code class="docutils literal notranslate"><span class="pre">vbe7.dll</span></code>, then visualize it in IDA.</p></li>
 </ol>
-</div>
-<div class="section" id="conclusion">
-<h2>6. Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline"></a></h2>
+</section>
+<section id="conclusion">
+<h2>6. Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
 <p>This tutorial presented the basics of running VBA macros in S2E. Here are some pointers about more advanced uses
 and things you may want to try next:</p>
 <p><strong>Trigger-based malware analysis.</strong> A malicious macro would typically execute itself if some condition is met, e.g.,
@@ -670,14 +678,14 @@ any other hooking framework of your choice.</p>
 <p><strong>Code coverage analysis.</strong> S2E is currently not well suited to analyze code coverage of higher level languages. For
 example, you will not be able to easily get the actual line of code that forked using <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">forkprofile</span></code>. Instead, you
 will get the location in the interpreter’s library (e.g., <code class="docutils literal notranslate"><span class="pre">vbe7.dll</span></code>). Implementing techniques such as <a class="reference external" href="http://www.stefanbucur.net/assets/pubs/chef.pdf">Chef</a> may alleviate this problem.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env$</span> s2e forkprofile winword
-<span class="gp">#</span> The fork profile shows all the program counters where execution forked:
-<span class="gp">#</span> process_pid module_path:address fork_count source_file:line_number <span class="o">(</span>function_name<span class="o">)</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">s2e@ubuntu:~/s2e/env$ </span>s2e<span class="w"> </span>forkprofile<span class="w"> </span>winword
+<span class="gp"># </span>The<span class="w"> </span>fork<span class="w"> </span>profile<span class="w"> </span>shows<span class="w"> </span>all<span class="w"> </span>the<span class="w"> </span>program<span class="w"> </span>counters<span class="w"> </span>where<span class="w"> </span>execution<span class="w"> </span>forked:
+<span class="gp"># </span>process_pid<span class="w"> </span>module_path:address<span class="w"> </span>fork_count<span class="w"> </span>source_file:line_number<span class="w"> </span><span class="o">(</span>function_name<span class="o">)</span>
 <span class="go">01704 /Program Files/Common Files/Microsoft Shared/VBA/VBA7/VBE7.DLL:0x65008743    1 (no debug info)</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -715,7 +723,7 @@ will get the location in the interpreter’s library (e.g., <code class="docutil
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-75283635-2', 'auto');
+      ga('create', 'UA-XXXX-X', 'auto');
       ga('send', 'pageview');
 </script>
 

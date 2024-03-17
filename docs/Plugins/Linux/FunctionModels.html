@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FunctionModels &mdash; S2E 2.0 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=60dbed4a"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -26,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> S2E
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            S2E
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -415,8 +423,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>FunctionModels</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">FunctionModels</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Plugins/Linux/FunctionModels.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -426,8 +434,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="functionmodels">
-<h1>FunctionModels<a class="headerlink" href="#functionmodels" title="Permalink to this headline"></a></h1>
+  <section id="functionmodels">
+<h1>FunctionModels<a class="headerlink" href="#functionmodels" title="Link to this heading"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">FunctionModels</span></code> plugin can be used to reduce <a class="reference external" href="https://en.wikipedia.org/wiki/Symbolic_execution#Path_Explosion">path explosion</a>. It works by replacing typical libc functions with
 a symbolic expression that represents that function’s return value. The <code class="docutils literal notranslate"><span class="pre">FunctionModels</span></code> plugin currently supports
 the following libc functions:</p>
@@ -445,10 +453,10 @@ the following libc functions:</p>
 </ul>
 <p>For example, <code class="docutils literal notranslate"><span class="pre">strlen</span></code> is typically implemented as follows:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Adapted from  µlibc</span>
-<span class="kt">size_t</span> <span class="nf">strlen</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span> <span class="n">p</span><span class="o">++</span><span class="p">)</span> <span class="p">;</span>
+<span class="kt">size_t</span><span class="w"> </span><span class="nf">strlen</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">;</span><span class="w"> </span><span class="n">p</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
 
-    <span class="k">return</span> <span class="n">p</span> <span class="o">-</span> <span class="n">s</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -469,18 +477,18 @@ target program being dynamically linked, so <strong>you cannot use function mode
 load <code class="docutils literal notranslate"><span class="pre">s2e.so</span></code> in your <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> script. If you are using <a class="reference external" href="../../s2e-env.html">s2e-env</a> you will be informed
 at project creation time whether you can use the <code class="docutils literal notranslate"><span class="pre">FunctionModels</span></code> plugin. Note however that by default <code class="docutils literal notranslate"><span class="pre">s2e-env</span></code>
 will <strong>not</strong> automatically enable the <code class="docutils literal notranslate"><span class="pre">FunctionModels</span></code> plugin.</p>
-<div class="section" id="testing">
-<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline"></a></h2>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h2>
 <p>There is a test suite suite available in <code class="docutils literal notranslate"><span class="pre">guest/linux/function_models/models_test.c</span></code>. This test suite is compiled
 along with the guest tools and placed in <code class="docutils literal notranslate"><span class="pre">$S2EDIR/build-s2e/guest-tools{32,64}/linux/function_models</span></code>. It can be
 used with the <code class="docutils literal notranslate"><span class="pre">s2e-env</span> <span class="pre">new_project</span></code> command to run in a guest virtual machine. You should see the “Good Model”
 message in S2E’s debug output.</p>
-</div>
-<div class="section" id="options">
-<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline"></a></h2>
+</section>
+<section id="options">
+<h2>Options<a class="headerlink" href="#options" title="Link to this heading"></a></h2>
 <p>This plugin does not have any options.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -518,7 +526,7 @@ message in S2E’s debug output.</p>
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-75283635-2', 'auto');
+      ga('create', 'UA-XXXX-X', 'auto');
       ga('send', 'pageview');
 </script>
 

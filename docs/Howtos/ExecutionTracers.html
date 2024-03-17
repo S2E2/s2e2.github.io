@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Using execution tracers &mdash; S2E 2.0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=60dbed4a"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -26,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> S2E
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            S2E
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -415,8 +423,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Using execution tracers</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Using execution tracers</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/Howtos/ExecutionTracers.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -426,8 +434,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="using-execution-tracers">
-<h1>Using execution tracers<a class="headerlink" href="#using-execution-tracers" title="Permalink to this headline"></a></h1>
+  <section id="using-execution-tracers">
+<h1>Using execution tracers<a class="headerlink" href="#using-execution-tracers" title="Link to this heading"></a></h1>
 <p>Execution tracers are S2E analysis plugins that record various information along the execution of each path. Here is a
 partial list of available plugins. You can find all the tracers in the
 <a class="reference external" href="https://github.com/S2E/s2e/tree/master/libs2eplugins/src/s2e/Plugins/ExecutionTracers">libs2eplugins</a> repository.</p>
@@ -451,77 +459,77 @@ accesses by module in order to reduce the size of the trace.</p></li>
 anywhere in the system). For this, tracers need to know when execution enters and leaves the modules of interest.
 Tracers rely on the <code class="docutils literal notranslate"><span class="pre">ProcessExecutionDetector</span></code> and <code class="docutils literal notranslate"><span class="pre">ModuleMap</span></code> plugins to obtain this information.
 These two plugins rely on OS monitor plugins to be notified whenever the OS loads or unloads processes or modules.</p>
-<div class="section" id="recording-basic-traces">
-<h2>1. Recording basic traces<a class="headerlink" href="#recording-basic-traces" title="Permalink to this headline"></a></h2>
+<section id="recording-basic-traces">
+<h2>1. Recording basic traces<a class="headerlink" href="#recording-basic-traces" title="Link to this heading"></a></h2>
 <p>By default, an S2E project has all the required plugins configured in order to record forks, guest OS events
 (e.g., process and module load/unload), and test cases.</p>
 <p>Consider the following program that reads an integer from a file and checks its value:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mh">0xdeadbeef</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">FILE</span><span class="w"> </span><span class="o">*</span><span class="n">fp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xdeadbeef</span><span class="p">;</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">fp</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Could not open %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-        <span class="k">goto</span> <span class="n">err</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="n">fp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fopen</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">fp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Could not open %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">value</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-       <span class="k">goto</span> <span class="n">err</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">fp</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="k">goto</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-       <span class="n">printf</span><span class="p">(</span><span class="s">&quot;0&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;0&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
 <span class="nl">err</span><span class="p">:</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">fp</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Compile the program above, create a new S2E project, then run it:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gcc -Wall -g -o <span class="nb">test</span> test.c
-$ s2e new_project ./test @@
-$ s2e run <span class="nb">test</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>gcc<span class="w"> </span>-Wall<span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span><span class="nb">test</span><span class="w"> </span>test.c
+$<span class="w"> </span>s2e<span class="w"> </span>new_project<span class="w"> </span>./test<span class="w"> </span>@@
+$<span class="w"> </span>s2e<span class="w"> </span>run<span class="w"> </span><span class="nb">test</span>
 </pre></div>
 </div>
 <p>If everything went well, you should have a non-empty <code class="docutils literal notranslate"><span class="pre">ExecutionTracer.dat</span></code> file in the project’s directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ls -la projects/test/s2e-last/
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ls<span class="w"> </span>-la<span class="w"> </span>projects/test/s2e-last/
 ...
--rw-rw-r-- <span class="m">1</span> ubuntu ubuntu    <span class="m">4846</span> Dec <span class="m">20</span> <span class="m">20</span>:34 ExecutionTracer.dat
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>ubuntu<span class="w"> </span>ubuntu<span class="w">    </span><span class="m">4846</span><span class="w"> </span>Dec<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">20</span>:34<span class="w"> </span>ExecutionTracer.dat
 ...
 </pre></div>
 </div>
-</div>
-<div class="section" id="analyzing-traces">
-<h2>2. Analyzing traces<a class="headerlink" href="#analyzing-traces" title="Permalink to this headline"></a></h2>
+</section>
+<section id="analyzing-traces">
+<h2>2. Analyzing traces<a class="headerlink" href="#analyzing-traces" title="Link to this heading"></a></h2>
 <p>S2E comes with a few built-in tools that rely on execution traces in order to work. One of these tools is the
 fork profiler:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ s2e forkprofile <span class="nb">test</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>s2e<span class="w"> </span>forkprofile<span class="w"> </span><span class="nb">test</span>
 
 ...
 <span class="c1"># The fork profile shows all the program counters where execution forked:</span>
 <span class="c1"># process_pid module_path:address fork_count source_file:line_number (function_name)</span>
-<span class="m">01251</span> test:0x00000885    <span class="m">1</span> /home/vitaly/s2e/env/test.c:21 <span class="o">(</span>main<span class="o">)</span>
+<span class="m">01251</span><span class="w"> </span>test:0x00000885<span class="w">    </span><span class="m">1</span><span class="w"> </span>/home/vitaly/s2e/env/test.c:21<span class="w"> </span><span class="o">(</span>main<span class="o">)</span>
 </pre></div>
 </div>
 <p>The fork profiler looks for fork entries in <code class="docutils literal notranslate"><span class="pre">ExecutionTracer.dat</span></code> in order to aggregate them. It also extracts
 module name information in order to provide symbol data (e.g., line numbers and source files).</p>
 <p>If you would like to look at the raw trace, you can use the <code class="docutils literal notranslate"><span class="pre">execution_trace</span></code> command in order to dump the trace
 in JSON format:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>s2e execution_trace -pp <span class="nb">test</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>s2e<span class="w"> </span>execution_trace<span class="w"> </span>-pp<span class="w"> </span><span class="nb">test</span>
 ...
-SUCCESS: <span class="o">[</span>execution_trace<span class="o">]</span> Execution trace saved to /home/ubuntu/s2e/env/projects/test/s2e-last/execution_trace.json
+SUCCESS:<span class="w"> </span><span class="o">[</span>execution_trace<span class="o">]</span><span class="w"> </span>Execution<span class="w"> </span>trace<span class="w"> </span>saved<span class="w"> </span>to<span class="w"> </span>/home/ubuntu/s2e/env/projects/test/s2e-last/execution_trace.json
 </pre></div>
 </div>
 <p>This trace encodes an execution tree:</p>
@@ -529,17 +537,17 @@ SUCCESS: <span class="o">[</span>execution_trace<span class="o">]</span> Executi
 <span class="o">{</span>...<span class="o">}</span>,
 <span class="o">{</span>...<span class="o">}</span>,
 <span class="o">{</span>
-    <span class="s2">&quot;children&quot;</span>: <span class="o">{</span>
-        <span class="s2">&quot;1&quot;</span>: <span class="o">[</span>          <span class="c1"># This is the start of path 1</span>
-            <span class="o">{</span>...<span class="o">}</span>,
-            <span class="o">{</span>...<span class="o">}</span>,
-            ...
-        <span class="o">]</span>
-    <span class="o">}</span>
-    ...
-    <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;TRACE_FORK&quot;</span>
+<span class="w">    </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;1&quot;</span>:<span class="w"> </span><span class="o">[</span><span class="w">          </span><span class="c1"># This is the start of path 1</span>
+<span class="w">            </span><span class="o">{</span>...<span class="o">}</span>,
+<span class="w">            </span><span class="o">{</span>...<span class="o">}</span>,
+<span class="w">            </span>...
+<span class="w">        </span><span class="o">]</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="w">    </span>...
+<span class="w">    </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;TRACE_FORK&quot;</span>
 <span class="o">}</span>,
-<span class="o">{</span>...<span class="o">}</span>,                  <span class="c1"># Path 0 continues after forking</span>
+<span class="o">{</span>...<span class="o">}</span>,<span class="w">                  </span><span class="c1"># Path 0 continues after forking</span>
 <span class="o">{</span>...<span class="o">}</span>,
 ...
 </pre></div>
@@ -548,41 +556,41 @@ SUCCESS: <span class="o">[</span>execution_trace<span class="o">]</span> Executi
 when a path terminates:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Path 1:</span>
 <span class="o">{</span>
-    <span class="s2">&quot;address_space&quot;</span>: <span class="m">225800192</span>,
-    <span class="s2">&quot;items&quot;</span>: <span class="o">[</span>
-        <span class="o">{</span>
-            <span class="s2">&quot;key&quot;</span>: <span class="s2">&quot;v0___symfile____tmp_input___0_1_symfile___0&quot;</span>,
-            <span class="s2">&quot;value&quot;</span>: <span class="s2">&quot;AQEBAQEBAQEBAQEBAQE....&quot;</span>
-        <span class="o">}</span>
-    <span class="o">]</span>,
-    <span class="s2">&quot;pc&quot;</span>: <span class="m">134518939</span>,
-    <span class="s2">&quot;pid&quot;</span>: <span class="m">1295</span>,
-    <span class="s2">&quot;state_id&quot;</span>: <span class="m">1</span>,
-    <span class="s2">&quot;timestamp&quot;</span>: <span class="m">630185690261719</span>,
-    <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;TRACE_TESTCASE&quot;</span>
+<span class="w">    </span><span class="s2">&quot;address_space&quot;</span>:<span class="w"> </span><span class="m">225800192</span>,
+<span class="w">    </span><span class="s2">&quot;items&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;key&quot;</span>:<span class="w"> </span><span class="s2">&quot;v0___symfile____tmp_input___0_1_symfile___0&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;value&quot;</span>:<span class="w"> </span><span class="s2">&quot;AQEBAQEBAQEBAQEBAQE....&quot;</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="s2">&quot;pc&quot;</span>:<span class="w"> </span><span class="m">134518939</span>,
+<span class="w">    </span><span class="s2">&quot;pid&quot;</span>:<span class="w"> </span><span class="m">1295</span>,
+<span class="w">    </span><span class="s2">&quot;state_id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;timestamp&quot;</span>:<span class="w"> </span><span class="m">630185690261719</span>,
+<span class="w">    </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;TRACE_TESTCASE&quot;</span>
 <span class="o">}</span>
 
 <span class="c1"># Path 0</span>
 <span class="o">{</span>
-    <span class="s2">&quot;address_space&quot;</span>: <span class="m">225800192</span>,
-    <span class="s2">&quot;items&quot;</span>: <span class="o">[</span>
-        <span class="o">{</span>
-            <span class="s2">&quot;key&quot;</span>: <span class="s2">&quot;v0___symfile____tmp_input___0_1_symfile___0&quot;</span>,
-            <span class="s2">&quot;value&quot;</span>: <span class="s2">&quot;AAAAAAAAA.....&quot;</span>
-        <span class="o">}</span>
-    <span class="o">]</span>,
-    <span class="s2">&quot;pc&quot;</span>: <span class="m">134518939</span>,
-    <span class="s2">&quot;pid&quot;</span>: <span class="m">1295</span>,
-    <span class="s2">&quot;state_id&quot;</span>: <span class="m">0</span>,
-    <span class="s2">&quot;timestamp&quot;</span>: <span class="m">630185689994274</span>,
-    <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;TRACE_TESTCASE&quot;</span>
+<span class="w">    </span><span class="s2">&quot;address_space&quot;</span>:<span class="w"> </span><span class="m">225800192</span>,
+<span class="w">    </span><span class="s2">&quot;items&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;key&quot;</span>:<span class="w"> </span><span class="s2">&quot;v0___symfile____tmp_input___0_1_symfile___0&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;value&quot;</span>:<span class="w"> </span><span class="s2">&quot;AAAAAAAAA.....&quot;</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="s2">&quot;pc&quot;</span>:<span class="w"> </span><span class="m">134518939</span>,
+<span class="w">    </span><span class="s2">&quot;pid&quot;</span>:<span class="w"> </span><span class="m">1295</span>,
+<span class="w">    </span><span class="s2">&quot;state_id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">    </span><span class="s2">&quot;timestamp&quot;</span>:<span class="w"> </span><span class="m">630185689994274</span>,
+<span class="w">    </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;TRACE_TESTCASE&quot;</span>
 <span class="o">}</span>
 </pre></div>
 </div>
 <p>You will find similar items for module/process loads/unloads.</p>
-</div>
-<div class="section" id="recording-memory-traces">
-<h2>3. Recording memory traces<a class="headerlink" href="#recording-memory-traces" title="Permalink to this headline"></a></h2>
+</section>
+<section id="recording-memory-traces">
+<h2>3. Recording memory traces<a class="headerlink" href="#recording-memory-traces" title="Link to this heading"></a></h2>
 <p>In this section, we will record all memory accesses done by the program above. For this, append the following snippet
 to <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</span></code>:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">add_plugin</span><span class="p">(</span><span class="s2">&quot;MemoryTracer&quot;</span><span class="p">)</span>
@@ -600,29 +608,29 @@ to <code class="docutils literal notranslate"><span class="pre">s2e-config.lua</
 </div>
 <p>After re-running S2E and calling <cite>s2e execution_trace -pp test</cite> on the new run, you should be able to find the
 following snippet in <cite>execution_trace.json</cite>:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
-    &quot;address&quot;: 140720832808700, // 0x7FFC1F4086FC
-    &quot;address_space&quot;: 255279104,
-    &quot;concrete_buffer&quot;: 0,
-    &quot;flags&quot;: 1,
-    &quot;host_address&quot;: 0,
-    &quot;pc&quot;: 94739530127322, // 0x562A440A17DA
-    &quot;pid&quot;: 1251,
-    &quot;size&quot;: 4,
-    &quot;state_id&quot;: 0,
-    &quot;timestamp&quot;: 630430187009925,
-    &quot;type&quot;: &quot;TRACE_MEMORY&quot;,
-    &quot;value&quot;: 3735928559  // 0xdeadbeef
-}
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">140720832808700</span><span class="p">,</span><span class="w"> </span><span class="c1">// 0x7FFC1F4086FC</span>
+<span class="w">    </span><span class="nt">&quot;address_space&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">255279104</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;concrete_buffer&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;flags&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;host_address&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">94739530127322</span><span class="p">,</span><span class="w"> </span><span class="c1">// 0x562A440A17DA</span>
+<span class="w">    </span><span class="nt">&quot;pid&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1251</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;state_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">630430187009925</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TRACE_MEMORY&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3735928559</span><span class="w">  </span><span class="c1">// 0xdeadbeef</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>This corresponds to writing <code class="docutils literal notranslate"><span class="pre">0xdeadbeef</span></code> to the local variable <code class="docutils literal notranslate"><span class="pre">value</span></code> to the address <code class="docutils literal notranslate"><span class="pre">0x7FFC1F4086FC</span></code>.</p>
-</div>
-<div class="section" id="trace-format-reference">
-<h2>4. Trace format reference<a class="headerlink" href="#trace-format-reference" title="Permalink to this headline"></a></h2>
+</section>
+<section id="trace-format-reference">
+<h2>4. Trace format reference<a class="headerlink" href="#trace-format-reference" title="Link to this heading"></a></h2>
 <p>S2E uses <code class="docutils literal notranslate"><span class="pre">protobuf</span></code> to record traces. You can find more details about the format <a class="reference external" href="../Plugins/Tracers/ExecutionTracer.html">here</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -660,7 +668,7 @@ following snippet in <cite>execution_trace.json</cite>:</p>
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-75283635-2', 'auto');
+      ga('create', 'UA-XXXX-X', 'auto');
       ga('send', 'pageview');
 </script>
 
