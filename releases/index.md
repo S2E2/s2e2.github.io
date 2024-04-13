@@ -7,6 +7,12 @@ title: Releases
 
 You can find the latest stable version of S2E on master. We compile here from time to time a list of important updates.
 
+### 2024-04-13
+ * Added support for Linux 6.8.2 guests.
+ * Upgraded to libdwarf 0.9.1, which gives better support for debug symbols.
+ * Fixed slow symbol lookup in s2e-env.
+ * Fixed pretty printer support when running S2E in GDB.
+
 ### 2024-03-17
  * Upgraded TCG to 8.1.2.
  * Added Debian 12.5 support (host + guest images).
