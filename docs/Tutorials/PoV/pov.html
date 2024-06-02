@@ -767,10 +767,8 @@ applies recipes to produce a <code class="docutils literal notranslate"><span cl
 automatically identify such functions (not only <code class="docutils literal notranslate"><span class="pre">transmit()</span></code>) inside the CGC binaries. Before starting the analysis of
 the binary, S2E disassembles it, extracts all function addresses, then invokes every function with canned parameters. If
 the function produces the expected output, identification succeeded.</p>
-<blockquote>
-<div><p>S2E uses <a class="reference external" href="https://github.com/S2E/s2e/tree/master/tools/tools/revgen32">RevGen</a>, an x86-to-LLVM translator,
-in order to extract function types from the binary before analyzing it.</p>
-</div></blockquote>
+<p>S2E used <a class="reference external" href="../Revgen/Revgen.html">RevGen</a>, an x86-to-LLVM translator, in order to extract function types from
+the binary before analyzing it.</p>
 </section>
 </section>
 <section id="generating-replayable-povs">
@@ -879,9 +877,9 @@ impossible to hard-code a fixed value in the PoV. The following code snippet sho
 </div>
 <p>To generate a correct PoV, S2E looks at all branch conditions and looks for cases where the content of a receive buffer
 is compared with a symbolic value derived from the random number generator. Once it found such a comparison, it can
-easily generate the correct PoV code by mapping the symbolic value created in the receive call to the symbolic value
+generate the correct PoV code by mapping the symbolic value created in the receive call to the symbolic value
 written by the transmit function.</p>
-<p>A much harder case happens when the PoV needs to perform computations. Consider the slightly modified above example:</p>
+<p>A harder case happens when the PoV needs to perform computations. Consider the slightly modified above example:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span>
 <span class="linenos"> 2</span><span class="p">{</span>
 <span class="linenos"> 3</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
@@ -922,9 +920,9 @@ solver. The following snippet shows how would an automatically generated PoV wit
 <span class="linenos">9</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>Unfortunately, we ran out of time and didn’t have time to implement this solution. The main challenge was to fit an
-entire solver within the size and memory limits of a PoV, as well as modifying the solver to accommodate a very
-restricted runtime environment, that has primitive memory allocation, no standard library, etc.</p>
+<p>Unfortunately, we ran out of time and did not have time to implement this solution. The main challenge was to fit an
+entire solver within the size and memory limits of a PoV, as well as modifying the solver to accommodate
+a restricted runtime environment, that has primitive memory allocation, no standard library, etc.</p>
 </section>
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>

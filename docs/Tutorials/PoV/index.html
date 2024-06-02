@@ -470,13 +470,13 @@ You may also use the 64-bit version and/or the Windows version (in <code class="
 <li><p>Create an analysis project</p></li>
 </ol>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>~/s2e/env
-<span class="gp">$ </span>s2e<span class="w"> </span>new_project<span class="w"> </span>-i<span class="w"> </span>debian-11.3-i386<span class="w"> </span>-n<span class="w"> </span>vuln-lin32-32<span class="w"> </span>--tools<span class="o">=</span>pov<span class="w"> </span><span class="se">\</span>
+<span class="gp">$ </span>s2e<span class="w"> </span>new_project<span class="w"> </span>-i<span class="w"> </span>debian-12.5-i386<span class="w"> </span>-n<span class="w"> </span>vuln-lin32-32<span class="w"> </span>--tools<span class="o">=</span>pov<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>build/s2e/guest-tools32/common/demos/vulnerabilities<span class="w"> </span>@@
 </pre></div>
 </div>
 <p>Here is a breakdown of the <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">new_project</span></code> command above:</p>
 <ul class="simple">
-<li><p>It creates a new project called <code class="docutils literal notranslate"><span class="pre">vuln-lin32-32</span></code> that will run on the <code class="docutils literal notranslate"><span class="pre">debian-11.3-i386</span></code> image.</p></li>
+<li><p>It creates a new project called <code class="docutils literal notranslate"><span class="pre">vuln-lin32-32</span></code> that will run on the <code class="docutils literal notranslate"><span class="pre">debian-12.5-i386</span></code> image.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">--tools=pov</span></code> option is important in order to generate PoVs. If you omit it, you will just get random test
 cases, which will at best crash the binary depending on what the constraint solver generates. Vulnerability generation
 involves a number of additional plugins that may add overhead to the analysis, so they are disabled by default unless
@@ -632,36 +632,41 @@ find vulnerabilities and exploit them. This demo walks you through the process o
 <p>The CGC Final Event (CFE) ran on the Decree operating system. Decree is a modified Linux OS with a reduced number of
 <a class="reference external" href="https://github.com/CyberGrandChallenge/libcgc">system calls</a>. In addition to this, the Decree OS has been modified
 to add “hook points” for S2E (e.g. to signal process creation, termination, etc.) and to allow S2E to inject symbolic
-values. The source code for the Decree OS is available at <a class="reference external" href="https://github.com/S2E/s2e-linux-kernel">https://github.com/S2E/s2e-linux-kernel</a>. A Decree
-virtual machine image can be built by running the following command:</p>
+values. The source code for the Decree OS is available at <a class="reference external" href="https://github.com/S2E/s2e-linux-kernel">https://github.com/S2E/s2e-linux-kernel</a>.</p>
+<p>The current version of S2E does not use the old Decree kernel anymore. It was based on Linux 3.13, which does not build
+on modern Linux images that currently ship with S2E. Instead, S2E comes with <code class="docutils literal notranslate"><span class="pre">cgcload</span></code>, a tool that emulates the Decree system calls
+in user-mode using the syscall <a class="reference external" href="https://docs.kernel.org/5.19/admin-guide/syscall-user-dispatch.html">user dispatch mechanism</a>
+in recent Linux kernels. This tool is a loader that maps the native CGC challenge binary into its address space, sets up syscall emulation
+that translates Decree syscalls into native Linux syscalls, then jumps to the binary’s entry point.</p>
+<p>To run CGC binaries, build the 32-bit Linux image. This is the same image that is used for running normal Linux binaries.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>~/s2e/env
-<span class="gp">$ </span>s2e<span class="w"> </span>image_build<span class="w"> </span>cgc_debian-9.2.1-i386
+<span class="gp">$ </span>s2e<span class="w"> </span>image_build<span class="w"> </span>debian-12.5-i386
 </pre></div>
 </div>
 <p>Next, create an analysis project for a challenge binary. Sample CBs are available <a class="reference external" href="https://github.com/CyberGrandChallenge/samples">here</a> and can be built using the instructions <a class="reference external" href="https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/walk-throughs/building-a-cb.md">here</a> . The
 remainder of this tutorial will focus on the CADET_00001 program (a pre-compiled version of which is available <a class="reference external" href="https://github.com/S2E/Decree/blob/master/samples/CADET_00001">here</a>), but the ideas and techniques should be applicable
-to all of the CBs.</p>
+to all of the CBs. Note that the S2E tooling does not support multi-binary CBs.</p>
 <p>The following command creates a <code class="docutils literal notranslate"><span class="pre">projects/CADET_00001</span></code> directory with various scripts and configuration files needed
 by S2E, as described <a class="reference external" href="../../s2e-env.html">here</a>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>s2e<span class="w"> </span>new_project<span class="w"> </span>--image<span class="w"> </span>cgc_debian-9.2.1-i386<span class="w"> </span>./source/s2e/decree/samples/CADET_00001
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>s2e<span class="w"> </span>new_project<span class="w"> </span>./source/s2e/decree/samples/CADET_00001
 </pre></div>
 </div>
-<p>Finally, to start S2E, run the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>s2e<span class="w"> </span>run<span class="w"> </span>CADET_00001
+<p>Then run S2E:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>projects/CADET_00001
+<span class="gp">$ </span>./launch-s2e.sh
 </pre></div>
 </div>
-<p>This will display a TUI-based dashboard, similar to that used by the American Fuzzy Lop (AFL) fuzzer. As S2E finds
-vulnerabilities, it generates PoV files in the <code class="docutils literal notranslate"><span class="pre">s2e-last</span></code> directory. These files have either <code class="docutils literal notranslate"><span class="pre">.xml</span></code> or <code class="docutils literal notranslate"><span class="pre">.c</span></code>
-file extensions. Once some PoV files have been generated you can press <code class="docutils literal notranslate"><span class="pre">q</span></code> to stop S2E.</p>
-<img alt="../../_images/cadet_00001_tui.png" src="../../_images/cadet_00001_tui.png" />
-<p>Alternatively, you can run S2E without the TUI by using the <code class="docutils literal notranslate"><span class="pre">-n</span></code> option in <code class="docutils literal notranslate"><span class="pre">s2e</span> <span class="pre">run</span></code>. Instead of the TUI you will
-see the standard S2E output.  Once some POVs have been generated you can stop S2E by killing the process with
-<code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code> or <code class="docutils literal notranslate"><span class="pre">killall</span> <span class="pre">-9</span> <span class="pre">qemu-system-i386</span></code>.</p>
+<p>Wait for PoVs to be generated (<code class="docutils literal notranslate"><span class="pre">s2e-last/*.c</span></code> files) then interrupt S2E with Ctrl+C.
+Finally, verify that the generated PoVs are valid, i.e., they can reproduce the correct crashes when run,
+using the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>./verify-pov.sh
+</pre></div>
+</div>
 </section>
 <section id="understanding-cgc-style-povs">
 <h2>Understanding CGC-style PoVs<a class="headerlink" href="#understanding-cgc-style-povs" title="Link to this heading"></a></h2>
 <p>If you followed the tutorial on PoV generation on Linux, you will notice that the PoV format for CGC binaries is
-different. Instead of being a concrete input file, CGC binaries produce PoVs in <code class="docutils literal notranslate"><span class="pre">.xml</span></code> or <code class="docutils literal notranslate"><span class="pre">.c</span></code> format. The reason
+different. Instead of being a concrete input file, S2E plugins produce PoVs in <code class="docutils literal notranslate"><span class="pre">.c</span></code> format. The reason
 for this is that CGC binaries read their input from <code class="docutils literal notranslate"><span class="pre">stdin</span></code> and write results to <code class="docutils literal notranslate"><span class="pre">stdout</span></code>. So in order to exercise
 the vulnerability, the PoV must implement a two-way communication with the program, by reading the program’s output and
 writing an appropriate input. This is different from file-based PoVs, where all the input is sent to the program at
@@ -673,17 +678,28 @@ stdin and results are written to stdout (e.g., command line utilities). S2E only
 and Windows. Supporting interactive binaries for other platforms is work in progress.</p>
 </div>
 <p>For this reason, replaying a CGC-style PoV is more complex. It requires a special setup so that the PoV can communicate
-with the CB. For more details, see <a class="reference external" href="https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/walk-throughs/understanding-cfe-povs.md">here</a>.
-The following outlines the steps required to replay a PoV:</p>
-<ol class="arabic simple">
-<li><p>Follow the instructions <a class="reference external" href="https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/walk-throughs/running-the-vm.md">here</a> to
-setup and run the CGC testing VM</p></li>
-<li><p>As discussed in the instructions in the previous step, files can be shared between the host and CGC testing VM via
-the <code class="docutils literal notranslate"><span class="pre">/vagrant</span></code> directory. Copy the CADET_00001 binary, the PoV XML files generated by S2E and <a class="reference external" href="https://github.com/S2E/decree/blob/master/scripts/test_pov.sh">this</a> script (located in your S2E environment in
-<code class="docutils literal notranslate"><span class="pre">bin/cgc-tools/test_pov.sh</span></code>) to the CGC testing VM.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> to access the VM and copy the files from <code class="docutils literal notranslate"><span class="pre">/vagrant</span></code> into <code class="docutils literal notranslate"><span class="pre">/home/vagrant</span></code>. Then run the
-<code class="docutils literal notranslate"><span class="pre">test_pov.sh</span></code> script to check the PoV’s correctness.</p></li>
-</ol>
+with the CB. The <code class="docutils literal notranslate"><span class="pre">verify-pov.sh</span></code> script takes care of all the steps. First, the PoV file must be compiled to a binary.
+Then the <code class="docutils literal notranslate"><span class="pre">povtest</span></code> tool takes this binary and connects its standard input/output to the challenge binary’s output/input.
+It negotiates the PoV parameters with the PoV binary and monitors the challenge binary for crashes. When the PoV terminates,
+<code class="docutils literal notranslate"><span class="pre">povtest</span></code> verifies that the challenge binary crashed at the correct location (type 1 PoV) or the PoV binary exfiltrated
+the correct data from the challenge binary’s address space (type 2 PoV).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Build<span class="w"> </span>the<span class="w"> </span>PoV<span class="w"> </span><span class="nb">source</span><span class="w"> </span>code.<span class="w"> </span>The<span class="w"> </span>C<span class="w"> </span>file<span class="w"> </span>is<span class="w"> </span>generated<span class="w"> </span>by<span class="w"> </span>the<span class="w"> </span>DecreePoVGenerator<span class="w"> </span>plugin.
+<span class="gp">$ </span>gcc<span class="w"> </span>-O0<span class="w"> </span>-g<span class="w"> </span>-m32<span class="w"> </span>-o<span class="w"> </span>s2e-last/recipe-type2_i386_decree_shellcode_1.rcp-pov-type2-1<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-L<span class="nv">$S2EDIR</span>/install/bin/guest-tools32/lib<span class="w"> </span>-I<span class="nv">$S2EDIR</span>/source/s2e/guest/linux/include<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>s2e-last/recipe-type2_i386_decree_shellcode_1.rcp-pov-type2-1.c<span class="w"> </span>-lpov<span class="w"> </span>-lcgc
+
+<span class="gp"># </span>Verify<span class="w"> </span>the<span class="w"> </span>PoV.
+<span class="gp">$ </span><span class="nv">$S2EDIR</span>/install/bin/guest-tools32/povtest<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>--pov<span class="o">=</span>s2e-last/recipe-type2_i386_decree_shellcode_1.rcp-pov-type2-1<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>--<span class="w"> </span><span class="nv">$S2EDIR</span>/bin/guest-tools32/cgcload<span class="w"> </span><span class="nv">$S2EDIR</span>/source/s2e/testsuite/pov-cgc-cadet0/CADET_00001/bin/CADET_00001
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>S2E does not use the original DARPA CGC tooling for PoV verification. The tooling is not maintained
+and does not run on modern Linux distributions, mostly because it uses an old Python 2 version.
+The Decree kernel does not build anymore either so it is not possible to run the CGC binaries natively.</p>
+</div>
 </section>
 <section id="plugin-architecture-overview">
 <h2>Plugin architecture overview<a class="headerlink" href="#plugin-architecture-overview" title="Link to this heading"></a></h2>
