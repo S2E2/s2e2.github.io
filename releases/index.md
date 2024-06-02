@@ -7,6 +7,11 @@ title: Releases
 
 You can find the latest stable version of S2E on master. We compile here from time to time a list of important updates.
 
+### 2024-06-02
+ * Removed old CGC image.
+ * Implemented user-mode CGC syscall emulation to enable symbolic execution of CGC binaries on a normal Linux setup.
+ * Implemented a CGC PoV verification tool.
+
 ### 2024-04-13
  * Added support for Linux 6.8.2 guests.
  * Upgraded to libdwarf 0.9.1, which gives better support for debug symbols.
